@@ -1,0 +1,1081 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ML Quiz 4 — Study Guide</title>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  --bg:#e9edf2;
+  --surface:#ffffff;
+  --surface-2:#f4f7fa;
+  --ink:#182230;
+  --ink-soft:#33414f;
+  --muted:#5c6b7c;
+  --faint:#8695a4;
+  --line:#d8e0e8;
+  --line-strong:#c3cedb;
+
+  --accent:#2f6f9f;
+  --accent-strong:#1f5480;
+  --accent-soft:#e6eef5;
+
+  --ok:#1f8a4c; --ok-bg:#e5f4ea; --ok-line:#bfe3cc;
+  --bad:#c23b3b; --bad-bg:#fbe9e9; --bad-line:#f0c6c6;
+
+  /* topic hues */
+  --t0:#b5622f; /* Ensemble */
+  --t1:#2c8493; /* Clustering */
+  --t2:#5b63b0; /* Hierarchical / DBSCAN */
+  --t3:#2f8a5b; /* NLP */
+  --t4:#3763a8; /* Neural Networks */
+  --t5:#a83e69; /* CNN */
+
+  --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
+  --radius:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e141b;
+    --surface:#161e28;
+    --surface-2:#1b2531;
+    --ink:#e7edf4;
+    --ink-soft:#c6d1dc;
+    --muted:#93a2b2;
+    --faint:#6d7d8d;
+    --line:#26313d;
+    --line-strong:#33404e;
+    --accent:#6aa7d4;
+    --accent-strong:#8cbfe4;
+    --accent-soft:#1c2a38;
+    --ok:#5cc98a; --ok-bg:#14261c; --ok-line:#2b4d38;
+    --bad:#e88686; --bad-bg:#2a1618; --bad-line:#4d2a2c;
+    --t0:#d98b57; --t1:#4fb3c2; --t2:#8b93df; --t3:#54b981; --t4:#6b9be0; --t5:#d878a0;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
+  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
+  --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
+  --t0:#b5622f;--t1:#2c8493;--t2:#5b63b0;--t3:#2f8a5b;--t4:#3763a8;--t5:#a83e69;
+  --shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
+}
+:root[data-theme="dark"]{
+  --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
+  --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
+  --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
+  --t0:#d98b57;--t1:#4fb3c2;--t2:#8b93df;--t3:#54b981;--t4:#6b9be0;--t5:#d878a0;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+}
+
+/* ============ BASE ============ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+a{color:var(--accent-strong)}
+::selection{background:var(--accent-soft)}
+
+/* ============ MASTHEAD ============ */
+.masthead{
+  border-bottom:1px solid var(--line-strong);
+  background:linear-gradient(180deg, var(--surface), var(--surface-2));
+}
+.mast-inner{max-width:1080px;margin:0 auto;padding:30px 22px 22px}
+.eyebrow{
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+h1.title{
+  font-family:var(--serif);font-weight:600;letter-spacing:-.01em;
+  font-size:clamp(30px,5vw,46px);line-height:1.08;margin:.32em 0 .18em;
+  text-wrap:balance;color:var(--ink);
+}
+.subtitle{color:var(--muted);max-width:64ch;font-size:16.5px;margin:0}
+.mast-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.theme-btn{
+  flex:0 0 auto;font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+  border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);
+  border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center;
+}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent-strong)}
+
+/* overall progress */
+.progress-wrap{margin-top:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.pbar{flex:1 1 320px;min-width:220px;height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.pbar > span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-strong));transition:width .5s ease}
+.pmeta{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pmeta b{color:var(--ink)}
+
+/* ============ NAV ============ */
+.nav{position:sticky;top:0;z-index:30;background:color-mix(in srgb, var(--bg) 86%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1080px;margin:0 auto;padding:11px 22px;display:flex;gap:9px;overflow-x:auto;scrollbar-width:thin}
+.tab{
+  --hue:var(--accent);
+  flex:0 0 auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);
+  color:var(--ink-soft);border-radius:999px;padding:8px 15px 8px 12px;font-size:13.5px;font-weight:600;
+  display:inline-flex;align-items:center;gap:9px;white-space:nowrap;line-height:1;transition:.15s;
+}
+.tab:hover{border-color:var(--hue);color:var(--ink)}
+.tab .chip{width:9px;height:9px;border-radius:3px;background:var(--hue);flex:0 0 auto}
+.tab .sc{font-family:var(--mono);font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums;font-weight:500}
+.tab[aria-selected="true"]{background:var(--hue);border-color:var(--hue);color:#fff;box-shadow:var(--shadow)}
+.tab[aria-selected="true"] .chip{background:rgba(255,255,255,.9)}
+.tab[aria-selected="true"] .sc{color:rgba(255,255,255,.85)}
+
+/* ============ MAIN ============ */
+main{max-width:1080px;margin:0 auto;padding:30px 22px 90px}
+.panel{display:none;animation:fade .35s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.sec-head{border-left:4px solid var(--hue);padding:4px 0 4px 16px;margin-bottom:8px}
+.sec-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hue);font-weight:600}
+.sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,3.6vw,32px);margin:.15em 0 .1em;letter-spacing:-.01em;text-wrap:balance}
+.sec-head p{margin:0;color:var(--muted);max-width:70ch}
+
+/* study notes */
+.notes{margin:22px 0 30px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+.notes > summary{
+  list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:center;gap:12px;
+  font-weight:600;color:var(--ink);user-select:none;
+}
+.notes > summary::-webkit-details-marker{display:none}
+.notes > summary .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hue);background:var(--surface-2);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+.notes > summary .car{margin-left:auto;color:var(--faint);transition:transform .2s}
+.notes[open] > summary .car{transform:rotate(90deg)}
+.notes[open] > summary{border-bottom:1px solid var(--line)}
+.notes-body{padding:6px 18px 20px}
+.note{padding:15px 0;border-bottom:1px dashed var(--line)}
+.note:last-child{border-bottom:none;padding-bottom:2px}
+.note h4{margin:0 0 6px;font-size:15.5px;color:var(--ink);display:flex;align-items:baseline;gap:9px}
+.note h4 .n{font-family:var(--mono);font-size:12px;color:var(--hue);font-weight:700}
+.note p{margin:0 0 6px;color:var(--ink-soft);font-size:15px}
+.note ul{margin:6px 0 0;padding-left:20px;color:var(--ink-soft);font-size:15px}
+.note li{margin:3px 0}
+.note li::marker{color:var(--hue)}
+code,.k{font-family:var(--mono);font-size:.9em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
+.formula{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0 2px;font-size:14px;color:var(--ink);overflow-x:auto}
+.pill-tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--hue);border:1px solid var(--hue);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0}
+
+/* quiz */
+.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 14px;flex-wrap:wrap}
+.quiz-head .qt{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.score-badge{font-family:var(--mono);font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line-strong);border-radius:99px;padding:6px 13px;font-variant-numeric:tabular-nums}
+.score-badge b{color:var(--hue)}
+.reset{font-family:var(--sans);font-size:12.5px;color:var(--muted);background:none;border:1px solid var(--line-strong);border-radius:99px;padding:6px 12px;cursor:pointer}
+.reset:hover{border-color:var(--bad);color:var(--bad)}
+
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;margin-bottom:16px}
+.q .qnum{font-family:var(--mono);font-size:12px;color:var(--hue);font-weight:700;letter-spacing:.05em}
+.q .qtext{font-weight:600;font-size:16.5px;color:var(--ink);margin:6px 0 14px;text-wrap:pretty}
+.q .qtext code{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;
+  border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);
+  border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit;line-height:1.45;transition:.12s;
+}
+.opt:hover:not(:disabled){border-color:var(--hue);background:var(--surface-2)}
+.opt:disabled{cursor:default}
+.opt .mk{
+  flex:0 0 auto;width:24px;height:24px;border-radius:7px;border:1px solid var(--line-strong);
+  display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--muted);background:var(--surface-2);
+}
+.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt.correct{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ink)}
+.opt.correct .mk{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad-line);background:var(--bad-bg);color:var(--ink)}
+.opt.wrong .mk{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt.dim{opacity:.62}
+.explain{
+  margin-top:13px;border-left:3px solid var(--hue);background:var(--surface-2);
+  border-radius:0 8px 8px 0;padding:11px 14px;font-size:14.5px;color:var(--ink-soft);
+  display:none;
+}
+.explain.show{display:block;animation:fade .25s ease}
+.explain b{color:var(--ink)}
+.explain .verdict{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-right:8px}
+.explain .verdict.ok{color:var(--ok)}
+.explain .verdict.no{color:var(--bad)}
+
+.section-done{
+  margin-top:8px;border:1px dashed var(--hue);border-radius:var(--radius);
+  padding:16px 18px;background:var(--surface-2);display:none;
+}
+.section-done.show{display:block}
+.section-done strong{color:var(--hue)}
+
+footer{max-width:1080px;margin:0 auto;padding:26px 22px 50px;color:var(--faint);font-size:13px;border-top:1px solid var(--line)}
+footer .mono{font-family:var(--mono)}
+
+@media (max-width:600px){
+  .mast-inner{padding:24px 16px 18px}
+  main{padding:24px 16px 70px}
+  .nav-inner{padding:10px 16px}
+  .q{padding:16px 14px 14px}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <div class="mast-top">
+      <div class="eyebrow"><span class="dot"></span> Machine Learning · Quiz 4 Prep <span class="dot"></span> Self-Test Edition</div>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
+    </div>
+    <h1 class="title">Interactive Study Guide &amp; Question Bank</h1>
+    <p class="subtitle">Six testable sections covering Ensemble Learning, Clustering, Hierarchical &amp; DBSCAN, NLP, and Neural Networks — with condensed notes drawn straight from the lecture slides, followed by multiple-choice practice with instant feedback. <em>(CNN is included as post-quiz reference.)</em></p>
+
+    <div class="progress-wrap">
+      <div class="pbar"><span id="overallBar"></span></div>
+      <div class="pmeta"><b id="overallPct">0%</b> mastered · <span id="overallCount">0 / 0</span> correct</div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Topics"><div class="nav-inner" id="tabs" role="tablist"></div></nav>
+
+<main id="panels"></main>
+
+<footer>
+  <div class="mono">Built from: Ensemble Learning &amp; Boosting · Unsupervised Learning–Clustering · Hierarchical Clustering &amp; DBSCAN · Intro to Artificial Neural Network · CNN with Keras + short-answer question sets.</div>
+  <div style="margin-top:8px">Click any answer to check it — explanations reveal automatically. Your progress is saved in this browser.</div>
+</footer>
+
+<script>
+/* =========================================================
+   CONTENT — grounded in the course slides + question sets
+   ========================================================= */
+const SECTIONS = [
+{
+  id:"ensemble", tag:"Module 1", title:"Ensemble Learning, Random Forests & Boosting",
+  blurb:"Wisdom of the crowd: voting, bagging vs pasting, random forests, and the two boosting families (AdaBoost & Gradient Boosting).",
+  notes:[
+    {h:"The core idea", html:`<p><b>Ensemble learning</b> aggregates the predictions of a <em>group</em> of predictors (an <b>ensemble</b>). The aggregate is often better than the best single predictor — the <b>“wisdom of the crowd.”</b> Ensembles work best when predictors are as <b>independent/diverse</b> as possible, so they make different errors.</p>`},
+    {h:"Voting classifiers", html:`<ul>
+      <li><b>Hard voting</b> — predict the class that gets the <b>most votes</b> (statistical mode).</li>
+      <li><b>Soft voting</b> — average the predicted <b>probabilities</b> and pick the highest; requires every classifier to expose <code>predict_proba()</code>. Often beats hard voting because it weights confident votes more. For <code>SVC</code> you must set <code>probability=True</code>.</li></ul>`},
+    {h:"Bagging vs pasting", html:`<ul>
+      <li><b>Bagging</b> (bootstrap aggregating) = sampling <b>with</b> replacement.</li>
+      <li><b>Pasting</b> = sampling <b>without</b> replacement (<code>bootstrap=False</code>).</li>
+      <li>Only <b>bagging</b> lets the same instance be sampled several times <em>for the same predictor.</em> Both train/predict in parallel (<code>n_jobs=-1</code> → all cores).</li></ul>`},
+    {h:"Out-of-Bag (OOB) evaluation", html:`<p>With bagging, ~37% of instances are never sampled for a given predictor. <b>OOB error</b> = mean prediction error on each instance, using only the trees that did <b>not</b> have it in their bootstrap sample — a free validation set.</p>`},
+    {h:"Random Forest", html:`<p>An ensemble of Decision Trees trained via bagging. Key difference from a single tree: at each split it considers a <b>random subset of features</b> (not all). Prediction = <b>majority vote</b> (classification) / <b>average</b> (regression). This averaging lowers <b>variance</b> and overfitting. <span class="pill-tag">n_estimators</span><span class="pill-tag">max_leaf_nodes</span><span class="pill-tag">max_features</span> <br><b>Feature importance</b>: how much nodes using that feature reduce impurity on average; scaled so importances sum to 1 (<code>feature_importances_</code>).</p>`},
+    {h:"Boosting", html:`<p><b>Boosting</b> trains predictors <b>sequentially</b>, each correcting its predecessor — combining <b>weak learners into a strong learner.</b></p>
+      <ul>
+      <li><b>AdaBoost</b> — increases the <b>weight of misclassified instances</b> so the next predictor focuses on hard cases. Weights start at <code>1/m</code>; each predictor gets a weight α by accuracy. Prediction = <b>weighted majority vote</b> (better models weigh more). Drawback: <b>cannot be parallelized</b> — scales worse than bagging. Overfitting? reduce <code>n_estimators</code> / regularize base.</li>
+      <li><b>Gradient Boosting</b> — instead of tweaking instance weights, fits each new predictor to the <b>residual errors</b> of the previous one. <span class="pill-tag">learning_rate</span> shrinks each tree's contribution (trades off with <code>n_estimators</code>).</li></ul>`}
+  ],
+  questions:[
+    {q:"What is the general idea behind ensemble learning?", o:[
+      "Train one very deep model until it memorizes the data",
+      "Aggregate the predictions of a group of predictors to get a better result than any single one",
+      "Remove outliers before training a single classifier",
+      "Use unlabeled data to pre-train a model"],
+      a:1, e:"The 'wisdom of the crowd' — aggregating many predictors' answers usually beats the best individual predictor."},
+    {q:"In a <code>hard voting</code> classifier, the ensemble predicts…", o:[
+      "The average of all predicted probabilities",
+      "The class predicted by the single most accurate model",
+      "The class that receives the most votes (the statistical mode)",
+      "A random class weighted by training size"],
+      a:2, e:"Hard voting takes the majority vote — the most frequent predicted class."},
+    {q:"What must be true for <code>soft voting</code> to be used?", o:[
+      "All classifiers must be decision trees",
+      "Every classifier must be able to estimate class probabilities (predict_proba)",
+      "The dataset must be perfectly balanced",
+      "Training must be done without replacement"],
+      a:1, e:"Soft voting averages predicted probabilities, so each classifier needs predict_proba(). For SVC you set probability=True. It gives more weight to confident votes."},
+    {q:"Ensemble methods work best when the predictors are…", o:[
+      "As similar to each other as possible",
+      "All trained on the exact same data",
+      "As independent / diverse as possible so they make different errors",
+      "All linear models"],
+      a:2, e:"Diversity is key — independent predictors make different types of errors, which the ensemble averages out."},
+    {q:"What is the difference between bagging and pasting?", o:[
+      "Bagging samples with replacement; pasting samples without replacement",
+      "Bagging is sequential; pasting is parallel",
+      "Bagging uses different algorithms; pasting uses the same algorithm",
+      "Bagging is for regression only; pasting is for classification only"],
+      a:0, e:"Bagging = bootstrap aggregating = sampling WITH replacement. Pasting = WITHOUT replacement (bootstrap=False)."},
+    {q:"Which statement about sampling the SAME instance twice for the SAME predictor is correct?", o:[
+      "Both bagging and pasting allow it",
+      "Only bagging allows it (because of replacement)",
+      "Only pasting allows it",
+      "Neither allows it"],
+      a:1, e:"Because bagging replaces the sample, one predictor can draw the same instance more than once. Pasting (no replacement) cannot."},
+    {q:"Out-of-Bag (OOB) evaluation estimates error using…", o:[
+      "A separate labeled test set collected in advance",
+      "Only the trees that did NOT include a given instance in their bootstrap sample",
+      "The average training error across all trees",
+      "Cross-validation on the full dataset"],
+      a:1, e:"Each instance is 'out-of-bag' for the trees that never sampled it; averaging their predictions gives a free validation estimate."},
+    {q:"How does a Random Forest differ from a single Decision Tree at each split?", o:[
+      "It always picks the single best feature from ALL features",
+      "It considers a random subset of features at each split",
+      "It never splits on numeric features",
+      "It uses boosting instead of splitting"],
+      a:1, e:"A random forest injects extra randomness by choosing the best split among a random subset of features, increasing tree diversity."},
+    {q:"Why does a Random Forest generally overfit less than a single deep tree?", o:[
+      "It uses fewer training examples",
+      "Averaging many trees reduces variance",
+      "It always uses shallower trees",
+      "It removes all noisy features first"],
+      a:1, e:"Aggregating/averaging many de-correlated trees smooths out variance, improving generalization."},
+    {q:"How does Random Forest measure a feature's importance?", o:[
+      "By the depth at which the feature first appears",
+      "By how much nodes using that feature reduce impurity on average, scaled to sum to 1",
+      "By the correlation of the feature with the label",
+      "By counting how many trees ignore the feature"],
+      a:1, e:"Scikit-Learn averages the impurity reduction from nodes using each feature across all trees, then normalizes so importances sum to 1 (feature_importances_)."},
+    {q:"The general strategy of boosting is to…", o:[
+      "Train many predictors independently in parallel and vote",
+      "Train predictors sequentially, each one correcting its predecessor",
+      "Train a single strong learner and prune it",
+      "Cluster the data before classifying"],
+      a:1, e:"Boosting combines weak learners into a strong learner by training them one after another, each fixing the previous one's mistakes."},
+    {q:"What strategy does AdaBoost use to 'boost' performance during training?", o:[
+      "It fits each new model to the residual errors",
+      "It increases the weight of the training instances that were misclassified",
+      "It removes misclassified instances from the training set",
+      "It randomly drops neurons each round"],
+      a:1, e:"AdaBoost raises the relative weight of misclassified instances so the next predictor pays more attention to the hard cases."},
+    {q:"When AdaBoost makes a prediction, how does it give more importance to better models?", o:[
+      "Each predictor votes equally",
+      "It uses only the last predictor trained",
+      "Predictors are weighted (α) by their accuracy in a weighted majority vote",
+      "It averages the raw feature values"],
+      a:2, e:"Predictions are a weighted majority vote — more accurate predictors get a higher weight α, so they influence the result more."},
+    {q:"A key drawback of AdaBoost compared to bagging is that…", o:[
+      "It cannot handle more than two classes",
+      "It cannot be (fully) parallelized because training is sequential",
+      "It requires probabilities from every model",
+      "It only works with linear models"],
+      a:1, e:"Each predictor can only be trained after the previous one is evaluated, so AdaBoost doesn't scale as well as bagging/pasting."},
+    {q:"How is Gradient Boosting different from AdaBoost?", o:[
+      "It tweaks instance weights every iteration",
+      "It fits each new predictor to the residual errors of the previous predictor",
+      "It trains all trees fully in parallel",
+      "It uses hard voting instead of weighted voting"],
+      a:1, e:"Instead of re-weighting instances like AdaBoost, Gradient Boosting fits the new predictor to the residual (leftover) errors of the previous one."}
+  ]
+},
+{
+  id:"clustering", tag:"Module 2 · Part A", title:"Unsupervised Learning & Clustering",
+  blurb:"K-Means and K-Modes: centroids, the assign-update loop, the elbow method, and evaluating clusters.",
+  notes:[
+    {h:"Supervised vs unsupervised", html:`<p><b>Supervised</b> learning uses labeled data (features X <em>and</em> labels y). <b>Unsupervised</b> learning has only X — no labels. Most real-world data is unlabeled. Examples: <span class="pill-tag">K-Means</span><span class="pill-tag">Hierarchical</span><span class="pill-tag">DBSCAN</span><span class="pill-tag">PCA</span><span class="pill-tag">Anomaly detection</span><span class="pill-tag">Apriori</span></p>`},
+    {h:"Clustering vs classification", html:`<p><b>Clustering</b> = grouping similar instances into clusters (dissimilar across clusters), <em>without</em> knowing labels. Classification assigns to <em>predefined</em> labeled classes. Uses: customer segmentation, document/news grouping, anomaly/crime analysis, medical/financial grouping. Three algorithm categories: <b>partition-based</b> (k-means), <b>hierarchical</b>, <b>density-based</b> (DBSCAN).</p>`},
+    {h:"Centroid", html:`<p>The <b>centroid</b> is the point whose each attribute equals the <b>mean</b> of that attribute over the cluster's points. It is frequently an <b>imaginary point not in the dataset.</b> Clustering here uses <b>Euclidean distance</b> (one-hot encode categoricals).</p>`},
+    {h:"K-Means algorithm", html:`<ol style="margin:0;padding-left:20px">
+      <li>Choose <b>K</b> (number of clusters) and pick K initial centroids.</li>
+      <li>Build a <b>distance matrix</b>; assign each point to its <b>nearest centroid.</b></li>
+      <li>Recompute each centroid = <b>mean</b> of the points now in it.</li>
+      <li><b>Repeat</b> assign→update until centroids <b>no longer move</b> (termination).</li></ol>
+      <p style="margin-top:8px">K-Means is <b>exclusive</b>: each object belongs to exactly one cluster.</p>`},
+    {h:"Choosing K — Elbow method", html:`<p><b>WCSS</b> (Within-Cluster-Sum-of-Squares, a.k.a. <b>inertia</b>) = sum of squared distances of points to their centroid. Run K-Means for K = 1…10, plot WCSS vs K, and pick K at the <b>“elbow”</b> — the sharp bend where adding clusters stops helping much.</p>`},
+    {h:"Evaluating clusters", html:`<ul><li><b>External</b> — compare to ground truth (if available).</li><li><b>Internal</b> — average distance between points within a cluster, or average distance of points to their centroid.</li></ul>`},
+    {h:"K-Modes (categorical data)", html:`<p>When data is <b>categorical</b>, Euclidean distance and means don't make sense. <b>K-Modes</b> uses <b>dissimilarity = number of mismatches</b> (match = 0, mismatch = 1) and updates cluster leaders using the <b>mode</b> (most frequent value per feature). Loop: pick K leaders → assign by least dissimilarity → recompute modes → repeat until no reassignment.</p>`}
+  ],
+  questions:[
+    {q:"What is the key difference between supervised and unsupervised learning?", o:[
+      "Supervised learning is faster",
+      "Unsupervised learning has only input features X and no labels y",
+      "Unsupervised learning always uses neural networks",
+      "Supervised learning cannot handle numeric data"],
+      a:1, e:"Supervised = labeled (X and y). Unsupervised = only X, no labels — the algorithm finds structure on its own."},
+    {q:"Which is a valid list of unsupervised learning algorithms?", o:[
+      "Logistic Regression, SVM, Random Forest, KNN classifier",
+      "K-Means, Hierarchical clustering, DBSCAN, PCA",
+      "AdaBoost, Gradient Boosting, MLPClassifier, SVC",
+      "Linear Regression, Decision Tree, Naive Bayes, KNN"],
+      a:1, e:"K-Means, Hierarchical, DBSCAN, PCA (also anomaly detection, ICA, Apriori) are unsupervised — no labels required."},
+    {q:"How does clustering differ from classification?", o:[
+      "Clustering predicts a numeric value; classification predicts a category",
+      "Clustering groups instances without predefined labels; classification assigns to known labeled classes",
+      "Clustering needs more labeled data than classification",
+      "There is no difference"],
+      a:1, e:"Classification uses labeled data to assign predefined classes. Clustering is unsupervised — it discovers groups without labels."},
+    {q:"What are the three categories of clustering algorithms?", o:[
+      "Linear, non-linear, and kernel-based",
+      "Partition-based, hierarchical, and density-based",
+      "Supervised, semi-supervised, and unsupervised",
+      "Hard, soft, and fuzzy"],
+      a:1, e:"Partition-based (k-Means), Hierarchical (Agglomerative/Divisive), and Density-based (DBSCAN)."},
+    {q:"Which statement about a cluster's centroid is TRUE?", o:[
+      "It must always be one of the actual data points",
+      "Each of its attributes is the average of that attribute over the cluster's points, and it can be an imaginary point",
+      "It is the point farthest from all others",
+      "It is chosen randomly and never updated"],
+      a:1, e:"A centroid is the per-attribute mean of the cluster; it is frequently an imaginary point that is not in the dataset."},
+    {q:"What is the correct order of steps in K-Means clustering?", o:[
+      "Merge closest clusters repeatedly until one remains",
+      "Pick K centroids → assign each point to nearest centroid → recompute centroids as means → repeat until centroids stop moving",
+      "Label the data → train a tree → prune",
+      "Compute density → expand core points → mark noise"],
+      a:1, e:"K-Means alternates assignment (nearest centroid) and update (mean of assigned points) until the centroids no longer move."},
+    {q:"What is the termination condition of K-Means?", o:[
+      "A fixed 100 iterations always",
+      "When the centroids no longer move (assignments stabilize)",
+      "When every cluster has the same size",
+      "When WCSS reaches exactly zero"],
+      a:1, e:"The loop repeats 'until the centroids no longer move' — at that point clusters are stable."},
+    {q:"WCSS (used in K-Means) stands for and measures…", o:[
+      "Weighted Class Separation Score — distance between clusters",
+      "Within-Cluster-Sum-of-Squares (inertia) — sum of squared distances of points to their centroid",
+      "Whole-Cluster Silhouette Score",
+      "Weighted Centroid Shift Sum"],
+      a:1, e:"WCSS / inertia sums the squared distances between each point and its cluster's centroid; K-Means minimizes it."},
+    {q:"How does the Elbow method choose the number of clusters K?", o:[
+      "Pick the K with the largest WCSS",
+      "Run K-Means for a range of K, plot WCSS vs K, and choose K at the sharp bend ('elbow')",
+      "Always choose K equal to the number of features",
+      "Choose K randomly and average results"],
+      a:1, e:"Plot WCSS against K; the elbow (where the curve bends and further clusters barely reduce WCSS) is the optimal K."},
+    {q:"Why is K-Modes used instead of K-Means for some datasets?", o:[
+      "It is faster on very large numeric data",
+      "The data is categorical, so Euclidean distance and the mean don't make sense",
+      "It guarantees a global optimum",
+      "It does not require choosing K"],
+      a:1, e:"For categorical data, K-Modes replaces Euclidean distance with dissimilarity (mismatch count) and the mean with the mode."},
+    {q:"In K-Modes, the dissimilarity between two observations is…", o:[
+      "The Euclidean distance between them",
+      "The number of attribute values that mismatch (match = 0, mismatch = 1)",
+      "The average of their attribute values",
+      "Always 1 unless they are identical"],
+      a:1, e:"Similar values contribute 0, dissimilar values contribute 1; the dissimilarity is the count of mismatches."},
+    {q:"How are cluster leaders updated in K-Modes (step 3)?", o:[
+      "By averaging the attribute values",
+      "By taking the mode (most frequent value) of each feature within the cluster",
+      "By picking the closest data point to the mean",
+      "By merging the two nearest clusters"],
+      a:1, e:"New modes are defined per feature as the most observed value among that cluster's members."}
+  ]
+},
+{
+  id:"hier", tag:"Module 2 · Part B", title:"Hierarchical Clustering & DBSCAN",
+  blurb:"Agglomerative merging, proximity matrices, linkage types, dendrograms, and density-based clustering with DBSCAN.",
+  notes:[
+    {h:"Hierarchical clustering", html:`<p>Builds a <b>hierarchy (tree) of clusters</b>, visualized with a <b>dendrogram</b>. Unlike K-Means, you do <b>not specify K upfront</b> — you cut the dendrogram at a threshold instead. Two types:</p>
+      <ul><li><b>Agglomerative</b> — <b>bottom-up</b>: start with each point as its own cluster, repeatedly merge the closest pair (more popular).</li>
+      <li><b>Divisive</b> — <b>top-down</b>: start with one big cluster and split.</li></ul>`},
+    {h:"Agglomerative steps", html:`<ol style="margin:0;padding-left:20px">
+      <li><b>Step 0</b>: build the <b>proximity matrix</b> (n×n, diagonal = 0, e.g. Euclidean distances).</li>
+      <li>Find the <b>smallest distance</b> and merge those two clusters.</li>
+      <li>Update the proximity matrix (using a chosen linkage), repeat until one cluster remains.</li></ol>`},
+    {h:"Linkage types (distance between clusters)", html:`<ul>
+      <li><b>Single</b> — <b>minimum</b> distance between clusters.</li>
+      <li><b>Complete</b> — <b>maximum</b> distance between clusters.</li>
+      <li><b>Average</b> — <b>average</b> of all cross-cluster distances.</li>
+      <li><b>Centroid</b> — distance between cluster <b>centroids</b>.</li>
+      <li><b>Ward</b> — merge that causes the <b>smallest increase in within-cluster variance (SSE)</b>.</li></ul>`},
+    {h:"Dendrogram → number of clusters", html:`<p>Taller vertical lines = larger distance between merged clusters. Draw a horizontal <b>threshold</b> line (often cutting the tallest vertical line); the number of clusters = the number of vertical lines it <b>crosses</b>.</p>`},
+    {h:"Why DBSCAN? (K-Means weaknesses)", html:`<p>K-Means <b>forces every point into a cluster</b> (including outliers), is sensitive to a single point / the choice of K, and struggles with odd shapes. <b>DBSCAN</b> (Density-Based Spatial Clustering of Applications with Noise) finds <b>arbitrary-shaped</b> clusters, <b>separates outliers as noise</b>, and does <b>not need K</b>.</p>`},
+    {h:"DBSCAN parameters & point types", html:`<ul>
+      <li><b>eps (ε)</b> — the neighborhood <b>radius</b> used to find nearby points. Chosen via a <b>k-distance graph</b> elbow.</li>
+      <li><b>minPts</b> — minimum points to form a <b>dense</b> region. Rule of thumb ≥ D+1, often 2×dim; at least 3.</li></ul>
+      <p>Three point types after clustering:</p>
+      <ul><li><b>Core</b> — has ≥ minPts within ε.</li>
+      <li><b>Border</b> — fewer than minPts, but within ε of a core point.</li>
+      <li><b>Noise</b> — neither core nor border (an outlier).</li></ul>`}
+  ],
+  questions:[
+    {q:"How does hierarchical clustering differ from K-Means?", o:[
+      "It requires you to specify K in advance",
+      "It builds a tree/hierarchy of clusters and does not require specifying K upfront",
+      "It can only handle categorical data",
+      "It never produces outliers"],
+      a:1, e:"Hierarchical clustering builds a hierarchy (shown as a dendrogram); you choose the number of clusters afterward by cutting the tree — no K needed at the start."},
+    {q:"What are the two main types of hierarchical clustering?", o:[
+      "Single-linkage and complete-linkage",
+      "Agglomerative (bottom-up) and Divisive (top-down)",
+      "Core and border",
+      "Partition-based and density-based"],
+      a:1, e:"Agglomerative merges from the bottom up (more popular); Divisive splits from the top down."},
+    {q:"How is hierarchical clustering visualized?", o:[
+      "With an elbow plot",
+      "With a dendrogram",
+      "With a confusion matrix",
+      "With a scree plot"],
+      a:1, e:"A dendrogram shows the sequence of merges; the height of a link reflects the distance between the clusters joined."},
+    {q:"In the agglomerative algorithm, what is done at each step?", o:[
+      "Split the largest cluster into two",
+      "Merge the two clusters with the smallest distance between them",
+      "Reassign every point to the nearest centroid",
+      "Remove the noise points"],
+      a:1, e:"Agglomerative clustering repeatedly finds the smallest distance in the proximity matrix and merges those two clusters."},
+    {q:"What are the diagonal values of a proximity (distance) matrix?", o:[
+      "Always 1",
+      "Always 0, because a point's distance to itself is 0",
+      "The cluster sizes",
+      "The maximum distance in each row"],
+      a:1, e:"The proximity matrix is n×n and symmetric; the diagonal is 0 since the distance of a point to itself is zero."},
+    {q:"Single-linkage vs complete-linkage between two clusters uses…", o:[
+      "Single = maximum distance; Complete = minimum distance",
+      "Single = minimum distance; Complete = maximum distance",
+      "Both use the average distance",
+      "Single = centroid distance; Complete = variance increase"],
+      a:1, e:"Single-linkage = min of cross-cluster distances; Complete-linkage = max. (Average = mean; Centroid = centroid distance; Ward = SSE increase.)"},
+    {q:"Ward's linkage merges the pair of clusters that…", o:[
+      "Are closest by centroid distance",
+      "Causes the smallest increase in total within-cluster variance (SSE)",
+      "Have the maximum single-linkage distance",
+      "Have the most points combined"],
+      a:1, e:"Ward's method chooses the merge that least increases within-cluster variance/SSE — 'how much worse does clustering get?'"},
+    {q:"On a dendrogram, how do you read off the number of clusters?", o:[
+      "Count the leaves at the bottom",
+      "Count how many vertical lines a horizontal threshold line crosses",
+      "Count the total number of merges",
+      "Divide the height by the number of points"],
+      a:1, e:"Draw a horizontal threshold; the number of vertical lines it intersects equals the number of clusters."},
+    {q:"Which K-Means weakness does DBSCAN specifically overcome?", o:[
+      "It cannot handle numeric features",
+      "K-Means forces every point (including outliers) into a cluster and needs K; DBSCAN separates noise and needs no K",
+      "K-Means is too slow to converge",
+      "K-Means cannot use Euclidean distance"],
+      a:1, e:"DBSCAN finds dense regions, labels outliers as noise, handles arbitrary shapes, and doesn't require specifying the number of clusters."},
+    {q:"What do the two DBSCAN parameters control?", o:[
+      "The number of clusters and the number of iterations",
+      "eps (ε) = neighborhood radius; minPts = minimum points needed to form a dense region",
+      "The learning rate and the batch size",
+      "The linkage type and the threshold height"],
+      a:1, e:"ε sets how close counts as 'neighboring'; minPts sets how many neighbors make a region dense enough to seed a cluster."},
+    {q:"In DBSCAN, a BORDER point is one that…", o:[
+      "Has at least minPts points within ε",
+      "Has fewer than minPts neighbors but lies within ε of a core point",
+      "Has no neighbors at all",
+      "Is exactly at a cluster centroid"],
+      a:1, e:"A border point isn't dense enough to be core, but it's within ε of a core point, so it joins that cluster. A point that is neither core nor border is noise."},
+    {q:"A DBSCAN CORE point is defined as a point that…", o:[
+      "Is the mean of its cluster",
+      "Has at least minPts points within distance ε (including itself)",
+      "Is farthest from all other points",
+      "Belongs to no cluster"],
+      a:1, e:"Core points have ≥ minPts within their ε-neighborhood; clusters are grown by expanding from core points via density reachability."}
+  ]
+},
+{
+  id:"nlp", tag:"Module 3", title:"Natural Language Processing",
+  blurb:"Turning text into features: bag-of-words, TF-IDF, and the preprocessing vocabulary — tokenization, stemming, lemmatization, NER.",
+  notes:[
+    {h:"Challenges of NLP", html:`<p>Human language is <b>ambiguous</b> (a word/sentence can have multiple meanings), highly <b>context-dependent</b>, full of <b>sarcasm/irony, synonyms, slang, spelling variation</b>, and differs across languages — all hard for machines. Applications: <span class="pill-tag">sentiment analysis</span><span class="pill-tag">machine translation</span><span class="pill-tag">chatbots</span><span class="pill-tag">spam detection</span><span class="pill-tag">NER</span><span class="pill-tag">summarization</span></p>`},
+    {h:"Bag of Words (BoW)", html:`<p>Represents text as a vector of <b>word counts</b> over a vocabulary, ignoring grammar and order. E.g. <em>“I love NLP”</em> + <em>“NLP loves me”</em> → vocab {I, love, NLP, loves, me} with per-sentence counts. <b>Limitations</b>: loses <b>word order & context</b>, no semantics, and produces large <b>sparse</b> vectors. Build it in Python with <b>scikit-learn's <code>CountVectorizer</code></b> (or NLTK).</p>`},
+    {h:"TF-IDF", html:`<p><b>TF-IDF = Term Frequency – Inverse Document Frequency.</b> It weights each term by how often it appears in a document (<b>TF</b>) against how rare it is across all documents (<b>IDF</b>). Purpose: <b>down-weight common words</b> and <b>up-weight distinctive</b> ones, so informative terms stand out over frequent-but-uninformative ones.</p>`},
+    {h:"Key preprocessing terms", html:`<ul>
+      <li><b>Tokenization</b> — split text into tokens/words.</li>
+      <li><b>Stop words</b> — very common words (the, is, a) usually removed.</li>
+      <li><b>Stemming</b> — crudely chop a word to its root (may not be a real word): <code>studies → studi</code>.</li>
+      <li><b>Lemmatization</b> — reduce to the dictionary base form (lemma) using vocabulary/morphology: <code>studies → study</code>, <code>better → good</code>.</li>
+      <li><b>NER</b> — Named Entity Recognition: identify names, places, organizations.</li></ul>`},
+    {h:"Stemmer vs Lemmatizer", html:`<p>A <b>stemmer</b> applies rule-based chopping and may produce non-words (<code>caring → car</code>). A <b>lemmatizer</b> returns a valid dictionary word (<code>caring → care</code>) but needs more info — crucially the word's <b>part of speech (POS)</b> — to choose the right lemma.</p>`},
+    {h:"Inflectional vs derivational affixes", html:`<p><b>Inflectional affixes</b> change grammatical form (tense, number) <b>without changing word class</b>: cat→cats, walk→walked. <b>Derivational affixes</b> create a <b>new word / meaning / word class</b>: happy→happi<b>ness</b>, care→care<b>ful</b>.</p>`}
+  ],
+  questions:[
+    {q:"Which is a genuine challenge of NLP?", o:[
+      "Text is always perfectly structured",
+      "Ambiguity — words and sentences can have multiple meanings depending on context",
+      "Computers understand sarcasm natively",
+      "There is only one human language"],
+      a:1, e:"Ambiguity, context-dependence, sarcasm, synonyms, and language variety all make natural language hard for machines."},
+    {q:"What is a Bag of Words (BoW) representation?", o:[
+      "A grammatical parse tree of a sentence",
+      "A vector of word counts over a vocabulary, ignoring word order and grammar",
+      "A list of named entities in a document",
+      "An embedding trained by a neural network"],
+      a:1, e:"BoW counts how often each vocabulary word appears, discarding order and grammar."},
+    {q:"What is the main limitation of Bag of Words?", o:[
+      "It cannot be built in Python",
+      "It loses word order and context (and produces large sparse vectors with no semantics)",
+      "It only works for a single sentence",
+      "It requires labeled data"],
+      a:1, e:"Because BoW ignores order and meaning, 'dog bites man' and 'man bites dog' look identical; vectors are also large and sparse."},
+    {q:"TF-IDF stands for… and its purpose is to…", o:[
+      "Token Frequency–Inverse Document Filter; remove stop words",
+      "Term Frequency–Inverse Document Frequency; weight terms so distinctive words count more and common words count less",
+      "Text Format–Indexed Data Frame; store documents",
+      "Total Frequency–Independent Distribution Factor; normalize counts to 1"],
+      a:1, e:"TF-IDF multiplies how frequent a term is in a document by how rare it is across documents, highlighting informative words."},
+    {q:"Which Python library is commonly used to create a Bag of Words?", o:[
+      "matplotlib",
+      "scikit-learn (CountVectorizer)  — or NLTK",
+      "NumPy only",
+      "TensorFlow's Conv2D"],
+      a:1, e:"scikit-learn's CountVectorizer builds BoW count vectors; NLTK is also commonly used for NLP preprocessing."},
+    {q:"What does 'tokenization' mean?", o:[
+      "Removing common words",
+      "Splitting text into individual tokens/words",
+      "Converting words to their dictionary form",
+      "Identifying named entities"],
+      a:1, e:"Tokenization breaks a string of text into smaller units (tokens), usually words."},
+    {q:"What are 'stop words'?", o:[
+      "Words that end a sentence",
+      "Very common words (like 'the', 'is', 'a') that are typically removed",
+      "Misspelled words",
+      "The most informative words in a document"],
+      a:1, e:"Stop words are high-frequency, low-information words often filtered out before analysis."},
+    {q:"What does NER stand for in NLP?", o:[
+      "Neural Entity Regression",
+      "Named Entity Recognition — identifying names, places, organizations",
+      "Normalized Error Rate",
+      "Nested Expression Resolver"],
+      a:1, e:"NER labels spans of text as entities such as people, locations, and organizations."},
+    {q:"What is the difference between a stemmer and a lemmatizer?", o:[
+      "A stemmer always returns dictionary words; a lemmatizer chops crudely",
+      "A stemmer crudely chops to a root (may be a non-word); a lemmatizer returns a valid dictionary base form",
+      "They are exactly the same",
+      "A lemmatizer only removes stop words"],
+      a:1, e:"Stemming: 'studies'→'studi' (rule-based, possibly not a real word). Lemmatization: 'studies'→'study', 'better'→'good' (valid lemma)."},
+    {q:"What information helps a lemmatizer give a better answer?", o:[
+      "The document length",
+      "The word's part of speech (POS)",
+      "The TF-IDF weight",
+      "The number of documents"],
+      a:1, e:"Knowing the POS lets the lemmatizer pick the correct base form (e.g. 'meeting' as noun vs verb)."},
+    {q:"Inflectional vs derivational affixes differ in that…", o:[
+      "Inflectional change the word's class; derivational never do",
+      "Inflectional change grammatical form (tense/number) without changing word class; derivational create a new word/meaning/class",
+      "They are the same thing",
+      "Derivational only apply to verbs"],
+      a:1, e:"Inflectional: walk→walked, cat→cats (same class). Derivational: happy→happiness, care→careful (new word/class)."},
+    {q:"Which is a valid application of NLP?", o:[
+      "Image edge detection",
+      "Sentiment analysis / machine translation / chatbots",
+      "Cluster centroid computation",
+      "Convolution over pixels"],
+      a:1, e:"Sentiment analysis, translation, chatbots, spam detection, summarization, and NER are core NLP applications."}
+  ]
+},
+{
+  id:"nn", tag:"Module 4", title:"Neural Networks (ANN)",
+  blurb:"From the perceptron to deep networks: layers, activation functions, cost functions, backpropagation, and building MLPs in sklearn.",
+  notes:[
+    {h:"The perceptron", html:`<p>A <b>perceptron</b> is a single neuron / single-layer network that produces <b>one output</b>. It computes a weighted sum plus bias, then applies an activation:</p>
+      <div class="formula">z = b + Σ (xᵢ · wᵢ)   →   output = φ(z)</div>
+      <p><b>Weights</b> show the strength of each input; the <b>bias</b> b shifts the activation up/down (and handles the case where inputs are 0). Adjusting weights = "learning."</p>`},
+    {h:"Layers", html:`<ul>
+      <li><b>Input layer</b> — accepts the raw feature values.</li>
+      <li><b>Hidden layer(s)</b> — between input and output; hard to interpret due to high interconnectivity.</li>
+      <li><b>Output layer</b> — the final estimate (can have multiple neurons).</li></ul>
+      <p>A <b>Deep Neural Network</b> has <b>2 or more hidden layers</b> (vs a "non-deep" net with 0–1).</p>`},
+    {h:"Activation functions", html:`<p>Purpose: introduce <b>non-linearity</b> and set <b>boundaries</b> on outputs (e.g. probabilities), enabling complex relationships.</p>
+      <ul>
+      <li><b>Binary step</b> — threshold; outputs exactly 0 or 1. "Strong" — small input changes aren't reflected.</li>
+      <li><b>Sigmoid (logistic)</b> — S-curve in <b>(0,1)</b>, good for probability. Drawback: <b>vanishing gradient</b> for strong negatives → used in the <b>output layer</b>, not hidden layers.</li>
+      <li><b>Tanh</b> — range <b>(−1, 1)</b>; like sigmoid but better; strong negatives map to negative outputs, so less likely to get stuck.</li>
+      <li><b>ReLU</b> — <code>max(0, x)</code>, range <b>[0, ∞)</b>. Most used in hidden layers: avoids vanishing gradient on the positive side, is cheap, and gives sparse activations. Maps all negatives to 0.</li></ul>`},
+    {h:"Multi-class outputs", html:`<ul>
+      <li><b>Mutually exclusive</b> classes → <b>Softmax</b> (probabilities sum to 1).</li>
+      <li><b>Non-exclusive / multi-label</b> → <b>Sigmoid</b> per output node (independent probabilities).</li></ul>`},
+    {h:"Cost functions & backprop", html:`<p>The <b>cost/loss</b> compares predictions to true labels and must be a single averaged value.</p>
+      <ul><li><b>Regression</b> → Mean Squared Error (MSE).</li>
+      <li><b>Classification</b> → Cross-Entropy / log loss (Binary Cross-Entropy for 2 classes).</li></ul>
+      <p>Written as <b>C(W, B, Sr, Er)</b>: <b>W</b> = weights, <b>B</b> = biases, <b>Sr</b> = input of a single training sample, <b>Er</b> = its desired output. <b>Backpropagation</b> is how the network goes back and <b>adjusts the weights and biases</b> to reduce the loss.</p>`},
+    {h:"Neural networks in sklearn", html:`<p>Use <b><code>MLPClassifier</code></b> (classification) and <b><code>MLPRegressor</code></b> (regression). Specify architecture with <b><code>hidden_layer_sizes</code></b> — e.g. <code>(100, 50)</code> means two hidden layers of 100 and 50 nodes.</p>
+      <p><b>Adam</b> = <b>Adaptive Moment Estimation</b>, an advanced adaptive version of stochastic gradient descent (SGD). Optimizers update weights via <code>New = Old − η·∇Loss</code> (η = learning rate).</p>`}
+  ],
+  questions:[
+    {q:"What is a perceptron?", o:[
+      "A clustering algorithm",
+      "A single neuron / single-layer neural network that produces a single output from a weighted sum plus bias and an activation",
+      "A type of activation function",
+      "A pooling operation"],
+      a:1, e:"A perceptron computes z = b + Σxᵢwᵢ, then applies an activation φ(z). A single-layer network is a perceptron; stacking layers gives a multi-layer network (ANN)."},
+    {q:"What is the role of the bias term b in a neuron?", o:[
+      "It sets the learning rate",
+      "It shifts the activation function up or down (and lets the neuron respond even when inputs are 0)",
+      "It counts the number of layers",
+      "It normalizes the output to sum to 1"],
+      a:1, e:"The bias allows the activation to shift, giving the neuron flexibility independent of the input values."},
+    {q:"How are the input, hidden, and output layers distinguished?", o:[
+      "Input produces the final estimate; output receives raw data",
+      "Input accepts raw feature values; hidden layers sit between and are hard to interpret; output gives the final estimate",
+      "All three do exactly the same thing",
+      "Hidden layers are always the last layer"],
+      a:1, e:"Input takes real data values, output produces the prediction (possibly multiple neurons), and hidden layers in between transform the signal."},
+    {q:"What makes a neural network 'deep'?", o:[
+      "It has more than 1000 neurons",
+      "It contains 2 or more hidden layers",
+      "It uses the Adam optimizer",
+      "It has only an input and output layer"],
+      a:1, e:"A network with 2+ hidden layers is a Deep Neural Network; a non-deep net has zero or one hidden layer."},
+    {q:"What is the purpose of an activation function?", o:[
+      "To store the training data",
+      "To introduce non-linearity and set boundaries on the output (e.g. probabilities), enabling complex relationships",
+      "To count the number of features",
+      "To split the dataset into train and test"],
+      a:1, e:"Without non-linear activations a network could only model linear relationships; activations also bound outputs (e.g. 0–1 for probabilities)."},
+    {q:"Which describes the ReLU activation function?", o:[
+      "An S-curve between 0 and 1",
+      "max(0, x): outputs x if positive, 0 otherwise; range [0, ∞)",
+      "A step that outputs exactly 0 or 1",
+      "A curve between −1 and 1"],
+      a:1, e:"ReLU = max(0,x). It's the most-used hidden-layer activation — avoids vanishing gradients on the positive side, is cheap, and yields sparse activations."},
+    {q:"Which activation is typically avoided in hidden layers because of the vanishing gradient problem?", o:[
+      "ReLU",
+      "Sigmoid (its gradient is near zero for strong negative inputs)",
+      "Tanh only",
+      "Binary step only"],
+      a:1, e:"Sigmoid saturates for strong negatives (gradient ≈ 0), so it's mainly used in the output layer for probabilities, not in hidden layers."},
+    {q:"For MULTI-CLASS, mutually exclusive classification, which output activation is used?", o:[
+      "ReLU",
+      "Softmax (probabilities across classes sum to 1)",
+      "Binary step",
+      "Tanh"],
+      a:1, e:"Softmax gives a probability distribution over K mutually exclusive classes that sums to 1. (Multi-label/non-exclusive uses sigmoid per node.)"},
+    {q:"For classification, which cost function is often used?", o:[
+      "Mean Squared Error",
+      "Cross-entropy / log loss (binary cross-entropy for 2 classes)",
+      "Euclidean distance",
+      "WCSS / inertia"],
+      a:1, e:"Cross-entropy compares the predicted probability distribution to the true class. MSE is the typical choice for regression."},
+    {q:"In the cost function C(W, B, Sr, Er), what do the terms mean?", o:[
+      "W = width, B = batch, Sr = stride, Er = epoch rate",
+      "W = weights, B = biases, Sr = input of a single training sample, Er = its desired output",
+      "W = window, B = bias only, Sr = score, Er = error rate",
+      "They are all hyperparameters of the optimizer"],
+      a:1, e:"W = network weights, B = biases, Sr = the input of one training sample, Er = the desired (target) output for that sample."},
+    {q:"What is the purpose of backpropagation?", o:[
+      "To flatten an image into a vector",
+      "To go back through the network and adjust the weights and biases to reduce the loss",
+      "To pick the number of clusters",
+      "To remove stop words"],
+      a:1, e:"After computing the loss, backpropagation propagates the error backward to update weights and biases (used with gradient descent/Adam)."},
+    {q:"In sklearn's MLPClassifier, how do you specify the number of layers and nodes?", o:[
+      "With n_estimators",
+      "With hidden_layer_sizes — e.g. (100, 50) means two hidden layers of 100 and 50 nodes",
+      "With max_leaf_nodes",
+      "With eps and minPts"],
+      a:1, e:"hidden_layer_sizes is a tuple; its length = number of hidden layers and each value = nodes in that layer."},
+    {q:"What is the Adam optimizer?", o:[
+      "A clustering initializer",
+      "Adaptive Moment Estimation — an advanced, adaptive version of stochastic gradient descent that updates weights to minimize loss",
+      "An activation function",
+      "A cost function for regression"],
+      a:1, e:"Adam (Adaptive Moment Estimation) adapts the learning per-parameter and is a popular, robust variant of SGD for training neural networks."}
+  ]
+},
+{
+  id:"cnn", tag:"Module 5 · Post-Quiz Reference", title:"Convolutional Neural Networks (CNN)",
+  blurb:"Covered after the Tuesday quiz — included here for reference: convolution, kernels, feature maps, stride, padding, pooling, dropout, and output-size math.",
+  notes:[
+    {h:"Why not just use an ANN on images?", html:`<ul>
+      <li><b>Loss of spatial information</b> — flattening 28×28 → 784 destroys pixel relationships (who is next to whom).</li>
+      <li><b>Too many parameters</b> — fully connected layers explode (e.g. 784 → 128 = 100K+ weights) → slow, overfits.</li>
+      <li><b>No feature reuse</b> and <b>not translation invariant</b> — a shifted object must be relearned.</li></ul>
+      <p>A color image has <b>3 channels</b> (R,G,B); a 28×28×3 image = 2,352 features per image.</p>`},
+    {h:"Convolution", html:`<p>A <b>kernel/filter</b> (small matrix) slides over the image: <b>element-wise multiply</b> the overlap, <b>sum</b> → one output value. The result is a <b>feature map</b>, where each value shows how strongly the filter matches that region. Weight/parameter sharing (same filter everywhere) means far fewer parameters and detection <b>anywhere</b> in the image (translation invariance).</p>`},
+    {h:"Stride & padding", html:`<ul>
+      <li><b>Stride</b> — how many pixels the kernel moves each step. Larger stride → <b>smaller</b> output.</li>
+      <li><b>Padding</b> — add zeros around the border so the kernel fits, to <b>preserve size</b> and avoid wasting/losing border pixels. Default <code>'valid'</code> = no padding; <code>'same'</code> keeps the size.</li></ul>`},
+    {h:"Output-size math (know this!)", html:`<div class="formula">Conv output = ⌊ (W − F + 2P) / S ⌋ + 1</div>
+      <p>W = input size, F = filter size, P = padding, S = stride. <b>Example:</b> 6×6 input, 3×3 filter, stride 1, no padding → (6−3+0)/1 + 1 = <b>4×4</b>. (28×28 with 3×3, stride 1, valid → 26×26.)</p>
+      <div class="formula">Pool output = ⌊ (input − pool_size) / stride ⌋ + 1</div>`},
+    {h:"Pooling", html:`<p>A <b>down-sampling</b> operation over a small window (e.g. 2×2) that shrinks the feature map while keeping key info.</p>
+      <ul><li><b>Max pooling</b> — take the <b>maximum</b> value in the window.</li>
+      <li><b>Average pooling</b> — take the <b>average</b>.</li></ul>
+      <p>Benefits: fewer computations, and it <b>reduces overfitting</b> by removing unnecessary detail (keeping only dominant features) and adds <b>translation robustness.</b></p>`},
+    {h:"Flatten & Dropout", html:`<ul>
+      <li><b>Flatten</b> — after conv + pooling, flatten the feature maps into a <b>1D vector</b> to feed a fully connected (Dense) layer (which ends in softmax for classification).</li>
+      <li><b>Dropout</b> — regularization that randomly <b>turns off</b> a fraction p of neurons each training step (e.g. <code>Dropout(0.25)</code>), forcing the network not to rely on specific neurons → more general patterns, less overfitting.</li></ul>`}
+  ],
+  questions:[
+    {q:"Why is flattening an image problematic for a traditional ANN?", o:[
+      "It makes the image larger",
+      "It destroys spatial information — the relationships between neighboring pixels",
+      "It converts color to grayscale",
+      "It removes the labels"],
+      a:1, e:"Flattening 28×28 → 784 throws away which pixels are next to which, so spatial structure is lost."},
+    {q:"What does 'spatial information' in an image refer to?", o:[
+      "The file size of the image",
+      "The relationships between neighboring pixels (who is next to whom)",
+      "The number of color channels only",
+      "The brightness of a single pixel"],
+      a:1, e:"Spatial information is the arrangement/relationship of pixels — the local patterns CNNs are designed to preserve."},
+    {q:"Why do fully connected layers create so many parameters in image processing?", o:[
+      "Because images are grayscale",
+      "Every input pixel connects to every neuron, so weights multiply quickly (e.g. 784→128 = 100K+)",
+      "Because they use pooling",
+      "Because of dropout"],
+      a:1, e:"Dense layers connect all inputs to all neurons; with thousands of pixels the weight count explodes, causing slow training and overfitting."},
+    {q:"What is translation invariance in a CNN?", o:[
+      "The image is translated into another language",
+      "The network can still recognize an object even if it shifts position in the image",
+      "Every pixel is inverted",
+      "The kernel never moves"],
+      a:1, e:"Thanks to weight sharing and pooling, a feature is detected regardless of where it appears — a shift doesn't require relearning."},
+    {q:"What is a convolution operation?", o:[
+      "Averaging all pixels into one number",
+      "Sliding a kernel over the image, doing element-wise multiplication with the overlap and summing to one output value",
+      "Sorting pixel values",
+      "Randomly dropping pixels"],
+      a:1, e:"At each position the kernel's values are multiplied element-wise with the overlapping region and summed into a single feature-map value."},
+    {q:"What is a kernel (filter) and what does it do?", o:[
+      "A large fully connected layer",
+      "A small matrix that slides over the image to detect local patterns/features",
+      "The final classification layer",
+      "A pooling window that takes maxima"],
+      a:1, e:"A kernel is a small weight matrix; convolving it across the image produces a feature map highlighting where its pattern occurs."},
+    {q:"What is a feature map?", o:[
+      "The input image before processing",
+      "The output of a convolution — each value shows how strongly the filter matched that region",
+      "A list of class labels",
+      "The confusion matrix"],
+      a:1, e:"Convolving a filter over the input yields a feature map; high values indicate a strong match to the filter's pattern."},
+    {q:"How does increasing the stride affect a convolution layer's output?", o:[
+      "It makes the output larger",
+      "It makes the output smaller (the kernel takes bigger steps and produces fewer positions)",
+      "It has no effect on output size",
+      "It adds more channels"],
+      a:1, e:"A larger stride skips positions, so the feature map is smaller. Output = ⌊(W−F+2P)/S⌋+1."},
+    {q:"Why is padding used in convolution?", o:[
+      "To increase the number of classes",
+      "To add a border (often zeros) so the kernel fits and border pixels aren't lost / to preserve output size",
+      "To randomly drop neurons",
+      "To convert probabilities to labels"],
+      a:1, e:"Zero-padding the border lets the filter cover edge pixels and can keep the output the same size ('same' padding); 'valid' means no padding."},
+    {q:"What is the purpose of a pooling layer?", o:[
+      "To add more parameters",
+      "To down-sample feature maps — reduce spatial size while keeping important information",
+      "To flatten the image into a vector",
+      "To assign class probabilities"],
+      a:1, e:"Pooling shrinks height×width (fewer computations) while retaining dominant features and adding translation robustness."},
+    {q:"What is the difference between max pooling and average pooling?", o:[
+      "Max pooling takes the maximum value in the window; average pooling takes the mean",
+      "Max pooling takes the mean; average pooling takes the max",
+      "They are identical",
+      "Max pooling adds values; average pooling multiplies them"],
+      a:0, e:"Max pooling keeps the largest value in each window; average pooling keeps the average."},
+    {q:"How does pooling help reduce overfitting?", o:[
+      "By adding more neurons",
+      "By removing unnecessary detail and keeping only dominant features (plus translation robustness)",
+      "By increasing the resolution",
+      "By memorizing the training set"],
+      a:1, e:"Discarding fine detail keeps only the most salient features, so the model generalizes better and is robust to small shifts."},
+    {q:"What is the role of the Flatten layer in a CNN?", o:[
+      "It performs the convolution",
+      "It converts the 2D feature maps into a 1D vector to feed the fully connected (Dense) layers",
+      "It normalizes pixel values to [0,1]",
+      "It randomly drops neurons"],
+      a:1, e:"After conv/pooling, Flatten reshapes the feature maps into a 1D vector so a Dense (fully connected) layer can classify."},
+    {q:"Why is dropout used in a CNN?", o:[
+      "To increase the image resolution",
+      "It randomly turns off a fraction of neurons during training, reducing overfitting and forcing general patterns",
+      "To speed up convolution only",
+      "To add spatial information"],
+      a:1, e:"Dropout(p) ignores a random p of neurons each step so the network can't rely on specific neurons — a regularizer that fights overfitting."},
+    {q:"For a 7×7 input with a 3×3 filter, stride 1, and no padding, the output size is…", o:[
+      "7×7",
+      "5×5",
+      "4×4",
+      "6×6"],
+      a:1, e:"(7 − 3 + 0)/1 + 1 = 5, so the output is 5×5. Use ⌊(W−F+2P)/S⌋+1."}
+  ]
+}
+];
+
+/* =========================================================
+   RENDER + LOGIC
+   ========================================================= */
+const store = (()=>{ try{ const t="__t"; localStorage.setItem(t,"1"); localStorage.removeItem(t); return localStorage;}catch(e){ return null; }})();
+const KEY="mlquiz4-progress-v1";
+let state = {};
+try{ if(store){ state = JSON.parse(store.getItem(KEY)||"{}"); } }catch(e){ state={}; }
+function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+const tabsEl=document.getElementById("tabs");
+const panelsEl=document.getElementById("panels");
+
+SECTIONS.forEach((sec,si)=>{
+  state[sec.id] = state[sec.id] || {}; // {qIndex: chosenOptionIndex}
+  const hue = `var(--t${si})`;
+
+  // Tab
+  const tab=document.createElement("button");
+  tab.className="tab"; tab.style.setProperty("--hue",hue);
+  tab.setAttribute("role","tab"); tab.id="tab-"+sec.id;
+  tab.setAttribute("aria-controls","panel-"+sec.id);
+  tab.setAttribute("aria-selected", si===0 ? "true":"false");
+  tab.innerHTML=`<span class="chip"></span>${sec.title.split(" (")[0].split(",")[0].replace(" & Random Forests","").replace("Convolutional Neural Networks","CNN")} <span class="sc" id="sc-${sec.id}"></span>`;
+  tab.addEventListener("click",()=>selectSection(sec.id));
+  tabsEl.appendChild(tab);
+
+  // Panel
+  const panel=document.createElement("section");
+  panel.className="panel"+(si===0?" active":"");
+  panel.id="panel-"+sec.id; panel.style.setProperty("--hue",hue);
+  panel.setAttribute("role","tabpanel"); panel.setAttribute("aria-labelledby","tab-"+sec.id);
+
+  const notesHtml = sec.notes.map((n,i)=>`<div class="note"><h4><span class="n">${String(i+1).padStart(2,"0")}</span>${n.h}</h4>${n.html}</div>`).join("");
+
+  panel.innerHTML=`
+    <div class="sec-head">
+      <div class="sec-kicker">${sec.tag}</div>
+      <h2>${sec.title}</h2>
+      <p>${sec.blurb}</p>
+    </div>
+    <details class="notes"${si===0?" open":""}>
+      <summary><span class="lbl">Study Notes</span> Key concepts &amp; quick review <span class="car">▸</span></summary>
+      <div class="notes-body">${notesHtml}</div>
+    </details>
+    <div class="quiz-head">
+      <div class="qt">Practice Questions · ${sec.questions.length} items</div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="score-badge" id="badge-${sec.id}"></div>
+        <button class="reset" data-sec="${sec.id}">Reset</button>
+      </div>
+    </div>
+    <div id="quiz-${sec.id}"></div>
+    <div class="section-done" id="done-${sec.id}"></div>
+  `;
+  panelsEl.appendChild(panel);
+
+  // Questions
+  const quizEl=panel.querySelector("#quiz-"+sec.id);
+  sec.questions.forEach((q,qi)=>{
+    const card=document.createElement("div");
+    card.className="q"; card.id=`q-${sec.id}-${qi}`;
+    const opts=q.o.map((opt,oi)=>`
+      <button class="opt" data-sec="${sec.id}" data-q="${qi}" data-o="${oi}">
+        <span class="mk">${String.fromCharCode(65+oi)}</span>
+        <span class="ot">${opt}</span>
+      </button>`).join("");
+    card.innerHTML=`
+      <div class="qnum">Question ${qi+1}</div>
+      <div class="qtext">${q.q}</div>
+      <div class="opts">${opts}</div>
+      <div class="explain" id="ex-${sec.id}-${qi}"></div>`;
+    quizEl.appendChild(card);
+  });
+
+  panel.querySelector(".reset").addEventListener("click",()=>resetSection(sec.id));
+});
+
+// Delegated option clicks
+panelsEl.addEventListener("click",(ev)=>{
+  const btn=ev.target.closest(".opt");
+  if(!btn) return;
+  const sec=btn.dataset.sec, qi=+btn.dataset.q, oi=+btn.dataset.o;
+  if(state[sec][qi]!==undefined) return; // already answered
+  state[sec][qi]=oi; save();
+  renderQuestion(sec,qi,true);
+  refresh(sec);
+});
+
+function renderQuestion(secId,qi,animate){
+  const sec=SECTIONS.find(s=>s.id===secId);
+  const q=sec.questions[qi];
+  const chosen=state[secId][qi];
+  const card=document.getElementById(`q-${secId}-${qi}`);
+  const btns=card.querySelectorAll(".opt");
+  btns.forEach(b=>{
+    const oi=+b.dataset.o;
+    b.classList.remove("correct","wrong","dim");
+    b.disabled = chosen!==undefined;
+    if(chosen!==undefined){
+      if(oi===q.a) b.classList.add("correct");
+      else if(oi===chosen) b.classList.add("wrong");
+      else b.classList.add("dim");
+    }
+  });
+  const ex=document.getElementById(`ex-${secId}-${qi}`);
+  if(chosen!==undefined){
+    const ok=chosen===q.a;
+    ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Not quite'}</span>${q.e}`;
+    ex.classList.add("show");
+  } else {
+    ex.classList.remove("show"); ex.innerHTML="";
+  }
+}
+
+function sectionStats(secId){
+  const sec=SECTIONS.find(s=>s.id===secId);
+  let answered=0, correct=0;
+  sec.questions.forEach((q,qi)=>{
+    if(state[secId][qi]!==undefined){ answered++; if(state[secId][qi]===q.a) correct++; }
+  });
+  return {answered, correct, total:sec.questions.length};
+}
+
+function refresh(secId){
+  const st=sectionStats(secId);
+  const sec=SECTIONS.find(s=>s.id===secId);
+  document.getElementById("badge-"+secId).innerHTML=`Score <b>${st.correct}</b> / ${st.total}`;
+  const scEl=document.getElementById("sc-"+secId);
+  scEl.textContent = st.answered ? `${st.correct}/${st.total}` : "";
+  const done=document.getElementById("done-"+secId);
+  if(st.answered===st.total){
+    const pct=Math.round(100*st.correct/st.total);
+    let msg = pct===100 ? "Perfect — you've nailed this section. 🎯"
+            : pct>=80 ? "Strong grasp — review the few you missed."
+            : pct>=60 ? "Solid start — revisit the notes for the missed items."
+            : "Worth another pass — open the Study Notes above and retry.";
+    done.innerHTML=`<strong>Section complete — ${st.correct}/${st.total} (${pct}%).</strong> ${msg}`;
+    done.classList.add("show");
+  } else {
+    done.classList.remove("show");
+  }
+  refreshOverall();
+}
+
+function refreshOverall(){
+  let total=0, correct=0;
+  SECTIONS.forEach(sec=>{ const st=sectionStats(sec.id); total+=st.total; correct+=st.correct; });
+  const pct = total? Math.round(100*correct/total):0;
+  document.getElementById("overallBar").style.width=pct+"%";
+  document.getElementById("overallPct").textContent=pct+"%";
+  document.getElementById("overallCount").textContent=`${correct} / ${total}`;
+}
+
+function resetSection(secId){
+  state[secId]={}; save();
+  SECTIONS.find(s=>s.id===secId).questions.forEach((q,qi)=>renderQuestion(secId,qi,false));
+  refresh(secId);
+}
+
+function selectSection(secId){
+  SECTIONS.forEach(sec=>{
+    const on=sec.id===secId;
+    document.getElementById("panel-"+sec.id).classList.toggle("active",on);
+    document.getElementById("tab-"+sec.id).setAttribute("aria-selected", on?"true":"false");
+  });
+  window.scrollTo({top:0,behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth'});
+  document.getElementById("tab-"+secId).scrollIntoView({block:"nearest",inline:"center"});
+}
+
+// initial paint
+SECTIONS.forEach(sec=>{
+  sec.questions.forEach((q,qi)=>renderQuestion(sec.id,qi,false));
+  refresh(sec.id);
+});
+refreshOverall();
+
+/* Theme toggle */
+const root=document.documentElement, tb=document.getElementById("themeBtn"),
+      ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
+function applyTheme(t){
+  if(t==="system"){ root.removeAttribute("data-theme"); ti.textContent="◐"; tl.textContent="Auto"; }
+  else{ root.setAttribute("data-theme",t); ti.textContent= t==="dark"?"☾":"☀"; tl.textContent= t==="dark"?"Dark":"Light"; }
+  try{ store && store.setItem("mlquiz4-theme",t); }catch(e){}
+}
+let curTheme="system";
+try{ if(store) curTheme=store.getItem("mlquiz4-theme")||"system"; }catch(e){}
+applyTheme(curTheme);
+tb.addEventListener("click",()=>{
+  curTheme = curTheme==="system" ? "light" : curTheme==="light" ? "dark" : "system";
+  applyTheme(curTheme);
+});
+</script>
+</body>
+</html>
