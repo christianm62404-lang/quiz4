@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ML Quiz 4 — Study Guide</title>
+<title>CAI 4105 — Quiz 1 Study Guide</title>
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -28,7 +28,7 @@
   --ok:#1f8a4c; --ok-bg:#e5f4ea; --ok-line:#bfe3cc;
   --bad:#c23b3b; --bad-bg:#fbe9e9; --bad-line:#f0c6c6;
 
-  --t0:#b5622f; --t1:#2c8493; --t2:#5b63b0; --t3:#2f8a5b; --t4:#3763a8; --t5:#a83e69;
+  --t0:#3763a8; --t1:#2c8493; --t2:#b5622f; --t3:#5b63b0; --t4:#a83e69;
 
   --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
   --radius:12px;
@@ -38,7 +38,7 @@
     --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
     --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
     --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-    --t0:#d98b57;--t1:#4fb3c2;--t2:#8b93df;--t3:#54b981;--t4:#6b9be0;--t5:#d878a0;
+    --t0:#6b9be0;--t1:#4fb3c2;--t2:#d98b57;--t3:#8b93df;--t4:#d878a0;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
   }
 }
@@ -46,14 +46,14 @@
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
   --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#b5622f;--t1:#2c8493;--t2:#5b63b0;--t3:#2f8a5b;--t4:#3763a8;--t5:#a83e69;
+  --t0:#3763a8;--t1:#2c8493;--t2:#b5622f;--t3:#5b63b0;--t4:#a83e69;
   --shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
   --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
   --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-  --t0:#d98b57;--t1:#4fb3c2;--t2:#8b93df;--t3:#54b981;--t4:#6b9be0;--t5:#d878a0;
+  --t0:#6b9be0;--t1:#4fb3c2;--t2:#d98b57;--t3:#8b93df;--t4:#d878a0;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
 }
 
@@ -71,11 +71,13 @@ a{color:var(--accent-strong)}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
 h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-size:clamp(30px,5vw,46px);line-height:1.08;margin:.32em 0 .18em;text-wrap:balance;color:var(--ink)}
-.subtitle{color:var(--muted);max-width:64ch;font-size:16.5px;margin:0}
+.subtitle{color:var(--muted);max-width:66ch;font-size:16.5px;margin:0}
 .mast-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .theme-btn{flex:0 0 auto;font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
 .theme-btn:hover{border-color:var(--accent);color:var(--accent-strong)}
-.progress-wrap{margin-top:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.callout{margin-top:18px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14.5px;color:var(--ink-soft)}
+.callout b{color:var(--ink)}
+.progress-wrap{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .pbar{flex:1 1 320px;min-width:220px;height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
 .pbar > span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-strong));transition:width .5s ease}
 .pmeta{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -100,7 +102,7 @@ main{max-width:1080px;margin:0 auto;padding:30px 22px 90px}
 .sec-head{border-left:4px solid var(--hue);padding:4px 0 4px 16px;margin-bottom:8px}
 .sec-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hue);font-weight:600}
 .sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,3.6vw,32px);margin:.15em 0 .1em;letter-spacing:-.01em;text-wrap:balance}
-.sec-head p{margin:0;color:var(--muted);max-width:70ch}
+.sec-head p{margin:0;color:var(--muted);max-width:72ch}
 
 /* study notes */
 .notes{margin:22px 0 30px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
@@ -120,8 +122,12 @@ main{max-width:1080px;margin:0 auto;padding:30px 22px 90px}
 .note li{margin:3px 0}
 .note li::marker{color:var(--hue)}
 code,.k{font-family:var(--mono);font-size:.9em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
-.formula{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0 2px;font-size:14px;color:var(--ink);overflow-x:auto}
-.pill-tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--hue);border:1px solid var(--hue);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0}
+.formula{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0 2px;font-size:13.5px;color:var(--ink);overflow-x:auto;white-space:nowrap}
+.pill-tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--hue);border:1px solid var(--hue);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0}
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 2px;font-size:14px;overflow-x:auto;display:block}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+.tbl th{background:var(--surface-2);font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--muted);font-weight:600}
+.tbl td{color:var(--ink-soft)}
 
 /* quiz */
 .quiz-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 14px;flex-wrap:wrap}
@@ -145,9 +151,11 @@ code,.k{font-family:var(--mono);font-size:.9em;background:var(--surface-2);borde
 .opt.wrong{border-color:var(--bad-line);background:var(--bad-bg);color:var(--ink)}
 .opt.wrong .mk{background:var(--bad);border-color:var(--bad);color:#fff}
 .opt.dim{opacity:.62}
+.opt .ot code{font-family:var(--mono);font-size:.92em;background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:0 4px}
 .explain{margin-top:13px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:11px 14px;font-size:14.5px;color:var(--ink-soft);display:none}
 .explain.show{display:block;animation:fade .25s ease}
 .explain b{color:var(--ink)}
+.explain code{font-family:var(--mono);font-size:.9em}
 .explain .verdict{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-right:8px}
 .explain .verdict.ok{color:var(--ok)}
 .explain .verdict.no{color:var(--bad)}
@@ -162,7 +170,7 @@ code,.k{font-family:var(--mono);font-size:.9em;background:var(--surface-2);borde
 .fr{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--hue);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;margin-top:16px}
 .fr .qnum{font-family:var(--mono);font-size:12px;color:var(--hue);font-weight:700;letter-spacing:.05em}
 .fr .qtext{font-weight:600;font-size:16.5px;color:var(--ink);margin:6px 0 14px;text-wrap:pretty}
-.fr .qtext code{font-weight:500}
+.fr .qtext code{font-weight:500;font-family:var(--mono);font-size:.92em}
 .reveal{font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;border:1px solid var(--hue);color:var(--hue);background:transparent;border-radius:99px;padding:9px 18px;transition:.14s}
 .reveal:hover{background:var(--hue);color:#fff}
 .reveal:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -173,6 +181,7 @@ code,.k{font-family:var(--mono);font-size:.9em;background:var(--surface-2);borde
 .fr-ans li{margin:4px 0}
 .fr-ans li::marker{color:var(--hue)}
 .fr-ans b{color:var(--ink)}
+.fr-ans code{font-family:var(--mono);font-size:.9em}
 
 footer{max-width:1080px;margin:0 auto;padding:26px 22px 50px;color:var(--faint);font-size:13px;border-top:1px solid var(--line)}
 footer .mono{font-family:var(--mono)}
@@ -190,11 +199,12 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> Machine Learning · Quiz 4 Prep <span class="dot"></span> Self-Test Edition</div>
+      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Quiz 1 Prep <span class="dot"></span> Self-Test Edition</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Interactive Study Guide &amp; Question Bank</h1>
-    <p class="subtitle">Six testable sections covering Ensemble Learning, Clustering, Hierarchical &amp; DBSCAN, NLP, and Neural Networks — condensed notes from the lecture slides, multiple-choice practice with instant feedback, and quiz-style free-response scenarios. <em>(CNN is included as post-quiz reference.)</em></p>
+    <h1 class="title">Math for Machine Learning — Quiz 1 Study Guide</h1>
+    <p class="subtitle">Five testable sections covering Weeks 1–3 (Lectures 01–05): Linear Algebra, Probability &amp; Information Theory, Linear Regression, Overfitting/Regularization &amp; Gradient Descent, and Logistic Regression &amp; Softmax. Condensed notes, multiple-choice practice with instant feedback, and worked short-numeric problems.</p>
+    <div class="callout"><b>Quiz 1:</b> in class on Webcourses, first 15 minutes — multiple choice + short numeric. It rewards <b>recall + one-step arithmetic</b>, not full derivations. Priorities: the decks' worked numbers → the "which condition / which loss / which fails" distinctions → one-step computations (a dot product, a Bayes ratio, a sigmoid, one gradient step).</p>
     <div class="progress-wrap">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> mastered · <span id="overallCount">0 / 0</span> correct</div>
@@ -206,515 +216,464 @@ footer .mono{font-family:var(--mono)}
 <main id="panels"></main>
 
 <footer>
-  <div class="mono">Built from: Ensemble Learning &amp; Boosting · Unsupervised Learning–Clustering · Hierarchical Clustering &amp; DBSCAN · Intro to Artificial Neural Network · CNN with Keras + short-answer question sets.</div>
+  <div class="mono">Built from the CAI 4105 Quiz 1 Study Guide — Lectures 01–05 (Linear Algebra · Probability, Statistics &amp; Information Theory · Linear Regression · Curves, Overfitting, Regularization &amp; Gradient Descent · Logistic Regression &amp; Softmax).</div>
   <div style="margin-top:8px">Click any answer to check it — options are shuffled and explanations reveal automatically. Progress is saved in this browser.</div>
 </footer>
 
 <script>
 /* =========================================================
-   SECTIONS — notes (study material)
+   SECTIONS — study notes
    ========================================================= */
 const SECTIONS = [
 {
-  id:"ensemble", tag:"Module 1", title:"Ensemble Learning, Random Forests & Boosting",
-  blurb:"Wisdom of the crowd: voting, bagging vs pasting, random forests, and the two boosting families (AdaBoost & Gradient Boosting).",
+  id:"linalg", short:"Linear Algebra", tag:"Lecture 01", title:"Linear Algebra",
+  blurb:"Vectors, norms, projections, matrices, eigenvalues and the spectral theorem, SVD, and the matrix calculus behind least squares.",
   notes:[
-    {h:"The core idea", html:`<p><b>Ensemble learning</b> aggregates the predictions of a <em>group</em> of predictors (an <b>ensemble</b>). The aggregate is often better than the best single predictor — the <b>“wisdom of the crowd.”</b> Ensembles work best when predictors are as <b>independent/diverse</b> as possible, so they make different errors.</p>`},
-    {h:"Voting classifiers", html:`<ul>
-      <li><b>Hard voting</b> — predict the class that gets the <b>most votes</b> (statistical mode).</li>
-      <li><b>Soft voting</b> — average the predicted <b>probabilities</b> and pick the highest; requires every classifier to expose <code>predict_proba()</code>. Often beats hard voting because it weights confident votes more. For <code>SVC</code> you must set <code>probability=True</code>.</li></ul>`},
-    {h:"Bagging vs pasting", html:`<ul>
-      <li><b>Bagging</b> (bootstrap aggregating) = sampling <b>with</b> replacement.</li>
-      <li><b>Pasting</b> = sampling <b>without</b> replacement (<code>bootstrap=False</code>).</li>
-      <li>Only <b>bagging</b> lets the same instance be sampled several times <em>for the same predictor.</em> Both train/predict in parallel (<code>n_jobs=-1</code> → all cores).</li></ul>`},
-    {h:"Out-of-Bag (OOB) evaluation", html:`<p>With bagging, ~37% of instances are never sampled for a given predictor. <b>OOB error</b> = mean prediction error on each instance, using only the trees that did <b>not</b> have it in their bootstrap sample — a free validation set.</p>`},
-    {h:"Random Forest", html:`<p>An ensemble of Decision Trees trained via bagging. Key difference from a single tree: at each split it considers a <b>random subset of features</b> (not all). Prediction = <b>majority vote</b> (classification) / <b>average</b> (regression). This averaging lowers <b>variance</b> and overfitting. <span class="pill-tag">n_estimators</span><span class="pill-tag">max_leaf_nodes</span><span class="pill-tag">max_features</span> <br><b>Feature importance</b>: how much nodes using that feature reduce impurity on average; scaled so importances sum to 1 (<code>feature_importances_</code>).</p>`},
-    {h:"Boosting", html:`<p><b>Boosting</b> trains predictors <b>sequentially</b>, each correcting its predecessor — combining <b>weak learners into a strong learner.</b></p>
+    {h:"Notation", html:`<ul>
+      <li><b>Bold lowercase</b> = vector, <b>bold uppercase</b> = matrix, plain italic = scalar.</li>
+      <li><b>N</b> = number of examples, <b>D</b> = number of features. Design matrix <b>X</b> is <b>N × D</b>; row n is xₙᵀ.</li>
+      <li>Script 𝒟 = the dataset; plain D = number of features — don't mix them up.</li></ul>`},
+    {h:"Dot product & norms", html:`<p>Dot product multiplies matching entries and adds; it is <b>symmetric</b> and <b>linear</b> in each argument. Geometric form:</p>
+      <div class="formula">xᵀy = Σ xᵢyᵢ = ‖x‖‖y‖ cos θ   →   xᵀy = 0 ⟺ orthogonal (90°)</div>
+      <p>For x = (1,2,2): ‖x‖₂ = √9 = <b>3</b>, ‖x‖₁ = <b>5</b>, ‖x‖∞ = <b>2</b>. Unit vector x/‖x‖₂ = (1/3, 2/3, 2/3). A norm is nonnegative, scales with |c|, and obeys the triangle inequality. <span class="pill-tag">L1 → lasso</span><span class="pill-tag">L2 → ridge</span></p>`},
+    {h:"Angles & projection", html:`<div class="formula">cos θ = aᵀb / (‖a‖‖b‖)      proj_b(a) = (aᵀb / bᵀb) · b</div>
+      <p><b>Cosine similarity compares direction only</b>, ignoring length. Worked: a = (3,1), b = (2,2) → cos θ = 8/(√10·√8) = 0.894, θ = 26.6°, proj = (2,2).</p>`},
+    {h:"Matrices & special matrices", html:`<ul>
+      <li>Shapes: (m×n)(n×p) = m×p; inner dims must match. <b>AB ≠ BA</b>; <b>(AB)ᵀ = BᵀAᵀ</b>.</li>
+      <li>Inverse exists only for a <b>square</b> matrix with nonzero determinant (⟺ full rank).</li>
+      <li><b>Orthogonal</b> Q: QᵀQ = I, Q⁻¹ = Qᵀ — <b>preserves lengths and angles</b>.</li>
+      <li><b>Symmetric</b>: A = Aᵀ (Gram matrix XᵀX, covariance Σ, Hessians).</li>
+      <li><b>PSD</b>: xᵀAx ≥ 0 for all x ⟺ all eigenvalues ≥ 0.</li></ul>`},
+    {h:"Rank, span — why regression breaks", html:`<ul>
+      <li>rank = number of independent columns = number of independent rows.</li>
+      <li><b>Full column rank ⟺ only the zero vector maps to zero ⟺ XᵀX invertible.</b></li>
+      <li><b>Collinear features ⟹ Gram matrix XᵀX singular ⟹ least squares breaks.</b> (Reappears in L03 and L04's ridge fix.)</li></ul>`},
+    {h:"Eigenvalues, spectral theorem, quadratic forms", html:`<p>Av = λv (v ≠ 0); find λ from <b>det(A − λI) = 0</b>. For the pattern [[a,b],[b,a]], λ = <b>a ± b</b> (e.g. [[2,1],[1,2]] → 3, 1). A 2D 90° rotation has <b>no real eigenvectors</b>.</p>
+      <p><b>Spectral theorem:</b> symmetric A = QΛQᵀ, real eigenvalues, orthonormal eigenvectors. Quadratic form q(x) = xᵀAx: PD → <b>bowl</b>, PSD → <b>valley/trough</b>, indefinite → <b>saddle</b>. Least squares has a PSD Hessian ⟹ convex bowl.</p>`},
+    {h:"SVD, trace, determinant", html:`<ul>
+      <li>A = UΣVᵀ (rotate–stretch–rotate) works for <b>any</b> matrix. Number of nonzero singular values = <b>rank</b>; top-k terms = best rank-k approximation.</li>
+      <li>tr(A) = Σ Aᵢᵢ = <b>Σ λᵢ</b>; det(A) = <b>Π λᵢ</b>, zero ⟺ singular. For [[a,b],[c,d]], det = ad − bc.</li></ul>`},
+    {h:"Matrix calculus", html:`<p>∇f points in the direction of <b>steepest increase</b> (descent goes the other way).</p>
+      <div class="formula">∇(aᵀx) = a    ∇(xᵀAx) = 2Ax (A symmetric)    ∇‖x‖² = 2x</div>
+      <p>Least squares: L(w) = wᵀXᵀXw − 2yᵀXw + yᵀy ⟹ ∇L = 2Xᵀ(Xw − y) = 0 ⟹ <b>XᵀXw = Xᵀy</b>. In NumPy prefer <code>np.linalg.solve</code> over <code>inv</code>.</p>`}
+  ]
+},
+{
+  id:"prob", short:"Probability & Info", tag:"Lecture 02", title:"Probability, Statistics & Information Theory",
+  blurb:"The two rules and Bayes, expectation/variance, Gaussians, LLN vs CLT, MLE/MAP, and entropy / cross-entropy / KL.",
+  notes:[
+    {h:"The two rules and Bayes", html:`<div class="formula">Sum: p(X) = Σ_Y p(X,Y)      Product: p(X,Y) = p(Y|X)p(X)</div>
+      <p><b>Bayes is not a new axiom</b> — it's the product rule written both ways and divided (three axioms only). In ML: p(θ|𝒟) = p(𝒟|θ)p(θ)/p(𝒟), i.e. <b>posterior ∝ likelihood × prior</b> (evidence p(𝒟) doesn't depend on θ).</p>`},
+    {h:"Independence & the base-rate trap", html:`<p>Independent: p(x,y) = p(x)p(y) ⟺ p(y|x) = p(y). Conditional independence given Z is the Naive Bayes assumption.</p>
+      <p><b>Medical test:</b> prevalence 1%, sensitivity 0.95, false-positive rate 0.10 → p(D|+) = (0.95·0.01)/(0.0095 + 0.099) = <b>0.088</b>. Per 1000 people: 9.5 true vs 99 false positives — <b>the base rate dominates a good test.</b></p>`},
+    {h:"Expectation, variance, covariance", html:`<ul>
+      <li><b>E is linear always</b> (even for dependent variables); Var is not. Var[X] = E[X²] − (E[X])²; Var[aX] = a²Var[X].</li>
+      <li>Fair die: E[X] = 3.5, Var = 35/12 = <b>2.917</b>.</li>
+      <li><b>Zero covariance does not imply independence</b> (e.g. Y = X², X symmetric). Trap.</li>
+      <li>Σ = Cov[x] is <b>symmetric PSD</b>; its eigenvectors are the PCA axes.</li></ul>`},
+    {h:"Distributions & Gaussians", html:`<ul>
+      <li>Bernoulli(θ): variance θ(1−θ), <b>peaks at θ = 0.5 (0.25)</b>. Uniform(0,1) variance = <b>1/12</b>.</li>
+      <li>Gaussian: <b>68 / 95 / 99.7%</b> within 1/2/3σ; z = (x−μ)/σ. Multivariate exponent = Mahalanobis Δ² = (x−μ)ᵀΣ⁻¹(x−μ).</li>
+      <li>Why Gaussians are everywhere: closed under <b>linear maps</b> and <b>sums of independents</b>, <b>CLT</b>, <b>maximum entropy</b> for fixed mean/variance.</li></ul>`},
+    {h:"LLN vs CLT, estimators", html:`<p><b>LLN gives the limit</b> (x̄ₙ → μ); <b>CLT gives the shape of the error</b> (√n(x̄ₙ−μ)/σ → N(0,1)). Typical error ≈ <b>σ/√n</b>; die after 100 rolls ≈ 0.17. CLT needs finite variance.</p>
+      <p>bias[θ̂] = E[θ̂] − θ; <b>MSE = bias² + variance</b>. s² divides by <b>N−1</b> (unbiased); dividing by N is <b>biased low</b>.</p>`},
+    {h:"MLE & MAP", html:`<p><b>MLE recipe:</b> ℓ(θ) = Σ log p(xₙ|θ) → differentiate → set = 0 → solve. Log turns products into sums and is increasing, so the argmax is unchanged.</p>
       <ul>
-      <li><b>AdaBoost</b> — increases the <b>weight of misclassified instances</b> so the next predictor focuses on hard cases. Weights start at <code>1/m</code>; each predictor gets a weight α by accuracy. Prediction = <b>weighted majority vote</b> (better models weigh more). Drawback: <b>cannot be parallelized</b> — scales worse than bagging. Overfitting? reduce <code>n_estimators</code> / regularize base.</li>
-      <li><b>Gradient Boosting</b> — instead of tweaking instance weights, fits each new predictor to the <b>residual errors</b> of the previous one. <span class="pill-tag">learning_rate</span> shrinks each tree's contribution (trades off with <code>n_estimators</code>).</li></ul>`}
-  ]
-},
-{
-  id:"clustering", tag:"Module 2 · Part A", title:"Unsupervised Learning & Clustering",
-  blurb:"K-Means and K-Modes: centroids, the assign-update loop, the elbow method, and evaluating clusters.",
-  notes:[
-    {h:"Supervised vs unsupervised", html:`<p><b>Supervised</b> learning uses labeled data (features X <em>and</em> labels y). <b>Unsupervised</b> learning has only X — no labels. Most real-world data is unlabeled. Examples: <span class="pill-tag">K-Means</span><span class="pill-tag">Hierarchical</span><span class="pill-tag">DBSCAN</span><span class="pill-tag">PCA</span><span class="pill-tag">Anomaly detection</span><span class="pill-tag">Apriori</span></p>`},
-    {h:"Clustering vs classification", html:`<p><b>Clustering</b> = grouping similar instances into clusters (dissimilar across clusters), <em>without</em> knowing labels. Classification assigns to <em>predefined</em> labeled classes. Uses: customer segmentation, document/news grouping, anomaly/crime analysis, medical/financial grouping. Three algorithm categories: <b>partition-based</b> (k-means), <b>hierarchical</b>, <b>density-based</b> (DBSCAN).</p>`},
-    {h:"Centroid", html:`<p>The <b>centroid</b> is the point whose each attribute equals the <b>mean</b> of that attribute over the cluster's points. It is frequently an <b>imaginary point not in the dataset.</b> Clustering here uses <b>Euclidean distance</b> (one-hot encode categoricals).</p>`},
-    {h:"K-Means algorithm", html:`<ol>
-      <li>Choose <b>K</b> (number of clusters) and pick K initial centroids.</li>
-      <li>Build a <b>distance matrix</b>; assign each point to its <b>nearest centroid.</b></li>
-      <li>Recompute each centroid = <b>mean</b> of the points now in it.</li>
-      <li><b>Repeat</b> assign→update until centroids <b>no longer move</b> (termination).</li></ol>
-      <p style="margin-top:8px">K-Means is <b>exclusive</b>: each object belongs to exactly one cluster.</p>`},
-    {h:"Choosing K — Elbow method", html:`<p><b>WCSS</b> (Within-Cluster-Sum-of-Squares, a.k.a. <b>inertia</b>) = sum of squared distances of points to their centroid. Run K-Means for K = 1…10, plot WCSS vs K, and pick K at the <b>“elbow”</b> — the sharp bend where adding clusters stops helping much.</p>`},
-    {h:"Evaluating clusters", html:`<ul><li><b>External</b> — compare to ground truth (if available).</li><li><b>Internal</b> — average distance between points within a cluster, or average distance of points to their centroid.</li></ul>`},
-    {h:"K-Modes (categorical data)", html:`<p>When data is <b>categorical</b>, Euclidean distance and means don't make sense. <b>K-Modes</b> uses <b>dissimilarity = number of mismatches</b> (match = 0, mismatch = 1) and updates cluster leaders using the <b>mode</b> (most frequent value per feature). Loop: pick K leaders → assign by least dissimilarity → recompute modes → repeat until no reassignment.</p>`}
-  ]
-},
-{
-  id:"hier", tag:"Module 2 · Part B", title:"Hierarchical Clustering & DBSCAN",
-  blurb:"Agglomerative merging, proximity matrices, linkage types, dendrograms, and density-based clustering with DBSCAN.",
-  notes:[
-    {h:"Hierarchical clustering", html:`<p>Builds a <b>hierarchy (tree) of clusters</b>, visualized with a <b>dendrogram</b>. Unlike K-Means, you do <b>not specify K upfront</b> — you cut the dendrogram at a threshold instead. Two types:</p>
-      <ul><li><b>Agglomerative</b> — <b>bottom-up</b>: start with each point as its own cluster, repeatedly merge the closest pair (more popular).</li>
-      <li><b>Divisive</b> — <b>top-down</b>: start with one big cluster and split.</li></ul>`},
-    {h:"Agglomerative steps", html:`<ol>
-      <li><b>Step 0</b>: build the <b>proximity matrix</b> (n×n, diagonal = 0, e.g. Euclidean distances).</li>
-      <li>Find the <b>smallest distance</b> and merge those two clusters.</li>
-      <li>Update the proximity matrix (using a chosen linkage), repeat until one cluster remains.</li></ol>`},
-    {h:"Linkage types (distance between clusters)", html:`<ul>
-      <li><b>Single</b> — <b>minimum</b> distance between clusters.</li>
-      <li><b>Complete</b> — <b>maximum</b> distance between clusters.</li>
-      <li><b>Average</b> — <b>average</b> of all cross-cluster distances.</li>
-      <li><b>Centroid</b> — distance between cluster <b>centroids</b>.</li>
-      <li><b>Ward</b> — merge that causes the <b>smallest increase in within-cluster variance (SSE)</b>.</li></ul>`},
-    {h:"Dendrogram → number of clusters", html:`<p>Taller vertical lines = larger distance between merged clusters. Draw a horizontal <b>threshold</b> line (often cutting the tallest vertical line); the number of clusters = the number of vertical lines it <b>crosses</b>.</p>`},
-    {h:"Why DBSCAN? (K-Means weaknesses)", html:`<p>K-Means <b>forces every point into a cluster</b> (including outliers), is sensitive to a single point / the choice of K, and struggles with odd shapes. <b>DBSCAN</b> (Density-Based Spatial Clustering of Applications with Noise) finds <b>arbitrary-shaped</b> clusters, <b>separates outliers as noise</b>, and does <b>not need K</b>.</p>`},
-    {h:"DBSCAN parameters & point types", html:`<ul>
-      <li><b>eps (ε)</b> — the neighborhood <b>radius</b> used to find nearby points. Chosen via a <b>k-distance graph</b> elbow.</li>
-      <li><b>minPts</b> — minimum points to form a <b>dense</b> region. Rule of thumb ≥ D+1, often 2×dim; at least 3.</li></ul>
-      <p>Three point types after clustering:</p>
-      <ul><li><b>Core</b> — has ≥ minPts within ε.</li>
-      <li><b>Border</b> — fewer than minPts, but within ε of a core point.</li>
-      <li><b>Noise</b> — neither core nor border (an outlier).</li></ul>`}
-  ]
-},
-{
-  id:"nlp", tag:"Module 3", title:"Natural Language Processing",
-  blurb:"Turning text into features: bag-of-words, TF-IDF, and the preprocessing vocabulary — tokenization, stemming, lemmatization, NER.",
-  notes:[
-    {h:"Challenges of NLP", html:`<p>Human language is <b>ambiguous</b> (a word/sentence can have multiple meanings), highly <b>context-dependent</b>, full of <b>sarcasm/irony, synonyms, slang, spelling variation</b>, and differs across languages — all hard for machines. Applications: <span class="pill-tag">sentiment analysis</span><span class="pill-tag">machine translation</span><span class="pill-tag">chatbots</span><span class="pill-tag">spam detection</span><span class="pill-tag">NER</span><span class="pill-tag">summarization</span></p>`},
-    {h:"Bag of Words (BoW)", html:`<p>Represents text as a vector of <b>word counts</b> over a vocabulary, ignoring grammar and order. E.g. <em>“I love NLP”</em> + <em>“NLP loves me”</em> → vocab {I, love, NLP, loves, me} with per-sentence counts. <b>Limitations</b>: loses <b>word order & context</b>, no semantics, and produces large <b>sparse</b> vectors. Build it in Python with <b>scikit-learn's <code>CountVectorizer</code></b> (or NLTK).</p>`},
-    {h:"TF-IDF", html:`<p><b>TF-IDF = Term Frequency – Inverse Document Frequency.</b> It weights each term by how often it appears in a document (<b>TF</b>) against how rare it is across all documents (<b>IDF</b>). Purpose: <b>down-weight common words</b> and <b>up-weight distinctive</b> ones, so informative terms stand out over frequent-but-uninformative ones.</p>`},
-    {h:"Key preprocessing terms", html:`<ul>
-      <li><b>Tokenization</b> — split text into tokens/words.</li>
-      <li><b>Stop words</b> — very common words (the, is, a) usually removed.</li>
-      <li><b>Stemming</b> — crudely chop a word to its root (may not be a real word): <code>studies → studi</code>.</li>
-      <li><b>Lemmatization</b> — reduce to the dictionary base form (lemma) using vocabulary/morphology: <code>studies → study</code>, <code>better → good</code>.</li>
-      <li><b>NER</b> — Named Entity Recognition: identify names, places, organizations.</li></ul>`},
-    {h:"Stemmer vs Lemmatizer", html:`<p>A <b>stemmer</b> applies rule-based chopping and may produce non-words (<code>caring → car</code>). A <b>lemmatizer</b> returns a valid dictionary word (<code>caring → care</code>) but needs more info — crucially the word's <b>part of speech (POS)</b> — to choose the right lemma.</p>`},
-    {h:"Inflectional vs derivational affixes", html:`<p><b>Inflectional affixes</b> change grammatical form (tense, number) <b>without changing word class</b>: cat→cats, walk→walked. <b>Derivational affixes</b> create a <b>new word / meaning / word class</b>: happy→happi<b>ness</b>, care→care<b>ful</b>.</p>`}
-  ]
-},
-{
-  id:"nn", tag:"Module 4", title:"Neural Networks (ANN)",
-  blurb:"From the perceptron to deep networks: layers, activation functions, cost functions, backpropagation, and building MLPs in sklearn.",
-  notes:[
-    {h:"The perceptron", html:`<p>A <b>perceptron</b> is a single neuron / single-layer network that produces <b>one output</b>. It computes a weighted sum plus bias, then applies an activation:</p>
-      <div class="formula">z = b + Σ (xᵢ · wᵢ)   →   output = φ(z)</div>
-      <p><b>Weights</b> show the strength of each input; the <b>bias</b> b shifts the activation up/down (and handles the case where inputs are 0). Adjusting weights = "learning."</p>`},
-    {h:"Layers", html:`<ul>
-      <li><b>Input layer</b> — accepts the raw feature values.</li>
-      <li><b>Hidden layer(s)</b> — between input and output; hard to interpret due to high interconnectivity.</li>
-      <li><b>Output layer</b> — the final estimate (can have multiple neurons).</li></ul>
-      <p>A <b>Deep Neural Network</b> has <b>2 or more hidden layers</b> (vs a "non-deep" net with 0–1).</p>`},
-    {h:"Activation functions", html:`<p>Purpose: introduce <b>non-linearity</b> and set <b>boundaries</b> on outputs (e.g. probabilities), enabling complex relationships.</p>
+      <li>Bernoulli: θ̂_ML = <b>k/N</b> (7 heads/10 → 0.7). Small N: 0/3 → θ̂ = 0.</li>
+      <li>Gaussian: σ̂²_ML = (1/N)Σ(xₙ−μ̂)², biased low; E[σ̂²_ML] = ((N−1)/N)σ².</li>
+      <li><b>MAP = MLE + log prior.</b> Beta(a,b) coin: θ̂_MAP = (k+a−1)/(N+a+b−2); Beta(2,2) adds one imaginary head + tail. A <b>Gaussian prior on w → L2 penalty → ridge.</b></li></ul>`},
+    {h:"Information theory", html:`<div class="formula">H(p) = −Σ p log p    H(p,q) = −Σ p log q    KL(p‖q) = H(p,q) − H(p) ≥ 0</div>
       <ul>
-      <li><b>Binary step</b> — threshold; outputs exactly 0 or 1. "Strong" — small input changes aren't reflected.</li>
-      <li><b>Sigmoid (logistic)</b> — S-curve in <b>(0,1)</b>, good for probability. Drawback: <b>vanishing gradient</b> for strong negatives → used in the <b>output layer</b>, not hidden layers.</li>
-      <li><b>Tanh</b> — range <b>(−1, 1)</b>; like sigmoid but better; strong negatives map to negative outputs, so less likely to get stuck.</li>
-      <li><b>ReLU</b> — <code>max(0, x)</code>, range <b>[0, ∞)</b>. Most used in hidden layers: avoids vanishing gradient on the positive side, is cheap, and gives sparse activations. Maps all negatives to 0.</li></ul>`},
-    {h:"Multi-class outputs", html:`<ul>
-      <li><b>Mutually exclusive</b> classes → <b>Softmax</b> (probabilities sum to 1).</li>
-      <li><b>Non-exclusive / multi-label</b> → <b>Sigmoid</b> per output node (independent probabilities).</li></ul>`},
-    {h:"Cost functions & backprop", html:`<p>The <b>cost/loss</b> compares predictions to true labels and must be a single averaged value.</p>
-      <ul><li><b>Regression</b> → Mean Squared Error (MSE).</li>
-      <li><b>Classification</b> → Cross-Entropy / log loss (Binary Cross-Entropy for 2 classes).</li></ul>
-      <p>Written as <b>C(W, B, Sr, Er)</b>: <b>W</b> = weights, <b>B</b> = biases, <b>Sr</b> = input of a single training sample, <b>Er</b> = its desired output. <b>Backpropagation</b> is how the network goes back and <b>adjusts the weights and biases</b> to reduce the loss.</p>`},
-    {h:"Neural networks in sklearn", html:`<p>Use <b><code>MLPClassifier</code></b> (classification) and <b><code>MLPRegressor</code></b> (regression). Specify architecture with <b><code>hidden_layer_sizes</code></b> — e.g. <code>(100, 50)</code> means two hidden layers of 100 and 50 nodes.</p>
-      <p><b>Adam</b> = <b>Adaptive Moment Estimation</b>, an advanced adaptive version of stochastic gradient descent (SGD). Optimizers update weights via <code>New = Old − η·∇Loss</code> (η = learning rate).</p>`}
+      <li>Entropy is <b>max for uniform</b>, <b>zero when one outcome is certain</b>. Bern(0.5) = <b>1 bit</b>; Bern(0.9) = 0.469 bits.</li>
+      <li><b>KL ≥ 0</b>, zero only when p = q, and <b>not symmetric</b>. <b>Minimizing cross-entropy = maximizing likelihood.</b></li>
+      <li>Mutual information I(X;Y) = 0 <b>iff independent</b>; catches any dependence (correlation can be 0 while I > 0).</li>
+      <li><b>Bits (log₂) vs nats (ln): 1 nat = 1.443 bits; the argmax never changes.</b></li></ul>`}
   ]
 },
 {
-  id:"cnn", tag:"Module 5 · Post-Quiz Reference", title:"Convolutional Neural Networks (CNN)",
-  blurb:"Covered after the Tuesday quiz — included here for reference: convolution, kernels, feature maps, stride, padding, pooling, dropout, and output-size math.",
+  id:"linreg", short:"Linear Regression", tag:"Lecture 03", title:"Linear Regression",
+  blurb:"Residuals and SSE, the simple-regression formulas, the normal equations, when the matrix is singular, and least squares as MLE.",
   notes:[
-    {h:"Why not just use an ANN on images?", html:`<ul>
-      <li><b>Loss of spatial information</b> — flattening 28×28 → 784 destroys pixel relationships (who is next to whom).</li>
-      <li><b>Too many parameters</b> — fully connected layers explode (e.g. 784 → 128 = 100K+ weights) → slow, overfits.</li>
-      <li><b>No feature reuse</b> and <b>not translation invariant</b> — a shifted object must be relearned.</li></ul>
-      <p>A color image has <b>3 channels</b> (R,G,B); a 28×28×3 image = 2,352 features per image.</p>`},
-    {h:"Convolution", html:`<p>A <b>kernel/filter</b> (small matrix) slides over the image: <b>element-wise multiply</b> the overlap, <b>sum</b> → one output value. The result is a <b>feature map</b>, where each value shows how strongly the filter matches that region. Weight/parameter sharing (same filter everywhere) means far fewer parameters and detection <b>anywhere</b> in the image (translation invariance).</p>`},
-    {h:"Stride & padding", html:`<ul>
-      <li><b>Stride</b> — how many pixels the kernel moves each step. Larger stride → <b>smaller</b> output.</li>
-      <li><b>Padding</b> — add zeros around the border so the kernel fits, to <b>preserve size</b> and avoid wasting/losing border pixels. Default <code>'valid'</code> = no padding; <code>'same'</code> keeps the size.</li></ul>`},
-    {h:"Output-size math (know this!)", html:`<div class="formula">Conv output = ⌊ (W − F + 2P) / S ⌋ + 1</div>
-      <p>W = input size, F = filter size, P = padding, S = stride. <b>Example:</b> 6×6 input, 3×3 filter, stride 1, no padding → (6−3+0)/1 + 1 = <b>4×4</b>. (28×28 with 3×3, stride 1, valid → 26×26.)</p>
-      <div class="formula">Pool output = ⌊ (input − pool_size) / stride ⌋ + 1</div>`},
-    {h:"Pooling", html:`<p>A <b>down-sampling</b> operation over a small window (e.g. 2×2) that shrinks the feature map while keeping key info.</p>
-      <ul><li><b>Max pooling</b> — take the <b>maximum</b> value in the window.</li>
-      <li><b>Average pooling</b> — take the <b>average</b>.</li></ul>
-      <p>Benefits: fewer computations, and it <b>reduces overfitting</b> by removing unnecessary detail (keeping only dominant features) and adds <b>translation robustness.</b></p>`},
-    {h:"Flatten & Dropout", html:`<ul>
-      <li><b>Flatten</b> — after conv + pooling, flatten the feature maps into a <b>1D vector</b> to feed a fully connected (Dense) layer (which ends in softmax for classification).</li>
-      <li><b>Dropout</b> — regularization that randomly <b>turns off</b> a fraction p of neurons each training step (e.g. <code>Dropout(0.25)</code>), forcing the network not to rely on specific neurons → more general patterns, less overfitting.</li></ul>`}
+    {h:"Model, residual, loss", html:`<p>Model ŷ = w₀ + w₁x. <b>Residual rₙ = yₙ − ŷₙ</b> (true − predicted); positive residual = point sits <b>above</b> the line. SSE = Σrₙ²; MSE = SSE/N; <b>RMSE = √MSE</b> (units of y).</p>
+      <p>Why square: (1) no + / − cancellation, (2) big misses hurt more, (3) smooth/differentiable, (4) it's the MLE under Gaussian noise.</p>`},
+    {h:"Simple-regression formulas", html:`<div class="formula">w₁ = S_xy / S_xx      w₀ = ȳ − w₁x̄</div>
+      <p>where S_xx = Σ(xₙ−x̄)², S_xy = Σ(xₙ−x̄)(yₙ−ȳ). Two consequences: the best line passes through <b>(x̄, ȳ)</b>, and at the best line the <b>residuals sum to zero</b>. If all xₙ are equal, S_xx = 0 and the slope is undefined.</p>`},
+    {h:"Matrix form & normal equations", html:`<p>Design matrix X has a <b>first column of ones</b> for w₀. SSE = ‖Xw − y‖².</p>
+      <div class="formula">∇L = 2Xᵀ(Xw − y) = 0  ⟹  XᵀX w = Xᵀy  ⟹  w = (XᵀX)⁻¹Xᵀy</div>
+      <p>Called <b>normal</b> because the residual is perpendicular to every column of X (Xᵀr = 0). XᵀX is (D+1)×(D+1) — small regardless of N.</p>`},
+    {h:"When the formula breaks", html:`<ul>
+      <li>Needs XᵀX invertible ⟺ <b>X has full column rank</b>.</li>
+      <li>Failure: weight in lb <b>and</b> kg (kg = 0.4536·lb) → collinear → singular. NumPy may not error; it returns an arbitrary split.</li>
+      <li><b>Fixes:</b> drop the duplicate column, or ridge (replace XᵀX by <b>XᵀX + λI</b>).</li></ul>`},
+    {h:"Geometric & probabilistic views", html:`<p><b>Geometric:</b> each axis is one example; col(X) is a plane; least squares is the perpendicular drop of y onto it, so the residual is orthogonal to every column (hence residuals sum to zero).</p>
+      <p><b>Probabilistic:</b> yₙ = w₀ + w₁xₙ + εₙ, εₙ ~ N(0, σ²) ⟹ <b>least squares = MLE under Gaussian noise</b>. σ̂²_ML = SSE/N (biased low; unbiased divides by <b>N − 2</b>, the two fitted params). <b>Change the noise model, change the loss:</b> Laplace noise → minimize Σ|rₙ| (robust to outliers).</p>`},
+    {h:"Worked numbers", html:`<p>Three cars x = (2,3,4), y = (30,25,14): best line <b>mpg = 47 − 8x</b>, residuals (−1, +2, −1), <b>SSE = 6</b>. Check point of averages: 47 − 8(3) = 23 = ȳ. ✓ &nbsp; On 392 cars: mpg = 46.22 − 0.00765·weight, RMSE = 4.32.</p>`}
+  ]
+},
+{
+  id:"regGD", short:"Regularization & GD", tag:"Lecture 04", title:"Overfitting, Regularization & Gradient Descent",
+  blurb:"Basis functions, the under/overfit picture, ridge vs lasso (shrink vs zero), and gradient descent with learning rates and scaling.",
+  notes:[
+    {h:"Basis functions", html:`<p>ŷ = Σ wⱼ φⱼ(x). A basis function is any <b>fixed</b> function of the input chosen <b>before</b> fitting; the feature matrix <b>Φ</b> replaces X (φ₀ = 1 carries the intercept). <b>The model is still linear in w</b> — "linear model" refers to the weights, not the input. Degree-2 on 3 points fits exactly (SSE = 0) — a warning, not a triumph.</p>`},
+    {h:"Under- vs overfitting", html:`<table class="tbl"><thead><tr><th></th><th>Train</th><th>Test</th><th>Fix</th></tr></thead>
+      <tbody>
+      <tr><td>Underfit</td><td>high</td><td>high</td><td>more flexibility (higher degree)</td></tr>
+      <tr><td>Overfit</td><td>very low</td><td>high (the gap)</td><td>regularize, lower degree, more data</td></tr>
+      </tbody></table>
+      <p>Training error <b>only falls</b> as degree grows; test error is a <b>U curve</b> — pick the bottom. Split <b>before</b> fitting; touch the test set once. Tie-break: prefer the simpler model.</p>`},
+    {h:"Ridge (L2)", html:`<div class="formula">J(w) = SSE + λ‖w‖²      w = (ΦᵀΦ + λI)⁻¹Φᵀy</div>
+      <p>λ is a <b>hyperparameter</b> (chosen, not learned); the <b>intercept is not penalized</b>. Always invertible for λ > 0 (every eigenvalue becomes c + λ ≥ λ > 0) — this is the fix for L03's singular matrix. Ridge <b>shrinks weights but never to exactly zero</b>. As λ → ∞, all slopes → 0 and the model becomes the <b>flat line at the mean of training y</b>.</p>`},
+    {h:"Lasso (L1)", html:`<p>Penalty is <b>Σ|wⱼ|</b>. It <b>sets weights to exactly zero</b> → automatic feature selection, but has <b>no closed form</b> (the corner at zero). Geometry: the L1 <b>diamond</b> is first touched at a corner on an axis (a weight = 0); the L2 <b>circle</b> is touched on its rim (both nonzero). <b>Ridge = Gaussian prior on w; lasso = Laplace prior.</b> Use ridge for many small/correlated effects; lasso when only a few features matter.</p>`},
+    {h:"Gradient descent", html:`<div class="formula">w ← w − η ∇J(w)      MSE gradient = (2/N) Xᵀ(Xw − y)</div>
+      <p>Why: the closed form needs a big inverse and <b>most models have no closed form</b> (logistic, SVM, nets). η = learning rate (a hyperparameter). Self-check: <b>the gradient has the same shape as w</b>. <b>Convex</b> = no side dips (least squares, ridge are; nets are not). η too small crawls, too big <b>diverges</b> — diagnose from the loss curve. <b>Standardize features first</b> or the walk zig-zags down a tilted valley. One pass through the data = an <b>epoch</b>.</p>`}
+  ]
+},
+{
+  id:"logistic", short:"Logistic & Softmax", tag:"Lecture 05", title:"Logistic Regression & Softmax",
+  blurb:"Why least squares fails on labels, the sigmoid from log-odds, cross-entropy and its gradient, and the softmax generalization.",
+  notes:[
+    {h:"Why least squares fails on labels", html:`<ol>
+      <li><b>Outputs leave [0,1]</b> — fitted values below 0 or above 1 aren't probabilities.</li>
+      <li><b>Far-away points rotate the boundary</b> — squared error punishes a correct-but-confident point, swinging the line.</li>
+      <li><b>Wrong noise model</b> — a label is a Bernoulli coin flip, not a number with Gaussian noise.</li></ol>`},
+    {h:"Score & decision boundary", html:`<p>Score <b>z = wᵀx + b</b>; the <b>decision boundary is z = 0</b> (a hyperplane) — a <b>linear classifier</b>. Predict class 1 when p(y=1|x) ≥ 0.5 ⟺ z ≥ 0.</p>`},
+    {h:"Odds, log-odds, and the sigmoid", html:`<p>odds = p/(1−p); <b>log-odds (logit) = ln(odds)</b>. <b>The modeling choice: the log-odds is linear in the inputs</b> — solve for p and the sigmoid <b>falls out</b> (we don't assume its shape).</p>
+      <div class="formula">σ(z) = 1/(1 + e^(−z))    σ(−z) = 1 − σ(z)    σ′ = σ(1 − σ)  (max 0.25 at z=0)</div>
+      <p>σ(0) = 0.5, σ(4) = 0.982. <b>+1 unit of feature m multiplies the odds by e^(wₘ)</b> (odds multiplier, not probability multiplier).</p>`},
+    {h:"Cross-entropy loss", html:`<div class="formula">J = −(1/N) Σ [ yₙ ln pₙ + (1 − yₙ) ln(1 − pₙ) ]</div>
+      <p>Each car pays <b>−ln(probability it gave the true label)</b>, in nats. <b>Baseline: predicting 0.5 for everything costs ln 2 = 0.693.</b> A confident wrong call (p = 0.99 wrong → 4.605) has <b>no upper limit</b>. Squared error charges at most 1/car and (through the sigmoid) is flat far away and non-convex.</p>`},
+    {h:"The gradient", html:`<div class="formula">∇_w J = (1/N) Σ (pₙ − yₙ) xₙ = (1/N) Xᵀ(p − y)</div>
+      <p><b>Same shape as linear regression: (prediction − target) × input, averaged</b> — but the prediction goes through a sigmoid and there's <b>no factor of 2</b>. Convex, but <b>no closed form</b> (w sits inside N sigmoids). <b>Separable data is a trap:</b> weights grow without bound — ridge stops it.</p>`},
+    {h:"Softmax (K classes)", html:`<div class="formula">p_k = e^(z_k) / Σⱼ e^(z_j)      predict argmax p_k = argmax z_k</div>
+      <p>One weight vector per class. <b>Shift invariance:</b> adding a constant to every score changes nothing (only differences matter; code subtracts the max). <b>K = 2 collapses to the sigmoid.</b> <b>One-hot labels</b> make each example cost −ln(prob of its true class). Gradient again (p_nk − y_nk)xₙ.</p>`},
+    {h:"The one recipe (memorize)", html:`<table class="tbl"><thead><tr><th>Task</th><th>Output</th><th>Noise</th><th>Loss</th></tr></thead>
+      <tbody>
+      <tr><td>Regression</td><td>wᵀx + b</td><td>Gaussian</td><td>squared error</td></tr>
+      <tr><td>Two classes</td><td>σ(wᵀx + b)</td><td>Bernoulli</td><td>cross-entropy</td></tr>
+      <tr><td>K classes</td><td>softmax</td><td>categorical</td><td>cross-entropy</td></tr>
+      </tbody></table>
+      <p>Write the probability of the observed labels, take the log, minimize the negative. The noise model decides the loss; the output decides whether a closed form exists.</p>`}
   ]
 }
 ];
 
 /* =========================================================
    MULTIPLE-CHOICE QUESTION BANK
-   (options are length-balanced; positions are shuffled at
-    render, so the answer key index below is not a position tell)
+   (option lengths balanced; positions shuffled at render)
    ========================================================= */
 const QB = {
-ensemble:[
-  {q:"What is the general idea behind ensemble learning?",
-   o:["Aggregate many predictors' outputs to beat any single one","Train one deep model until it memorizes the training data","Discard outliers first, then fit a single strong classifier","Pre-train on unlabeled data before a supervised fine-tune"],
-   a:0, e:"The 'wisdom of the crowd' — aggregating many predictors usually beats the best individual predictor."},
-  {q:"In a <code>hard voting</code> classifier, the ensemble predicts…",
-   o:["The average of every model's predicted probabilities","Whatever the single most accurate model has predicted","The class with the most votes (the majority / mode)","A class chosen at random, weighted by each class size"],
-   a:2, e:"Hard voting takes the majority vote — the most frequently predicted class across the models."},
-  {q:"What must be true for <code>soft voting</code> to work?",
-   o:["Every classifier can output class probabilities (predict_proba)","Every classifier in the ensemble must be a decision tree","The training set has to be perfectly balanced by class","All sampling for the models must be done without replacement"],
-   a:0, e:"Soft voting averages predicted probabilities, so each model needs predict_proba(). For SVC set probability=True; it weights confident votes more."},
-  {q:"Ensemble methods generally work best when the predictors are…",
-   o:["As similar to one another as possible, to keep them stable","As independent and diverse as possible, so their errors differ","Trained on identical data using one identical algorithm each","Restricted to linear models so they stay interpretable"],
-   a:1, e:"Diverse, independent predictors make different kinds of errors, which the ensemble averages away."},
-  {q:"What is the difference between bagging and pasting?",
-   o:["Bagging samples with replacement; pasting without replacement","Bagging is sequential, whereas pasting runs fully in parallel","Bagging mixes algorithms; pasting reuses one single algorithm","Bagging is only for regression; pasting is only for classification"],
-   a:0, e:"Bagging = bootstrap aggregating = sampling WITH replacement. Pasting = WITHOUT replacement (bootstrap=False)."},
-  {q:"Which method lets the SAME instance be sampled twice for the SAME predictor?",
-   o:["Both bagging and pasting permit this equally often","Only bagging, because it samples with replacement","Only pasting, because it draws unique subsets each time","Neither method allows a repeat within one predictor"],
-   a:1, e:"Because bagging replaces the sample, one predictor can draw the same instance again. Pasting (no replacement) cannot."},
-  {q:"How does Out-of-Bag (OOB) evaluation estimate error?",
-   o:["From a labeled test set collected and held out in advance","From the averaged training error taken over all the trees","Using standard k-fold cross-validation on the full dataset","Scoring each instance with only the trees that never sampled it"],
-   a:3, e:"Each instance is out-of-bag for the trees that didn't sample it; averaging their predictions gives a free validation estimate."},
-  {q:"At each split, how does a Random Forest differ from a single Decision Tree?",
-   o:["It always evaluates the single best of all the features","It considers only a random subset of features per split","It refuses to split on any numeric-valued feature","It replaces splitting entirely with a boosting round"],
-   a:1, e:"A random forest picks the best split among a random subset of features, which de-correlates the trees."},
-  {q:"Why does a Random Forest usually overfit less than one deep tree?",
-   o:["It trains on far fewer examples than a single tree does","Averaging many de-correlated trees reduces the variance","It forces every tree in the forest to stay very shallow","It deletes all of the noisy features before training"],
-   a:1, e:"Aggregating many de-correlated trees smooths out variance, improving generalization."},
-  {q:"How does a Random Forest measure a feature's importance?",
-   o:["By the tree depth at which the feature first appears","By each feature's raw correlation with the target label","By average impurity reduction, scaled so they sum to 1","By counting how many trees end up ignoring the feature"],
-   a:2, e:"It averages the impurity reduction from nodes using each feature across all trees, then normalizes to sum to 1 (feature_importances_)."},
-  {q:"What is the general strategy of boosting?",
-   o:["Train many models in parallel and then take a majority vote","Train models in sequence, each one correcting the last","Fit a single strong learner and then prune it back hard","Cluster the data first and classify within each cluster"],
-   a:1, e:"Boosting combines weak learners into a strong learner by training them one after another, each fixing prior mistakes."},
-  {q:"Which strategy does AdaBoost use to boost performance during training?",
-   o:["It fits each new model to the previous model's residuals","It raises the weight of the instances the last model got wrong","It deletes the misclassified rows from the training set","It randomly drops a fraction of neurons on each round"],
-   a:1, e:"AdaBoost increases the relative weight of misclassified instances so the next predictor focuses on the hard cases."},
-  {q:"When AdaBoost predicts, how does it favor the better models?",
-   o:["Every predictor casts a single, equally weighted vote","Only the final predictor that was trained gets to decide","Predictors vote in a majority weighted by accuracy (α)","It averages the raw input feature values across models"],
-   a:2, e:"Predictions are a weighted majority vote — more accurate predictors get a higher weight α and thus more influence."},
-  {q:"What is a key drawback of AdaBoost compared with bagging?",
-   o:["It is limited to strictly two-class classification problems","Training is sequential, so it cannot fully parallelize","It demands probability outputs from every base model","It only works when the base models are all linear"],
-   a:1, e:"Each predictor trains only after the previous one is evaluated, so AdaBoost scales worse than bagging/pasting."},
-  {q:"How is Gradient Boosting different from AdaBoost?",
-   o:["It re-weights the training instances on every iteration","It fits each new predictor to the previous one's residuals","It trains all of its trees fully in parallel at once","It swaps weighted voting for a simple hard-voting rule"],
-   a:1, e:"Instead of re-weighting instances, Gradient Boosting fits each new predictor to the residual errors of the previous one."}
+linalg:[
+  {q:"Two nonzero vectors are <b>orthogonal</b> exactly when…",
+   o:["their dot product equals zero","their dot product equals one","they have the same L2 norm","they point in the same direction"],
+   a:0, e:"xᵀy = ‖x‖‖y‖cos θ, and cos 90° = 0, so a zero dot product means the vectors are perpendicular."},
+  {q:"For x = (1, 2, 2), which set of norms is correct?",
+   o:["‖x‖₂ = 5, ‖x‖₁ = 3, ‖x‖∞ = 2","‖x‖₂ = 3, ‖x‖₁ = 5, ‖x‖∞ = 2","‖x‖₂ = 9, ‖x‖₁ = 5, ‖x‖∞ = 1","‖x‖₂ = 3, ‖x‖₁ = 2, ‖x‖∞ = 5"],
+   a:1, e:"‖x‖₂ = √(1+4+4) = 3; ‖x‖₁ = 1+2+2 = 5; ‖x‖∞ = max(1,2,2) = 2."},
+  {q:"What does <b>cosine similarity</b> between two vectors measure?",
+   o:["their combined magnitude only","their direction only, ignoring length","the angle between their L1 norms","whether one is a subset of the other"],
+   a:1, e:"cos θ = aᵀb / (‖a‖‖b‖) normalizes out length, comparing orientation only."},
+  {q:"The projection of a onto b equals…",
+   o:["(aᵀb / aᵀa) · a","(aᵀa / bᵀb) · b","(aᵀb / bᵀb) · b","(bᵀb / aᵀb) · a"],
+   a:2, e:"proj_b(a) = (aᵀb / bᵀb) b — scale b by how much of a lies along it."},
+  {q:"Which identity is correct for the transpose of a product?",
+   o:["(AB)ᵀ = AᵀBᵀ","(AB)ᵀ = BᵀAᵀ","(AB)ᵀ = (BA)ᵀ","(AB)ᵀ = BA"],
+   a:1, e:"Transpose reverses the order: (AB)ᵀ = BᵀAᵀ. In general AB ≠ BA."},
+  {q:"A square matrix has an inverse if and only if…",
+   o:["it is symmetric about its diagonal","its determinant is nonzero (full rank)","all of its entries are nonzero","it has more rows than columns"],
+   a:1, e:"Invertibility requires a square matrix with nonzero determinant, equivalently full rank."},
+  {q:"An <b>orthogonal</b> matrix Q satisfies QᵀQ = I, which means it…",
+   o:["preserves lengths and angles","doubles every vector's length","sets one coordinate to zero","has all eigenvalues equal to 0"],
+   a:0, e:"Orthogonal matrices are rotations/reflections: Q⁻¹ = Qᵀ and they preserve lengths and angles."},
+  {q:"A matrix A is <b>positive semi-definite</b> (PSD) when…",
+   o:["xᵀAx ≥ 0 for every vector x","its determinant is exactly zero","it equals its own inverse","every entry is positive"],
+   a:0, e:"PSD means xᵀAx ≥ 0 for all x, equivalently all eigenvalues ≥ 0 (e.g. XᵀX, covariance Σ)."},
+  {q:"Collinear (linearly dependent) feature columns cause least squares to break because…",
+   o:["the design matrix gains too many rows","the Gram matrix XᵀX becomes singular","the residuals can no longer be squared","the learning rate grows without bound"],
+   a:1, e:"Collinear columns ⟹ X lacks full column rank ⟹ XᵀX is singular (not invertible), so w = (XᵀX)⁻¹Xᵀy fails."},
+  {q:"How do you find the eigenvalues of a matrix A?",
+   o:["compute the trace divided by rank","solve det(A − λI) = 0 for λ","invert A and read the diagonal","take the square root of each entry"],
+   a:1, e:"Eigenvalues solve the characteristic equation det(A − λI) = 0; then Av = λv gives the eigenvectors."},
+  {q:"The eigenvalues of A = [[5, 2], [2, 5]] are…",
+   o:["5 and 2","10 and 0","7 and 3","4 and 6"],
+   a:2, e:"For [[a,b],[b,a]] the eigenvalues are a ± b = 5 ± 2 = 7 and 3 (eigenvectors (1,1) and (1,−1))."},
+  {q:"The <b>spectral theorem</b> says a symmetric matrix can be written as…",
+   o:["UΣVᵀ with rectangular U and V","QΛQᵀ with orthonormal eigenvectors","LU with lower and upper factors","a product of two singular matrices"],
+   a:1, e:"Symmetric A = QΛQᵀ with real eigenvalues and orthonormal eigenvectors. (SVD = UΣVᵀ is the general case.)"},
+  {q:"For a quadratic form q(x) = xᵀAx, a <b>positive-definite</b> A gives a surface shaped like a…",
+   o:["saddle","flat plane","bowl","single straight line"],
+   a:2, e:"PD (all λ > 0) → a bowl (convex); indefinite → a saddle; PSD → a valley/trough."},
+  {q:"The determinant of a matrix equals…",
+   o:["the sum of its eigenvalues","the product of its eigenvalues","the number of nonzero rows","its largest singular value"],
+   a:1, e:"det(A) = Πλᵢ (zero ⟺ singular). The trace, by contrast, is Σλᵢ."},
+  {q:"Which gradient rule is correct for symmetric A?",
+   o:["∇(aᵀx) = x and ∇‖x‖² = x","∇(xᵀAx) = 2Ax and ∇(aᵀx) = a","∇(xᵀAx) = Ax and ∇‖x‖² = 1","∇(aᵀx) = 2a and ∇‖x‖² = x²"],
+   a:1, e:"∇(aᵀx) = a; ∇(xᵀAx) = 2Ax for symmetric A; ∇‖x‖² = 2x. These give the least-squares normal equations."}
 ],
-clustering:[
-  {q:"What is the key difference between supervised and unsupervised learning?",
-   o:["Supervised learning is simply the faster of the two methods","Unsupervised learning uses only inputs X, with no labels y","Unsupervised learning always relies on neural networks","Supervised learning cannot handle numeric feature values"],
-   a:1, e:"Supervised = labeled (X and y). Unsupervised = only X, no labels — the algorithm finds structure on its own."},
-  {q:"Which is a valid list of unsupervised learning algorithms?",
-   o:["Logistic Regression, SVM, Random Forest, KNN classifier","K-Means, Hierarchical clustering, DBSCAN, PCA","AdaBoost, Gradient Boosting, MLPClassifier, linear SVC","Linear Regression, Decision Tree, Naive Bayes, KNN"],
-   a:1, e:"K-Means, Hierarchical, DBSCAN, PCA (also anomaly detection, ICA, Apriori) are unsupervised — no labels needed."},
-  {q:"How does clustering differ from classification?",
-   o:["Clustering predicts a number; classification predicts a group","Clustering groups unlabeled data; classification uses labels","Clustering needs more labeled data than classification does","There is essentially no difference between the two tasks"],
-   a:1, e:"Classification uses labeled data to assign predefined classes; clustering is unsupervised and discovers groups without labels."},
-  {q:"What are the three categories of clustering algorithms?",
-   o:["Linear, non-linear, and kernel-based approaches","Partition-based, hierarchical, and density-based","Supervised, semi-supervised, and unsupervised types","Hard, soft, and fuzzy assignment strategies"],
-   a:1, e:"Partition-based (k-Means), Hierarchical (Agglomerative/Divisive), and Density-based (DBSCAN)."},
-  {q:"Which statement about a cluster's centroid is TRUE?",
-   o:["It must always be one of the actual points in the dataset","Each attribute is the mean; it may be an imaginary point","It is simply the point that is farthest from all the others","It is picked at random once and then never updated again"],
-   a:1, e:"A centroid is the per-attribute mean of the cluster and is frequently an imaginary point not in the dataset."},
-  {q:"Which is the correct order of steps in K-Means?",
-   o:["Repeatedly merge the closest clusters until one remains","Assign points to nearest centroid, recompute means, repeat","Label the data, then train a tree and prune it back","Find dense core points, expand them, and mark noise"],
-   a:1, e:"K-Means alternates assignment (nearest centroid) and update (mean of assigned points) until centroids stop moving."},
-  {q:"What is the termination condition of K-Means?",
-   o:["After a fixed cap of exactly 100 iterations every time","When the centroids stop moving and assignments stabilize","Once every cluster ends up with the same number of points","When the WCSS value reaches exactly zero for the data"],
-   a:1, e:"The loop repeats until the centroids no longer move — at that point the clustering is stable."},
-  {q:"WCSS (used to choose K) stands for and measures…",
-   o:["Weighted Class Separation Score — distance between clusters","Within-Cluster-Sum-of-Squares — points' distance to centroid","Whole-Cluster Silhouette Score across all of the clusters","Weighted Centroid Shift Sum measured between iterations"],
-   a:1, e:"WCSS / inertia sums the squared distances of each point to its centroid; K-Means minimizes it."},
-  {q:"How does the Elbow method choose the number of clusters K?",
-   o:["Pick whichever value of K gives the largest WCSS value","Plot WCSS versus K and choose K at the bend ('elbow')","Always set K equal to the number of input features","Choose K at random and average the results over runs"],
-   a:1, e:"Plot WCSS against K; the elbow (where extra clusters barely lower WCSS) is the optimal K."},
-  {q:"Why would you use K-Modes instead of K-Means?",
-   o:["It runs much faster on very large numeric datasets","The data is categorical, so mean and Euclidean distance fail","It is guaranteed to reach a global rather than local optimum","It removes the need to choose the number of clusters K"],
-   a:1, e:"For categorical data, K-Modes replaces Euclidean distance with a mismatch count and the mean with the mode."},
-  {q:"In K-Modes, the dissimilarity between two observations is…",
-   o:["The Euclidean distance computed between the two rows","The count of attributes that mismatch (match 0, differ 1)","The average of the two observations' attribute values","Always 1 for any pair unless the rows are identical"],
-   a:1, e:"Matching values contribute 0 and differing values contribute 1; dissimilarity is the number of mismatches."},
-  {q:"How are cluster leaders updated in K-Modes?",
-   o:["By averaging the numeric values of each attribute","By taking each feature's mode (its most frequent value)","By choosing the point nearest to the cluster mean","By merging the two clusters that are closest together"],
-   a:1, e:"New modes are the most-observed value per feature among that cluster's members."}
+prob:[
+  {q:"The <b>sum rule</b> of probability states that…",
+   o:["p(X) = Σ_Y p(X, Y)","p(X, Y) = p(X) p(Y)","p(X) = p(X|Y) p(Y)","p(X, Y) = p(X) + p(Y)"],
+   a:0, e:"Marginalizing sums the joint over the other variable: p(X) = Σ_Y p(X,Y)."},
+  {q:"Which statement about Bayes' theorem is correct?",
+   o:["it is a fourth axiom of probability theory","it derives from the product rule written two ways","it only holds when the events are independent","it requires the likelihood to be Gaussian"],
+   a:1, e:"Bayes is not a new axiom — it's the product rule p(X,Y)=p(Y|X)p(X)=p(X|Y)p(Y) rearranged. There are only three axioms."},
+  {q:"In Bayesian inference, the posterior is proportional to…",
+   o:["the prior divided by the evidence","the likelihood times the prior","the likelihood minus the prior","the evidence times the posterior"],
+   a:1, e:"p(θ|𝒟) ∝ p(𝒟|θ)p(θ): posterior ∝ likelihood × prior; the evidence p(𝒟) doesn't depend on θ."},
+  {q:"With prevalence 1%, sensitivity 0.95, and false-positive rate 0.10, p(disease | positive) is about…",
+   o:["0.95, matching the sensitivity","0.088, because the base rate dominates","0.50, an even chance either way","0.90, since the test is accurate"],
+   a:1, e:"p(D|+) = (0.95·0.01)/(0.0095+0.099) ≈ 0.088 — the low base rate produces far more false than true positives."},
+  {q:"Which is always true, even for dependent variables?",
+   o:["variance is additive: Var[X+Y] = Var[X] + Var[Y]","expectation is linear: E[aX + bY] = aE[X] + bE[Y]","Var[aX] = a·Var[X]","covariance is always zero"],
+   a:1, e:"Expectation is linear regardless of dependence. Variance is not, and Var[aX] = a²Var[X]."},
+  {q:"Zero covariance between X and Y means…",
+   o:["X and Y must therefore be fully statistically independent","X and Y have no linear relationship, but may still be dependent","X must equal Y up to an additive constant shift","their joint distribution is necessarily Gaussian"],
+   a:1, e:"Zero covariance rules out linear association only (e.g. Y = X² with X symmetric has Cov 0 but is dependent). Independence is stronger."},
+  {q:"The variance of a Bernoulli(θ) random variable is largest…",
+   o:["at θ = 0.5, where it equals 0.25","at θ = 0, where it equals 1","at θ = 1, where it equals 0.5","it is constant for every θ"],
+   a:0, e:"Var = θ(1−θ), which peaks at θ = 0.5 (value 0.25) and vanishes at 0 and 1."},
+  {q:"How do the Law of Large Numbers and the Central Limit Theorem differ?",
+   o:["LLN gives the limit (x̄→μ); CLT gives the shape of the error","CLT gives the limit; LLN gives the shape of the distribution","both theorems describe exactly the same convergence","LLN needs a Gaussian, whereas CLT works without one"],
+   a:0, e:"LLN says the sample mean converges to μ; CLT says the scaled error √n(x̄−μ)/σ → N(0,1)."},
+  {q:"The typical error of a sample mean over n independent draws scales like…",
+   o:["σ · n","σ / √n","σ² / n","σ · √n"],
+   a:1, e:"Var[x̄ₙ] = σ²/n, so the standard error is σ/√n (e.g. a die after 100 rolls ≈ 1.708/10 ≈ 0.17)."},
+  {q:"The mean-squared error of an estimator decomposes as…",
+   o:["MSE = bias² + variance","MSE = bias + variance²","MSE = variance − bias²","MSE = bias × variance"],
+   a:0, e:"MSE = bias² + variance — the classic bias–variance decomposition."},
+  {q:"The unbiased sample variance s² divides the sum of squared deviations by…",
+   o:["N","N − 1","N + 1","N²"],
+   a:1, e:"s² = (1/(N−1))Σ(xₙ−x̄)² is unbiased; dividing by N (the MLE) is biased low."},
+  {q:"The maximum-likelihood estimate for a Bernoulli after k heads in N flips is…",
+   o:["(k+1)/(N+2)","k/N","N/k","(k−1)/N"],
+   a:1, e:"θ̂_ML = k/N (7 heads in 10 → 0.7). The (k+1)/(N+2) form is a MAP estimate with a Beta prior."},
+  {q:"A MAP estimate differs from an MLE by…",
+   o:["adding a log-prior term to the objective","dividing the likelihood by N","ignoring the data entirely","taking the median instead of the mean"],
+   a:0, e:"θ̂_MAP = argmax[log p(𝒟|θ) + log p(θ)] — MLE plus a log prior. A Gaussian prior on w gives ridge regression."},
+  {q:"Entropy H(X) is maximized when…",
+   o:["one outcome is certain","the distribution is uniform","the variance is smallest","the mean is zero"],
+   a:1, e:"Entropy is maximal for a uniform distribution (log₂M for M states) and zero when one outcome is certain."},
+  {q:"Which statement about KL divergence is correct?",
+   o:["it is symmetric: KL(p‖q) = KL(q‖p)","it is ≥ 0, and 0 only when p = q","it can be negative for good models","it equals the entropy of p"],
+   a:1, e:"KL(p‖q) = H(p,q) − H(p) ≥ 0, zero only when p = q, and it is not symmetric."},
+  {q:"Minimizing cross-entropy between the data and the model is equivalent to…",
+   o:["maximizing the likelihood","maximizing the entropy of the data","minimizing the variance of w","setting all weights to zero"],
+   a:0, e:"H(p_data) is constant in θ, so minimizing cross-entropy = minimizing KL to the data = maximizing likelihood."}
 ],
-hier:[
-  {q:"How does hierarchical clustering differ from K-Means?",
-   o:["It requires you to fix the number of clusters up front","It builds a tree of clusters and needs no preset K","It can only be applied to categorical attribute data","It is guaranteed never to leave any point as an outlier"],
-   a:1, e:"Hierarchical clustering builds a hierarchy (a dendrogram); you pick the number of clusters afterward by cutting it."},
-  {q:"What are the two main types of hierarchical clustering?",
-   o:["Single-linkage clustering and complete-linkage clustering","Agglomerative (bottom-up) and Divisive (top-down)","Core-point clustering and border-point clustering","Partition-based clustering and density-based clustering"],
-   a:1, e:"Agglomerative merges from the bottom up (more popular); Divisive splits from the top down."},
-  {q:"How are hierarchical clusters usually visualized?",
-   o:["With an elbow plot of WCSS against the value of K","With a dendrogram showing the sequence of merges","With a confusion matrix of predicted versus actual labels","With a scree plot of the sorted component eigenvalues"],
-   a:1, e:"A dendrogram shows the merge sequence; the height of a link reflects the distance between clusters joined."},
-  {q:"What happens at each step of agglomerative clustering?",
-   o:["Split the single largest cluster into two smaller ones","Merge the two clusters with the smallest distance","Reassign every point to its nearest current centroid","Remove the noise points that lie outside every cluster"],
-   a:1, e:"Agglomerative clustering repeatedly finds the smallest distance and merges those two clusters."},
-  {q:"What are the diagonal values of a proximity (distance) matrix?",
-   o:["They always hold the value 1 across the whole diagonal","They are 0, since a point's distance to itself is 0","They store the number of members in each cluster","They hold the maximum distance found within each row"],
-   a:1, e:"The matrix is n×n and symmetric; the diagonal is 0 because a point's distance to itself is zero."},
-  {q:"How do single-linkage and complete-linkage differ?",
-   o:["Single uses the maximum and complete uses the minimum","Single uses the minimum and complete uses the maximum","Both single and complete rely on the average distance","Single uses centroids; complete uses variance increase"],
-   a:1, e:"Single-linkage = min of cross-cluster distances; Complete-linkage = max. (Average = mean; Centroid = centroid gap; Ward = SSE.)"},
-  {q:"Ward's linkage merges the pair of clusters that…",
-   o:["Have the closest centroid-to-centroid distance","Least increase the total within-cluster variance (SSE)","Have the largest single-linkage distance between them","Together happen to contain the most data points"],
-   a:1, e:"Ward's method picks the merge that least increases within-cluster variance/SSE."},
-  {q:"How do you read the number of clusters off a dendrogram?",
-   o:["Count how many leaf nodes sit at the bottom of the tree","Count vertical lines a horizontal threshold line crosses","Count the total number of merges that were performed","Divide the tree's height by the total number of points"],
-   a:1, e:"Draw a horizontal threshold; the number of vertical lines it intersects equals the number of clusters."},
-  {q:"Which K-Means weakness does DBSCAN specifically overcome?",
-   o:["That it is unable to handle any numeric feature data","It forces outliers into clusters and needs a preset K","That it is always far too slow to ever converge","That it cannot use Euclidean distance as a metric"],
-   a:1, e:"DBSCAN finds arbitrary shapes, labels outliers as noise, and doesn't require choosing the number of clusters."},
-  {q:"What do the two DBSCAN parameters control?",
-   o:["The total number of clusters K and the number of iterations","eps — the neighborhood radius; minPts — the density threshold","The model's learning rate and its mini-batch size per step","The linkage type and the dendrogram cut-off threshold height"],
-   a:1, e:"ε sets how close counts as neighboring; minPts sets how many neighbors make a region dense enough to seed a cluster."},
-  {q:"In DBSCAN, a BORDER point is one that…",
-   o:["Has at least minPts other points within distance ε","Has fewer than minPts, but is within ε of a core point","Has no neighboring points anywhere close to it at all","Sits exactly at the centroid of its assigned cluster"],
-   a:1, e:"A border point isn't dense enough to be core, but lies within ε of a core point, so it joins that cluster."},
-  {q:"In DBSCAN, a CORE point is defined as a point that…",
-   o:["Sits at the mean position of its entire cluster","Has at least minPts within ε (counting itself)","Is located the farthest from all of the other points","Never gets assigned to any cluster during the run"],
-   a:1, e:"Core points have ≥ minPts within their ε-neighborhood; clusters grow by expanding from core points."}
+linreg:[
+  {q:"The residual of a data point is defined as…",
+   o:["predicted minus true value","true minus predicted value","the square of the prediction","the slope times the input"],
+   a:1, e:"rₙ = yₙ − ŷₙ (true − predicted). A positive residual means the point sits above the line."},
+  {q:"A <b>positive</b> residual means the point lies…",
+   o:["above the line (the line guessed too low)","below the line (the line guessed too high)","exactly on the line","outside the training range"],
+   a:0, e:"Positive residual = true > predicted, so the point is above the line and the line under-predicted it."},
+  {q:"Why is squared error preferred over summing raw residuals?",
+   o:["it makes the model nonlinear in the weights w","positives and negatives would otherwise cancel","it forces the fitted intercept to be exactly zero","it removes any need for a separate test set"],
+   a:1, e:"Squaring stops + and − residuals cancelling, penalizes big misses more, stays differentiable, and is the MLE under Gaussian noise."},
+  {q:"In simple regression, the slope and intercept are…",
+   o:["w₁ = S_xx/S_xy and w₀ = x̄ − w₁ȳ","w₁ = S_xy/S_xx and w₀ = ȳ − w₁x̄","w₁ = S_xy·S_xx and w₀ = ȳ + w₁x̄","w₁ = ȳ/x̄ and w₀ = 0"],
+   a:1, e:"w₁ = S_xy/S_xx, w₀ = ȳ − w₁x̄. Consequently the line passes through (x̄, ȳ)."},
+  {q:"At the best-fit least-squares line, the residuals always…",
+   o:["are all positive","sum to zero","equal the slope","are largest at the mean"],
+   a:1, e:"The ∂/∂w₀ = 0 condition forces Σrₙ = 0; the line also passes through the point of averages (x̄, ȳ)."},
+  {q:"The <b>normal equations</b> for least squares are…",
+   o:["Xw = y","XᵀX w = Xᵀy","XXᵀ w = y","w = Xᵀy − XᵀX"],
+   a:1, e:"Setting ∇‖Xw−y‖² = 2Xᵀ(Xw−y) = 0 gives XᵀX w = Xᵀy, so w = (XᵀX)⁻¹Xᵀy."},
+  {q:"They are called \"normal\" equations because at the solution…",
+   o:["the weights are assumed to follow a normal distribution","the residual is perpendicular to every column of X","the input data must be normalized before fitting","the loss forms a normal (Gaussian) bell curve"],
+   a:1, e:"\"Normal\" = perpendicular: Xᵀr = 0, so the residual is orthogonal to the column space of X."},
+  {q:"The first column of the design matrix X is usually all ones so that…",
+   o:["it carries the intercept term w₀","the matrix becomes square","every feature is standardized","the determinant is always 1"],
+   a:0, e:"A column of ones lets w₀ (the intercept) be fit alongside the feature weights."},
+  {q:"Including both weight-in-pounds and weight-in-kilograms as features makes the fit fail because…",
+   o:["the two columns are collinear, so XᵀX is singular","there are now far too few rows left to fit the model","the residuals can no longer be made to sum to zero","the target y must be rescaled to match the features"],
+   a:0, e:"kg = 0.4536 × lb, so the columns are linearly dependent, X loses full column rank, and XᵀX is not invertible."},
+  {q:"Two valid fixes for a singular XᵀX are…",
+   o:["increase the learning rate, or add more epochs","drop the redundant column, or use ridge (XᵀX + λI)","square the features, or remove the intercept","use a bigger test set, or lower the degree"],
+   a:1, e:"Drop one collinear column to restore full rank, or ridge-regularize: XᵀX + λI is always invertible for λ > 0."},
+  {q:"Least squares is equivalent to maximum likelihood when the noise is assumed to be…",
+   o:["uniform","Gaussian","Laplace","Bernoulli"],
+   a:1, e:"With Gaussian noise, the log-likelihood's only w-dependent term is −SSE/(2σ²), so maximizing it minimizes SSE."},
+  {q:"If the noise is Laplace instead of Gaussian, the MLE loss becomes…",
+   o:["the sum of the absolute residuals Σ|rₙ|","the sum of the squared residuals instead","the cross-entropy classification loss","the single largest residual value"],
+   a:0, e:"Laplace noise ∝ exp(−|ε|/b) gives least absolute deviations (Σ|rₙ|), which is more robust to outliers."}
 ],
-nlp:[
-  {q:"Which is a genuine challenge of NLP?",
-   o:["Text always arrives in a perfectly structured form","Ambiguity — words and sentences carry multiple meanings","Computers already understand sarcasm and irony natively","There exists only a single human language to model"],
-   a:1, e:"Ambiguity, context-dependence, sarcasm, synonyms, and language variety all make natural language hard for machines."},
-  {q:"What is a Bag of Words (BoW) representation?",
-   o:["A grammatical parse tree built for each sentence","A vector of word counts that ignores order and grammar","A ranked list of the named entities in a document","A dense embedding learned by a neural network model"],
-   a:1, e:"BoW counts how often each vocabulary word appears, discarding order and grammar."},
-  {q:"What is the main limitation of Bag of Words?",
-   o:["It cannot be constructed using standard Python tools","It loses word order and context, giving sparse vectors","It can only ever be applied to a single sentence","It strictly requires a fully labeled training set"],
-   a:1, e:"BoW ignores order and meaning, so 'dog bites man' and 'man bites dog' look identical; vectors are large and sparse."},
-  {q:"TF-IDF stands for, and is used to…",
-   o:["Token Frequency–Inverse Doc Filter; strip out stop words","Term Frequency–Inverse Doc Frequency; weight distinctive terms","Text Format–Indexed Data Frame; store the raw documents","Total Frequency–Independent Factor; normalize counts to one"],
-   a:1, e:"TF-IDF multiplies how frequent a term is in a document by how rare it is across documents, highlighting informative words."},
-  {q:"Which Python library is commonly used to build a Bag of Words?",
-   o:["matplotlib, used mainly for plotting the final results","scikit-learn's CountVectorizer (or the NLTK library)","NumPy on its own, using only raw array operations","TensorFlow's Conv2D image convolution layer"],
-   a:1, e:"scikit-learn's CountVectorizer builds BoW count vectors; NLTK is also common for NLP preprocessing."},
-  {q:"What does 'tokenization' mean?",
-   o:["Stripping out the most common, low-value words","Splitting text into individual tokens or words","Reducing each word down to its dictionary base form","Tagging spans of text as people, places, or orgs"],
-   a:1, e:"Tokenization breaks a string of text into smaller units (tokens), usually words."},
-  {q:"What are 'stop words'?",
-   o:["Words that always appear at the end of a sentence","Common words like 'the', 'is', 'a' that are removed","Words that are misspelled and need to be corrected","The single most informative words in a document"],
-   a:1, e:"Stop words are high-frequency, low-information words often filtered out before analysis."},
-  {q:"What does NER stand for in NLP?",
-   o:["Neural Entity Regression, a probability estimator","Named Entity Recognition — tagging names, places, orgs","Normalized Error Rate, used to score a model's output","Nested Expression Resolver, used for parsing grammar"],
-   a:1, e:"NER labels spans of text as entities such as people, locations, and organizations."},
-  {q:"How does a stemmer differ from a lemmatizer?",
-   o:["A stemmer returns real words; a lemmatizer chops roots","A stemmer chops crudely; a lemmatizer gives a real lemma","They are just two names for exactly the same operation","A lemmatizer only strips stop words out of the text"],
-   a:1, e:"Stemming: 'studies'→'studi' (crude, maybe not a word). Lemmatization: 'studies'→'study', 'better'→'good' (a valid lemma)."},
-  {q:"What information helps a lemmatizer give a better answer?",
-   o:["The overall length of the document being processed","The word's part of speech (noun, verb, and so on)","The TF-IDF weight computed for that particular word","The total number of documents in the whole corpus"],
-   a:1, e:"Knowing the POS lets the lemmatizer choose the right base form (e.g. 'meeting' as noun vs verb)."},
-  {q:"How do inflectional and derivational affixes differ?",
-   o:["Inflectional change word class; derivational never do","Inflectional change form/tense; derivational make new words","They both refer to exactly the same kind of affix","Derivational affixes only ever attach onto verbs"],
-   a:1, e:"Inflectional: walk→walked, cat→cats (same class). Derivational: happy→happiness, care→careful (new word/class)."},
-  {q:"Which is a valid application of NLP?",
-   o:["Detecting the edges within a photograph or image","Sentiment analysis, machine translation, and chatbots","Computing the centroid of a cluster of data points","Sliding a convolution kernel across a grid of pixels"],
-   a:1, e:"Sentiment analysis, translation, chatbots, spam detection, summarization, and NER are core NLP applications."}
+regGD:[
+  {q:"A <b>basis function</b> φⱼ(x) is…",
+   o:["a weight that is learned from data during fitting","a fixed function of the input chosen before fitting","the residual left over by the previous model fit","a random subset of the training rows used per step"],
+   a:1, e:"Basis functions are fixed transforms of the input (chosen beforehand); the curve comes from the features, not the fitting."},
+  {q:"Adding polynomial basis functions keeps the model \"linear\" in the sense that…",
+   o:["the fitted curve is a straight line","it is linear in the weights w","it can only use one feature","it has no intercept term"],
+   a:1, e:"\"Linear model\" refers to being linear in the weights; every closed-form formula carries over unchanged."},
+  {q:"The signature symptom of <b>overfitting</b> is…",
+   o:["high training error together with high test error","low training error but high test error (a large gap)","low training error and equally low test error","identical predictions produced for every input"],
+   a:1, e:"Overfitting shows very low training error but high test error — the gap between them is the tell."},
+  {q:"As model degree increases, training error and test error behave how?",
+   o:["both training and test error keep falling forever","training error only falls; test error follows a U curve","both training and test error climb together steadily","test error only falls while the training error climbs"],
+   a:1, e:"Training error only decreases with flexibility; test error dips then rises (a U) — pick its minimum."},
+  {q:"The ridge objective is…",
+   o:["SSE − λ‖w‖²","SSE + λ‖w‖²","SSE + λΣ|wⱼ|","‖w‖² only"],
+   a:1, e:"Ridge adds an L2 penalty: J = SSE + λ‖w‖². (The L1 version Σ|wⱼ| is lasso.)"},
+  {q:"In regularization, the parameter λ is…",
+   o:["a weight learned by gradient descent","a hyperparameter you choose, not learned","always equal to the number of features","the intercept of the model"],
+   a:1, e:"λ is a hyperparameter set by you (e.g. via validation); note the intercept w₀ is not penalized."},
+  {q:"Why is the ridge matrix (ΦᵀΦ + λI) always invertible for λ > 0?",
+   o:["because Φ is always square","every eigenvalue becomes c + λ ≥ λ > 0","because the data is standardized","because λ removes all correlations"],
+   a:1, e:"ΦᵀΦ has eigenvalues c ≥ 0; adding λI shifts each to c + λ > 0, so the determinant is nonzero — the fix for a singular XᵀX."},
+  {q:"The key practical difference between ridge and lasso is that…",
+   o:["ridge shrinks weights; lasso can set them exactly to zero","lasso shrinks weights while ridge sets them exactly to zero","both methods always drive some weights to exactly zero","neither method changes the fitted weight values at all"],
+   a:0, e:"Ridge shrinks but never zeroes; lasso's L1 corner drives some weights to exactly zero (feature selection)."},
+  {q:"Lasso has no closed-form solution because…",
+   o:["its penalty has a corner (non-differentiable) at zero","it always selects strictly more features than ridge does","it requires a Gaussian prior placed on the weights","the intercept term ends up being penalized too"],
+   a:0, e:"The absolute-value penalty is non-differentiable at 0, so lasso is fit iteratively (e.g. coordinate descent)."},
+  {q:"As λ → ∞ in ridge regression, the model approaches…",
+   o:["the plain least-squares fit","a flat line at the mean of the training y","a curve passing through every point","a vertical line"],
+   a:1, e:"Huge λ drives all slopes to 0; the unpenalized intercept settles at the mean of the training targets."},
+  {q:"The gradient-descent update rule is…",
+   o:["w ← w + η∇J(w)","w ← w − η∇J(w)","w ← η∇J(w)","w ← w − ∇J(w)/η"],
+   a:1, e:"w ← w − η∇J(w): step opposite the gradient (steepest increase) by the learning rate η."},
+  {q:"If the learning rate η is set too large, gradient descent will…",
+   o:["converge faster with no downside","diverge (the loss blows up)","find a better minimum","stop updating the weights"],
+   a:1, e:"Too-large η overshoots and diverges; too-small η crawls. Diagnose from the loss curve."},
+  {q:"Why standardize features before running gradient descent?",
+   o:["to deliberately make the loss surface non-convex","to avoid a long tilted valley that causes zig-zagging","to remove the intercept term from the linear model","to guarantee the model reaches zero training error"],
+   a:1, e:"Unscaled features stretch the loss surface into a tilted valley; standardizing (z = (x−mean)/std) rounds the bowl so descent goes straight."}
 ],
-nn:[
-  {q:"What is a perceptron?",
-   o:["A clustering algorithm for grouping unlabeled data points","A single neuron: weighted sum plus bias, then an activation","A specific type of non-linear activation function used in layers","A pooling operation that down-samples a feature map"],
-   a:1, e:"A perceptron computes z = b + Σxᵢwᵢ then applies φ(z). A single-layer network is a perceptron; stacking layers gives an ANN."},
-  {q:"What is the role of the bias term b in a neuron?",
-   o:["It fixes the learning rate used during training","It shifts the activation up or down (and works when x=0)","It counts how many layers the network contains","It normalizes the outputs so they sum to exactly one"],
-   a:1, e:"The bias lets the activation shift, giving the neuron flexibility independent of the input values."},
-  {q:"How are the input, hidden, and output layers distinguished?",
-   o:["The input gives the final estimate; output takes raw data","Input takes raw data; hidden transforms; output predicts","All three layers perform exactly the same computation","Hidden layers are always the very last layer of the net"],
-   a:1, e:"Input takes the feature values, output produces the prediction, and hidden layers in between transform the signal."},
-  {q:"What makes a neural network 'deep'?",
-   o:["It contains more than one thousand total neurons","It has two or more hidden layers between input and output","It is trained specifically with the Adam optimizer","It has only an input and an output layer, nothing more"],
-   a:1, e:"A network with 2+ hidden layers is deep; a non-deep net has zero or one hidden layer."},
-  {q:"What is the purpose of an activation function?",
-   o:["To store a copy of the training data inside the net","To add non-linearity and bound outputs (e.g. to 0–1)","To count the number of input features per sample","To split the dataset into training and test folds"],
-   a:1, e:"Non-linear activations let a network model complex relationships; they also bound outputs (e.g. 0–1 for probabilities)."},
-  {q:"Which description matches the ReLU activation function?",
-   o:["An S-shaped curve squashing values into 0 to 1","max(0, x): x when positive, else 0; range [0, ∞)","A hard step that outputs strictly 0 or strictly 1","A smooth curve mapping values into the −1 to 1 range"],
-   a:1, e:"ReLU = max(0,x). It's the most-used hidden-layer activation — no vanishing gradient on the positive side, cheap, sparse."},
-  {q:"Which activation is usually avoided in hidden layers due to vanishing gradients?",
-   o:["ReLU, because its gradient stays constant when positive","Sigmoid, whose gradient vanishes for strong negatives","Tanh, purely because its outputs are centered at zero","Binary step, since it is not differentiable at all"],
-   a:1, e:"Sigmoid saturates for strong negatives (gradient ≈ 0), so it's mainly used in the output layer, not hidden layers."},
-  {q:"For multi-class, mutually exclusive classification, which output activation is used?",
-   o:["ReLU applied on each of the output layer's nodes","Softmax — class probabilities that sum to exactly 1","Binary step producing a 0 or 1 for each class node","Tanh, mapping each output into the −1 to 1 range"],
-   a:1, e:"Softmax gives a probability distribution over K exclusive classes that sums to 1. (Multi-label uses sigmoid per node.)"},
-  {q:"For classification, which cost function is often used?",
-   o:["Mean Squared Error between the prediction and target","Cross-entropy / log loss (a binary version for 2 classes)","Euclidean distance between the two output vectors","WCSS / inertia summed across the predicted clusters"],
-   a:1, e:"Cross-entropy compares the predicted probability distribution to the true class. MSE is typical for regression."},
-  {q:"In the cost function C(W, B, Sr, Er), what do the terms mean?",
-   o:["Width, batch size, stride, and the epoch-rate settings","Weights, biases, a sample's input, and its target output","Window size, bias, a score, and the error-rate value","They are all just hyperparameters of the optimizer"],
-   a:1, e:"W = weights, B = biases, Sr = the input of one training sample, Er = the desired output for that sample."},
-  {q:"What is the purpose of backpropagation?",
-   o:["To flatten a 2-D image down into a 1-D input vector","To go back and adjust the weights and biases via the loss","To decide how many clusters the data should form","To strip stop words out of the text before training"],
-   a:1, e:"After computing the loss, backpropagation propagates the error backward to update the weights and biases."},
-  {q:"In sklearn's MLPClassifier, how do you set the number of layers and nodes?",
-   o:["Through the n_estimators parameter of the model","With hidden_layer_sizes, e.g. (100, 50) = two layers","Through the max_leaf_nodes parameter of the model","With the eps and minPts parameters of the model"],
-   a:1, e:"hidden_layer_sizes is a tuple; its length = number of hidden layers and each value = nodes in that layer."},
-  {q:"What is the Adam optimizer?",
-   o:["A method for initializing cluster centroids quickly","Adaptive Moment Estimation — an adaptive variant of SGD","A non-linear activation applied inside hidden layers","A cost function designed for regression problems"],
-   a:1, e:"Adam (Adaptive Moment Estimation) adapts the update per parameter and is a popular, robust variant of SGD."}
-],
-cnn:[
-  {q:"Why is flattening an image problematic for a traditional ANN?",
-   o:["It makes the overall image file noticeably larger","It destroys spatial info — how pixels neighbor each other","It converts a color image into a grayscale one","It accidentally removes the class labels from the data"],
-   a:1, e:"Flattening 28×28 → 784 throws away which pixels are next to which, so spatial structure is lost."},
-  {q:"What does 'spatial information' in an image refer to?",
-   o:["The size in kilobytes of the stored image file","How neighboring pixels relate — who is next to whom","The count of color channels the image happens to use","The brightness value of one individual pixel alone"],
-   a:1, e:"Spatial information is the arrangement of pixels — the local patterns CNNs are built to preserve."},
-  {q:"Why do fully connected layers create so many parameters for images?",
-   o:["Because the input images are stored in grayscale","Every pixel links to every neuron, so weights explode","Because pooling layers add extra weights each step","Because dropout duplicates the weights during training"],
-   a:1, e:"Dense layers connect all inputs to all neurons; with thousands of pixels the weight count explodes, causing overfitting."},
-  {q:"What is translation invariance in a CNN?",
-   o:["The network translates the image into another language","An object is recognized even if it shifts in the image","Every pixel value in the image is numerically inverted","The convolution kernel is held fixed and never moves"],
-   a:1, e:"Thanks to weight sharing and pooling, a feature is detected wherever it appears — a shift doesn't require relearning."},
-  {q:"What is a convolution operation?",
-   o:["Averaging all of the image's pixels into one value","Slide a kernel, multiply the overlap, sum to one value","Sorting the pixel values from smallest to largest","Randomly dropping a fraction of pixels from the image"],
-   a:1, e:"At each position the kernel is multiplied element-wise with the overlapping region and summed into one feature-map value."},
-  {q:"What is a kernel (filter) and what does it do?",
-   o:["A large fully connected layer near the network's end","A small matrix slid over the image to detect patterns","The final layer that outputs the class probabilities","A pooling window that keeps the max in each region"],
-   a:1, e:"A kernel is a small weight matrix; convolving it across the image produces a feature map of where its pattern occurs."},
-  {q:"What is a feature map?",
-   o:["The raw input image before any processing happens","A conv output where each value shows the filter's match","The ordered list of possible output class labels","The confusion matrix comparing predictions to truth"],
-   a:1, e:"Convolving a filter over the input yields a feature map; high values mean a strong match to the filter's pattern."},
-  {q:"How does increasing the stride affect a convolution's output?",
-   o:["It makes the output feature map noticeably larger","It shrinks the output — bigger steps, fewer positions","It leaves the output size completely unchanged","It adds extra color channels to the output map"],
-   a:1, e:"A larger stride skips positions, so the feature map is smaller. Output = ⌊(W−F+2P)/S⌋+1."},
-  {q:"Why is padding used in convolution?",
-   o:["To raise the number of output classes the model has","To add a border so the kernel fits and edges aren't lost","To randomly switch off some neurons while training","To turn output probabilities into hard class labels"],
-   a:1, e:"Zero-padding the border lets the filter cover edge pixels and can keep the output size the same ('same' padding)."},
-  {q:"What is the purpose of a pooling layer?",
-   o:["To add still more trainable parameters to the network","To down-sample maps — shrink size but keep key info","To flatten the feature maps into a single 1-D vector","To assign the final class probabilities at the output"],
-   a:1, e:"Pooling shrinks height×width (fewer computations) while retaining dominant features and adding translation robustness."},
-  {q:"What is the difference between max pooling and average pooling?",
-   o:["Max pooling keeps the window's maximum; average the mean","Max pooling keeps the mean; average keeps the maximum","They are just two names for one identical operation","Max pooling sums the values; average multiplies them"],
-   a:0, e:"Max pooling keeps the largest value in each window; average pooling keeps the mean."},
-  {q:"How does pooling help reduce overfitting?",
-   o:["By adding many more neurons to the dense layers","By dropping fine detail and keeping dominant features","By increasing the spatial resolution of the maps","By memorizing the training set more thoroughly"],
-   a:1, e:"Discarding fine detail keeps only the salient features, so the model generalizes better and resists small shifts."},
-  {q:"What is the role of the Flatten layer in a CNN?",
-   o:["It carries out the actual convolution operation over the input image","It reshapes the 2-D maps into a 1-D vector for the dense layer","It rescales the pixel values into the range 0 to 1","It randomly switches off a fraction of the neurons"],
-   a:1, e:"After conv/pooling, Flatten reshapes the feature maps into a 1-D vector so a Dense layer can classify."},
-  {q:"Why is dropout used in a CNN?",
-   o:["To raise the resolution of the input image further","It randomly turns off neurons, curbing overfitting","To speed up the convolution step and nothing else","To add back the spatial information lost by pooling"],
-   a:1, e:"Dropout(p) ignores a random p of neurons each step so the network can't rely on specific ones — a regularizer."},
-  {q:"For a 7×7 input with a 3×3 filter, stride 1, and no padding, the output is…",
-   o:["7×7, because the filter leaves the size unchanged","5×5, from (7 − 3 + 0)/1 + 1 = 5","4×4, since each side loses three pixels total","6×6, losing just a single pixel on each side"],
-   a:1, e:"(7 − 3 + 0)/1 + 1 = 5, so the output is 5×5. Use ⌊(W−F+2P)/S⌋+1."}
+logistic:[
+  {q:"One reason plain least squares is a poor fit for 0/1 labels is that…",
+   o:["it cannot handle two features","its outputs can fall outside [0, 1]","it has no intercept term","it always predicts the majority class"],
+   a:1, e:"Least-squares fitted values can go below 0 or above 1, so they aren't valid probabilities (plus wrong noise model, and far points rotate the boundary)."},
+  {q:"In logistic regression, the decision boundary is the set of points where…",
+   o:["the score z = wᵀx + b equals exactly 0","the score z equals exactly 1 everywhere","the predicted probability p equals exactly 1","the weight-vector norm ‖w‖ equals 0"],
+   a:0, e:"The boundary is z = 0 (a hyperplane); predict class 1 when z ≥ 0, i.e. p ≥ 0.5."},
+  {q:"The sigmoid arises from which modeling assumption?",
+   o:["the probability is linear in the inputs","the log-odds (logit) is linear in the inputs","the residuals are Gaussian","the classes are perfectly separable"],
+   a:1, e:"Assuming ln(p/(1−p)) = z is linear and solving for p yields σ(z) = 1/(1+e^(−z)) — the sigmoid is derived, not assumed."},
+  {q:"Which sigmoid identity is correct?",
+   o:["σ(−z) = −σ(z)","σ(−z) = 1 − σ(z)","σ(z) = 1 + e^(−z)","σ(z) = z/(1+z)"],
+   a:1, e:"σ(−z) = 1 − σ(z); also σ′ = σ(1−σ), largest (0.25) at z = 0."},
+  {q:"The derivative of the sigmoid σ′(z) equals…",
+   o:["σ(z) · (1 − σ(z)), with a maximum of 0.25","σ(z) squared, with a maximum value of 1","1 − σ(z), reaching a maximum value of 1","σ(z) divided by z, which is unbounded"],
+   a:0, e:"σ′ = σ(1−σ) peaks at 0.25 (z=0) and is near zero in the tails."},
+  {q:"A one-unit increase in feature m changes the odds of class 1 by a factor of…",
+   o:["wₘ","e^(wₘ)","1 + wₘ","ln(wₘ)"],
+   a:1, e:"Adding wₘ to the log-odds multiplies the odds by e^(wₘ) — an odds multiplier, not a probability multiplier."},
+  {q:"The cross-entropy cost charged to a single example is…",
+   o:["the squared error of its predicted probability","−ln(probability it assigned to the true label)","the perpendicular distance from the decision boundary","a fixed cost of exactly ln 2 for every example"],
+   a:1, e:"Each example pays −ln(pₙ for the true label). A confident wrong call (p→0) has unbounded cost."},
+  {q:"A model that outputs p = 0.5 for every example has a cross-entropy loss of…",
+   o:["exactly 0 (no loss at all)","ln 2 ≈ 0.693 per example","exactly 1 (one full unit)","infinite (unbounded) loss"],
+   a:1, e:"−ln(0.5) = ln 2 ≈ 0.693 — the baseline a trained model should beat."},
+  {q:"The logistic-regression gradient has the form…",
+   o:["(1/N) Σ (pₙ − yₙ) xₙ","(2/N) Σ (pₙ − yₙ) xₙ","(1/N) Σ (yₙ − pₙ)²","Σ pₙ (1 − pₙ)"],
+   a:0, e:"∇J = (1/N)Σ(pₙ − yₙ)xₙ = (prediction − target) × input — same shape as linear regression, but no factor of 2."},
+  {q:"Logistic regression has no closed-form solution because…",
+   o:["the underlying loss function is not actually convex","w sits inside N nonlinear sigmoids, so nothing isolates it","the class labels are treated as continuous values","the model deliberately leaves out any intercept term"],
+   a:1, e:"The weights are trapped inside sigmoids, so there's no algebraic solution — but the loss is convex, so gradient descent works."},
+  {q:"On perfectly separable data, unregularized logistic regression…",
+   o:["converges to a unique finite w","lets the weights grow without bound","fails to reduce the loss at all","predicts 0.5 for every point"],
+   a:1, e:"Scaling (w,b) keeps the boundary but sharpens every probability, so the loss keeps dropping and weights blow up. Ridge stops it."},
+  {q:"The softmax probability for class k is…",
+   o:["z_k / Σⱼ z_j","e^(z_k) / Σⱼ e^(z_j)","1 / (1 + e^(−z_k))","z_k − max_j z_j"],
+   a:1, e:"Softmax exponentiates then normalizes: p_k = e^(z_k)/Σⱼe^(z_j), giving a categorical distribution."},
+  {q:"Adding the same constant to every softmax score…",
+   o:["changes nothing (only score differences matter)","doubles each of the predicted class probabilities","makes the single largest class fully certain now","flips the model's predicted class to another"],
+   a:0, e:"Softmax is shift-invariant; only differences matter (code subtracts the max score for numerical stability)."},
+  {q:"With K = 2 classes, softmax…",
+   o:["is mathematically undefined for two classes","collapses to the sigmoid (one weight vector)","requires two entirely separate trained networks","always predicts whichever class comes first"],
+   a:1, e:"For two classes softmax reduces to the sigmoid with w = w₁ − w₂, b = b₁ − b₂ — one weight vector suffices."}
 ]
 };
 
 /* =========================================================
-   FREE-RESPONSE PRACTICE — scenario questions + model answers
+   FREE-RESPONSE PRACTICE — worked short-numeric problems
    ========================================================= */
 const FR = {
-ensemble:[
-  {q:"You train a single deep decision tree and it badly <b>overfits</b> (high variance). (a) Would you switch to a <b>bagging</b> ensemble / Random Forest, or to <b>boosting</b> — and why? (b) If instead a shallow model is <b>underfitting</b> (high bias), which of the two helps more? (c) In one line, how do bagging and boosting train their predictors differently?",
-   a:`<p><b>(a) Bagging / Random Forest.</b> Bagging trains many trees in parallel on bootstrap samples and averages them, which <b>reduces variance</b> — exactly the problem with one overfit tree. A Random Forest also subsamples features at each split to de-correlate the trees further.</p>
-      <p><b>(b) Boosting.</b> It trains predictors <b>sequentially</b>, each correcting its predecessor's errors, which <b>reduces bias</b> and turns weak learners into a strong one.</p>
-      <p><b>(c)</b> Bagging trains predictors <b>independently / in parallel</b> on random resamples; boosting trains them <b>sequentially</b>, each focusing on the previous predictor's mistakes.</p>`},
-  {q:"You have a Logistic Regression, an SVM, and a KNN classifier, each about <b>80% accurate</b>. (a) How can you combine them into a stronger classifier, and why might it beat every individual model? (b) What is the difference between <b>hard</b> and <b>soft</b> voting? (c) What must you enable to use soft voting with an <code>SVC</code>?",
-   a:`<p><b>(a)</b> Combine them in a <b>voting classifier</b> that aggregates their predictions. It can beat the best individual model when the classifiers are <b>diverse/independent</b> — different algorithms make different errors that cancel out (the “wisdom of the crowd”).</p>
-      <p><b>(b)</b> <b>Hard voting</b> predicts the majority class (most votes). <b>Soft voting</b> averages the predicted <b>probabilities</b> and picks the highest — it usually does better because it gives more weight to confident predictions.</p>
-      <p><b>(c)</b> The SVC must be able to output probabilities — set <code>probability=True</code> (which adds a <code>predict_proba()</code> method).</p>`},
-  {q:"You have patient records labeled with which of <b>5 drugs</b> was effective, and you must use a classification algorithm that <b>only handles binary problems</b>. Outline how to <b>train</b> and then <b>use</b> models to predict the effective drug for a new patient. (Name one of the two standard techniques.)",
-   a:`<p><b>One-vs-Rest (OvR / One-vs-All):</b></p>
+linalg:[
+  {q:"Let <code>x = (1, 2, 2)</code> and <code>y = (2, 0, 1)</code>. Give <b>xᵀy</b>, <b>‖x‖₂</b>, <b>‖x‖₁</b>, <b>‖x‖∞</b>, and <b>cos θ</b> between them.",
+   a:`<p><b>Dot product:</b> xᵀy = (1)(2) + (2)(0) + (2)(1) = <b>4</b>.</p>
+      <p><b>Norms of x:</b> ‖x‖₂ = √(1+4+4) = <b>3</b>; ‖x‖₁ = 1+2+2 = <b>5</b>; ‖x‖∞ = max(1,2,2) = <b>2</b>.</p>
+      <p><b>Cosine:</b> ‖y‖₂ = √(4+0+1) = √5, so cos θ = xᵀy / (‖x‖‖y‖) = 4 / (3·√5) = <b>0.596</b>.</p>`},
+  {q:"Find the eigenvalues of <code>A = [[5, 2], [2, 5]]</code>.",
+   a:`<p>Solve det(A − λI) = 0: (5 − λ)² − (2)(2) = 0 → (5 − λ)² = 4 → 5 − λ = ±2.</p>
+      <div class="formula">λ = 5 ± 2  →  λ = 7 and λ = 3</div>
+      <p>(Shortcut: any matrix of the form [[a,b],[b,a]] has eigenvalues <b>a ± b</b>, with eigenvectors (1,1) and (1,−1).)</p>`},
+  {q:"Solve the normal equations for w, given <code>XᵀX = [[3, 6], [6, 14]]</code> and <code>Xᵀy = (5, 11)</code>.",
+   a:`<p><b>Determinant:</b> det = (3)(14) − (6)(6) = 42 − 36 = <b>6</b>.</p>
+      <p><b>Inverse:</b> (XᵀX)⁻¹ = (1/6)·[[14, −6], [−6, 3]].</p>
+      <div class="formula">w = (1/6)[[14,−6],[−6,3]]·(5,11)ᵀ = (1/6)(70−66, −30+33) = (1/6)(4, 3)</div>
+      <p><b>w = (2/3, 1/2)</b> ≈ (0.667, 0.5).</p>`}
+],
+prob:[
+  {q:"Fruit boxes: p(red) = 4/10, p(blue) = 6/10; red box gives p(apple|red) = 1/4, blue box gives p(apple|blue) = 3/4. You draw an <b>apple</b> — find <b>p(blue | apple)</b>.",
+   a:`<p><b>Joint probabilities:</b> p(apple, blue) = (3/4)(6/10) = 9/20; p(apple, red) = (1/4)(4/10) = 1/10 = 2/20.</p>
+      <p><b>Marginal:</b> p(apple) = 9/20 + 2/20 = 11/20.</p>
+      <div class="formula">p(blue | apple) = (9/20) / (11/20) = 9/11 ≈ 0.818</div>`},
+  {q:"A disease has prevalence <b>1%</b>, a test with sensitivity <b>0.95</b> and false-positive rate <b>0.10</b>. Roughly what fraction of positive results are truly sick, and why is it so low?",
+   a:`<p><b>Bayes:</b> p(D|+) = p(+|D)p(D) / [p(+|D)p(D) + p(+|D̄)p(D̄)]</p>
+      <div class="formula">= (0.95·0.01) / (0.95·0.01 + 0.10·0.99) = 0.0095 / 0.1085 ≈ 0.088</div>
+      <p><b>Only ~8.8%.</b> Per 1000 people there are ~9.5 true positives but ~99 false positives (108.5 total). <b>The base rate dominates:</b> because the disease is rare, even a good test produces far more false alarms than true detections. (A second independent positive would raise it to ~48%.)</p>`},
+  {q:"Ten flips give <b>3 heads</b>. Give the MLE θ̂, and the MAP θ̂ under a <b>Beta(2, 2)</b> prior.",
+   a:`<p><b>MLE:</b> θ̂_ML = k/N = 3/10 = <b>0.3</b>.</p>
+      <p><b>MAP</b> with Beta(a,b): θ̂_MAP = (k + a − 1)/(N + a + b − 2). With a = b = 2:</p>
+      <div class="formula">θ̂_MAP = (3 + 2 − 1) / (10 + 2 + 2 − 2) = 4/12 = 0.333</div>
+      <p>Beta(2,2) adds <b>one imaginary head and one imaginary tail</b>, pulling the estimate toward 0.5. The prior fades as data grows.</p>`}
+],
+linreg:[
+  {q:"Fit the least-squares line to <code>x = (1, 2, 3)</code>, <code>y = (2, 4, 5)</code> with the simple formulas. Give the slope, intercept, the residuals, and check they sum to zero.",
+   a:`<p><b>Means:</b> x̄ = 2, ȳ = 11/3 ≈ 3.667.</p>
+      <p><b>Sums:</b> S_xx = (−1)² + 0² + 1² = 2; S_xy = (−1)(−1.667) + 0 + (1)(1.333) = 3.</p>
+      <div class="formula">w₁ = S_xy/S_xx = 3/2 = 1.5      w₀ = ȳ − w₁x̄ = 3.667 − 3 = 0.667</div>
+      <p><b>Predictions:</b> 2.167, 3.667, 5.167 → <b>residuals (−0.167, +0.333, −0.167)</b>, which sum to 0. ✓</p>`},
+  {q:"A design matrix has columns: ones, height in inches, height in centimeters. Why does <code>np.linalg.solve(X.T @ X, X.T @ y)</code> fail, and give two fixes.",
+   a:`<p><b>Why it fails:</b> the centimeter column is a constant multiple (2.54×) of the inch column, so the two are <b>linearly dependent</b>. X does not have full column rank, so <b>XᵀX is singular</b> (not invertible) and the solve breaks (or returns an arbitrary split of the effect).</p>
+      <p><b>Two fixes:</b></p>
       <ul>
-        <li><b>Train:</b> build <b>5 binary classifiers</b>, one per drug. For classifier <i>k</i>, relabel the data as “Drug k” (positive) vs “all other drugs” (negative) and train it.</li>
-        <li><b>Predict:</b> run all 5 classifiers on the new patient, take each one's probability/score, and choose the drug whose classifier gives the <b>highest score</b>.</li>
-        <li>Needs <b>N</b> classifiers for N classes.</li>
-      </ul>
-      <p><b>Alternative — One-vs-One (OvO):</b> train a binary classifier for <b>every pair</b> of drugs — C(5,2) = <b>10 classifiers</b>. Each votes for one drug in its pair; the drug with the <b>most votes</b> wins. Needs N(N−1)/2 classifiers, each on a smaller two-class subset.</p>`},
-  {q:"A <b>Random Forest</b> is trained to detect a rare disease and evaluated on 1,000 patients, of whom only ~40 actually have it. It predicts <b>“No Disease”</b> for almost everyone and reports <b>96% accuracy</b>. (a) Is accuracy a good measure here — why? (b) Which metrics would you use if catching disease cases matters most? (c) What simple strategy would classify all disease cases as “Disease”, and what's the drawback?",
-   a:`<p><b>(a) No — accuracy is misleading on imbalanced data.</b> Since ~96% of patients are negative, predicting “No Disease” for everyone already scores ~96% while catching <b>zero</b> real cases. Accuracy hides the failure on the minority class we care about.</p>
-      <p><b>(b)</b> Use metrics from the <b>confusion matrix</b> that focus on the positive class: <b>Recall / Sensitivity</b> (of the actual cases, how many were caught — most important here), <b>Precision</b>, <b>F1-score</b>, and <b>ROC-AUC / PR-AUC</b>.</p>
-      <p><b>(c)</b> Lower the decision <b>threshold</b>, oversample the minority class, or set <code>class_weight</code> — in the extreme, label everyone “Disease”. <b>Drawback:</b> recall approaches 100% but <b>precision collapses</b> — a flood of false positives. It's the precision–recall trade-off.</p>`},
-  {q:"You are evaluating a <b>Random Forest</b> that predicts a disease, with <b>900 “No Disease”</b> and <b>100 “Disease”</b> patients. (a) A teammate trained on all 1,000 rows and then tested on 200 of those <b>same rows</b> — what is wrong, and what's the fix? (b) When you do split 80/20, why can <b>simple random sampling</b> be a problem here, and what sampling strategy fixes it?",
-   a:`<p><b>(a) Data leakage.</b> The 200 test rows were part of training, so the model has already <b>seen</b> them — the score is inflated and won't hold on new patients. <b>Fix:</b> split <b>first</b>, train only on the training portion, and evaluate on a held-out test set the model never saw (use a validation set or <b>k-fold cross-validation</b> for tuning).</p>
-      <p><b>(b)</b> With only 100 “Disease” cases, random sampling can leave very few (or none) in the test set, so the split isn't representative and minority-class evaluation is unreliable. <b>Fix — stratified sampling:</b> preserve the 90/10 class proportions in both train and test — <code>train_test_split(X, y, test_size=0.2, stratify=y)</code>.</p>`}
+        <li><b>Drop one of the two height columns</b> to restore full column rank (stays plain OLS).</li>
+        <li><b>Ridge:</b> replace XᵀX with <b>XᵀX + λI</b>, which is invertible for any λ > 0.</li>
+      </ul>`}
 ],
-clustering:[
-  {q:"You have 1-D points <b>A=2, B=4, C=10, D=12</b>, with <b>K=2</b> and initial centroids <b>c1=2, c2=4</b>. Perform <b>one iteration</b> of k-means: assign each point, then update the centroids.",
-   a:`<p><b>Step 1 — assign each point to its nearest centroid:</b></p>
-      <ul>
-        <li>A=2: |2−2|=0 vs |2−4|=2 → <b>c1</b></li>
-        <li>B=4: |4−2|=2 vs |4−4|=0 → <b>c2</b></li>
-        <li>C=10: |10−2|=8 vs |10−4|=6 → <b>c2</b></li>
-        <li>D=12: |12−2|=10 vs |12−4|=8 → <b>c2</b></li>
-      </ul>
-      <p>Cluster 1 = {2}; Cluster 2 = {4, 10, 12}.</p>
-      <p><b>Step 2 — update centroids (mean of each cluster):</b></p>
-      <div class="formula">c1 = 2      c2 = (4 + 10 + 12) / 3 = 26/3 ≈ 8.67</div>
-      <p>The next iteration re-assigns using c1=2, c2≈8.67 (now B=4 is nearer c1) and repeats <b>until the centroids no longer move.</b></p>`},
-  {q:"You run k-means on customer data, but the clusters <b>change between runs</b> and you're unsure how many to use. Explain (a) why results vary, (b) how to choose K, and (c) how to judge cluster quality with no labels.",
-   a:`<p><b>(a)</b> K-means starts from <b>random initial centroids</b>, so different starts can converge to different local optima. It also assumes roughly spherical, similar-size clusters and is sensitive to <b>feature scale</b> (standardize first) and outliers. Multiple initializations (k-means++) reduce the variability.</p>
-      <p><b>(b)</b> Use the <b>Elbow method</b>: run k-means for K = 1…10, plot <b>WCSS / inertia</b> against K, and pick K at the <b>bend</b>.</p>
-      <p><b>(c)</b> With no ground truth, use <b>internal</b> measures: the average within-cluster distance, or the average distance of points to their centroid (smaller = tighter); the silhouette score is another. If labels exist, compare <b>externally</b> to ground truth.</p>`}
+regGD:[
+  {q:"Points <code>(1, 2)</code> and <code>(2, 4)</code>, model ŷ = w₀ + w₁x, start w = (0, 0), η = 0.1, MSE loss. Do <b>one gradient-descent step</b>: give the gradient and the new w.",
+   a:`<p><b>Predictions & errors:</b> both predictions are 0, so Xw − y = (0−2, 0−4) = (−2, −4). Loss = (4 + 16)/2 = <b>10</b>.</p>
+      <p><b>Gradient</b> = (2/N)Xᵀ(Xw − y), N = 2, X rows (1,1) and (1,2):</p>
+      <div class="formula">= 1·[ (1)(−2)+(1)(−4),  (1)(−2)+(2)(−4) ] = (−6, −10)</div>
+      <p><b>Update:</b> w ← (0,0) − 0.1(−6, −10) = <b>(0.6, 1.0)</b>. Loss falls 10 → ~1.06.</p>`},
+  {q:"Points <code>(1, 2)</code>, <code>(2, 4)</code>, model ŷ = wx (no intercept). Give the OLS weight, then the <b>ridge</b> weight with λ = 1.",
+   a:`<p><b>OLS:</b> w = (xᵀx)⁻¹xᵀy = (1 + 4)⁻¹(1·2 + 2·4) = 10/5 = <b>2</b>.</p>
+      <p><b>Ridge (λ = 1):</b> w = (xᵀx + λ)⁻¹xᵀy = 10/(5 + 1) = 10/6 ≈ <b>1.667</b> — shrunk toward zero. (With λ = 5 it would be 10/10 = 1.)</p>`},
+  {q:"What happens to a degree-9 <b>ridge</b> fit as λ → ∞? What single number does the intercept w₀ approach, and why?",
+   a:`<p>As λ → ∞, every penalized slope w₁…w₉ → 0, because any nonzero wⱼ costs λwⱼ², which eventually outweighs any reduction in SSE. The curve flattens into a <b>horizontal line</b>.</p>
+      <p>The <b>intercept is not penalized</b>, so it settles at the value that best fits a flat line — the <b>mean of the training y</b> (the residuals of the best fit still sum to zero).</p>`}
 ],
-hier:[
-  {q:"Your data forms <b>two interleaving crescent (moon) shapes</b> plus scattered outliers. (a) Would k-means or DBSCAN cluster this better, and why? (b) What do DBSCAN's two parameters do, and how are the outliers handled?",
-   a:`<p><b>(a) DBSCAN.</b> K-means assumes convex, roughly spherical clusters and forces <b>every</b> point into a cluster, so it slices the crescents wrongly and absorbs the outliers. DBSCAN groups by <b>density</b>, so it captures <b>arbitrary shapes</b> and needs no K.</p>
-      <p><b>(b)</b> <b>eps (ε)</b> = the neighborhood <b>radius</b> defining “close”; <b>minPts</b> = the minimum points within ε for a region to be dense (a core region). Points not density-reachable from any core point are labeled <b>noise/outliers</b> — they are <b>not</b> forced into a cluster. Every point ends up <b>core</b>, <b>border</b>, or <b>noise</b>.</p>`},
-  {q:"Three points have distances <b>d(1,2)=3, d(1,3)=7, d(2,3)=6</b>. Perform the <b>first step</b> of agglomerative clustering (complete linkage), and explain how you'd read the cluster count off a dendrogram.",
-   a:`<p><b>First merge:</b> the smallest distance is <b>d(1,2)=3</b>, so merge points 1 and 2 into cluster <b>{1,2}</b>.</p>
-      <p><b>Update the distance to the new cluster</b> using <b>complete linkage</b> (max):</p>
-      <div class="formula">d({1,2}, 3) = max( d(1,3), d(2,3) ) = max(7, 6) = 7</div>
-      <p>(Single linkage would take the <b>min</b> = 6.) Then repeat — merge the closest clusters until one remains.</p>
-      <p><b>Reading a dendrogram:</b> draw a horizontal <b>threshold</b> line; the number of clusters = the number of <b>vertical lines it crosses</b>. Taller vertical links mean a larger distance between the clusters merged.</p>`}
-],
-nlp:[
-  {q:"You are turning free-text product reviews into features for a classifier. (a) Outline the <b>text-preprocessing</b> steps you'd apply before building features. (b) Would you use raw <b>Bag-of-Words</b> counts or <b>TF-IDF</b>, and why? (c) In the normalization step, what's the difference between <b>stemming</b> and <b>lemmatization</b>, and what does the lemmatizer need to do a good job?",
-   a:`<p><b>(a)</b> A typical pipeline: <b>tokenization</b> (split into words), lowercasing, removing <b>stop words</b> (the, is, a), and normalizing words by <b>stemming or lemmatization</b> (optionally add <b>n-grams</b>). Then vectorize into features.</p>
-      <p><b>(b)</b> Usually <b>TF-IDF</b>. It <b>down-weights common words</b> that appear in every review and <b>up-weights distinctive</b> terms, so informative words dominate the features instead of frequent-but-uninformative ones.</p>
-      <p><b>(c)</b> <b>Stemming</b> crudely chops to a root and may produce a non-word (<code>studies → studi</code>); <b>lemmatization</b> returns a valid dictionary base form (<code>studies → study</code>, <code>better → good</code>). The lemmatizer works best when given the word's <b>part of speech (POS)</b>.</p>`},
-  {q:"Using <b>Bag-of-Words</b>, the phrases <b>“good, not bad”</b> and <b>“bad, not good”</b> get nearly identical vectors. (a) Why does this happen? (b) What preprocessing or representations would help distinguish them or improve the features?",
-   a:`<p><b>(a)</b> Bag-of-Words is an <b>unordered word count</b> — it ignores word order and context, so two sentences with the same words in a different order look the same, and <b>negation</b> (“not good”) is lost.</p>
-      <p><b>(b)</b> Use <b>n-grams</b> (e.g., bigrams capture “not good” as one token), apply <b>TF-IDF</b> weighting to emphasize distinctive terms, and clean up with <b>tokenization, stop-word handling, and lemmatization</b>. For genuine meaning, move from sparse counts to dense <b>word embeddings</b>.</p>`}
-],
-nn:[
-  {q:"You build a neural network to predict which of <b>5 drugs</b> is effective, where exactly <b>one</b> is correct per patient. (a) How many output neurons and which output activation? (b) Which loss function? (c) How would this change if a patient could respond to <b>several</b> drugs at once (multi-label)?",
-   a:`<p><b>(a)</b> <b>5 output neurons</b> (one per drug) with a <b>softmax</b> activation, so the outputs form a probability distribution over the 5 classes that <b>sums to 1</b>; predict the drug with the highest probability.</p>
-      <p><b>(b)</b> <b>Categorical cross-entropy</b> (log loss for &gt;2 classes), with labels <b>one-hot</b> encoded.</p>
-      <p><b>(c) Multi-label (non-exclusive):</b> use a <b>sigmoid</b> on each of the 5 nodes — independent 0–1 probabilities that need <b>not</b> sum to 1 — with <b>binary cross-entropy</b> on each output. Each drug becomes its own yes/no decision.</p>`},
-  {q:"Your MLP reaches <b>99% training accuracy</b> but only <b>68% on new data</b>. (a) What is happening? (b) Name neural-network techniques (and general ones) to address it. (c) In a deeper version you also notice hidden-layer neurons using <b>sigmoid</b> barely update during training — what problem is this, and which activation would you switch to?",
-   a:`<p><b>(a) Overfitting.</b> The network has memorized the training data (including its noise) and fails to generalize — shown by the large train–test gap.</p>
-      <p><b>(b)</b> <b>Dropout</b> (randomly turn off neurons each step) and <b>early stopping</b> are NN-specific; also weight regularization (L2), a simpler architecture / fewer epochs, and more or augmented training data.</p>
-      <p><b>(c)</b> The <b>vanishing gradient</b> problem — sigmoid saturates for strong inputs, so its gradient is near zero and those weights barely update. Switch the hidden layers to <b>ReLU</b> (<code>max(0, x)</code>), whose gradient stays constant on the positive side, making training faster and more stable.</p>`}
-],
-cnn:[
-  {q:"An input image is <b>32×32</b>. A convolution layer uses a <b>5×5</b> filter, <b>stride 1, no padding</b>, followed by <b>2×2 max pooling</b> with <b>stride 2</b>. (a) Feature-map size after the conv layer? (b) After pooling? (c) State the formulas.",
-   a:`<p><b>(a) After convolution:</b></p>
-      <div class="formula">⌊ (W − F + 2P) / S ⌋ + 1 = (32 − 5 + 0) / 1 + 1 = 28  →  28×28</div>
-      <p><b>(b) After 2×2 max pooling, stride 2:</b></p>
-      <div class="formula">⌊ (28 − 2) / 2 ⌋ + 1 = 14  →  14×14</div>
-      <p><b>(c) Formulas:</b> Conv output = <span class="k">⌊(W − F + 2P)/S⌋ + 1</span>; Pooling output = <span class="k">⌊(input − pool_size)/stride⌋ + 1</span>. Here padding P = 0 (“valid”).</p>`},
-  {q:"Explain why a <b>CNN</b> is preferable to a plain <b>ANN</b> for classifying a <b>200×200 RGB</b> image, and name two CNN components that help control <b>overfitting</b>.",
-   a:`<p>A plain ANN would <b>flatten</b> the image (200 × 200 × 3 = <b>120,000 inputs</b>), which (1) <b>destroys spatial information</b> — the relationships between neighboring pixels — and (2) creates a <b>huge number of parameters</b> in the first dense layer, so it trains slowly, overfits, and isn't translation invariant.</p>
-      <p>A CNN uses <b>convolution with shared filters</b> to <b>preserve spatial structure</b>, use <b>far fewer parameters</b>, and detect patterns <b>anywhere</b> in the image (<b>translation invariance</b>).</p>
-      <p><b>Overfitting controls:</b> <b>pooling</b> (down-samples, keeping dominant features) and <b>dropout</b> (randomly turns off neurons during training); <b>data augmentation</b> also helps.</p>`}
+logistic:[
+  {q:"Given weights w = (0.9, −1.0) and b = 0.9, evaluate the score for x = (1.0, −0.5): give <b>z</b>, <b>p = σ(z)</b>, the predicted label at threshold 0.5, and the cross-entropy cost if the true label is 0.",
+   a:`<p><b>Score:</b> z = (0.9)(1.0) + (−1.0)(−0.5) + 0.9 = 0.9 + 0.5 + 0.9 = <b>2.3</b>.</p>
+      <p><b>Probability:</b> p = 1/(1 + e^(−2.3)) ≈ <b>0.909</b>.</p>
+      <p><b>Prediction:</b> p ≥ 0.5, so predict <b>class 1</b>.</p>
+      <p><b>Cost if y = 0:</b> −ln(1 − p) = −ln(0.091) ≈ <b>2.40</b> — a confidently wrong call is expensive.</p>`},
+  {q:"Softmax scores for three classes are <code>z = (2.0, 1.0, 0.0)</code>. Give the probabilities, and the cross-entropy loss if the true class is the <b>third</b>.",
+   a:`<p><b>Exponentiate:</b> e^z = (e², e¹, e⁰) = (7.389, 2.718, 1.000), sum = 11.107.</p>
+      <div class="formula">p = (7.389, 2.718, 1.000) / 11.107 = (0.665, 0.245, 0.090)</div>
+      <p><b>Loss</b> (true class 3, one-hot): −ln(p₃) = −ln(0.090) ≈ <b>2.41</b>. (Adding a constant to every score would leave p unchanged.)</p>`},
+  {q:"Logistic weights in raw units give <b>0.0242 per horsepower</b>. By what factor do the <b>odds</b> of the positive class change for <b>10 more horsepower</b>?",
+   a:`<p>Ten more horsepower adds 10 × 0.0242 = <b>0.242</b> to the log-odds.</p>
+      <div class="formula">odds multiplier = e^(0.242) ≈ 1.27</div>
+      <p>So the odds increase by about <b>27%</b>. (Remember: a weight acts on the <b>odds</b> via e^w, not directly on the probability.)</p>`}
 ]
 };
 
-/* attach question banks to sections */
+/* attach question banks */
 SECTIONS.forEach(s=>{ s.questions = QB[s.id] || []; });
 
 /* =========================================================
    RENDER + LOGIC
    ========================================================= */
 const store = (()=>{ try{ const t="__t"; localStorage.setItem(t,"1"); localStorage.removeItem(t); return localStorage;}catch(e){ return null; }})();
-const KEY="mlquiz4-progress-v2";
+const KEY="cai4105-quiz1-progress-v1";
 let state = {};
 try{ if(store){ state = JSON.parse(store.getItem(KEY)||"{}"); } }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 
-/* deterministic per-question option shuffle (stable across reloads) */
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function seededPerm(n, seed){
   let a=seed>>>0;
@@ -736,8 +695,7 @@ SECTIONS.forEach((sec,si)=>{
   tab.setAttribute("role","tab"); tab.id="tab-"+sec.id;
   tab.setAttribute("aria-controls","panel-"+sec.id);
   tab.setAttribute("aria-selected", si===0 ? "true":"false");
-  const shortTitle = sec.title.replace(", Random Forests & Boosting"," & Boosting").replace("Convolutional Neural Networks (CNN)","CNN").replace("Unsupervised Learning & Clustering","Clustering").replace("Hierarchical Clustering & DBSCAN","Hierarchical & DBSCAN").replace("Natural Language Processing","NLP").replace("Neural Networks (ANN)","Neural Networks");
-  tab.innerHTML=`<span class="chip"></span>${shortTitle} <span class="sc" id="sc-${sec.id}"></span>`;
+  tab.innerHTML=`<span class="chip"></span>${sec.short} <span class="sc" id="sc-${sec.id}"></span>`;
   tab.addEventListener("click",()=>selectSection(sec.id));
   tabsEl.appendChild(tab);
 
@@ -769,8 +727,8 @@ SECTIONS.forEach((sec,si)=>{
     <div class="section-done" id="done-${sec.id}"></div>
     ${(FR[sec.id]&&FR[sec.id].length)?`
     <div class="fr-head">
-      <div class="qt">Free-Response Practice · ${FR[sec.id].length} scenarios</div>
-      <div class="fr-sub">Quiz-style scenario questions. Work out your answer first, then reveal the model answer.</div>
+      <div class="qt">Short-Numeric Practice · ${FR[sec.id].length} problems</div>
+      <div class="fr-sub">Work each one out by hand, then reveal the worked solution.</div>
     </div>
     <div id="fr-${sec.id}"></div>`:``}
   `;
@@ -800,15 +758,15 @@ SECTIONS.forEach((sec,si)=>{
       const c=document.createElement("div");
       c.className="fr";
       c.innerHTML=`
-        <div class="qnum">Scenario ${fi+1}</div>
+        <div class="qnum">Problem ${fi+1}</div>
         <div class="qtext">${f.q}</div>
-        <button class="reveal" type="button" aria-expanded="false">Show model answer</button>
+        <button class="reveal" type="button" aria-expanded="false">Show worked solution</button>
         <div class="fr-ans">${f.a}</div>`;
       const btn=c.querySelector(".reveal");
       btn.addEventListener("click",()=>{
         const open=c.classList.toggle("open");
         btn.setAttribute("aria-expanded",open?"true":"false");
-        btn.textContent=open?"Hide model answer":"Show model answer";
+        btn.textContent=open?"Hide worked solution":"Show worked solution";
       });
       frWrap.appendChild(c);
     });
@@ -866,7 +824,7 @@ function refresh(secId){
   const done=document.getElementById("done-"+secId);
   if(st.answered===st.total){
     const pct=Math.round(100*st.correct/st.total);
-    let msg = pct===100 ? "Perfect — you've nailed this section. 🎯"
+    let msg = pct===100 ? "Perfect — you've nailed this lecture. 🎯"
             : pct>=80 ? "Strong grasp — review the few you missed."
             : pct>=60 ? "Solid start — revisit the notes for the missed items."
             : "Worth another pass — open the Study Notes above and retry.";
@@ -910,10 +868,10 @@ const root=document.documentElement, tb=document.getElementById("themeBtn"),
 function applyTheme(t){
   if(t==="system"){ root.removeAttribute("data-theme"); ti.textContent="◐"; tl.textContent="Auto"; }
   else{ root.setAttribute("data-theme",t); ti.textContent= t==="dark"?"☾":"☀"; tl.textContent= t==="dark"?"Dark":"Light"; }
-  try{ store && store.setItem("mlquiz4-theme",t); }catch(e){}
+  try{ store && store.setItem("cai4105-theme",t); }catch(e){}
 }
 let curTheme="system";
-try{ if(store) curTheme=store.getItem("mlquiz4-theme")||"system"; }catch(e){}
+try{ if(store) curTheme=store.getItem("cai4105-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{
   curTheme = curTheme==="system" ? "light" : curTheme==="light" ? "dark" : "system";
