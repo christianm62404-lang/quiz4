@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SQL Study Guide — CREATE, SELECT, UPDATE/DELETE</title>
+<title>Operating Systems Study Guide — Ch 2, 4, 6, 7, 8</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -12,7 +12,7 @@
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
   --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#2f7d8f;--t1:#3763a8;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;
+  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;
   --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
   --radius:12px;
 }
@@ -21,19 +21,19 @@
     --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
     --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
     --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-    --t0:#4fb0c2;--t1:#6b9be0;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;
+    --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="light"]{
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#2f7d8f;--t1:#3763a8;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
+  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
   --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-  --t0:#4fb0c2;--t1:#6b9be0;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -46,7 +46,7 @@ a{color:var(--accent-strong)}
 .mast-inner{max-width:1080px;margin:0 auto;padding:30px 22px 22px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
-h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:.32em 0 .18em;text-wrap:balance;color:var(--ink)}
+h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-size:clamp(27px,5vw,43px);line-height:1.1;margin:.32em 0 .18em;text-wrap:balance;color:var(--ink)}
 .subtitle{color:var(--muted);max-width:68ch;font-size:16.5px;margin:0}
 .mast-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .theme-btn{flex:0 0 auto;font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
@@ -97,13 +97,11 @@ main{max-width:1080px;margin:0 auto;padding:30px 22px 90px}
 code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
 .kw{color:var(--hue);font-weight:600}
 .code{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:9px 0 3px;font-size:12.75px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.55;tab-size:4}
-.tbl{border-collapse:collapse;margin:6px 12px 8px 0;font-size:13px;display:inline-block;vertical-align:top}
+.tbl{border-collapse:collapse;margin:8px 0;font-size:13.5px;width:100%;max-width:520px}
 .tbl caption{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--hue);text-align:left;padding-bottom:4px;font-weight:700}
-.tbl th,.tbl td{border:1px solid var(--line);padding:4px 9px;text-align:left;font-variant-numeric:tabular-nums}
+.tbl th,.tbl td{border:1px solid var(--line);padding:5px 10px;text-align:left;font-variant-numeric:tabular-nums}
 .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:600}
 .tbl td{color:var(--ink-soft)}
-.tbl td.nul{color:var(--faint);font-style:italic}
-.schema-wrap{display:flex;flex-wrap:wrap;gap:4px}
 
 .quiz-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:6px 0 14px;flex-wrap:wrap}
 .quiz-head .qt{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
@@ -113,9 +111,8 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:
 .reset:hover{border-color:var(--bad);color:var(--bad)}
 .q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;margin-bottom:16px}
 .q .qnum{font-family:var(--mono);font-size:12px;color:var(--hue);font-weight:700;letter-spacing:.05em}
-.q .qtext{font-weight:600;font-size:16.5px;color:var(--ink);margin:6px 0 6px;text-wrap:pretty}
+.q .qtext{font-weight:600;font-size:16.5px;color:var(--ink);margin:6px 0 12px;text-wrap:pretty}
 .q .qtext code{font-weight:500}
-.q .qcode{margin-bottom:12px}
 .opts{display:flex;flex-direction:column;gap:9px}
 .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit;line-height:1.45;transition:.12s}
 .opt:hover:not(:disabled){border-color:var(--hue);background:var(--surface-2)}
@@ -152,7 +149,7 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:
 .fr-ans{display:none;margin-top:14px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:4px 16px 6px;font-size:15px;color:var(--ink-soft)}
 .fr.open .fr-ans{display:block;animation:fade .25s ease}
 .fr-ans p{margin:11px 0}
-.fr-ans ul{margin:9px 0;padding-left:20px}
+.fr-ans ul,.fr-ans ol{margin:9px 0;padding-left:20px}
 .fr-ans li{margin:4px 0}
 .fr-ans li::marker{color:var(--hue)}
 .fr-ans b{color:var(--ink)}
@@ -168,12 +165,12 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> Databases · SQL <span class="dot"></span> Self-Test Edition</div>
+      <div class="eyebrow"><span class="dot"></span> Operating Systems · Exam Prep <span class="dot"></span> Self-Test Edition</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">SQL Study Guide — CREATE, SELECT, UPDATE/DELETE</h1>
-    <p class="subtitle">Five testable sections aligned to Ramakrishnan &amp; Gehrke, <em>Database Management Systems</em> (3rd ed.): §3.1.1, §3.2–3.3, §3.7, and Chapter&nbsp;5. Condensed notes, multiple-choice practice with instant feedback, and worked query-tracing problems.</p>
-    <div class="callout"><b>The running schema:</b> every example and quiz question traces against the same three tables — <b>Sailors</b>, <b>Boats</b>, and <b>Reserves</b>. Each section's Study Notes open with the sample data so you can hand-trace results. Keep it in view as you answer.</div>
+    <h1 class="title">Operating Systems — Processes, Direct Execution &amp; Scheduling</h1>
+    <p class="subtitle">Five testable sections built from the lecture decks (Introduction, Processes, Schedulers) and OSTEP <em>(Three Easy Pieces)</em> chapters 2, 4, 6, 7, and 8. Condensed notes, multiple-choice practice with instant feedback, and worked scheduling calculations.</p>
+    <div class="callout"><b>What's covered:</b> the OS as an abstraction over hardware (Ch 2), the process abstraction (Ch 4), limited direct execution — traps, modes, context switches (Ch 6), CPU scheduling metrics and policies FIFO / SJF / STCF / RR (Ch 7), and MLFQ + a note on lottery scheduling (Ch 8). The scheduling sections include the deck's worked turnaround / response-time traces.</div>
     <div class="progress-wrap">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> mastered · <span id="overallCount">0 / 0</span> correct</div>
@@ -185,499 +182,459 @@ footer .mono{font-family:var(--mono)}
 <main id="panels"></main>
 
 <footer>
-  <div class="mono">Built from the SQL Study Guide (CREATE / SELECT / UPDATE / DELETE) · Ramakrishnan &amp; Gehrke §3.1.1, §3.2–3.3, §3.7, Ch. 5.</div>
+  <div class="mono">Built from the OS lecture decks (Introduction · Processes Ch 4&amp;6 · Schedulers Ch 7&amp;8) and Arpaci-Dusseau, <em>Operating Systems: Three Easy Pieces</em> — chapters 2, 4, 6, 7, 8.</div>
   <div style="margin-top:8px">Click any answer to check it — options are shuffled and explanations reveal automatically. Progress is saved in this browser.</div>
 </footer>
 
 <script>
-/* ============ shared sample data (rendered atop each section) ============ */
-const SCHEMA = `
-<div class="schema-wrap">
-<table class="tbl"><caption>Sailors</caption>
-<thead><tr><th>sid</th><th>sname</th><th>rating</th><th>age</th></tr></thead>
-<tbody>
-<tr><td>10</td><td>Ana</td><td>8</td><td>22.0</td></tr>
-<tr><td>20</td><td>Brooks</td><td>5</td><td>35.5</td></tr>
-<tr><td>30</td><td>Chen</td><td>9</td><td>41.0</td></tr>
-<tr><td>40</td><td>Diaz</td><td>5</td><td>19.0</td></tr>
-<tr><td>50</td><td>Evans</td><td class="nul">NULL</td><td>60.0</td></tr>
-</tbody></table>
-<table class="tbl"><caption>Boats</caption>
-<thead><tr><th>bid</th><th>bname</th><th>color</th></tr></thead>
-<tbody>
-<tr><td>101</td><td>Marlin</td><td>red</td></tr>
-<tr><td>102</td><td>Osprey</td><td>green</td></tr>
-<tr><td>103</td><td>Tidewater</td><td>red</td></tr>
-</tbody></table>
-<table class="tbl"><caption>Reserves</caption>
-<thead><tr><th>sid</th><th>bid</th><th>day</th></tr></thead>
-<tbody>
-<tr><td>10</td><td>101</td><td>2026-09-01</td></tr>
-<tr><td>10</td><td>102</td><td>2026-09-03</td></tr>
-<tr><td>10</td><td>103</td><td>2026-09-05</td></tr>
-<tr><td>20</td><td>101</td><td>2026-09-02</td></tr>
-<tr><td>30</td><td>102</td><td>2026-09-02</td></tr>
-<tr><td>30</td><td>103</td><td>2026-09-07</td></tr>
-</tbody></table>
-</div>`;
-
-const SCHEMA_NOTE = {h:"The running schema (trace against this)", html:SCHEMA};
-
 /* =========================================================
    SECTIONS — study notes
    ========================================================= */
 const SECTIONS = [
 {
-  id:"create", short:"CREATE & Constraints", tag:"Part 1 · §3.1–3.3, §3.7", title:"CREATE TABLE & Integrity Constraints",
-  blurb:"Primary/candidate/foreign keys, CHECK and NOT NULL, referential actions on delete/update, and DROP vs DELETE.",
+  id:"intro", short:"OS & Design", tag:"Chapter 2 · Introduction", title:"The OS as an Abstraction Over Hardware",
+  blurb:"From the Von Neumann machine and interrupts to the OS as middleware: resources, abstractions, mechanism vs policy, and the three (plus one) easy pieces.",
   notes:[
-    SCHEMA_NOTE,
-    {h:"Keys & constraints", html:`<div class="code"><span class="kw">CREATE TABLE</span> Sailors (
-    sid     INTEGER,
-    sname   VARCHAR(30) <span class="kw">NOT NULL</span>,
-    rating  INTEGER,
-    age     REAL,
-    <span class="kw">PRIMARY KEY</span> (sid),
-    <span class="kw">CHECK</span> (rating &gt;= 1 <span class="kw">AND</span> rating &lt;= 10)
-);</div>
+    {h:"Von Neumann & the fetch–decode–execute cycle", html:`<p>A stored-program computer repeats a simple cycle: <b>Fetch</b> an instruction from memory → <b>Decode</b> it → <b>Execute</b> it → repeat until powered off or a fatal error. Early machines were single-purpose and rewired by hand; the programmable computer runs different tasks from memory instead.</p>`},
+    {h:"Building the OS one interrupt at a time", html:`<p>The course's running theme: each hardware addition is a flip-flop + a register + a handler routine.</p>
       <ul>
-      <li>A <b>PRIMARY KEY</b> is automatically <b>unique and non-null</b>.</li>
-      <li><b>NOT NULL</b> forbids missing values in a column.</li>
-      <li><b>CHECK</b> tests every row; a row where the check is <b>NULL (unknown)</b> is <b>accepted</b> — that's why Evans can have a NULL rating.</li>
-      <li>Extra candidate keys use <b>UNIQUE</b>. Trap: <code>UNIQUE (bname, color)</code> when you meant <code>UNIQUE (bname)</code> still allows two boats named Marlin if colors differ — pick the <b>minimal</b> set that must never repeat.</li></ul>`},
-    {h:"Foreign keys & business rules", html:`<div class="code"><span class="kw">CREATE TABLE</span> Reserves (
-    sid  INTEGER,
-    bid  INTEGER,
-    day  DATE,
-    <span class="kw">PRIMARY KEY</span> (sid, bid, day),
-    <span class="kw">FOREIGN KEY</span> (sid) <span class="kw">REFERENCES</span> Sailors(sid)
-        <span class="kw">ON DELETE CASCADE ON UPDATE CASCADE</span>,
-    <span class="kw">FOREIGN KEY</span> (bid) <span class="kw">REFERENCES</span> Boats(bid)
-        <span class="kw">ON DELETE NO ACTION</span>
-);</div>
-      <p>A FK value must <b>match an existing PK value</b> in the referenced table <b>or be NULL</b>. The PK choice encodes a rule: <code>(sid, bid, day)</code> lets a sailor reserve the same boat on different days; <code>(bid, day)</code> would mean only one sailor per boat per day.</p>`},
-    {h:"Referential actions (§3.3) — most tested", html:`<p>When a <b>parent</b> row is deleted or its key updated, the DBMS applies the FK's action to the <b>child</b> rows:</p>
+      <li><b>Overflow flag → error handler</b> (NEWPC register holds the handler address).</li>
+      <li><b>FENCE register → memory protection</b>: records a process's bounds; hardware checks each address against it.</li>
+      <li><b>Mode bit → privileged instructions</b>: opcodes above a threshold are privileged; an unprivileged process attempting one raises an error. This is what stops a process from overwriting the FENCE register.</li>
+      <li><b>I/O interrupt</b>: save program state (PC, R0), run the handler, restore — switch between handler and caller.</li>
+      <li>The array of flip-flops becomes one <b>Interrupt Handler Vector</b>; routines grow into <b>system calls</b>; <b>timer interrupts</b> let the system seize control from a running process.</li></ul>
+      <p>"…from now on we will refer to the interrupt handler as the <b>supervisor</b> and eventually we will call it the <b>operating system</b>."</p>`},
+    {h:"The Von Neumann bottleneck", html:`<p>The CPU and I/O devices run at <b>radically different time scales</b>. A 1981 PC-AT at 4.77 MHz waiting on a 150 ms drive wastes <b>thousands of cycles</b> — motivating interrupts, overlap, and disk optimizations.</p>`},
+    {h:"OS as middleware: resources & abstractions", html:`<p>The OS <b>manages access to hardware, orchestrates running processes, responds to resource requests, and handles access control.</b> It turns raw <b>resources</b> into convenient <b>abstractions</b>:</p>
+      <table class="tbl"><thead><tr><th>Resource</th><th>Abstraction</th></tr></thead>
+      <tbody><tr><td>CPU</td><td>Processes &amp; Threads</td></tr><tr><td>Memory</td><td>Address Space</td></tr><tr><td>Disk</td><td>Files &amp; Directories</td></tr></tbody></table>
+      <p>Resource management provides <b>protection</b> (processes from one another; system from unprivileged code) and <b>efficient, fair</b> access. The design questions split into <b>mechanism</b> (what mechanism?) and <b>policy</b> (what policy?).</p>`},
+    {h:"The three (plus one) easy pieces", html:`<ul>
+      <li><b>Virtualization</b> — abstract each resource so a process acts as if it owns it alone; frees developers from sharing concerns and lets the OS allot resources freely.</li>
+      <li><b>Concurrency</b> — many processes/threads execute at once; the OS handles concurrent events, offers synchronization (locks, semaphores, shared memory) and avoids deadlock.</li>
+      <li><b>Persistence</b> — data survives reboots/crashes via the file &amp; directory abstractions; error handling and (because disks are slow) optimization matter.</li>
+      <li><b>Security</b> — the roof over the pillars: <b>authentication</b> proves a principal is who they claim; <b>authorization</b> decides what they may access and do.</li></ul>`}
+  ]
+},
+{
+  id:"process", short:"The Process", tag:"Chapter 4 · Abstraction", title:"The Process Abstraction",
+  blurb:"Program vs process, what a process contains, the running/ready/blocked states and their transitions, and where the OS keeps a process's context.",
+  notes:[
+    {h:"Program vs process", html:`<p>Java analogy: a <b>class is the program</b>, an <b>object is the process</b>. A <b>program is just code</b> (and static data) on disk; a <b>process is a running instance</b> of it. There may be <b>0 or more processes per program</b>.</p>`},
+    {h:"Process creation & layout", html:`<p>To create a process, the OS loads the program's <b>code and static data</b> into memory and allocates a <b>heap</b> (dynamic memory) and a <b>stack</b> (locals, call frames). The running process's memory is: <code>code · static data · heap · … · stack</code>.</p>`},
+    {h:"What's in a process (its context)", html:`<p>Processes may share code, but each has its own <b>context</b>:</p>
       <ul>
-      <li><b>NO ACTION</b> (default) — reject the parent delete/update if any children exist.</li>
-      <li><b>CASCADE</b> — delete the children too (or update their FK to the new value).</li>
-      <li><b>SET NULL</b> — set children's FK to NULL (fails if the FK is part of the child's PK).</li>
-      <li><b>SET DEFAULT</b> — set children's FK to the column default (which must exist in the parent).</li></ul>
-      <p><b>Inserting a child with an invalid FK is always rejected</b> — referential actions only govern changes on the <b>parent</b> side.</p>`},
-    {h:"DROP, ALTER, and DELETE (§3.7)", html:`<div class="code"><span class="kw">ALTER TABLE</span> Sailors <span class="kw">ADD COLUMN</span> email VARCHAR(50);
-<span class="kw">ALTER TABLE</span> Sailors <span class="kw">DROP COLUMN</span> email;
-<span class="kw">DROP TABLE</span> Sailors RESTRICT;   <span style="color:var(--faint)">-- fails if anything depends on it</span>
-<span class="kw">DROP TABLE</span> Sailors CASCADE;    <span style="color:var(--faint)">-- also drops dependent views/constraints</span></div>
-      <p><b>DELETE FROM Sailors</b> empties the table but keeps its definition; <b>DROP TABLE Sailors</b> destroys schema <b>and</b> data. "Exactly one" in a spec means a <b>foreign key plus NOT NULL</b> (FK = at most one; NOT NULL = at least one).</p>`}
+      <li><b>CPU</b>: the <b>Instruction Pointer</b> (program counter) and <b>Stack Pointer</b> (plus other registers).</li>
+      <li><b>Memory</b>: a set of addresses — its <b>address space</b>.</li>
+      <li><b>Disk</b>: a set of open <b>file descriptors</b>.</li></ul>`},
+    {h:"Process states", html:`<p>The three main states and their transitions:</p>
+      <ul>
+      <li><b>Running</b> — currently executing on the CPU.</li>
+      <li><b>Ready</b> — runnable, waiting to be scheduled onto a CPU.</li>
+      <li><b>Blocked</b> — waiting for an event (e.g. I/O); not runnable.</li></ul>
+      <p>Transitions: Ready → Running is <b>scheduled</b>; Running → Ready is <b>descheduled</b>; Running → Blocked when it <b>initiates I/O</b>; Blocked → Ready when <b>I/O completes</b>.</p>`},
+    {h:"Storing a non-running process", html:`<p>When a process isn't running, the OS saves its state in a <b>process struct</b> (the PCB, e.g. <code>struct proc</code> in <code>kernel/proc.h</code>):</p>
+      <ul>
+      <li><b>context</b> — the saved CPU registers,</li>
+      <li><b>ofile</b> — the open file descriptors,</li>
+      <li><b>state</b> — running / ready / sleeping, etc. (plus pid, parent, page table, kernel stack…).</li></ul>
+      <p>As always, <b>mechanism</b> = <em>how</em> to transition; <b>policy</b> = <em>when</em> to transition.</p>`}
   ]
 },
 {
-  id:"joins", short:"Joins & Set Ops", tag:"Part 2 · Ch. 5", title:"SELECT — Joins, Expressions & Set Operations",
-  blurb:"Conceptual evaluation order, multiset semantics, joins with range variables, LIKE patterns, and UNION / INTERSECT / EXCEPT.",
+  id:"lde", short:"Limited Direct Exec.", tag:"Chapter 6 · Mechanism", title:"Limited Direct Execution",
+  blurb:"Running processes fast yet safely: user vs kernel mode, system calls via traps, privileged instructions, and context switches on the timer interrupt.",
   notes:[
-    SCHEMA_NOTE,
-    {h:"Conceptual evaluation order", html:`<p>Clauses are <em>written</em> in one order but <em>evaluated</em> in another — this resolves most confusing results:</p>
-      <div class="code"><span class="kw">FROM</span>      → cross-product of the listed tables
-<span class="kw">WHERE</span>     → discard rows failing the condition
-<span class="kw">GROUP BY</span>  → partition surviving rows into groups
-<span class="kw">HAVING</span>    → discard groups failing the group condition
-<span class="kw">SELECT</span>    → compute output columns
-<span class="kw">DISTINCT</span>  → remove duplicate rows
-<span class="kw">ORDER BY</span>  → sort the output</div>
-      <p>SQL uses <b>multiset (bag) semantics</b>: duplicates are kept unless you write <b>DISTINCT</b>.</p>`},
-    {h:"Joins & range variables", html:`<div class="code"><span class="kw">SELECT DISTINCT</span> S.sname
-<span class="kw">FROM</span>   Sailors S, Reserves R, Boats B
-<span class="kw">WHERE</span>  S.sid = R.sid <span class="kw">AND</span> R.bid = B.bid <span class="kw">AND</span> B.color = 'red';</div>
-      <p>Result: <b>Ana, Brooks, Chen</b>. The aliases <code>S</code>, <code>R</code>, <code>B</code> are <b>range variables</b> — required whenever the same table appears twice. Without <b>DISTINCT</b>, Ana appears twice (she reserved two red boats).</p>`},
-    {h:"Expressions & LIKE", html:`<div class="code"><span class="kw">SELECT</span> sname, age * 12 <span class="kw">AS</span> age_months
-<span class="kw">FROM</span>   Sailors
-<span class="kw">WHERE</span>  sname <span class="kw">LIKE</span> 'D_a%';</div>
-      <p>In LIKE patterns, <code>_</code> matches <b>exactly one</b> character and <code>%</code> matches <b>zero or more</b>. <code>'D_a%'</code> matches <b>Diaz</b>: D, one char (i), a, then anything.</p>`},
-    {h:"UNION, INTERSECT, EXCEPT", html:`<ul>
-      <li><b>UNION</b> combines and <b>removes duplicates</b>; <b>UNION ALL</b> keeps them.</li>
-      <li><b>INTERSECT</b> = rows in both; <b>EXCEPT</b> = rows in the first but not the second.</li></ul>
-      <p><b>Trap ("and" across rows):</b> "sailors who reserved a red <b>and</b> a green boat" can't be one query with <code>color = 'red' AND color = 'green'</code> — a single boat row can't be both colors, so it returns nothing. Use <b>INTERSECT</b> (on <b>sid</b>, the key — not sname) or a self-join. Red-and-green → <b>{10, 30}</b>; red-but-not-green (EXCEPT) → <b>{20}</b>.</p>`},
-    {h:"WHERE keeps only TRUE rows", html:`<p><code>SELECT sname, age FROM Sailors WHERE rating &gt; 6</code> → <b>Ana, Chen</b>. Evans is excluded because <code>NULL &gt; 6</code> is <b>unknown</b>, and WHERE keeps only rows that evaluate to <b>true</b> (not false, not unknown).</p>`}
+    {h:"The two goals & the idea", html:`<p>CPU time-sharing needs <b>efficiency</b> (minimal OS overhead) and <b>control</b> (processes can't do anything bad; the OS decides when they run). The solution is <b>limited direct execution</b>: run the process directly on the CPU, but with hardware-enforced limits.</p>`},
+    {h:"User mode vs kernel mode", html:`<p>Processes run in <b>user mode</b>: they can only see their own memory and can't perform <b>general memory access outside their space, disk I/O, or special instructions</b> (e.g. <code>lidt</code>). The OS runs in <b>kernel mode</b>, where "we can do anything." A privileged instruction attempted in user mode makes the <b>CPU warn the OS, which kills the process</b>.</p>`},
+    {h:"System calls via traps", html:`<p>To request a service, a process makes a <b>system call</b>: put the syscall number in a register and execute a <b>trap</b> instruction.</p>
+      <div class="code">movl  $6,  %eax     <span style="color:var(--faint)"># syscall number (e.g. read)</span>
+int   $64           <span style="color:var(--faint)"># trap into the kernel</span></div>
+      <p>The trap raises privilege to kernel mode and jumps through the <b>trap table</b> (the IDT, <code>idt[256]</code>) to the handler; the handler indexes the <b>syscall table</b> to run e.g. <code>sys_read</code>; then <b>return-from-trap</b> drops back to user mode. The trap table is installed <b>at boot</b> — itself a privileged operation.</p>`},
+    {h:"Regaining control: cooperative vs non-cooperative", html:`<p>Under direct execution, <b>the OS can't run while a process runs</b> — it must regain control via an interrupt.</p>
+      <ul>
+      <li><b>Cooperative</b>: switch only on a syscall, including a special <code>yield()</code>. Flaw: a process stuck in an infinite loop <b>never yields</b>, so the OS never regains control (short of reboot).</li>
+      <li><b>Non-cooperative</b>: a <b>timer interrupt</b> fires periodically and returns control to the OS. It is set up <b>before any process runs</b>, and hardware won't let a process disable it.</li></ul>`},
+    {h:"The timer-interrupt context switch (A → B)", html:`<div class="code"><span class="kw">HW</span>  timer interrupt → save regs(A) to kernel stack(A)
+      move to kernel mode, jump to trap handler
+<span class="kw">OS</span>  handle the trap, call switch()
+      save regs(A) → proc-struct(A)
+      restore regs(B) ← proc-struct(B), switch k-stack
+      return-from-trap (into B)
+<span class="kw">HW</span>  restore regs(B) from kernel stack(B)
+      move to user mode, jump to B's IP</div>
+      <p>Two saves happen: <b>hardware</b> saves A's registers to the <b>kernel stack</b> on the interrupt; the <b>OS's <code>switch()</code></b> saves A's registers into A's <b>process struct</b> and restores B's. Smooth switching makes each process think it has its own CPU — virtualization.</p>`}
   ]
 },
 {
-  id:"nested", short:"Nested & Division", tag:"Part 2.5 · Ch. 5", title:"SELECT — Nested Queries & Division",
-  blurb:"IN and NOT IN, correlated EXISTS, ANY / ALL set comparisons, the >= ALL NULL trap, and the division (“for all”) pattern.",
+  id:"sched", short:"Scheduling (FIFO…RR)", tag:"Chapter 7 · Scheduling", title:"CPU Scheduling — Metrics & Policies",
+  blurb:"Workloads, schedulers, and metrics: turnaround vs response time, and the FIFO → SJF → STCF → RR progression, with the convoy effect and I/O overlap.",
   notes:[
-    SCHEMA_NOTE,
-    {h:"IN / NOT IN", html:`<div class="code"><span class="kw">SELECT</span> sname <span class="kw">FROM</span> Sailors
-<span class="kw">WHERE</span>  sid <span class="kw">IN</span> (<span class="kw">SELECT</span> sid <span class="kw">FROM</span> Reserves <span class="kw">WHERE</span> bid = 101);</div>
-      <p>Sailors who reserved boat 101 → <b>Ana, Brooks</b>. Sailors who <b>never</b> reserved anything, via <code>sid NOT IN (SELECT sid FROM Reserves)</code> → <b>Diaz, Evans</b>.</p>`},
-    {h:"Correlated EXISTS", html:`<div class="code"><span class="kw">SELECT</span> S.sname <span class="kw">FROM</span> Sailors S
-<span class="kw">WHERE</span>  <span class="kw">EXISTS</span> (<span class="kw">SELECT</span> * <span class="kw">FROM</span> Reserves R
-               <span class="kw">WHERE</span> R.bid = 101 <span class="kw">AND</span> R.sid = S.sid);</div>
-      <p>The inner query references <code>S</code> from the outer query, so it is <b>re-evaluated for every sailor</b>. This is a <b>correlated</b> subquery.</p>`},
-    {h:"ANY / ALL and the NULL trap", html:`<div class="code"><span class="kw">SELECT</span> sname <span class="kw">FROM</span> Sailors
-<span class="kw">WHERE</span>  rating &gt;= <span class="kw">ALL</span> (<span class="kw">SELECT</span> rating <span class="kw">FROM</span> Sailors <span class="kw">WHERE</span> rating <span class="kw">IS NOT NULL</span>);</div>
-      <p>Highest rating → <b>Chen</b>. The <b>IS NOT NULL</b> filter matters: comparing <code>&gt;= ALL</code> against a set containing NULL makes the test <b>unknown for every row</b>, so the query would return nothing. Also, <code>rating &gt; ANY (Diaz's rating = 5)</code> means "strictly greater than 5" → <b>Ana, Chen</b> (Brooks ties at 5 and is excluded).</p>`},
-    {h:"Division — “for all / every”", html:`<div class="code"><span class="kw">SELECT</span> S.sname <span class="kw">FROM</span> Sailors S
-<span class="kw">WHERE NOT EXISTS</span> (
-    <span class="kw">SELECT</span> B.bid <span class="kw">FROM</span> Boats B
-    <span class="kw">EXCEPT</span>
-    <span class="kw">SELECT</span> R.bid <span class="kw">FROM</span> Reserves R <span class="kw">WHERE</span> R.sid = S.sid
-);</div>
-      <p>Sailors who reserved <b>every</b> boat → <b>Ana</b>. Read it as: <b>"there is no boat this sailor hasn't reserved."</b> Division / "all" / "every" questions appear on almost every exam — memorize this <b>double-negation</b> shape (<code>NOT EXISTS (… EXCEPT …)</code>).</p>`}
+    {h:"Vocabulary & the scheduler “algebra”", html:`<ul>
+      <li><b>Workload</b>: the set of job descriptions (arrival_time, run_time).</li>
+      <li><b>Scheduler</b>: the logic that decides when jobs run.</li>
+      <li><b>Metric</b>: a measurement of scheduling quality.</li></ul>
+      <p>Think <b>f(W, S) = M</b> — given any two of workload, scheduler, and metric, reason about the third. Simplifying <b>workload assumptions</b> (later relaxed): all jobs run the same time, all arrive together, all use only the CPU (no I/O), and run-times are known.</p>`},
+    {h:"The two metrics", html:`<div class="code">turnaround_time = completion_time − arrival_time
+response_time   = first_run_time − arrival_time</div>
+      <p><b>Turnaround</b> measures when a job <em>finishes</em>; <b>response</b> measures when it first <em>starts</em>. They pull in different directions.</p>`},
+    {h:"FIFO and the convoy effect", html:`<p><b>FIFO</b> runs jobs in arrival order. With three 10 s jobs arriving together, turnaround = (10+20+30)/3 = <b>20 s</b>. But a <b>big first job</b> (60, 10, 10) gives (60+70+80)/3 = <b>70 s</b> — the short jobs are stuck behind the long one: the <b>convoy effect</b>.</p>`},
+    {h:"SJF and STCF", html:`<ul>
+      <li><b>SJF (Shortest Job First)</b> runs the job with the smallest run_time next. For (60,10,10) arriving together: (80+10+20)/3 = <b>36.7 s</b> — much better. But SJF is <b>non-preemptive</b>: if the long job starts first and short jobs arrive later, they wait — (60+60+70)/3 = <b>63.3 s</b>.</li>
+      <li><b>STCF (Shortest Time-to-Completion First)</b> is the <b>preemptive</b> version: whenever a job arrives, switch to whichever will complete soonest. It preempts the long job → <b>≈ 36.6 s</b>.</li></ul>`},
+    {h:"Round Robin & response time", html:`<p>FIFO, SJF, and STCF optimize turnaround but have <b>poor response time</b>. <b>RR (Round Robin)</b> alternates among ready jobs every fixed <b>time slice</b>. For three jobs, RR's average response is (0+1+2)/3 = <b>1</b> vs FIFO's (0+5+10)/3 = <b>5</b> — great response, but worse turnaround.</p>`},
+    {h:"Relaxing assumptions: I/O", html:`<p>Real jobs mix CPU and I/O. A scheduler that's <b>not I/O aware</b> leaves the CPU idle during a job's I/O; an <b>I/O-aware</b> scheduler <b>overlaps</b> — it runs another job's CPU work while the first waits on the disk, keeping both busy.</p>`}
   ]
 },
 {
-  id:"agg", short:"Aggregation & NULL", tag:"Part 2.6–2.7 · Ch. 5", title:"Aggregation, GROUP BY, HAVING & NULL Logic",
-  blurb:"COUNT/SUM/AVG/MAX/MIN and NULLs, the GROUP BY rule, HAVING vs WHERE, aggregates in subqueries, and three-valued logic.",
+  id:"mlfq", short:"MLFQ & Lottery", tag:"Chapter 8 (+9) · Advanced", title:"MLFQ & Proportional-Share Scheduling",
+  blurb:"A general-purpose scheduler that learns job behavior: the MLFQ priority rules, gaming and starvation, the priority boost, and lottery scheduling.",
   notes:[
-    SCHEMA_NOTE,
-    {h:"Aggregates and NULLs", html:`<div class="code"><span class="kw">SELECT</span> COUNT(*), COUNT(rating), AVG(rating), MAX(age) <span class="kw">FROM</span> Sailors;</div>
-      <p>Result: <b>5, 4, 6.75, 60.0</b>. <b>All aggregates except <code>COUNT(*)</code> ignore NULLs</b>: <code>COUNT(*)</code> counts rows, <code>COUNT(rating)</code> skips Evans's NULL, and <code>AVG(rating) = (8+5+9+5)/4 = 6.75</code>.</p>`},
-    {h:"GROUP BY & the grouping rule", html:`<div class="code"><span class="kw">SELECT</span> rating, MIN(age) <span class="kw">FROM</span> Sailors <span class="kw">GROUP BY</span> rating;</div>
-      <p>Result: (8, 22.0), (5, 19.0), (9, 41.0), (NULL, 60.0) — <b>NULLs form their own group</b>. <b>The GROUP BY rule:</b> every column in SELECT must appear in GROUP BY or inside an aggregate. <code>SELECT sname, rating, MIN(age) … GROUP BY rating</code> is <b>illegal</b> — a group can hold several names.</p>`},
-    {h:"HAVING vs WHERE", html:`<div class="code"><span class="kw">SELECT</span> rating, AVG(age) <span class="kw">FROM</span> Sailors
-<span class="kw">GROUP BY</span> rating <span class="kw">HAVING</span> COUNT(*) &gt;= 2;</div>
-      <p>Result: <b>(5, 27.25)</b>. <b>WHERE filters rows before grouping; HAVING filters groups after.</b> Aggregates <b>cannot</b> go in WHERE — use a subquery: <code>WHERE age &gt; (SELECT AVG(age) FROM Sailors)</code> gives sailors older than 35.5 → <b>Chen, Evans</b>. And you can't nest aggregates (<code>MIN(AVG(age))</code> is illegal) — compare against a <b>set of group averages</b> with <code>&lt;= ALL (…)</code>.</p>`},
-    {h:"Three-valued logic (§5.6)", html:`<p>Any comparison with NULL (<code>= NULL</code>, <code>&lt;&gt; NULL</code>) is <b>UNKNOWN</b> — always use <code>IS NULL</code> / <code>IS NOT NULL</code>.</p>
-      <div class="code">    A         B         A AND B      A OR B
-  TRUE     UNKNOWN     UNKNOWN       TRUE
-  FALSE    UNKNOWN     FALSE         UNKNOWN
-  UNKNOWN  UNKNOWN     UNKNOWN       UNKNOWN</div>
-      <p><code>NOT UNKNOWN</code> is <b>UNKNOWN</b>. <b>Outer joins</b> keep unmatched rows, padding the missing side with NULLs — a <code>Sailors LEFT OUTER JOIN Reserves</code> shows Diaz and Evans with <code>bid = NULL</code>.</p>`}
-  ]
-},
-{
-  id:"dml", short:"INSERT / UPDATE / DELETE", tag:"Part 3 · Ch. 5", title:"INSERT, UPDATE & DELETE",
-  blurb:"Inserting values and query results, set-based UPDATE semantics, subquery-driven changes, referential actions on update, and NULL-safe deletes.",
-  notes:[
-    SCHEMA_NOTE,
-    {h:"INSERT", html:`<div class="code"><span class="kw">INSERT INTO</span> Sailors (sid, sname, rating, age) <span class="kw">VALUES</span> (60, 'Faye', 7, 28.0);
-
-<span class="kw">INSERT INTO</span> Reserves (sid, bid, day)
-<span class="kw">SELECT</span> sid, 102, DATE '2026-10-01' <span class="kw">FROM</span> Sailors <span class="kw">WHERE</span> rating &gt;= 8;</div>
-      <p>The second form inserts the result of a query — one reservation per qualifying sailor (<b>Ana and Chen</b>). An insert is <b>rejected</b> if it violates any key, NOT NULL, CHECK, or foreign-key constraint.</p>`},
-    {h:"UPDATE & set-based semantics", html:`<div class="code"><span class="kw">UPDATE</span> Sailors <span class="kw">SET</span> rating = rating + 1 <span class="kw">WHERE</span> age &lt; 25;</div>
-      <p>Ana 8→9, Diaz 5→6. <b>A missing WHERE updates every row.</b> SQL is <b>set-based</b>: it evaluates the WHERE condition for <b>all</b> rows before applying any change, so <code>SET rating = rating + 1 WHERE rating &lt; (SELECT MAX(rating) …)</code> compares against the MAX <b>from before</b> the update, not a moving target. Updating a key can trigger referential actions: with <b>ON UPDATE CASCADE</b>, <code>UPDATE Sailors SET sid = 11 WHERE sid = 10</code> also rewrites Ana's three reservations.</p>`},
-    {h:"DELETE", html:`<div class="code"><span class="kw">DELETE FROM</span> Sailors <span class="kw">WHERE</span> rating <span class="kw">IS NULL</span>;   <span style="color:var(--faint)">-- removes Evans</span></div>
-      <p>Writing <code>WHERE rating = NULL</code> would delete <b>nothing</b> (the comparison is never true). Correlated delete — remove boats nobody reserved: <code>DELETE FROM Boats B WHERE NOT EXISTS (SELECT * FROM Reserves R WHERE R.bid = B.bid)</code> removes nothing here (every boat is reserved).</p>`},
-    {h:"Atomicity & referential actions on delete", html:`<p><code>DELETE FROM Boats WHERE color = 'red'</code> is <b>rejected</b>: boats 101 and 103 are referenced by Reserves and their FK uses <b>NO ACTION</b>. Statements are <b>atomic</b> — the whole delete fails, so even an unreferenced red boat would not be removed. By contrast, deleting a sailor cascades to her Reserves rows (FK on <code>sid</code> is CASCADE).</p>`}
+    {h:"Why MLFQ", html:`<p><b>MLFQ (Multi-Level Feedback Queue)</b> aims for <b>general-purpose</b> scheduling — supporting two job types with opposite goals: <b>interactive</b> programs care about <b>response time</b>, <b>batch</b> programs care about <b>turnaround time</b>. Approach: <b>multiple levels of round-robin</b>, one queue per priority.</p>`},
+    {h:"The MLFQ rules", html:`<ul>
+      <li><b>Rule 1</b>: if priority(A) &gt; priority(B), <b>A runs</b>.</li>
+      <li><b>Rule 2</b>: if priority(A) = priority(B), A and B run in <b>round-robin</b>.</li>
+      <li><b>Rule 3</b>: a new job <b>starts at the top</b> priority.</li>
+      <li><b>Rule 4</b>: if a job <b>uses its whole time slice</b>, <b>demote</b> it one level.</li>
+      <li><b>Rule 5 (boost)</b>: periodically move <b>all</b> jobs back to the top priority.</li></ul>`},
+    {h:"Learning a job's type", html:`<p>How does MLFQ know a job's type to set priority? Two approaches:</p>
+      <ul>
+      <li><b>nice</b> — a static hint from the user.</li>
+      <li><b>history</b> — infer from past behavior. Processes alternate I/O and CPU; treat each CPU burst as its own "job" and predict from prior bursts.</li></ul>
+      <p>Interactive jobs <b>give up the CPU for I/O</b> before their slice ends, so Rule 4 never demotes them — they <b>stay high</b> and get quick response. CPU-bound jobs use full slices and <b>sink</b> to low priority.</p>`},
+    {h:"Problems & the fix", html:`<ul>
+      <li><b>Starvation</b> — with too many interactive jobs, long CPU-bound jobs never run ("unforgiving").</li>
+      <li><b>Gaming the system</b> — a job relinquishes the CPU just before its slice expires to avoid demotion and stay high.</li>
+      <li><b>Hard to tune</b> — number of queues, slice lengths, boost interval.</li></ul>
+      <p>The <b>priority boost</b> (Rule 5) cures starvation and adapts when a job changes behavior; better accounting (measuring total slice use, not just yielding) defeats gaming.</p>`},
+    {h:"Lottery (proportional share, Ch 9)", html:`<p><b>Lottery scheduling</b> targets <b>proportional share</b>: give each process <b>tickets</b>, hold a lottery each slice, and whoever wins runs — <b>more tickets = higher share</b>. Pick a random winner in <code>[0, total)</code> and walk the list, summing tickets until the running total exceeds the winner:</p>
+      <div class="code">int counter = 0;
+int winner = getrandom(0, totaltickets);
+node_t *current = head;
+while (current) {
+    counter += current-&gt;tickets;
+    if (counter &gt; winner) break;   <span style="color:var(--faint)"># current is the winner</span>
+    current = current-&gt;next;
+}</div>
+      <p>Random algorithms are <b>simple, need little state, and avoid corner cases</b>, though a single draw can be unfair over short spans. Variants: ticket <b>transfers</b>, <b>currencies</b>, and <b>inflation</b>.</p>`}
   ]
 }
 ];
 
 /* =========================================================
    MULTIPLE-CHOICE QUESTION BANK
-   (option lengths balanced; positions shuffled at render)
    ========================================================= */
 const QB = {
-create:[
-  {q:"A column declared as the <code>PRIMARY KEY</code> is automatically…",
-   o:["both unique and non-null","unique but may be null","non-null but may repeat","indexed but not unique"],
-   a:0, e:"A primary key is automatically UNIQUE and NOT NULL — no two rows share it and none may leave it empty."},
-  {q:"Evans has a <code>NULL</code> rating even though the table declares <code>CHECK (rating &gt;= 1 AND rating &lt;= 10)</code>. Why is the row accepted?",
-   o:["CHECK constraints only run on updates, not inserts","a CHECK that evaluates to NULL (unknown) is accepted","the primary key overrides the CHECK constraint","NULL is treated as the value 0, which passes"],
-   a:1, e:"A row is rejected only when a CHECK is FALSE. With a NULL rating the condition is UNKNOWN, not FALSE, so the row is allowed."},
-  {q:"To declare an additional candidate key (beyond the primary key), you use…",
-   o:["a second PRIMARY KEY clause","the UNIQUE constraint","a CHECK constraint","the NOT NULL keyword"],
-   a:1, e:"A table has one primary key; other candidate keys are declared with UNIQUE."},
-  {q:"A foreign-key value in a child row must…",
-   o:["always be identical to the child's own primary key value","match an existing referenced primary key, or be NULL","be different from every value stored in the parent table","be set to the declared default value of the parent column"],
-   a:1, e:"A FK value must reference an existing PK value in the parent table or be NULL; anything else is rejected."},
-  {q:"If no referential action is specified, the default behavior when deleting a referenced parent row is…",
-   o:["CASCADE — the child rows are deleted too","NO ACTION — the delete is rejected if children exist","SET NULL — the child foreign keys become NULL","SET DEFAULT — the child keys revert to a default"],
-   a:1, e:"NO ACTION is the default: the parent delete/update is rejected while any referencing child rows exist."},
-  {q:"With <code>ON DELETE CASCADE</code> on <code>Reserves.sid</code>, running <code>DELETE FROM Sailors WHERE sid = 10</code> results in…",
-   o:["only the Sailors row for Ana being removed","the delete being rejected because Ana has reservations","Ana plus her three Reserves rows being removed","Ana's reservations having their sid set to NULL"],
-   a:2, e:"CASCADE deletes the children too: Ana's row goes, and all three of her Reserves rows go with it (Reserves 6 → 3)."},
-  {q:"With the given schema, <code>DELETE FROM Boats WHERE bid = 102</code>…",
-   o:["removes boat 102 and cascades to all of its reservations","is rejected because Reserves references boat 102 (NO ACTION)","removes boat 102 and sets the referencing sids to NULL","removes boat 102 but leaves the orphaned Reserves rows behind"],
-   a:1, e:"The FK on Reserves.bid uses NO ACTION, and boat 102 is referenced, so the delete is rejected."},
-  {q:"<code>ON DELETE SET NULL</code> cannot be used for <code>Reserves.sid</code> because…",
-   o:["sid is part of the Reserves primary key, which can't be NULL","sid is an INTEGER column, and integer columns cannot be NULL","Reserves already uses CASCADE on its other foreign key","SET NULL is only ever permitted on update, never on delete"],
-   a:0, e:"SET NULL fails when the FK column is part of the child's primary key — and sid is part of Reserves' PK, so PK columns can't be NULL."},
-  {q:"Inserting a Reserves row whose <code>bid</code> matches no boat is…",
-   o:["governed entirely by the referenced boat's ON DELETE action","always rejected, regardless of any referential action","allowed as long as the bid column happens to permit NULLs","allowed for now, but silently flagged for later cleanup"],
-   a:1, e:"Referential actions only govern changes on the PARENT side; a child insert with an invalid FK is always rejected."},
-  {q:"To require that every course has <b>exactly one</b> instructor, you must combine…",
-   o:["a UNIQUE constraint combined with a CHECK condition","a foreign key with NOT NULL on that column","two separate foreign keys on the very same column","a primary key together with a column DEFAULT value"],
-   a:1, e:"The FK gives 'at most one' matching instructor; NOT NULL gives 'at least one'. Forgetting NOT NULL is the classic mistake."},
-  {q:"How does <code>DROP TABLE Sailors</code> differ from <code>DELETE FROM Sailors</code>?",
-   o:["DROP removes the schema and data; DELETE keeps the definition","DELETE removes the schema, whereas DROP only empties the rows","they are simply two different names for the same operation","DROP only works when the table has already been emptied"],
-   a:0, e:"DELETE FROM empties the table but keeps its definition; DROP TABLE destroys both the schema and the data."},
-  {q:"<code>DROP TABLE Sailors RESTRICT</code> will…",
-   o:["drop Sailors and every dependent view automatically","fail if any view or constraint still depends on Sailors","empty Sailors but keep its column definitions","rename Sailors instead of removing it"],
-   a:1, e:"RESTRICT refuses the drop while dependents exist; CASCADE would instead drop the dependent views/constraints too."},
-  {q:"Declaring <code>PRIMARY KEY (sid, bid, day)</code> on Reserves means…",
-   o:["a sailor may reserve the same boat on different days","each boat may be reserved by only one sailor per day","each sailor may hold at most one reservation ever","the day column is ignored for uniqueness"],
-   a:0, e:"The composite key (sid,bid,day) only forbids an identical (sailor,boat,day) triple, so the same sailor+boat on another day is fine."}
+intro:[
+  {q:"The Von Neumann execution cycle repeats which steps?",
+   o:["fetch, decode, execute, then repeat","compile, link, load, then run","read, write, seek, then repeat","branch, jump, return, then halt"],
+   a:0, e:"A stored-program machine loops fetch → decode → execute until power-off or a fatal error."},
+  {q:"What does adding a <b>FENCE register</b> to the machine provide?",
+   o:["a faster path for input and output work","memory protection by recording a process's bounds","a place to store the interrupt handler address","a privileged mode bit for the running process"],
+   a:1, e:"The FENCE records a process's memory extent; hardware checks each requested address against it to protect other processes."},
+  {q:"The <b>mode bit</b> and privileged instructions exist mainly to…",
+   o:["speed up the fetch–decode–execute cycle a little","let two programs share one region of memory","stop unprivileged code from running restricted opcodes","give each process its own program counter value"],
+   a:2, e:"Opcodes above a threshold are privileged; an unprivileged process attempting one raises an error — which is what protects the FENCE register itself."},
+  {q:"In the course's story, the interrupt handler eventually grows into…",
+   o:["the machine's full compiler and assembler toolchain","the operating system (also called the “supervisor”)","the file system and its directory layer","a helper library linked into user programs"],
+   a:1, e:"“…we will refer to the interrupt handler as the supervisor and eventually we will call it the operating system.”"},
+  {q:"Which best describes the OS acting as <b>middleware</b>?",
+   o:["it compiles source code into machine instructions","it manages hardware access and orchestrates processes","it replaces the CPU's fetch–decode–execute loop","it stores all user files in a single flat directory"],
+   a:1, e:"As middleware the OS manages access to hardware, orchestrates running processes, services resource requests, and handles access control."},
+  {q:"The OS abstractions for CPU, memory, and disk are, respectively…",
+   o:["raw registers, cache lines, and individual disk sectors","processes/threads, address space, and files/directories","interrupts, the FENCE register, and the trap table","tickets, time slices, and multi-level priority queues"],
+   a:1, e:"CPU → processes & threads; memory → the address space; disk → files & directories."},
+  {q:"The <b>Von Neumann bottleneck</b> refers to the fact that…",
+   o:["the CPU and I/O devices run at vastly different speeds","memory can hold only one program at a time","instructions must be decoded before they execute","the program counter can overflow its register"],
+   a:0, e:"CPUs run orders of magnitude faster than I/O; waiting on a slow disk wastes thousands of CPU cycles."},
+  {q:"<b>Virtualization</b> lets a process operate under the assumption that…",
+   o:["it has each resource entirely to itself","every other process has already terminated","its data will persist across a full reboot","it is always running in privileged mode"],
+   a:0, e:"Each process sees only a virtual resource and acts as if it owns it alone; the OS is free to share the real resource underneath."},
+  {q:"Which pillar is about <b>data surviving reboots, power cycles, and crashes</b>?",
+   o:["virtualization of the shared CPU resource","concurrency between many running threads","persistence via files and directories","authentication of the calling principals"],
+   a:2, e:"Persistence keeps data alive beyond a process via the file and directory abstractions, with error handling and disk optimizations."},
+  {q:"How do <b>authentication</b> and <b>authorization</b> differ?",
+   o:["authentication proves identity; authorization grants access rights","authorization proves identity; authentication grants access rights","both simply encrypt the data at rest on disk","both schedule which process runs on the CPU next"],
+   a:0, e:"Authentication proves a principal is who they claim; authorization decides what that principal may access and do."},
+  {q:"In OS design, the split between <b>mechanism</b> and <b>policy</b> asks…",
+   o:["which language versus which compiler to use","how to do something versus when/what to decide","which CPU versus which disk to install","user mode versus kernel mode privileges"],
+   a:1, e:"Mechanism is the machinery (how); policy is the decision (what/when) — e.g. context-switch machinery vs which process to pick."},
+  {q:"Why does a <b>timer interrupt</b> matter for an operating system?",
+   o:["it makes slow disk reads and writes finish much faster","it lets the system seize control from a running process","it encrypts the memory belonging to every process","it removes the need for a program counter entirely"],
+   a:1, e:"The periodic timer interrupt lets the OS regain control and interrupt a running process so another can run in its place."},
+  {q:"Which is <b>not</b> one of the (three-plus-one) “easy pieces”?",
+   o:["virtualization","concurrency","compilation","persistence"],
+   a:2, e:"The pieces are virtualization, concurrency, persistence, and security. Compilation is not among them."}
 ],
-joins:[
-  {q:"In the conceptual evaluation of a SELECT query, which clause is processed <b>first</b>?",
-   o:["WHERE, which filters the rows","FROM, which forms the cross-product","SELECT, which computes the columns","ORDER BY, which sorts the result"],
-   a:1, e:"FROM runs first (the cross-product of the listed tables); WHERE, GROUP BY, HAVING, SELECT, DISTINCT, then ORDER BY follow."},
-  {q:"By default, a SQL query result…",
-   o:["keeps duplicate rows (multiset semantics)","removes duplicates automatically","is always sorted by the first column","contains at most one row per table"],
-   a:0, e:"SQL uses multiset (bag) semantics — duplicates are kept unless you write DISTINCT."},
-  {q:"Range-variable aliases like <code>Reserves R1, Reserves R2</code> are required whenever…",
-   o:["the query has a GROUP BY clause","the same table appears more than once","the result must be sorted","a column name contains a space"],
-   a:1, e:"Aliases (range variables) are needed to tell apart two uses of the same table, e.g. in a self-join."},
-  {q:"In a <code>LIKE</code> pattern, the wildcards <code>_</code> and <code>%</code> match…",
-   o:["_ matches zero or more chars; % matches exactly one","_ matches exactly one char; % matches zero or more","both match exactly one character","both match zero or more characters"],
-   a:1, e:"Underscore matches exactly one character; percent matches zero or more. So 'D_a%' matches Diaz."},
-  {q:"Which sailor name does <code>WHERE sname LIKE 'D_a%'</code> match?",
-   o:["Diaz — D, then one character, then a, then anything","Ana, because it happens to start with a vowel","Brooks, since it contains no letter D at all","Evans, because it ends with the letter s"],
-   a:0, e:"'D_a%' = D, exactly one character (i), 'a', then anything — that is Diaz."},
-  {q:"What is the difference between <code>UNION</code> and <code>UNION ALL</code>?",
-   o:["UNION removes duplicate rows; UNION ALL keeps them","UNION ALL removes duplicates; UNION keeps them","UNION sorts the result; UNION ALL does not","they behave identically in every case"],
-   a:0, e:"UNION eliminates duplicate rows; UNION ALL retains every row from both inputs."},
-  {q:"Why does one query with <code>WHERE B.color = 'red' AND B.color = 'green'</code> return no rows for 'reserved a red and a green boat'?",
-   o:["AND is not allowed inside a WHERE clause","a single boat row can't be both red and green at once","the colors must be listed in alphabetical order","green is not a valid color literal"],
-   a:1, e:"A single Boats row has one color, so no row satisfies both conditions. Use INTERSECT on sid (or a self-join) instead."},
-  {q:"The set operators to express 'reserved a red boat AND a green boat' and 'red but NOT green' are, respectively…",
-   o:["UNION and UNION ALL","INTERSECT and EXCEPT","EXCEPT and INTERSECT","IN and NOT IN"],
-   a:1, e:"INTERSECT keeps sids in both sets (red-and-green → {10,30}); EXCEPT keeps the first minus the second (red-not-green → {20})."},
-  {q:"When combining two sub-results with INTERSECT for 'reserved red and green', you should intersect on…",
-   o:["sname, since names identify sailors","sid, the key — names could collide","the boat color values","the reservation day"],
-   a:1, e:"Intersect on the key (sid): two different sailors who happen to share a name would wrongly match if you intersected on sname."},
-  {q:"<code>SELECT sname FROM Sailors WHERE rating &gt; 6</code> returns…",
-   o:["Ana and Chen; Evans's NULL makes NULL &gt; 6 unknown","Ana, Chen, and Evans, since all three qualify here","every sailor in the table except for Ana herself","only Chen, who holds the single highest rating"],
-   a:0, e:"WHERE keeps only rows that are TRUE. rating > 6 is true for Ana(8) and Chen(9); for Evans, NULL > 6 is UNKNOWN, so she's excluded."},
-  {q:"Getting the sailor names for a red boat needs <code>DISTINCT</code> because…",
-   o:["joins are simply not allowed to repeat a table name","a sailor who reserved two red boats would appear twice","WHERE cannot filter on a color column in this query","the final result has to be alphabetized by name"],
-   a:1, e:"Without DISTINCT, Ana appears twice (she reserved boats 101 and 103, both red). DISTINCT collapses the duplicate."},
-  {q:"In the evaluation order, <code>ORDER BY</code> is applied…",
-   o:["first of all, even before the FROM clause runs","immediately after the WHERE clause filters rows","last, once the output rows have all been formed","before GROUP BY partitions the rows into groups"],
-   a:2, e:"ORDER BY sorts the final output, so it is the last step — after SELECT and DISTINCT."}
+process:[
+  {q:"What is the difference between a <b>program</b> and a <b>process</b>?",
+   o:["a program is the running thing; a process is code on disk","a program is code; a process is a running instance of it","they are simply two different words for the same thing","a process is compiled while a program is interpreted"],
+   a:1, e:"A program is static code (and data); a process is a running instance. Like a class (program) versus an object (process)."},
+  {q:"How many processes can exist for a single program?",
+   o:["exactly one, always","0 or more","at most one per CPU core","exactly as many as the program has functions"],
+   a:1, e:"There may be zero or more processes per program — none, one, or many instances running at once."},
+  {q:"Beyond code and static data, process creation allocates a…",
+   o:["heap and a stack","trap table and an IDT","ticket count and a time slice","FENCE register and a mode bit"],
+   a:0, e:"The OS loads code + static data, then allocates a heap (dynamic memory) and a stack (locals and call frames)."},
+  {q:"A process's <b>address space</b> is…",
+   o:["the list of its open file descriptors","the set of memory addresses it can use","the queue it waits in when ready","its saved CPU registers"],
+   a:1, e:"The address space is the process's set of memory addresses — the memory portion of its context."},
+  {q:"Processes running the same program <b>share</b> the ___ but each has its own ___.",
+   o:["code; context","stack; heap","registers; program counter","file descriptors; address space"],
+   a:0, e:"They can share the code, but each process keeps its own context: registers/IP/SP, address space, and file descriptors."},
+  {q:"Which registers are central to a process's CPU context?",
+   o:["the FENCE register and the privileged mode bit","the instruction pointer and the stack pointer","the lottery ticket counter and the winner index","the trap table index and the syscall table index"],
+   a:1, e:"The instruction pointer (program counter) and the stack pointer are core to the CPU context, along with other registers."},
+  {q:"What are the three main process states?",
+   o:["running, ready, and blocked","open, closed, and pending","fetch, decode, and execute","user, kernel, and privileged"],
+   a:0, e:"Running (on the CPU), Ready (runnable, waiting), and Blocked (waiting on an event such as I/O)."},
+  {q:"A process moves from <b>Running</b> to <b>Blocked</b> when it…",
+   o:["is descheduled by the timer interrupt","initiates an I/O operation and must wait","finishes and exits normally","is first placed on the ready queue"],
+   a:1, e:"Initiating I/O blocks the process until the I/O completes; being descheduled instead sends it to Ready."},
+  {q:"A <b>Blocked</b> process becomes <b>Ready</b> again when…",
+   o:["its time slice expires","its I/O completes","it is created by its parent","it calls the exit routine"],
+   a:1, e:"Once the awaited event (e.g. I/O) is done, the process returns to Ready and can be scheduled."},
+  {q:"Where does the OS keep a process's state while it is <b>not</b> running?",
+   o:["inside the CPU's own registers the entire time","in a process struct (PCB): context, ofile, state","in the program's static data section on disk","only on the stack of the currently running process"],
+   a:1, e:"A non-running process's context (registers), open files (ofile), and state live in its process struct / PCB."},
+  {q:"The <b>Ready</b> state means a process is…",
+   o:["waiting on an I/O event to finish","runnable but not currently on a CPU","permanently finished and cleaned up","running in privileged kernel mode"],
+   a:1, e:"Ready = able to run, just waiting for the scheduler to place it on a CPU. Blocked (not Ready) is waiting on an event."},
+  {q:"In the state machine, “mechanism” vs “policy” corresponds to…",
+   o:["how to transition vs when to transition","user mode vs kernel mode of the CPU","the heap region vs the stack region","turnaround time vs response time"],
+   a:0, e:"Mechanism is how a transition is carried out; policy is when/whether it happens (which the scheduler decides)."}
 ],
-nested:[
-  {q:"<code>WHERE sid IN (SELECT sid FROM Reserves WHERE bid = 101)</code> selects the sailors who…",
-   o:["reserved boat 101 — Ana and Brooks","reserved every boat","never reserved boat 101","reserved only boat 101 and nothing else"],
-   a:0, e:"The subquery returns the sids that reserved boat 101 (10 and 20), so the outer query returns Ana and Brooks."},
-  {q:"A subquery whose inner query references a table from the outer query is…",
-   o:["a correlated subquery, re-evaluated per outer row","an uncorrelated subquery that runs only a single time","something that is simply illegal in standard SQL","always rewritten automatically into a plain join"],
-   a:0, e:"Correlated subqueries (e.g. EXISTS referencing the outer S.sid) are re-evaluated for each row of the outer query."},
-  {q:"<code>WHERE sid NOT IN (SELECT sid FROM Reserves)</code> returns the sailors who…",
-   o:["reserved at least one boat at some point in time","reserved every single boat in the Boats table","never reserved anything at all — Diaz and Evans","currently have a NULL value stored in rating"],
-   a:2, e:"The subquery lists everyone who reserved something (10,20,30); NOT IN keeps the rest — Diaz(40) and Evans(50)."},
-  {q:"Why does <code>rating &gt;= ALL (SELECT rating FROM Sailors)</code> need an <code>IS NOT NULL</code> filter in the subquery?",
-   o:["the ALL keyword is only valid on strictly non-null columns","a set containing NULL makes the comparison unknown for every row","a NULL in the set would be counted as the maximum rating","the subquery is required to return exactly one single value"],
-   a:1, e:"If the compared set contains a NULL, each >= ALL test becomes UNKNOWN, so no row qualifies and the query returns nothing."},
-  {q:"The query for 'sailors with the highest rating' (using <code>&gt;= ALL</code> over non-null ratings) returns…",
-   o:["Ana, whose rating is 8","Chen, whose rating is 9","Brooks and Diaz, tied at 5","Evans, whose rating is NULL"],
-   a:1, e:"The maximum non-null rating is 9, held only by Chen."},
-  {q:"The standard SQL pattern for 'sailors who reserved <b>every</b> boat' is…",
-   o:["a single WHERE that lists every boat id joined by AND","NOT EXISTS (Boats EXCEPT that sailor's reserved boats)","COUNT(bid) = 3 written without any GROUP BY clause","a plain IN test against (SELECT bid FROM Boats)"],
-   a:1, e:"Division uses double negation: NOT EXISTS ( SELECT boats EXCEPT SELECT the sailor's boats ) — 'no boat this sailor hasn't reserved.'"},
-  {q:"For the sample data, the query 'sailors who reserved every boat' returns…",
-   o:["Ana only — she reserved 101, 102, and 103","both Ana and Chen, the two most active sailors","every sailor who has made at least one reservation","no one, because the division test always fails"],
-   a:0, e:"Only Ana reserved all three boats. Chen reserved 102 and 103 but not 101, so she fails the 'every boat' test."},
-  {q:"<code>WHERE rating &gt; ANY (SELECT rating FROM Sailors WHERE sname = 'Diaz')</code> returns sailors whose rating is…",
-   o:["greater than 5 — Ana and Chen","greater than or equal to 5","less than Diaz's rating","equal to Diaz's rating"],
-   a:0, e:"Diaz's rating is 5, so > ANY means strictly greater than 5: Ana(8) and Chen(9). Brooks ties at 5 and is excluded."},
-  {q:"In a correlated <code>EXISTS</code> subquery, the inner query returns…",
-   o:["the actual column values used by the outer SELECT","only a true/false indication of whether any row matches","the count of matching rows","the maximum matching value"],
-   a:1, e:"EXISTS just tests whether the (correlated) subquery yields at least one row; the specific columns it selects don't matter."},
-  {q:"For 'sailors who reserved every <b>red</b> boat', the division query yields…",
-   o:["Ana only — she reserved both red boats (101 and 103)","both Ana and Chen, who each reserved a red boat","Brooks, who reserved the red boat numbered 101","no one, since no sailor reserved every red boat"],
-   a:0, e:"Red boats are 101 and 103. Ana reserved both; Chen reserved 103 but not 101, so only Ana passes."},
-  {q:"Why can't 'sailors who reserved every boat' be written with a single WHERE condition on one Reserves row?",
-   o:["WHERE can only test one row at a time, not a 'for all' across boats","EXISTS always runs strictly faster than a plain WHERE clause","the Boats table simply has far too many rows to check reliably","the WHERE clause is simply not permitted to contain any subquery"],
-   a:0, e:"'Every' is a universal (for-all) condition across the whole Boats set; a single-row WHERE can't express it — hence the NOT EXISTS/EXCEPT pattern."}
+lde:[
+  {q:"What are the two goals of CPU time-sharing that motivate limited direct execution?",
+   o:["portability and readability of the code","efficiency (low overhead) and control (safety)","persistence and encryption of user data","fairness and total absence of interrupts"],
+   a:1, e:"We want efficiency (run directly, little OS overhead) and control (the OS decides scheduling; processes can't misbehave)."},
+  {q:"While running in <b>user mode</b>, a process is prevented from…",
+   o:["reading a value out of its own stack region","doing disk I/O or special privileged instructions","incrementing its own program counter register","calling functions defined within its own code"],
+   a:1, e:"User mode blocks general memory access outside its space, disk I/O, and privileged instructions like lidt."},
+  {q:"To make a <b>system call</b>, a process…",
+   o:["writes directly to the disk controller","puts a syscall number in a register and traps","overwrites the trap table with its handler","switches the mode bit to kernel by itself"],
+   a:1, e:"It sets the syscall number (e.g. movl $6,%eax) and executes a trap (int $64); the kernel takes over from there."},
+  {q:"Executing a <b>trap</b> instruction causes the hardware to…",
+   o:["raise privilege and jump through the trap table","immediately terminate the calling process","disable the timer interrupt permanently","copy the process's heap onto its stack"],
+   a:0, e:"The trap switches to kernel mode and jumps via the trap table (IDT) to the registered handler."},
+  {q:"When is the <b>trap table</b> installed?",
+   o:["by each process as it starts up","at boot time, as a privileged operation","only after the first system call occurs","by the compiler when the program is built"],
+   a:1, e:"The OS sets up the trap table at boot — a privileged action a user process cannot perform."},
+  {q:"If a user-mode process tries a privileged instruction like <code>lidt</code>, the result is…",
+   o:["it runs, but a bit slower than usual","the CPU warns the OS, and the OS kills the process","the instruction is silently turned into a no-op","the process is promoted to kernel mode"],
+   a:1, e:"The hardware traps the illegal instruction and alerts the OS, which terminates the offending process."},
+  {q:"Under pure direct execution, how can the OS run while a process is running?",
+   o:["it runs on a second, completely hidden CPU core","it cannot — it must regain control via an interrupt","it quietly polls the process after every instruction","it runs inside the process's own address space"],
+   a:1, e:"With the CPU given to the process, the OS gets nothing until an interrupt (syscall or timer) returns control."},
+  {q:"The <b>cooperative</b> approach to regaining control relies on…",
+   o:["a periodic hardware timer interrupt","processes trapping via syscalls or yield()","the FENCE register overflowing","the scheduler preempting every instruction"],
+   a:1, e:"Cooperative scheduling only switches when a process makes a system call, including a special yield()."},
+  {q:"The key weakness of the cooperative approach is that a process…",
+   o:["uses up far too much memory for its own stack","in an infinite loop never yields control back","always runs in the privileged kernel mode","cannot make any system calls whatsoever"],
+   a:1, e:"If a process never traps (e.g. an infinite loop with no syscalls), the OS never regains the CPU — reboot territory."},
+  {q:"The <b>non-cooperative</b> approach guarantees control returns to the OS by…",
+   o:["politely asking each process to yield the CPU","using a timer interrupt processes can't disable","scanning memory to find any runaway processes","lowering the scheduling priority of every process"],
+   a:1, e:"A timer interrupt, set up before any process runs and protected by hardware, periodically hands control to the OS."},
+  {q:"During a timer-interrupt context switch, the <b>OS's <code>switch()</code></b> routine…",
+   o:["saves A's registers to proc-struct(A) and restores B's","reboots the machine and reloads the entire trap table","deletes process A and creates process B from scratch","copies A's open file descriptors into B's address space"],
+   a:0, e:"switch() saves A's registers to proc-struct(A) and restores B's from proc-struct(B). (Hardware first saved A's regs to the kernel stack.)"},
+  {q:"On the timer interrupt itself, who first saves the running process's registers?",
+   o:["the compiler, ahead of time","the hardware, onto the kernel stack","the process, into its own heap","the disk controller, into a file"],
+   a:1, e:"Hardware saves the interrupted process's registers to its kernel stack and enters kernel mode before the trap handler runs."}
 ],
-agg:[
-  {q:"Which aggregate function counts rows that contain NULLs?",
-   o:["COUNT(*), which counts rows regardless of NULLs","COUNT(rating), which includes NULL ratings","AVG(rating), which averages NULLs as zero","every aggregate counts NULLs equally"],
-   a:0, e:"Only COUNT(*) counts every row; all other aggregates (including COUNT(column)) ignore NULLs."},
-  {q:"Over the Sailors table, <code>COUNT(*)</code> and <code>COUNT(rating)</code> are…",
-   o:["5 and 4 — COUNT(rating) skips Evans's NULL rating","5 and 5, since both of them count every sailor row","4 and 4, because both of them skip the NULL rating","5 and 6, since one of the rows is double-counted"],
-   a:0, e:"COUNT(*) = 5 rows; COUNT(rating) omits Evans's NULL rating, giving 4."},
-  {q:"<code>AVG(rating)</code> over Sailors evaluates to…",
-   o:["5.4, dividing the total by all 5 rows","6.75 = (8+5+9+5)/4, ignoring the NULL","6.75, but only if you add IS NOT NULL","undefined, because a rating is NULL"],
-   a:1, e:"AVG ignores the NULL, so it sums the 4 non-null ratings (8+5+9+5 = 27) and divides by 4 → 6.75."},
-  {q:"In <code>GROUP BY rating</code>, sailors whose rating is NULL…",
-   o:["are dropped from the result entirely","form their own separate group","are merged into the lowest-rating group","cause the query to error out"],
-   a:1, e:"NULLs are gathered into a single group of their own, so (NULL, 60.0) appears as one row."},
-  {q:"The GROUP BY rule requires that every column in the SELECT list…",
-   o:["appear in GROUP BY or else inside an aggregate","be listed and sorted in strictly ascending order","carry an explicit NOT NULL column constraint","be the primary key of the underlying table"],
-   a:0, e:"Each selected column must be a grouping column or wrapped in an aggregate — otherwise a group could hold multiple values for it."},
-  {q:"How do WHERE and HAVING differ?",
-   o:["WHERE filters the groups, while HAVING filters the rows","WHERE filters rows before grouping; HAVING filters groups after","the two clauses are interchangeable in absolutely every query","HAVING is evaluated before the FROM clause even runs"],
-   a:1, e:"WHERE removes rows before GROUP BY; HAVING removes whole groups after aggregation."},
-  {q:"To select sailors older than the average age, you must write <code>WHERE age &gt; (SELECT AVG(age) …)</code> rather than <code>WHERE age &gt; AVG(age)</code> because…",
-   o:["the function AVG is spelled differently inside a WHERE","an aggregate can't appear directly in a WHERE clause","the computed average must first be rounded to an integer","age is stored as a REAL rather than as an INTEGER"],
-   a:1, e:"Aggregates aren't allowed directly in WHERE; you compute the average in a subquery. (Here that yields 35.5 → Chen and Evans.)"},
-  {q:"To find the rating group with the lowest average age you compare with <code>&lt;= ALL (SELECT AVG(age) … GROUP BY rating)</code> because…",
-   o:["aggregates cannot be nested, as in MIN(AVG(age))","the ALL keyword evaluates faster than MIN would","every one of the group averages must be an integer","GROUP BY does not permit subqueries of any kind"],
-   a:0, e:"You can't nest aggregates (MIN(AVG(age)) is illegal), so you compare each group's average against the set of all group averages."},
-  {q:"In three-valued logic, <code>TRUE AND UNKNOWN</code> evaluates to…",
-   o:["TRUE","UNKNOWN","FALSE","NULL is not allowed here"],
-   a:1, e:"TRUE AND UNKNOWN is UNKNOWN (the result depends on the unknown operand). But FALSE AND UNKNOWN is FALSE."},
-  {q:"<code>FALSE AND UNKNOWN</code> evaluates to…",
-   o:["UNKNOWN","TRUE","FALSE","an error"],
-   a:2, e:"FALSE AND anything is FALSE — the result is already determined regardless of the unknown operand."},
-  {q:"Which test must you use to find rows whose rating is missing?",
-   o:["WHERE rating = NULL","WHERE rating IS NULL","WHERE rating &lt;&gt; 0","WHERE rating = 'NULL'"],
-   a:1, e:"Any comparison with NULL using = or <> is UNKNOWN, so it matches nothing. Use IS NULL / IS NOT NULL."},
-  {q:"A <code>LEFT OUTER JOIN</code> of Sailors to Reserves on sid produces rows where…",
-   o:["only sailors with reservations appear","Diaz and Evans appear with bid = NULL","unmatched sailors are dropped entirely","every sailor is duplicated three times"],
-   a:1, e:"An outer join keeps unmatched left rows, padding the missing right side with NULLs — so Diaz and Evans show bid = NULL."},
-  {q:"<code>GROUP BY rating HAVING COUNT(*) &gt;= 2</code> over Sailors keeps which group(s)?",
-   o:["every rating group survives the HAVING filter","rating 5 (Brooks and Diaz), with average age 27.25","both rating 8 and rating 9 satisfy the condition","only the NULL group, which has a single member"],
-   a:1, e:"Only rating 5 has two sailors (Brooks 35.5, Diaz 19.0); their average age is 27.25. Other ratings have a single member."}
+sched:[
+  {q:"How is <b>turnaround time</b> defined?",
+   o:["first_run_time − arrival_time","completion_time − arrival_time","completion_time − first_run_time","arrival_time − completion_time"],
+   a:1, e:"Turnaround = completion_time − arrival_time — how long from arrival until the job finishes."},
+  {q:"How is <b>response time</b> defined?",
+   o:["completion_time − arrival_time","first_run_time − arrival_time","completion_time − first_run_time","time_slice × number_of_jobs"],
+   a:1, e:"Response = first_run_time − arrival_time — how long until the job first gets to run."},
+  {q:"The <b>FIFO</b> scheduler runs jobs…",
+   o:["in order of shortest run_time first","in the order they arrived","in random ticket-draw order","alternating one slice at a time"],
+   a:1, e:"FIFO (First In, First Out) simply runs jobs in arrival order."},
+  {q:"The <b>convoy effect</b> in FIFO occurs when…",
+   o:["short jobs are stuck waiting behind a long job","two jobs arrive at exactly the same instant","the timer interrupt fires too frequently","a job blocks on I/O and then resumes"],
+   a:0, e:"A long job scheduled first forces later short jobs to wait, inflating their turnaround — the convoy effect."},
+  {q:"The <b>SJF</b> policy chooses to run…",
+   o:["the job with the smallest run_time next","the job that arrived earliest","whichever job holds the most tickets","the job currently using the most memory"],
+   a:0, e:"Shortest Job First picks the job with the smallest run_time, minimizing average turnaround when all arrive together."},
+  {q:"Which statement about preemption is correct?",
+   o:["FIFO and SJF are non-preemptive; STCF is preemptive","FIFO is preemptive, whereas SJF and STCF are not at all","all three of them are fully preemptive schedulers","only Round Robin is ever able to preempt a running job"],
+   a:0, e:"FIFO and SJF run a job to completion (non-preemptive); STCF preempts to switch to a sooner-finishing job."},
+  {q:"The <b>STCF</b> scheduler always runs the job that…",
+   o:["arrived first among those still waiting","will complete the soonest, preempting if needed","has consumed the least memory so far","has been waiting in the ready queue longest"],
+   a:1, e:"Shortest Time-to-Completion First preempts the running job whenever an arrival would finish sooner."},
+  {q:"The <b>Round Robin</b> scheduler works by…",
+   o:["running each job fully before the next","alternating ready jobs every fixed time slice","always picking the shortest remaining job","drawing a random winner each interrupt"],
+   a:1, e:"RR cycles through the ready jobs, giving each a fixed time slice in turn — optimizing response time."},
+  {q:"Compared with FIFO/SJF/STCF, Round Robin generally gives…",
+   o:["better response time but worse turnaround","better turnaround but worse response","better response and better turnaround","worse response and worse turnaround"],
+   a:0, e:"RR starts every job quickly (great response) but by spreading them out it hurts average turnaround."},
+  {q:"SJF is optimal for average turnaround only under the assumption that…",
+   o:["all jobs are strictly CPU-bound forever","all jobs arrive at the same time","the time slice is exactly one second","every job holds an equal number of tickets"],
+   a:1, e:"When jobs arrive together, SJF minimizes average turnaround. With staggered arrivals a long job can still block newcomers (needs STCF)."},
+  {q:"An <b>I/O-aware</b> scheduler improves efficiency by…",
+   o:["running a job's CPU work while another waits on I/O","never scheduling any job that performs I/O","forcing all I/O to finish before any CPU work","giving I/O-bound jobs the fewest tickets"],
+   a:0, e:"It overlaps: while one job blocks on the disk, the CPU runs another job's work, keeping both the CPU and disk busy."},
+  {q:"The relation <b>f(W, S) = M</b> expresses that…",
+   o:["the metric by itself determines the workload and the scheduler","the workload and scheduler together determine the metric","the scheduler on its own completely fixes the workload","every new workload requires a brand-new quality metric"],
+   a:1, e:"Given a workload W and scheduler S, the quality metric M follows; knowing any two lets you reason about the third."}
 ],
-dml:[
-  {q:"<code>INSERT INTO Reserves … SELECT sid, 102, … FROM Sailors WHERE rating &gt;= 8</code> inserts…",
-   o:["one row, for the first qualifying sailor","one reservation per qualifying sailor — Ana and Chen","nothing, because you can't insert a query result","every sailor, ignoring the WHERE"],
-   a:1, e:"INSERT … SELECT inserts one row per qualifying sailor. Ratings ≥ 8 are Ana(8) and Chen(9), so two rows are added."},
-  {q:"<code>UPDATE Sailors SET rating = rating + 1 WHERE age &lt; 25</code> changes…",
-   o:["Ana to 9 and Diaz to 6","every sailor's rating","only Evans's rating","nothing, since ages are REAL"],
-   a:0, e:"Ages under 25 are Ana(22) and Diaz(19): Ana 8→9, Diaz 5→6. The others are untouched."},
-  {q:"An <code>UPDATE</code> statement written with no <code>WHERE</code> clause…",
-   o:["is rejected as a syntax error","updates every row in the table","updates only the first row","updates nothing until confirmed"],
-   a:1, e:"A missing WHERE means the SET applies to every row — a common and costly mistake."},
-  {q:"In <code>SET rating = rating + 1 WHERE rating &lt; (SELECT MAX(rating) FROM Sailors)</code>, the MAX is…",
-   o:["recomputed freshly after each individual row changes","taken from the values as they were before the update","always fixed at exactly 10 regardless of the data","ignored entirely because one rating value is NULL"],
-   a:1, e:"SQL is set-based: it evaluates the condition against the pre-update snapshot, so MAX is fixed, not a moving target."},
-  {q:"With <code>ON UPDATE CASCADE</code> on Reserves.sid, running <code>UPDATE Sailors SET sid = 11 WHERE sid = 10</code>…",
-   o:["is rejected because sid is a primary key","also rewrites Ana's three Reserves rows to sid 11","changes only the Sailors row, orphaning the reservations","sets the referencing Reserves sids to NULL"],
-   a:1, e:"CASCADE on update propagates the new key value: Ana's three Reserves rows are rewritten from sid 10 to 11."},
-  {q:"<code>DELETE FROM Sailors WHERE rating = NULL</code> removes…",
-   o:["Evans, the only NULL rating","no rows, because = NULL is never true","every sailor with a rating","all sailors, since NULL matches all"],
-   a:1, e:"= NULL is UNKNOWN, never TRUE, so no rows match. To remove Evans you must write WHERE rating IS NULL."},
-  {q:"Starting from the original data, <code>UPDATE Sailors SET rating = 10 WHERE rating &gt; (SELECT AVG(rating) FROM Sailors)</code> changes…",
-   o:["Ana and Chen to 10 (avg 6.75); Evans's NULL is unchanged","every sailor in the whole table to a rating of 10","only Chen, who currently holds the maximum rating","Brooks and Diaz, the two who are below the average"],
-   a:0, e:"AVG(rating) = 6.75. Ratings above it are Ana(8) and Chen(9) → both set to 10. Evans's NULL > 6.75 is unknown, so she's untouched."},
-  {q:"'Delete all reservations for sailors under 21' removes how many Reserves rows from the sample data?",
-   o:["three rows in total, corresponding to every one of Ana's reservations","zero rows — Diaz is the only sailor under 21, with no reservations","exactly one row for each of the young sailors found","all six of the reservations currently in the table"],
-   a:1, e:"The only sailor under 21 is Diaz (19), and she has no reservations, so zero Reserves rows are deleted."},
-  {q:"<code>DELETE FROM Boats WHERE color = 'red'</code> fails because…",
-   o:["red boats are referenced by Reserves and the FK uses NO ACTION","the color column has not been indexed for fast lookup","DELETE is not permitted to use a WHERE on string values","two different boats happen to share the same color value"],
-   a:0, e:"Boats 101 and 103 are referenced by Reserves with a NO ACTION FK, so the delete is rejected — and statements are atomic, so nothing is removed."},
-  {q:"An <code>INSERT</code> is rejected when it violates…",
-   o:["any key, NOT NULL, CHECK, or foreign-key constraint","only the primary-key uniqueness constraint on the table","only a foreign-key referential-integrity constraint","the ORDER BY clause attached to the statement"],
-   a:0, e:"An insert must satisfy every constraint — key/uniqueness, NOT NULL, CHECK, and referential integrity — or it is rejected."},
-  {q:"'Increase the age of every sailor who has never made a reservation by 1' affects…",
-   o:["Diaz (19→20) and Evans (60→61)","every sailor currently listed in the table","only Evans, whose age becomes 61.0","Ana, Brooks, and Chen, who all reserved"],
-   a:0, e:"Sailors with no reservations are Diaz and Evans (via sid NOT IN (SELECT sid FROM Reserves)); each age rises by 1."},
-  {q:"<code>DELETE FROM Sailors WHERE rating &lt; (SELECT AVG(rating) FROM Sailors)</code> deletes…",
-   o:["Brooks and Diaz (below avg 6.75); Evans survives on a NULL","every sailor whose rating happens to fall below the value 10","only Evans, whose rating comparison evaluates to unknown","both Ana and Chen, who are the highest-rated sailors here"],
-   a:0, e:"AVG = 6.75. Below it are Brooks(5) and Diaz(5) → deleted. Evans's NULL < 6.75 is unknown, so she survives."}
+mlfq:[
+  {q:"What is the central goal of <b>MLFQ</b>?",
+   o:["strict proportional sharing based on ticket counts","general-purpose scheduling for interactive and batch jobs","guaranteeing only the very shortest possible turnaround time","eliminating the need for time slices altogether"],
+   a:1, e:"MLFQ is general-purpose: it serves interactive jobs (want response) and batch jobs (want turnaround) at once."},
+  {q:"MLFQ <b>Rule 1</b> states that…",
+   o:["a new job always starts at the lowest priority","if priority(A) &gt; priority(B), then A runs","jobs of equal priority never run at all","a job keeps the CPU until it finishes"],
+   a:1, e:"Rule 1: the higher-priority job runs. Rule 2 handles ties with round-robin."},
+  {q:"When two jobs sit at the <b>same</b> priority level, MLFQ…",
+   o:["runs them in round-robin (Rule 2)","runs only the one that arrived first","demotes both to the next level down","picks one at random by ticket draw"],
+   a:0, e:"Rule 2: equal-priority jobs share the CPU in round-robin within that queue."},
+  {q:"Under MLFQ, a brand-new job starts at…",
+   o:["the lowest priority queue","the top priority (Rule 3)","whichever queue is currently emptiest","a priority set by its ticket count"],
+   a:1, e:"Rule 3: new jobs enter at the highest priority, giving them a chance to prove they are interactive."},
+  {q:"MLFQ <b>Rule 4</b> demotes a job when it…",
+   o:["uses up its entire time slice at a level","gives up the CPU early for I/O","has waited too long in the ready queue","is assigned a low nice value"],
+   a:0, e:"Using the whole slice signals CPU-bound behavior, so the job is demoted one level."},
+  {q:"Why do <b>interactive</b> jobs stay at high priority in MLFQ?",
+   o:["they are given extra tickets automatically","they yield the CPU for I/O before the slice ends","the OS pins them there permanently by hand","they always arrive earlier than batch jobs"],
+   a:1, e:"Interactive jobs relinquish the CPU for I/O before using a full slice, so Rule 4 never demotes them — they keep quick response."},
+  {q:"Two ways MLFQ can learn a job's type are…",
+   o:["nice (a static hint) and history (past behavior)","polling the device and fielding its interrupts","the FENCE register and the privileged mode bit","lottery tickets and their assorted currencies"],
+   a:0, e:"A static nice value hints priority; otherwise MLFQ infers behavior from history — each CPU burst predicts the next."},
+  {q:"<b>Starvation</b> in a naive MLFQ happens when…",
+   o:["a single job requests far more memory than physically exists","many interactive jobs keep long CPU jobs from ever running","the timer interrupt gets disabled by a rogue process","two jobs happen to hold the same number of tickets"],
+   a:1, e:"With enough high-priority interactive work, a demoted CPU-bound job may never get the CPU — it starves."},
+  {q:"“Gaming the system” in MLFQ refers to a job that…",
+   o:["gives up the CPU just before its slice ends to stay high","requests the maximum possible number of lottery tickets it can","overwrites the trap table so it can run in kernel mode","forks many child processes to grab extra run queues"],
+   a:0, e:"By relinquishing the CPU right before the slice expires, a job avoids Rule 4 demotion and keeps high priority unfairly."},
+  {q:"The standard fix for MLFQ starvation is to…",
+   o:["periodically boost all jobs to the top priority","delete the lowest-priority queue entirely","give every job the same fixed time slice","switch permanently to FIFO scheduling"],
+   a:0, e:"A periodic priority boost (Rule 5) lifts every job back to the top, guaranteeing progress and adapting to changed behavior."},
+  {q:"<b>Lottery scheduling</b> is designed to achieve…",
+   o:["the shortest possible turnaround time","proportional share of the CPU","zero response time for every job","strict first-come, first-served order"],
+   a:1, e:"Lottery gives each process tickets and draws a winner each slice, so CPU share is proportional to tickets held."},
+  {q:"In the lottery winner loop, the code walks the list…",
+   o:["summing tickets until the total exceeds the winner","until it reaches the job with the most tickets","picking the first job whose tickets equal zero","until the timer interrupt fires once"],
+   a:0, e:"It accumulates each node's tickets into a running counter and stops at the first node where counter &gt; winner."},
+  {q:"A commonly cited advantage of <b>random</b> algorithms like lottery is that they…",
+   o:["always beat MLFQ on turnaround time","are simple and tend to avoid corner cases","need no tickets or priorities at all","guarantee perfect fairness every single slice"],
+   a:1, e:"Randomized schedulers are simple, keep little state, and dodge many corner cases — though a single draw can be unfair short-term."}
 ]
 };
 
 /* =========================================================
-   FREE-RESPONSE PRACTICE — worked problems
+   FREE-RESPONSE PRACTICE — worked problems & traces
    ========================================================= */
 const FR = {
-create:[
-  {q:"Create <code>Instructors(iid, name, dept)</code> and <code>Courses(cid, title, iid)</code> so that every course has <b>exactly one</b> instructor, and deleting an instructor is <b>blocked</b> while they still teach a course.",
-   a:`<div class="code"><span class="kw">CREATE TABLE</span> Instructors (
-    iid   INTEGER <span class="kw">PRIMARY KEY</span>,
-    name  VARCHAR(40) <span class="kw">NOT NULL</span>,
-    dept  VARCHAR(20)
-);
-
-<span class="kw">CREATE TABLE</span> Courses (
-    cid    CHAR(8) <span class="kw">PRIMARY KEY</span>,
-    title  VARCHAR(60),
-    iid    INTEGER <span class="kw">NOT NULL</span>,
-    <span class="kw">FOREIGN KEY</span> (iid) <span class="kw">REFERENCES</span> Instructors(iid) <span class="kw">ON DELETE NO ACTION</span>
-);</div>
-      <p><b>"Exactly one"</b> = the <b>FK</b> (at most one matching instructor) + <b>NOT NULL</b> (at least one). Forgetting NOT NULL is the classic mistake. <b>NO ACTION</b> blocks deleting an instructor while any course references them.</p>`},
-  {q:"Write <code>CREATE TABLE</code> for <code>Enrolled(stu_id, course_id, grade)</code> where a student takes a course <b>at most once</b>, <code>grade</code> must be one of A, B, C, D, F, and deleting a student removes their enrollments.",
-   a:`<div class="code"><span class="kw">CREATE TABLE</span> Enrolled (
-    stu_id     INTEGER,
-    course_id  CHAR(8),
-    grade      CHAR(1),
-    <span class="kw">PRIMARY KEY</span> (stu_id, course_id),
-    <span class="kw">CHECK</span> (grade <span class="kw">IN</span> ('A','B','C','D','F')),
-    <span class="kw">FOREIGN KEY</span> (stu_id) <span class="kw">REFERENCES</span> Students(stu_id) <span class="kw">ON DELETE CASCADE</span>
-);</div>
-      <p>The composite <b>PRIMARY KEY (stu_id, course_id)</b> enforces "at most once" per student–course pair; the <b>CHECK … IN</b> restricts grades; <b>ON DELETE CASCADE</b> removes a student's enrollments when the student is deleted.</p>`},
-  {q:"Using the Part 1 schema, trace two deletes: (a) <code>DELETE FROM Sailors WHERE sid = 10;</code> and (b) <code>DELETE FROM Boats WHERE bid = 102;</code>.",
-   a:`<p><b>(a)</b> Ana's Sailors row is removed, and because <code>Reserves.sid</code> has <b>ON DELETE CASCADE</b>, all three of her Reserves rows are removed too. Reserves shrinks from <b>6 rows to 3</b>.</p>
-      <p><b>(b)</b> The delete is <b>rejected</b>. Reserves has rows referencing boat 102, and the FK on <code>bid</code> uses <b>NO ACTION</b>, so the parent delete is refused.</p>`}
-],
-joins:[
-  {q:"Write a query for the sailor ids who reserved a <b>red boat AND a green boat</b>, give the result, and explain why a single WHERE with <code>color = 'red' AND color = 'green'</code> fails.",
-   a:`<div class="code"><span class="kw">SELECT</span> R.sid <span class="kw">FROM</span> Reserves R, Boats B
-<span class="kw">WHERE</span>  R.bid = B.bid <span class="kw">AND</span> B.color = 'red'
-<span class="kw">INTERSECT</span>
-<span class="kw">SELECT</span> R.sid <span class="kw">FROM</span> Reserves R, Boats B
-<span class="kw">WHERE</span>  R.bid = B.bid <span class="kw">AND</span> B.color = 'green';</div>
-      <p><b>Result: 10, 30</b> (Ana and Chen).</p>
-      <p>A single query with <code>B.color = 'red' AND B.color = 'green'</code> returns <b>nothing</b>, because each Boats row has exactly one color — no single row is both. The "and-across-different-rows" condition needs <b>INTERSECT</b> (on the key <b>sid</b>), a self-join, or a nested query.</p>`},
-  {q:"Find the <b>colors of boats reserved by Brooks</b>. Give the query and the result.",
-   a:`<div class="code"><span class="kw">SELECT DISTINCT</span> B.color
-<span class="kw">FROM</span>   Sailors S, Reserves R, Boats B
-<span class="kw">WHERE</span>  S.sid = R.sid <span class="kw">AND</span> R.bid = B.bid <span class="kw">AND</span> S.sname = 'Brooks';</div>
-      <p><b>Result: red.</b> Brooks (sid 20) reserved only boat 101 (Marlin, red). <b>DISTINCT</b> collapses any repeats.</p>`},
-  {q:"Find the sailor ids who reserved a red boat <b>but not</b> a green one. Give the query and result.",
-   a:`<div class="code"><span class="kw">SELECT</span> R.sid <span class="kw">FROM</span> Reserves R, Boats B
-<span class="kw">WHERE</span>  R.bid = B.bid <span class="kw">AND</span> B.color = 'red'
-<span class="kw">EXCEPT</span>
-<span class="kw">SELECT</span> R.sid <span class="kw">FROM</span> Reserves R, Boats B
-<span class="kw">WHERE</span>  R.bid = B.bid <span class="kw">AND</span> B.color = 'green';</div>
-      <p><b>Result: 20</b> (Brooks). Ana and Chen both reserved a green boat (102), so EXCEPT removes them; Brooks reserved only red boat 101.</p>`}
-],
-nested:[
-  {q:"Write the division query for <b>sailors who reserved every boat</b>, give the result, and explain the shape.",
-   a:`<div class="code"><span class="kw">SELECT</span> S.sname <span class="kw">FROM</span> Sailors S
-<span class="kw">WHERE NOT EXISTS</span> (
-    <span class="kw">SELECT</span> B.bid <span class="kw">FROM</span> Boats B
-    <span class="kw">EXCEPT</span>
-    <span class="kw">SELECT</span> R.bid <span class="kw">FROM</span> Reserves R <span class="kw">WHERE</span> R.sid = S.sid
-);</div>
-      <p><b>Result: Ana.</b> Read it as <b>"there is no boat this sailor hasn't reserved"</b>: the inner <code>Boats EXCEPT (this sailor's reserved boats)</code> is the set of boats she's <em>missing</em>; <code>NOT EXISTS</code> demands that set be empty. Only Ana reserved all of 101, 102, 103.</p>`},
-  {q:"Find names of sailors who reserved <b>every red boat</b>. Give the query and result.",
-   a:`<div class="code"><span class="kw">SELECT</span> S.sname <span class="kw">FROM</span> Sailors S
-<span class="kw">WHERE NOT EXISTS</span> (
-    <span class="kw">SELECT</span> B.bid <span class="kw">FROM</span> Boats B <span class="kw">WHERE</span> B.color = 'red'
-    <span class="kw">EXCEPT</span>
-    <span class="kw">SELECT</span> R.bid <span class="kw">FROM</span> Reserves R <span class="kw">WHERE</span> R.sid = S.sid
-);</div>
-      <p><b>Result: Ana.</b> The red boats are 101 and 103. Ana reserved both. Chen reserved 103 but never 101, so she fails the "every red boat" test.</p>`},
-  {q:"Find sailors whose rating is <b>higher than some sailor named Diaz</b>. Give the query and result.",
-   a:`<div class="code"><span class="kw">SELECT</span> sname <span class="kw">FROM</span> Sailors
-<span class="kw">WHERE</span>  rating &gt; <span class="kw">ANY</span> (<span class="kw">SELECT</span> rating <span class="kw">FROM</span> Sailors <span class="kw">WHERE</span> sname = 'Diaz');</div>
-      <p><b>Result: Ana, Chen.</b> Diaz's rating is 5, so <code>&gt; ANY</code> means strictly greater than 5: Ana(8) and Chen(9). Brooks ties at 5, so she is <b>not</b> strictly greater and is excluded.</p>`}
-],
-agg:[
-  {q:"Evaluate <code>SELECT COUNT(*), COUNT(rating), AVG(rating), MAX(age) FROM Sailors;</code> against the sample data.",
-   a:`<p><b>Result: 5, 4, 6.75, 60.0.</b></p>
+intro:[
+  {q:"Trace how the machine grows from a bare CPU into “the operating system” by listing the hardware additions and what each one enables.",
+   a:`<p>Each step adds a flip-flop (a flag), a register, and a handler routine:</p>
+      <ol>
+        <li><b>Overflow flip-flop + NEWPC register</b> → <b>error handling</b>: on overflow, jump to the handler at NEWPC.</li>
+        <li><b>FENCE register + bounds-check hardware</b> → <b>memory protection</b>: reject addresses outside a process's extent.</li>
+        <li><b>Mode bit + privileged opcodes</b> → <b>self-protection</b>: unprivileged code can't touch the FENCE or other privileged state.</li>
+        <li><b>I/O interrupt + saved PC/R0</b> → <b>I/O handling</b>: save state, run the handler, restore.</li>
+        <li><b>Interrupt Handler Vector, system calls, timer interrupts</b> → a library of services processes can request, and the ability to preempt a running process.</li>
+      </ol>
+      <p>Once the handler offers this whole suite of services, we stop calling it the interrupt handler / <b>supervisor</b> and call it the <b>operating system</b>.</p>`},
+  {q:"Explain the difference between <b>mechanism</b> and <b>policy</b>, and list the three-plus-one “easy pieces” with a one-line description of each.",
+   a:`<p><b>Mechanism vs policy:</b> a <b>mechanism</b> is the low-level machinery that <em>how</em> something is done (e.g. the context-switch code that saves and restores registers); a <b>policy</b> is the decision of <em>what/when</em> to do it (e.g. which process the scheduler picks next). Separating them lets you change decisions without rewriting machinery.</p>
+      <p><b>The easy pieces:</b></p>
       <ul>
-        <li><code>COUNT(*)</code> = <b>5</b> (all rows).</li>
-        <li><code>COUNT(rating)</code> = <b>4</b> — Evans's NULL rating is skipped.</li>
-        <li><code>AVG(rating)</code> = (8+5+9+5)/4 = <b>6.75</b> — the NULL is ignored, and the divisor is 4, not 5.</li>
-        <li><code>MAX(age)</code> = <b>60.0</b> (Evans).</li>
-      </ul>`},
-  {q:"Find the average age per rating, but only for groups whose members are <b>all at least 20</b>. Give the query and result, and explain why <code>WHERE age &gt;= 20</code> would be wrong.",
-   a:`<div class="code"><span class="kw">SELECT</span> rating, AVG(age) <span class="kw">FROM</span> Sailors
-<span class="kw">GROUP BY</span> rating <span class="kw">HAVING</span> MIN(age) &gt;= 20;</div>
-      <p><b>Result: (8, 22.0), (9, 41.0), (NULL, 60.0).</b> The rating-5 group is excluded because Diaz is 19.</p>
-      <p><b>Why not <code>WHERE age &gt;= 20</code>?</b> WHERE filters rows <em>before</em> grouping — it would drop Diaz and then keep the rating-5 group with only Brooks (avg 35.5). The requirement is a property of the whole group, so it belongs in <b>HAVING</b> with <code>MIN(age) &gt;= 20</code>.</p>`},
-  {q:"Explain why <code>SELECT S.sname, COUNT(*) FROM Sailors S, Reserves R WHERE S.sid = R.sid GROUP BY S.sid;</code> is illegal, and fix it.",
-   a:`<p><b>Why illegal:</b> <code>S.sname</code> is in the SELECT list but is neither in GROUP BY nor inside an aggregate. The book's standard SQL rejects this — even though <code>sid</code> functionally determines <code>sname</code>. (PostgreSQL happens to accept it because <code>sid</code> is the primary key, but don't rely on that on an exam.)</p>
-      <p><b>Fix:</b> add the column to the grouping list:</p>
-      <div class="code"><span class="kw">SELECT</span> S.sname, COUNT(*)
-<span class="kw">FROM</span>   Sailors S, Reserves R
-<span class="kw">WHERE</span>  S.sid = R.sid
-<span class="kw">GROUP BY</span> S.sid, S.sname;</div>`}
+        <li><b>Virtualization</b> — abstract each resource so a process acts as if it owns it alone.</li>
+        <li><b>Concurrency</b> — manage many execution contexts at once, with synchronization and no deadlock.</li>
+        <li><b>Persistence</b> — keep data alive across reboots/crashes via files and directories.</li>
+        <li><b>Security</b> — authenticate principals and authorize what they may do.</li>
+      </ul>`}
 ],
-dml:[
-  {q:"Starting from the original data, what does Sailors look like after <code>UPDATE Sailors SET rating = 10 WHERE rating &gt; (SELECT AVG(rating) FROM Sailors);</code>?",
-   a:`<p><code>AVG(rating)</code> = <b>6.75</b> (the NULL is ignored). Ratings above 6.75 are <b>Ana (8)</b> and <b>Chen (9)</b> → both become <b>10</b>.</p>
+process:[
+  {q:"Draw the three-state process model and name every transition between <b>Running</b>, <b>Ready</b>, and <b>Blocked</b>.",
+   a:`<p><b>States:</b> Running (on the CPU), Ready (runnable, waiting), Blocked (waiting on an event).</p>
       <ul>
-        <li>Ana: 8 → <b>10</b> · Chen: 9 → <b>10</b></li>
-        <li>Brooks (5), Diaz (5): unchanged (below average).</li>
-        <li>Evans: unchanged — <code>NULL &gt; 6.75</code> is <b>unknown</b>, so the row isn't updated.</li>
-      </ul>`},
-  {q:"Increase the age of every sailor who has <b>never made a reservation</b> by 1. Give the statement and the effect.",
-   a:`<div class="code"><span class="kw">UPDATE</span> Sailors
-<span class="kw">SET</span>    age = age + 1
-<span class="kw">WHERE</span>  sid <span class="kw">NOT IN</span> (<span class="kw">SELECT</span> sid <span class="kw">FROM</span> Reserves);</div>
-      <p>The sailors with no reservations are <b>Diaz</b> and <b>Evans</b>. Effect: <b>Diaz 19.0 → 20.0</b> and <b>Evans 60.0 → 61.0</b>. Ana, Brooks, and Chen all have reservations, so they're unchanged.</p>`},
-  {q:"Delete sailors whose rating is <b>below the average rating</b>. Give the statement, the rows removed, and note any referential effect.",
-   a:`<div class="code"><span class="kw">DELETE FROM</span> Sailors
-<span class="kw">WHERE</span>  rating &lt; (<span class="kw">SELECT</span> AVG(rating) <span class="kw">FROM</span> Sailors);</div>
-      <p>The average is <b>6.75</b>, so <b>Brooks (5)</b> and <b>Diaz (5)</b> are deleted. <b>Evans survives</b> because <code>NULL &lt; 6.75</code> is unknown. If <code>Reserves.sid</code> has <b>ON DELETE CASCADE</b>, Brooks's reservation (boat 101) is removed too.</p>`}
+        <li><b>Ready → Running:</b> <b>scheduled</b> (the scheduler dispatches it).</li>
+        <li><b>Running → Ready:</b> <b>descheduled</b> (e.g. its time slice ends / a timer interrupt preempts it).</li>
+        <li><b>Running → Blocked:</b> the process <b>initiates I/O</b> (or otherwise waits on an event).</li>
+        <li><b>Blocked → Ready:</b> the awaited <b>I/O completes</b>.</li>
+      </ul>
+      <p>Note there is no direct Blocked → Running edge: a woken process goes to Ready first, then must be scheduled.</p>`},
+  {q:"When a process is <b>not</b> running, what does the OS store about it, and where? Why is each piece needed?",
+   a:`<p>The OS keeps everything in the process's <b>process struct / PCB</b> (e.g. <code>struct proc</code>):</p>
+      <ul>
+        <li><b>context</b> — the saved <b>CPU registers</b> (including IP and SP), so execution can resume exactly where it left off.</li>
+        <li><b>ofile</b> — the <b>open file descriptors</b>, so the process keeps its I/O connections.</li>
+        <li><b>state</b> — running / ready / sleeping, so the scheduler knows if it's runnable.</li>
+        <li>(plus pid, parent, page table / address space, kernel stack, etc.)</li>
+      </ul>
+      <p>Without saving the register context, a descheduled process could never be correctly resumed.</p>`}
+],
+lde:[
+  {q:"Walk through a <code>read()</code> system call from a user process into the kernel and back, naming each step.",
+   a:`<ol>
+        <li>The process is in <b>user mode</b> and can see only its own memory.</li>
+        <li>It sets the <b>syscall number</b> in a register (<code>movl $6,%eax</code>) and executes a <b>trap</b> (<code>int $64</code>).</li>
+        <li>The hardware raises privilege to <b>kernel mode</b> and jumps through the <b>trap table (IDT)</b> to the trap handler.</li>
+        <li>The handler uses the <b>syscall table</b> to call the right routine, e.g. <code>sys_read</code>, which does the work (copying into <code>buf</code>).</li>
+        <li><b>return-from-trap</b> restores the user registers and drops back to <b>user mode</b>, resuming the process after the trap.</li>
+      </ol>
+      <p>The trap table was installed at boot (privileged), so a user process can't redirect it.</p>`},
+  {q:"Trace the full <b>timer-interrupt context switch</b> from process A to process B, distinguishing hardware from OS actions.",
+   a:`<ol>
+        <li><b>HW (timer interrupt):</b> save A's registers to <b>A's kernel stack</b>, switch to <b>kernel mode</b>, jump to the trap handler.</li>
+        <li><b>OS:</b> handle the trap and call <b>switch()</b>.</li>
+        <li><b>OS (switch()):</b> save A's registers into <b>proc-struct(A)</b>, restore B's registers from <b>proc-struct(B)</b>, switch to B's kernel stack.</li>
+        <li><b>OS:</b> <b>return-from-trap</b> (into B).</li>
+        <li><b>HW:</b> restore B's registers from <b>B's kernel stack</b>, switch to <b>user mode</b>, jump to <b>B's instruction pointer</b>.</li>
+      </ol>
+      <p>Two levels of saving: hardware saves to the kernel stack on entry; the OS's switch() saves/restores via the process structs. The result: each process behaves as if it had its own CPU.</p>`}
+],
+sched:[
+  {q:"Workload: A, B, C each with run_time 10 s, all arriving at time ~0. Under <b>FIFO</b>, give each job's turnaround and the average. Then change A's run_time to 60 s — what happens, and what is the effect called?",
+   a:`<p><b>Equal jobs (10, 10, 10):</b> A finishes at 10, B at 20, C at 30.</p>
+      <div class="code">turnaround: A=10, B=20, C=30
+average = (10 + 20 + 30) / 3 = 20 s</div>
+      <p><b>Big first job (A=60, B=10, C=10):</b> A finishes at 60, B at 70, C at 80.</p>
+      <div class="code">average = (60 + 70 + 80) / 3 = 70 s</div>
+      <p>The two short jobs are stuck waiting behind the long one — the <b>convoy effect</b>.</p>`},
+  {q:"Jobs: A arrives at 0 with run_time 60; B and C arrive at ~10 each with run_time 10. Compare average turnaround under <b>SJF</b> (non-preemptive) and <b>STCF</b> (preemptive).",
+   a:`<p><b>SJF (non-preemptive):</b> A is already running when B and C arrive, and SJF can't preempt. So A runs 0–60, then B 60–70, C 70–80.</p>
+      <div class="code">turnaround: A = 60−0 = 60
+            B = 70−10 = 60
+            C = 80−10 = 70
+average = (60 + 60 + 70) / 3 = 63.3 s</div>
+      <p><b>STCF (preemptive):</b> when B and C arrive at 10, each has 10 s left vs A's remaining 50, so STCF preempts A. Run B 10–20, C 20–30, then A 30–80.</p>
+      <div class="code">turnaround: A = 80−0 = 80
+            B = 20−10 = 10
+            C = 30−10 = 20
+average = (80 + 10 + 20) / 3 = 36.6 s</div>
+      <p>Preemption lets the short jobs finish first, roughly halving average turnaround.</p>`},
+  {q:"Three jobs A, B, C each of length 5 arrive at ~0. Compare average <b>response time</b> under FIFO versus Round Robin (time slice ~1). Which optimizes response?",
+   a:`<p><b>FIFO:</b> A starts at 0, B must wait for A (starts at 5), C waits for both (starts at 10).</p>
+      <div class="code">response: A=0, B=5, C=10
+average = (0 + 5 + 10) / 3 = 5</div>
+      <p><b>Round Robin (slice ~1):</b> A runs first (0), B next (1), C next (2) — everyone starts almost immediately.</p>
+      <div class="code">response: A=0, B=1, C=2
+average = (0 + 1 + 2) / 3 = 1</div>
+      <p><b>RR</b> optimizes response time by starting every job quickly — at the cost of worse turnaround.</p>`}
+],
+mlfq:[
+  {q:"State all the MLFQ rules (including the boost), and explain how they let a single scheduler serve both interactive and batch jobs.",
+   a:`<ul>
+        <li><b>Rule 1:</b> if priority(A) &gt; priority(B), A runs.</li>
+        <li><b>Rule 2:</b> if priority(A) = priority(B), A and B run round-robin.</li>
+        <li><b>Rule 3:</b> a job starts at the top priority.</li>
+        <li><b>Rule 4:</b> if a job uses its whole time slice, demote it one level.</li>
+        <li><b>Rule 5 (boost):</b> periodically move all jobs back to the top priority.</li>
+      </ul>
+      <p><b>How it separates job types:</b> interactive jobs give up the CPU for I/O before their slice ends, so Rule 4 never demotes them — they stay high and get fast <b>response</b>. CPU-bound (batch) jobs use full slices and sink to low priority, where they still make <b>turnaround</b> progress via round-robin. The periodic <b>boost</b> prevents starvation and lets a job that changes behavior rise again.</p>`},
+  {q:"Lottery: jobs in list order are A(1), B(1), C(100), D(200), E(100), for 402 total tickets. Who runs if the random winner is <b>50</b>, <b>350</b>, or <b>0</b>?",
+   a:`<p>Walk the list, accumulating tickets, and stop at the first job where the running <code>counter &gt; winner</code>. Cumulative totals: A→1, B→2, C→102, D→302, E→402.</p>
+      <ul>
+        <li><b>winner = 50:</b> A→1, B→2, C→102. 102 &gt; 50 first at <b>C</b> → <b>C runs</b>.</li>
+        <li><b>winner = 350:</b> …D→302 (not &gt; 350), E→402. 402 &gt; 350 → <b>E runs</b>.</li>
+        <li><b>winner = 0:</b> A→1. 1 &gt; 0 immediately → <b>A runs</b>.</li>
+      </ul>
+      <p>Bigger ticket blocks (C, D, E) cover more of the range, so they win proportionally more often.</p>`}
 ]
 };
 
@@ -688,7 +645,7 @@ SECTIONS.forEach(s=>{ s.questions = QB[s.id] || []; });
    RENDER + LOGIC
    ========================================================= */
 const store = (()=>{ try{ const t="__t"; localStorage.setItem(t,"1"); localStorage.removeItem(t); return localStorage;}catch(e){ return null; }})();
-const KEY="sql-guide-progress-v1";
+const KEY="os-guide-progress-v1";
 let state = {};
 try{ if(store){ state = JSON.parse(store.getItem(KEY)||"{}"); } }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
@@ -732,7 +689,7 @@ SECTIONS.forEach((sec,si)=>{
       <p>${sec.blurb}</p>
     </div>
     <details class="notes"${si===0?" open":""}>
-      <summary><span class="lbl">Study Notes</span> Concepts, syntax &amp; the sample data <span class="car">▸</span></summary>
+      <summary><span class="lbl">Study Notes</span> Key concepts &amp; quick review <span class="car">▸</span></summary>
       <div class="notes-body">${notesHtml}</div>
     </details>
     <div class="quiz-head">
@@ -746,8 +703,8 @@ SECTIONS.forEach((sec,si)=>{
     <div class="section-done" id="done-${sec.id}"></div>
     ${(FR[sec.id]&&FR[sec.id].length)?`
     <div class="fr-head">
-      <div class="qt">Query-Tracing Practice · ${FR[sec.id].length} problems</div>
-      <div class="fr-sub">Write or trace each one against the sample data, then reveal the worked solution.</div>
+      <div class="qt">Worked Practice · ${FR[sec.id].length} problems</div>
+      <div class="fr-sub">Work each one out, then reveal the full solution.</div>
     </div>
     <div id="fr-${sec.id}"></div>`:``}
   `;
@@ -766,7 +723,6 @@ SECTIONS.forEach((sec,si)=>{
     card.innerHTML=`
       <div class="qnum">Question ${qi+1}</div>
       <div class="qtext">${q.q}</div>
-      ${q.code?`<div class="code qcode">${q.code}</div>`:``}
       <div class="opts">${opts}</div>
       <div class="explain" id="ex-${sec.id}-${qi}"></div>`;
     quizEl.appendChild(card);
@@ -844,7 +800,7 @@ function refresh(secId){
   const done=document.getElementById("done-"+secId);
   if(st.answered===st.total){
     const pct=Math.round(100*st.correct/st.total);
-    let msg = pct===100 ? "Perfect — you've nailed this section. 🎯"
+    let msg = pct===100 ? "Perfect — you've nailed this chapter. 🎯"
             : pct>=80 ? "Strong grasp — review the few you missed."
             : pct>=60 ? "Solid start — revisit the notes for the missed items."
             : "Worth another pass — open the Study Notes above and retry.";
@@ -888,10 +844,10 @@ const root=document.documentElement, tb=document.getElementById("themeBtn"),
 function applyTheme(t){
   if(t==="system"){ root.removeAttribute("data-theme"); ti.textContent="◐"; tl.textContent="Auto"; }
   else{ root.setAttribute("data-theme",t); ti.textContent= t==="dark"?"☾":"☀"; tl.textContent= t==="dark"?"Dark":"Light"; }
-  try{ store && store.setItem("sql-guide-theme",t); }catch(e){}
+  try{ store && store.setItem("os-guide-theme",t); }catch(e){}
 }
 let curTheme="system";
-try{ if(store) curTheme=store.getItem("sql-guide-theme")||"system"; }catch(e){}
+try{ if(store) curTheme=store.getItem("os-guide-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{
   curTheme = curTheme==="system" ? "light" : curTheme==="light" ? "dark" : "system";
