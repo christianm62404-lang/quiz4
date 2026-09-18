@@ -12,7 +12,7 @@
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
   --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;
+  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;
   --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
   --radius:12px;
 }
@@ -21,19 +21,19 @@
     --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
     --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
     --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-    --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;
+    --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="light"]{
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
+  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
   --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-  --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -213,7 +213,18 @@ const SECTIONS = [
       <li><b>Virtualization</b> — abstract each resource so a process acts as if it owns it alone; frees developers from sharing concerns and lets the OS allot resources freely.</li>
       <li><b>Concurrency</b> — many processes/threads execute at once; the OS handles concurrent events, offers synchronization (locks, semaphores, shared memory) and avoids deadlock.</li>
       <li><b>Persistence</b> — data survives reboots/crashes via the file &amp; directory abstractions; error handling and (because disks are slow) optimization matter.</li>
-      <li><b>Security</b> — the roof over the pillars: <b>authentication</b> proves a principal is who they claim; <b>authorization</b> decides what they may access and do.</li></ul>`}
+      <li><b>Security</b> — the roof over the pillars: <b>authentication</b> proves a principal is who they claim; <b>authorization</b> decides what they may access and do.</li></ul>`},
+    {h:"The operating system, three ways", html:`<p>The book describes the same OS from three angles:</p>
+      <ul>
+      <li><b>A virtual machine</b> — via virtualization it turns a physical resource into an easier-to-use virtual version.</li>
+      <li><b>A standard library</b> — it exports a few hundred <b>system calls</b> programs use to run code, access memory, and use devices.</li>
+      <li><b>A resource manager</b> — it divides shared CPU, memory, and disk efficiently and fairly.</li></ul>
+      <p><b>Memory demo:</b> two copies of <code>mem.c</code> both print the same pointer (0x200000) yet count independently — each process has its own private <b>virtual address space</b> mapped onto physical memory (works only with address-space randomization off).</p>`},
+    {h:"Concurrency & persistence in one line each", html:`<ul>
+      <li><b>Concurrency</b> — two threads incrementing a shared counter give the <b>wrong</b> total on large inputs, because <code>counter++</code> is really <b>load, add, store</b> (three instructions) that don't run atomically, so interleaved updates are lost.</li>
+      <li><b>Persistence</b> — DRAM is <b>volatile</b>, so hardware (disks/SSDs) + the <b>file system</b> store data durably through <code>open()/write()/close()</code>. Unlike CPU and memory, the OS does <b>not</b> give each program a private virtual disk — users want to <b>share files</b> between programs. The file system may batch/delay writes and use <b>journaling</b> or <b>copy-on-write</b> to survive crashes.</li></ul>`},
+    {h:"Design goals & a short history of UNIX", html:`<p><b>Goals:</b> convenient <b>abstractions</b>; high <b>performance</b> (low time and space overhead); <b>protection</b> between apps and the OS — the underlying principle is <b>isolation</b>; <b>reliability</b>; plus energy efficiency, security, and mobility.</p>
+      <p><b>History, in order:</b> OS as shared <b>libraries</b> (batch processing, one job at a time) → <b>protection</b>: the <b>system call</b> was invented (Atlas); a trap raises <b>user → kernel</b> mode, a return-from-trap lowers it → <b>multiprogramming</b> (keep several jobs in memory, switch while one waits on I/O to raise utilization) → <b>UNIX</b> (Thompson &amp; Ritchie, Bell Labs) simplified Multics: small programs joined by <b>pipes</b>, written in <b>C</b> → early PCs regressed (DOS had no memory protection; early Mac OS used cooperative scheduling) then recovered (macOS is UNIX-based, Windows NT, Linux runs servers and Android).</p>`}
   ]
 },
 {
@@ -238,7 +249,15 @@ const SECTIONS = [
       <li><b>context</b> — the saved CPU registers,</li>
       <li><b>ofile</b> — the open file descriptors,</li>
       <li><b>state</b> — running / ready / sleeping, etc. (plus pid, parent, page table, kernel stack…).</li></ul>
-      <p>As always, <b>mechanism</b> = <em>how</em> to transition; <b>policy</b> = <em>when</em> to transition.</p>`}
+      <p>As always, <b>mechanism</b> = <em>how</em> to transition; <b>policy</b> = <em>when</em> to transition.</p>`},
+    {h:"The process API & from program to process", html:`<p>Every OS offers some process <b>API</b>: <b>create</b>, <b>destroy</b>, <b>wait</b>, miscellaneous <b>control</b> (suspend/resume), and <b>status</b> (how long it has run, what state). Turning a program into a process:</p>
+      <ol>
+      <li><b>Load</b> code + static data into the address space — <b>eagerly</b> (all up front) on old systems, <b>lazily</b> (pieces as needed, via paging/swapping) on modern ones.</li>
+      <li>Allocate the run-time <b>stack</b> and fill <code>main()</code>'s <b>argc/argv</b>.</li>
+      <li>Maybe allocate a small <b>heap</b> for <code>malloc()/free()</code>.</li>
+      <li>On UNIX, open three file descriptors: <b>standard input, output, and error</b>.</li>
+      <li><b>Start</b> by jumping to <code>main()</code>, handing over the CPU.</li></ol>`},
+    {h:"Extra states, zombies & the PCB", html:`<p>Real systems add an <b>initial</b> state (while being created) and a <b>final / zombie</b> state (exited but not yet cleaned up) so the parent can read the exit code (0 = success) via <code>wait()</code> — which also lets the OS <b>free</b> the process's structures. xv6's states are <code>UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE</code>. The OS keeps a <b>process list</b> of <b>PCBs</b>; the key field is the saved <b>register context</b>, and saving then restoring it is exactly the <b>context switch</b>. (Remember: a <b>Blocked</b> process returns to <b>Ready</b>, never straight to Running.)</p>`}
   ]
 },
 {
@@ -263,7 +282,9 @@ int   $64           <span style="color:var(--faint)"># trap into the kernel</spa
       return-from-trap (into B)
 <span class="kw">HW</span>  restore regs(B) from kernel stack(B)
       move to user mode, jump to B's IP</div>
-      <p>Two saves happen: <b>hardware</b> saves A's registers to the <b>kernel stack</b> on the interrupt; the <b>OS's <code>switch()</code></b> saves A's registers into A's <b>process struct</b> and restores B's. Smooth switching makes each process think it has its own CPU — virtualization.</p>`}
+      <p>Two saves happen: <b>hardware</b> saves A's registers to the <b>kernel stack</b> on the interrupt; the <b>OS's <code>switch()</code></b> saves A's registers into A's <b>process struct</b> and restores B's. Smooth switching makes each process think it has its own CPU — virtualization.</p>`},
+    {h:"The trap table, syscall numbers & argument checks", html:`<p>A process can't pick <b>where</b> in the kernel to jump — that would skip permission checks. At <b>boot</b> (kernel mode) the OS installs a <b>trap table</b> telling the hardware where each handler lives; installing it is a <b>privileged</b> instruction. Each service has a <b>system-call number</b>: user code puts the <b>number</b> (never a kernel address) in a register, and the handler validates it. On a trap the hardware saves the <b>PC, flags, and registers</b> onto the per-process <b>kernel stack</b>. The kernel must <b>validate every argument</b> crossing the boundary — e.g. a <code>write()</code> buffer pointing into <b>kernel memory</b> must be rejected, or a process could read others' memory. System calls look like C functions because they <b>are</b> library functions with hand-written assembly that loads the arguments and call number and executes the trap.</p>`},
+    {h:"Cost, concurrency & the “baby-proofing” analogy", html:`<p>What if a timer interrupt arrives during a syscall, or one interrupt during another? The OS may briefly <b>disable interrupts</b> while handling one (but not too long, or it drops interrupts) and use <b>locking</b> to protect internal structures. Rough 1996 numbers (lmbench, 200 MHz P6): a system call ≈ <b>4 µs</b>, a context switch ≈ <b>6 µs</b>; modern machines are ~10× faster, though many OS ops are <b>memory-bound</b> and don't scale purely with CPU speed. The book's image: the OS <b>“baby-proofs” the CPU</b> — set up trap handlers and the timer at boot, then run processes in restricted mode, stepping in only for privileged work or when a process has held the CPU too long.</p>`}
   ]
 },
 {
@@ -283,7 +304,13 @@ response_time   = first_run_time − arrival_time</div>
       <li><b>SJF (Shortest Job First)</b> runs the job with the smallest run_time next. For (60,10,10) arriving together: (80+10+20)/3 = <b>36.7 s</b> — much better. But SJF is <b>non-preemptive</b>: if the long job starts first and short jobs arrive later, they wait — (60+60+70)/3 = <b>63.3 s</b>.</li>
       <li><b>STCF (Shortest Time-to-Completion First)</b> is the <b>preemptive</b> version: whenever a job arrives, switch to whichever will complete soonest. It preempts the long job → <b>≈ 36.6 s</b>.</li></ul>`},
     {h:"Round Robin & response time", html:`<p>FIFO, SJF, and STCF optimize turnaround but have <b>poor response time</b>. <b>RR (Round Robin)</b> alternates among ready jobs every fixed <b>time slice</b>. For three jobs, RR's average response is (0+1+2)/3 = <b>1</b> vs FIFO's (0+5+10)/3 = <b>5</b> — great response, but worse turnaround.</p>`},
-    {h:"Relaxing assumptions: I/O", html:`<p>Real jobs mix CPU and I/O. A scheduler that's <b>not I/O aware</b> leaves the CPU idle during a job's I/O; an <b>I/O-aware</b> scheduler <b>overlaps</b> — it runs another job's CPU work while the first waits on the disk, keeping both busy.</p>`}
+    {h:"Relaxing assumptions: I/O", html:`<p>Real jobs mix CPU and I/O. A scheduler that's <b>not I/O aware</b> leaves the CPU idle during a job's I/O; an <b>I/O-aware</b> scheduler <b>overlaps</b> — it runs another job's CPU work while the first waits on the disk, keeping both busy.</p>`},
+    {h:"The exact numbers to know", html:`<p><b>FIFO</b>, A=100, B=10, C=10 (all at 0): avg turnaround (100+110+120)/3 = <b>110</b> — the convoy effect. <b>SJF</b>, same jobs: (10+20+120)/3 = <b>50</b> (optimal when all arrive together). SJF is <b>non-preemptive</b>, so if A=100@0 and B,C=10@10, they wait for A → (100+100+110)/3 ≈ <b>103.33</b>. <b>STCF</b> preempts → (120+10+20)/3 = <b>50</b>. For response, three 5 s jobs: SJF avg response (0+5+10)/3 = <b>5</b>; <b>RR</b> (1 s slice) (0+1+2)/3 = <b>1</b> — but RR finishes them at 13/14/15 → turnaround avg <b>14</b>, often worse than FIFO.</p>`},
+    {h:"Fairness, slice size & I/O overlap", html:`<ul>
+      <li><b>Response time is the time to first run, not first output.</b></li>
+      <li><b>Fairness</b> (e.g. Jain's index) usually <b>conflicts</b> with performance — any policy fair over short spans does badly on turnaround.</li>
+      <li><b>Slice size:</b> shorter improves response but context switching dominates; <b>amortize</b> the fixed switch cost — with a 1 ms switch, a 10 ms slice wastes ~10%, a 100 ms slice &lt;1% (switch cost also includes lost cache/TLB/branch-predictor state, not just registers).</li>
+      <li><b>I/O:</b> treat each <b>CPU burst</b> as its own job, so STCF runs a job's short bursts first and <b>overlaps</b> its I/O with another job's CPU work.</li></ul>`}
   ]
 },
 {
@@ -307,6 +334,12 @@ response_time   = first_run_time − arrival_time</div>
       <li><b>Gaming the system</b> — a job relinquishes the CPU just before its slice expires to avoid demotion and stay high.</li>
       <li><b>Hard to tune</b> — number of queues, slice lengths, boost interval.</li></ul>
       <p>The <b>priority boost</b> (Rule 5) cures starvation and adapts when a job changes behavior; better accounting (measuring total slice use, not just yielding) defeats gaming.</p>`},
+    {h:"How the rules evolved (and who invented it)", html:`<p>MLFQ dates to <b>Corbató</b>'s CTSS (1962); with Multics it earned him the Turing Award. It approximates SJF <b>without knowing job lengths</b> by learning from the recent past. The rules were reached in three attempts:</p>
+      <ul>
+      <li><b>Attempt 1</b> (Rules 3, 4a/4b): new jobs start at the top; using a whole slice demotes, giving up the CPU early keeps the level. Three flaws — <b>starvation</b>, <b>gaming</b> (run ~99% of a slice then issue a token I/O to stay high), and <b>changed behavior</b> stuck at the bottom.</li>
+      <li><b>Attempt 2</b> (Rule 5, the <b>boost</b>): periodically lift <b>all</b> jobs to the top — fixes starvation and changed behavior. The boost period S is a <b>voo-doo constant</b> (Ousterhout): too high starves long jobs, too low denies interactive jobs their share.</li>
+      <li><b>Attempt 3</b> (better accounting): count <b>total</b> CPU time used at a level (the single Rule 4), so many small bursts still demote — this defeats gaming.</li></ul>`},
+    {h:"Tuning & real systems", html:`<p>How many queues, slice lengths, boost period? No clean answers — it takes workload experience. Usually high queues get <b>short</b> slices (interactive, ~10 ms), low queues <b>long</b> ones (CPU-bound, hundreds of ms). <b>Solaris</b> (Time-Sharing class): table-driven, ~<b>60 queues</b>, slices <b>20 ms → hundreds of ms</b>, boost about every second. <b>FreeBSD</b>: a formula on recent CPU use that <b>decays</b> over time (decay-usage scheduling). Users give <b>advice</b> (e.g. <code>nice</code>) that the OS may or may not follow. A gameable policy is a <b>security</b> risk in shared datacenters.</p>`},
     {h:"Lottery (proportional share, Ch 9)", html:`<p><b>Lottery scheduling</b> targets <b>proportional share</b>: give each process <b>tickets</b>, hold a lottery each slice, and whoever wins runs — <b>more tickets = higher share</b>. Pick a random winner in <code>[0, total)</code> and walk the list, summing tickets until the running total exceeds the winner:</p>
       <div class="code">int counter = 0;
 int winner = getrandom(0, totaltickets);
@@ -317,6 +350,44 @@ while (current) {
     current = current-&gt;next;
 }</div>
       <p>Random algorithms are <b>simple, need little state, and avoid corner cases</b>, though a single draw can be unfair over short spans. Variants: ticket <b>transfers</b>, <b>currencies</b>, and <b>inflation</b>.</p>`}
+  ]
+},
+{
+  id:"exam", short:"Worked Problems & Prep", tag:"Practice · Review", title:"Worked Problems & Exam Prep",
+  blurb:"The announced short-answer topics with model answers, a full four-scheduler trace, and the one-page “easy points to lose” review.",
+  notes:[
+    {h:"Announced short-answer topics", html:`<p>The exam includes a couple of <b>short-answer</b> questions. The announced topics (model answers are in the practice below):</p>
+      <ul>
+      <li><b>History of UNIX</b></li>
+      <li><b>System Calls</b></li>
+      <li><b>Anatomy of a Process</b></li>
+      <li><b>Limited Direct Execution</b></li></ul>
+      <p>There may also be a <b>scheduling question you have to trace</b> — see Worked Problem 1 below.</p>`},
+    {h:"Policies at a glance", html:`<table class="tbl"><thead><tr><th>Policy</th><th>Preempt?</th><th>Needs lengths?</th><th>Good at</th><th>Bad at</th></tr></thead>
+      <tbody>
+      <tr><td>FIFO</td><td>No</td><td>No</td><td>simplicity; equal jobs</td><td>convoy effect</td></tr>
+      <tr><td>SJF</td><td>No</td><td>Yes</td><td>turnaround (if all arrive together)</td><td>late arrivals; response</td></tr>
+      <tr><td>STCF</td><td>Yes</td><td>Yes</td><td>turnaround (optimal here)</td><td>response time</td></tr>
+      <tr><td>RR</td><td>Yes</td><td>No</td><td>response; fairness</td><td>turnaround; switch cost</td></tr>
+      <tr><td>MLFQ</td><td>Yes</td><td>No (learns)</td><td>approximates both</td><td>tuning (voo-doo constants)</td></tr>
+      </tbody></table>`},
+    {h:"Easy points to lose", html:`<ul>
+      <li>Response time = time to <b>first run</b>, not first output.</li>
+      <li><b>Blocked → Ready</b>, never straight to Running.</li>
+      <li>SJF is <b>non-preemptive</b>; STCF is SJF <b>with</b> preemption.</li>
+      <li>RR's time slice must be a <b>multiple of the timer-interrupt period</b>.</li>
+      <li>Two register saves in a switch: <b>hardware</b> → kernel stack, <b>OS</b> → process structure.</li>
+      <li>Installing the trap table and starting/stopping the timer are <b>privileged</b>.</li>
+      <li>User code picks a <b>system-call number</b>, never a kernel address.</li>
+      <li>MLFQ Rule 4 counts <b>total time at a level</b>, not whether one slice was used.</li>
+      <li>CPU and memory are virtualized per process; the <b>file system is shared</b>, not virtualized.</li>
+      <li><b>Zombie</b> = exited but not yet reaped by the parent's <code>wait()</code>.</li></ul>`},
+    {h:"The chain of reasoning, in five sentences", html:`<ol>
+      <li>The OS <b>virtualizes</b> the CPU so many programs seem to run at once (Ch 2).</li>
+      <li>Each running program is a <b>process</b> with memory, registers, and I/O state, moving among running / ready / blocked (Ch 4).</li>
+      <li>Processes run <b>directly</b> on the hardware for speed, but user mode, traps, and the timer interrupt let the OS keep control and switch (Ch 6).</li>
+      <li>Deciding who runs next is a <b>policy</b> question with a basic <b>turnaround-vs-response</b> trade-off (Ch 7).</li>
+      <li><b>MLFQ</b> handles that trade-off without knowing job lengths by watching behavior — boosts prevent starvation, accounting prevents gaming (Ch 8).</li></ol>`}
   ]
 }
 ];
@@ -364,7 +435,22 @@ intro:[
    a:1, e:"The periodic timer interrupt lets the OS regain control and interrupt a running process so another can run in its place."},
   {q:"Which is <b>not</b> one of the (three-plus-one) “easy pieces”?",
    o:["virtualization","concurrency","compilation","persistence"],
-   a:2, e:"The pieces are virtualization, concurrency, persistence, and security. Compilation is not among them."}
+   a:2, e:"The pieces are virtualization, concurrency, persistence, and security. Compilation is not among them."},
+  {q:"Why does the two-thread shared-counter program print the wrong total on large inputs?",
+   o:["the two threads run on separate physical CPUs","counter++ is load/add/store and is not atomic","the counter variable overflows its integer range","one thread always finishes before the other starts"],
+   a:1, e:"counter++ compiles to load, add, store; interleaving those non-atomic steps across threads loses updates, so the sum comes out low (and varies)."},
+  {q:"Why does the OS <b>not</b> give each program its own private virtual disk?",
+   o:["disks are far too slow to virtualize at all","users want to share files between programs","a virtual disk would break memory isolation","the file system predates the idea of virtualization"],
+   a:1, e:"Files must be shared across programs (edit → compile → run), so the disk is a shared, persistent store rather than a per-process virtual resource."},
+  {q:"How does a <b>system call</b> differ from an ordinary procedure call?",
+   o:["it traps into the kernel and raises the privilege level","it runs faster by skipping the call stack entirely","it is forbidden from taking any arguments","it never returns control back to the caller"],
+   a:0, e:"A system call is a controlled entry that transfers to a preset handler and raises privilege from user to kernel mode; a return-from-trap lowers it again."},
+  {q:"The principle that underlies <b>protection</b> between applications and the OS is…",
+   o:["amortizing fixed setup costs over many separate operations","isolation — keeping programs from affecting each other","preemption of any job that runs for too long","proportional sharing of the CPU by ticket counts"],
+   a:1, e:"Protection rests on isolation: if the OS fails everything fails, so applications must be kept from one another and from the OS."},
+  {q:"UNIX (Thompson &amp; Ritchie) simplified Multics by favoring…",
+   o:["one large monolithic application per machine","small programs joined by pipes, written in C","cooperative scheduling with no timer interrupt","batch processing of exactly one job at a time"],
+   a:1, e:"UNIX borrowed from Multics but made it simpler: small composable programs connected by pipes and written in C."}
 ],
 process:[
   {q:"What is the difference between a <b>program</b> and a <b>process</b>?",
@@ -402,7 +488,22 @@ process:[
    a:1, e:"Ready = able to run, just waiting for the scheduler to place it on a CPU. Blocked (not Ready) is waiting on an event."},
   {q:"In the state machine, “mechanism” vs “policy” corresponds to…",
    o:["how to transition vs when to transition","user mode vs kernel mode of the CPU","the heap region vs the stack region","turnaround time vs response time"],
-   a:0, e:"Mechanism is how a transition is carried out; policy is when/whether it happens (which the scheduler decides)."}
+   a:0, e:"Mechanism is how a transition is carried out; policy is when/whether it happens (which the scheduler decides)."},
+  {q:"Which set of operations belongs to a typical process <b>API</b>?",
+   o:["compile, link, assemble, and load the program","create, destroy, wait, control, and status","open, read, write, seek, and finally close","fetch, decode, execute, and retire an instruction"],
+   a:1, e:"Any OS offers create, destroy, wait, miscellaneous control (suspend/resume), and status calls for processes."},
+  {q:"The difference between <b>eager</b> and <b>lazy</b> loading of a program is…",
+   o:["loading all code up front vs loading pieces as needed","loading from disk vs loading from the network first","loading onto the stack vs loading into the heap","loading in kernel mode vs loading in user mode"],
+   a:0, e:"Old systems load the whole program eagerly; modern systems load lazily, bringing in pieces on demand via paging and swapping."},
+  {q:"On UNIX, a freshly created process usually starts with which three descriptors open?",
+   o:["standard input, standard output, and standard error","the code, the heap, and the stack segments","its parent, its child, and its sibling process","read access, write access, and execute access"],
+   a:0, e:"Process setup opens file descriptors 0, 1, 2 — standard input, output, and error."},
+  {q:"A process in the <b>zombie</b> state is one that has…",
+   o:["exhausted all of its allotted memory space","exited but not yet been reaped by its parent","blocked while waiting on a slow disk read","been given the highest scheduling priority"],
+   a:1, e:"A zombie has finished but lingers so the parent can read its return code; wait() then reaps it."},
+  {q:"Besides returning the child's exit code, the parent's <code>wait()</code> call…",
+   o:["raises the child's scheduling priority a level","lets the OS free the child's data structures","reopens the child's standard file descriptors","moves the child from ready straight to running"],
+   a:1, e:"wait() reaps the zombie, telling the OS it may release the process's PCB and related structures."}
 ],
 lde:[
   {q:"What are the two goals of CPU time-sharing that motivate limited direct execution?",
@@ -440,7 +541,22 @@ lde:[
    a:0, e:"switch() saves A's registers to proc-struct(A) and restores B's from proc-struct(B). (Hardware first saved A's regs to the kernel stack.)"},
   {q:"On the timer interrupt itself, who first saves the running process's registers?",
    o:["the compiler, ahead of time","the hardware, onto the kernel stack","the process, into its own heap","the disk controller, into a file"],
-   a:1, e:"Hardware saves the interrupted process's registers to its kernel stack and enters kernel mode before the trap handler runs."}
+   a:1, e:"Hardware saves the interrupted process's registers to its kernel stack and enters kernel mode before the trap handler runs."},
+  {q:"When invoking a system call, user code places into a register…",
+   o:["the kernel address of the routine to run","the system-call number for the desired service","a full copy of the trap table itself","the current countdown of the timer interrupt"],
+   a:1, e:"User code supplies a system-call number (an index), never a kernel address; the handler validates it and dispatches. This indirection is itself protection."},
+  {q:"Why must the kernel validate a pointer argument passed to <code>write()</code>?",
+   o:["so the passed buffer can never exceed a single memory page in size","so a process can't make the kernel read or write protected memory","because all user pointers are exactly 64 bits wide","to stop the write from ever blocking on slow I/O"],
+   a:1, e:"An unchecked buffer address could point into kernel or another process's memory, so every argument crossing the boundary must be validated."},
+  {q:"On a trap, the hardware saves the process's PC, flags, and registers onto…",
+   o:["the process's own heap region","the per-process kernel stack","a reserved slot in the trap table","the timer interrupt's private buffer"],
+   a:1, e:"x86 saves the caller's PC, flags, and some registers on that process's kernel stack during the trap, and restores them on return-from-trap."},
+  {q:"While the OS is handling one interrupt, a simple way to avoid nested-interrupt trouble is to…",
+   o:["briefly disable interrupts during the handler","permanently promote the process to kernel mode","switch the whole system to cooperative scheduling","reboot the machine back to a known state"],
+   a:0, e:"Disabling interrupts during handling avoids re-entrancy — but only briefly, since disabling them too long can lose interrupts; locking guards shared structures."},
+  {q:"System calls look like ordinary C function calls because they…",
+   o:["are library functions wrapping a trap in assembly","are compiled straight into the kernel binary","execute fully in user mode without ever trapping","skip the trap table to run a little faster"],
+   a:0, e:"A syscall is a C library function whose hand-written assembly places the arguments and call number in agreed spots and executes the trap instruction."}
 ],
 sched:[
   {q:"How is <b>turnaround time</b> defined?",
@@ -478,7 +594,22 @@ sched:[
    a:0, e:"It overlaps: while one job blocks on the disk, the CPU runs another job's work, keeping both the CPU and disk busy."},
   {q:"The relation <b>f(W, S) = M</b> expresses that…",
    o:["the metric by itself determines the workload and the scheduler","the workload and scheduler together determine the metric","the scheduler on its own completely fixes the workload","every new workload requires a brand-new quality metric"],
-   a:1, e:"Given a workload W and scheduler S, the quality metric M follows; knowing any two lets you reason about the third."}
+   a:1, e:"Given a workload W and scheduler S, the quality metric M follows; knowing any two lets you reason about the third."},
+  {q:"SJF is provably optimal for average turnaround only under the assumption that…",
+   o:["every job performs at least some I/O","all jobs arrive at the same time","the time slice is exactly one second long","the scheduler is allowed to preempt jobs"],
+   a:1, e:"When all jobs arrive together, running the shortest first minimizes average turnaround. Staggered arrivals break it (a long job blocks newcomers — needs STCF)."},
+  {q:"In this book, a job's <b>response time</b> is measured up to its…",
+   o:["first line of printed output","first time being run on the CPU","completion time minus arrival","first blocking system call"],
+   a:1, e:"response_time = first_run_time − arrival_time — the time until the job first runs, not until it first produces output."},
+  {q:"Fairness (for example, Jain's Fairness Index) tends to…",
+   o:["improve average turnaround at the same time","conflict with raw performance","matter only for pure batch workloads","require the scheduler to know job lengths"],
+   a:1, e:"Fairness and performance usually pull apart: a policy that's fair over short intervals (like RR) does poorly on turnaround."},
+  {q:"Enlarging the Round-Robin time slice mainly helps by…",
+   o:["amortizing the fixed context-switch cost","guaranteeing the shortest possible turnaround","removing the need for a timer interrupt","making the scheduler fully non-preemptive"],
+   a:0, e:"A bigger slice spreads the fixed switch cost over more useful work — e.g. a 1 ms switch is ~10% of a 10 ms slice but <1% of a 100 ms slice."},
+  {q:"To schedule around I/O well, a scheduler treats each of a job's CPU bursts as…",
+   o:["one long uninterruptible unit of work","its own separate job for scheduling","a reason to permanently demote the job","an error that should be logged and skipped"],
+   a:1, e:"Treating each CPU burst as a job lets STCF run short bursts first and overlap one job's I/O with another job's CPU work."}
 ],
 mlfq:[
   {q:"What is the central goal of <b>MLFQ</b>?",
@@ -519,7 +650,45 @@ mlfq:[
    a:0, e:"It accumulates each node's tickets into a running counter and stops at the first node where counter &gt; winner."},
   {q:"A commonly cited advantage of <b>random</b> algorithms like lottery is that they…",
    o:["always beat MLFQ on turnaround time","are simple and tend to avoid corner cases","need no tickets or priorities at all","guarantee perfect fairness every single slice"],
-   a:1, e:"Randomized schedulers are simple, keep little state, and dodge many corner cases — though a single draw can be unfair short-term."}
+   a:1, e:"Randomized schedulers are simple, keep little state, and dodge many corner cases — though a single draw can be unfair short-term."},
+  {q:"How does MLFQ approximate SJF <b>without</b> knowing job lengths?",
+   o:["it asks each job to declare its run time first","it assumes new jobs are short, then demotes long ones","it always runs whichever job holds the fewest tickets","it preempts and reshuffles after every single slice"],
+   a:1, e:"New jobs start at the top (assumed short); a job that keeps burning full slices sinks, so short jobs finish high — SJF-like behavior learned from observed usage."},
+  {q:"Which MLFQ rule is the fix for <b>starvation</b>?",
+   o:["Rule 3, which starts jobs at the top","Rule 5, the periodic priority boost","Rule 1, which runs the higher-priority job","Rule 2, round-robin within a single level"],
+   a:1, e:"The periodic boost (Rule 5) lifts every job to the top, guaranteeing even a demoted long job eventually runs."},
+  {q:"Under the old Rules 4a/4b, the <b>gaming</b> attack works when a job…",
+   o:["runs most of a slice then issues a token I/O to stay high","requests every single one of the available lottery tickets at once","overwrites the trap table so it can reach kernel mode","forks many child processes to occupy all the queues"],
+   a:0, e:"By giving up the CPU just before the slice ends, the job avoided demotion under 4a/4b and kept top priority."},
+  {q:"The improved single <b>Rule 4</b> stops gaming by counting…",
+   o:["how many times the job has yielded the CPU","total CPU time used at a level, however it's split","the number of queues the job has passed through","the job's total count of I/O requests issued"],
+   a:1, e:"Tracking total time (allotment) at a level means many small bursts add up and still demote the job — the trick no longer helps."},
+  {q:"The boost period S is called a “voo-doo constant” because…",
+   o:["it must always be a power of two to work","there is no clean, principled way to set it well","only the hardware timer is allowed to choose it","it changes automatically on every context switch"],
+   a:1, e:"Ousterhout's term for a parameter that seems to need black magic to tune: too high starves long jobs, too low shortchanges interactive ones."}
+],
+exam:[
+  {q:"When a <b>Blocked</b> process's awaited event completes, it moves…",
+   o:["directly back onto the CPU as Running","to Ready, and may be scheduled later","into the zombie / final exit state","back to the initial creation state"],
+   a:1, e:"A blocked job returns to Ready when its event (e.g. I/O) finishes; the scheduler then decides whether to run it — it never jumps straight to Running."},
+  {q:"The Round-Robin time slice must always be…",
+   o:["a multiple of the timer-interrupt period","longer than the single longest job","a power of two in milliseconds","exactly equal to the context-switch cost"],
+   a:0, e:"RR can only switch when the timer fires, so its quantum must be a whole-number multiple of the timer-interrupt period."},
+  {q:"During a timer-driven switch from A to B, the two register saves are done by…",
+   o:["hardware to the kernel stack, then OS to the process struct","the OS to the kernel stack, then hardware to the process struct","the hardware alone, doing both saves automatically","the OS alone, saving both into the trap table"],
+   a:0, e:"Hardware saves A's user registers to A's kernel stack on the interrupt; the OS's switch() then saves A's kernel registers into proc-struct(A) and restores B's."},
+  {q:"Which pair of operations is <b>privileged</b>?",
+   o:["reading a file and then closing that file","installing the trap table and starting the timer","calling malloc() and later calling free()","writing to standard output and standard error"],
+   a:1, e:"Installing the trap table and starting/stopping the timer must be privileged — a program that could do them could seize the whole machine."},
+  {q:"Compared with the CPU and memory, the file system is…",
+   o:["given its own private virtual copy for each running program","shared between programs rather than per-process virtualized","completely inaccessible from within user mode entirely","wiped clean on every single context switch that occurs"],
+   a:1, e:"The OS virtualizes CPU and memory per process, but users need to share files across programs, so the file system is a shared, persistent store."},
+  {q:"SJF and STCF differ in that…",
+   o:["SJF is non-preemptive, while STCF adds preemption","STCF is non-preemptive, while SJF adds preemption","both of them are strictly non-preemptive","both of them require a periodic priority boost"],
+   a:0, e:"STCF is simply the preemptive version of SJF: on each arrival it runs whichever job has the least time remaining."},
+  {q:"MLFQ's final <b>Rule 4</b> decides to demote a job based on…",
+   o:["whether it used up one single time slice","total CPU time used at a level, however split","how many lottery tickets it currently holds","the number of queues it has already visited"],
+   a:1, e:"Counting the total allotment used at a level (not a single slice) is what stops a job from gaming the scheduler with token I/O."}
 ]
 };
 
@@ -566,7 +735,20 @@ process:[
         <li><b>state</b> — running / ready / sleeping, so the scheduler knows if it's runnable.</li>
         <li>(plus pid, parent, page table / address space, kernel stack, etc.)</li>
       </ul>
-      <p>Without saving the register context, a descheduled process could never be correctly resumed.</p>`}
+      <p>Without saving the register context, a descheduled process could never be correctly resumed.</p>`},
+  {q:"<b>Worked problem 2 — state trace.</b> P0 runs 3 CPU units, then issues an I/O that takes 3 units, then needs 1 more CPU unit. P1 needs 4 CPU units and no I/O. P0 starts first; the OS switches to P1 when P0 blocks and does <b>not</b> switch back when P0's I/O completes. Give each process's state over time.",
+   a:`<table class="tbl"><thead><tr><th>Time</th><th>P0</th><th>P1</th></tr></thead>
+      <tbody>
+      <tr><td>0–3</td><td>Running (CPU)</td><td>Ready</td></tr>
+      <tr><td>3–6</td><td>Blocked (I/O)</td><td>Running</td></tr>
+      <tr><td>6–7</td><td>Ready (I/O done)</td><td>Running</td></tr>
+      <tr><td>7–8</td><td>Running (last unit)</td><td>Done</td></tr>
+      </tbody></table>
+      <ul>
+        <li>At <b>t=3</b> P0 issues I/O → <b>Blocked</b>, and the OS switches to P1.</li>
+        <li>At <b>t=6</b> P0's I/O completes → P0 goes to <b>Ready</b> (not Running — a blocked job never jumps straight to Running, and the OS chose not to switch back). P1 keeps running.</li>
+        <li>P1 runs t=3–7 (its 4 units) and finishes at <b>t=7</b>; only then does P0 get the CPU for its final unit, finishing at <b>t=8</b>.</li>
+      </ul>`}
 ],
 lde:[
   {q:"Walk through a <code>read()</code> system call from a user process into the kernel and back, naming each step.",
@@ -615,7 +797,12 @@ average = (0 + 5 + 10) / 3 = 5</div>
       <p><b>Round Robin (slice ~1):</b> A runs first (0), B next (1), C next (2) — everyone starts almost immediately.</p>
       <div class="code">response: A=0, B=1, C=2
 average = (0 + 1 + 2) / 3 = 1</div>
-      <p><b>RR</b> optimizes response time by starting every job quickly — at the cost of worse turnaround.</p>`}
+      <p><b>RR</b> optimizes response time by starting every job quickly — at the cost of worse turnaround.</p>`},
+  {q:"<b>Worked problem 4 — amortizing the switch.</b> A context switch costs 0.5 ms. Roughly what fraction of CPU time goes to switching with a <b>5 ms</b> slice? With a <b>50 ms</b> slice?",
+   a:`<p>Each slice pays one switch, so the overhead fraction is switch / (slice + switch):</p>
+      <div class="code">5 ms slice:   0.5 / (5 + 0.5)  = 0.5 / 5.5  ≈ 9%   (~10% if you use 0.5/5)
+50 ms slice:  0.5 / (50 + 0.5) = 0.5 / 50.5 ≈ 1%</div>
+      <p>A longer slice <b>amortizes</b> the fixed switch cost — dropping overhead from ~10% to ~1% — but hurts response time. (Real switch cost is even higher once you count lost cache/TLB/branch-predictor state.)</p>`}
 ],
 mlfq:[
   {q:"State all the MLFQ rules (including the boost), and explain how they let a single scheduler serve both interactive and batch jobs.",
@@ -634,7 +821,59 @@ mlfq:[
         <li><b>winner = 350:</b> …D→302 (not &gt; 350), E→402. 402 &gt; 350 → <b>E runs</b>.</li>
         <li><b>winner = 0:</b> A→1. 1 &gt; 0 immediately → <b>A runs</b>.</li>
       </ul>
-      <p>Bigger ticket blocks (C, D, E) cover more of the range, so they win proportionally more often.</p>`}
+      <p>Bigger ticket blocks (C, D, E) cover more of the range, so they win proportionally more often.</p>`},
+  {q:"<b>Worked problem 3 — MLFQ timeline.</b> Queues: Q2 slice 10 ms, Q1 slice 20 ms, Q0 slice 40 ms; each level's allotment is one slice. Job A (100 ms CPU, no I/O) arrives at t=0; Job B (15 ms CPU, no I/O) arrives at t=50; no boost occurs. When does each job finish?",
+   a:`<p><b>Job A</b> starts at the top and sinks:</p>
+      <div class="code">Q2: A runs 0–10  (used full 10 ms slice → demote)
+Q1: A runs 10–30 (used full 20 ms allotment → demote)
+Q0: A runs 30–50 (20 ms so far) … then B arrives at t=50</div>
+      <p>By t=50, A has used 10 + 20 + 20 = <b>50 ms</b>, so <b>50 ms remain</b>. B arrives in Q2 (top) and <b>preempts</b> A.</p>
+      <div class="code">Q2: B runs 50–60 (full slice → demote)
+Q1: B runs 60–65 (needs only 5 more) → B finishes at t=65</div>
+      <p>A then resumes alone in Q0 and runs its remaining 50 ms:</p>
+      <div class="code">Q0: A runs 65–115 → A finishes at t=115</div>
+      <p><b>B finishes at t=65; A finishes at t=115.</b></p>`}
+],
+exam:[
+  {q:"<b>Worked problem 1 — trace four schedulers.</b> One CPU. Jobs: A arrives at 0 needing 8, B arrives at 1 needing 4, C arrives at 2 needing 2. Give the average turnaround and response under FIFO, SJF, STCF, and RR (quantum 2). For RR, assume a newly arrived job joins the queue ahead of a job preempted at the same instant.",
+   a:`<p><b>FIFO</b> (arrival order A→B→C): A 0–8, B 8–12, C 12–14.</p>
+      <div class="code">TAT: A 8, B 11, C 12  → avg 10.33
+resp: A 0, B 7, C 10  → avg 5.67</div>
+      <p><b>SJF</b> (non-preemptive; A can't be preempted): A 0–8; at t=8 pick C (shorter) 8–10, then B 10–14.</p>
+      <div class="code">TAT: A 8, C 8, B 13  → avg 9.67
+resp: A 0, C 6, B 9  → avg 5.00</div>
+      <p><b>STCF</b> (preempt for least time remaining): A 0–1, B 1–2, C 2–4, B 4–7, A 7–14.</p>
+      <div class="code">TAT: A 14, B 6, C 2  → avg 7.33
+resp: A 0, B 0, C 0  → avg 0.00</div>
+      <p><b>RR</b> (quantum 2): A 0–2, B 2–4, C 4–6, A 6–8, B 8–10, A 10–14. Completions A=14, B=10, C=6.</p>
+      <div class="code">TAT: A 14, B 9, C 4  → avg 9.00
+resp: A 0, B 1, C 2  → avg 1.00</div>
+      <p>STCF wins turnaround (7.33) and response (0.00); RR gives the next-best response (1.00) but a worse turnaround (9.00). FIFO's turnaround suffers from big A blocking B and C.</p>`},
+  {q:"<b>Short answer — History of UNIX.</b> Sketch where UNIX came from and why it mattered.",
+   a:`<p><b>UNIX</b> was built by <b>Ken Thompson and Dennis Ritchie at Bell Labs</b>, borrowing from <b>Multics</b> but deliberately <b>simpler</b>. Its philosophy: many <b>small programs</b> that each do one thing well, composed with <b>pipes</b>, written in the portable <b>C</b> language. It brought back minicomputer-era ideas (memory protection, multiprogramming) that early PCs had dropped. Its descendants are everywhere: <b>macOS</b> is UNIX-based, plus the BSDs and <b>Linux</b> (servers and Android). For context, OSes evolved from shared <b>libraries</b> with batch processing → <b>system calls</b> and user/kernel modes for protection → <b>multiprogramming</b> to overlap I/O → UNIX.</p>`},
+  {q:"<b>Short answer — System Calls.</b> What is a system call and how does one work?",
+   a:`<p>A <b>system call</b> is a controlled entry into the OS that lets a user program request a <b>privileged service</b> (I/O, memory, process control) — there are a few hundred. Mechanism:</p>
+      <ol>
+        <li>User code puts a <b>system-call number</b> (never a kernel address) in a register and executes a <b>trap</b> instruction.</li>
+        <li>The hardware raises privilege to <b>kernel mode</b> and jumps via the boot-installed <b>trap table</b> to the handler.</li>
+        <li>The handler <b>validates</b> the number and arguments, does the work, and executes <b>return-from-trap</b> to drop back to user mode.</li>
+      </ol>
+      <p>Syscalls look like ordinary C functions because they are library wrappers whose assembly sets up the arguments and call number and traps.</p>`},
+  {q:"<b>Short answer — Anatomy of a Process.</b> What state makes up a process, and how is one created?",
+   a:`<p>A <b>process</b> is a running program, described by its <b>machine state</b>:</p>
+      <ul>
+        <li><b>Memory</b> — its address space: code, static data, heap, and stack.</li>
+        <li><b>Registers</b> — especially the <b>program counter</b> (instruction pointer) and the <b>stack pointer</b>.</li>
+        <li><b>I/O state</b> — its open file descriptors.</li>
+      </ul>
+      <p>The OS records each process in a <b>PCB</b> in the process list: saved <b>register context</b>, state (running/ready/blocked, plus initial and zombie), PID, and parent. <b>Creation</b>: load code and static data, allocate the stack (with argc/argv) and a heap, open stdin/out/err, then jump to <code>main()</code>.</p>`},
+  {q:"<b>Short answer — Limited Direct Execution.</b> What problems does LDE solve, and how?",
+   a:`<p><b>LDE</b> runs a program <b>directly</b> on the CPU for speed, but with hardware limits so the OS keeps <b>control</b>. Two problems:</p>
+      <ol>
+        <li><b>Restricted operations:</b> <b>user mode</b> forbids privileged actions (I/O, arbitrary memory). To request one, a program <b>traps</b> into <b>kernel mode</b> and returns via return-from-trap; the <b>trap table</b> (installed at boot, privileged) fixes where traps may go, and a system-call number selects the service.</li>
+        <li><b>Regaining control:</b> a hardware <b>timer interrupt</b> periodically returns the CPU to the OS — versus the <b>cooperative</b> approach, which relies on processes trapping/yielding and can be defeated by an infinite loop.</li>
+      </ol>
+      <p>On a switch, <b>hardware</b> saves the user registers to the kernel stack and the OS's <b>switch()</b> saves/restores kernel registers via the process structs.</p>`}
 ]
 };
 
