@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Operating Systems Study Guide — Ch 2, 4, 6, 7, 8</title>
+<title>COP 4710 — Database Systems Midterm 1 Study Guide</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
-  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
+  --accent:#2f6a95;--accent-strong:#1f4f74;--accent-soft:#e4eef5;
   --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;
+  --t0:#336791;--t1:#2c8493;--t2:#7b5cc4;--t3:#b5622f;--t4:#2f8a5b;--t5:#a83e69;--t6:#4a6fa5;
   --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
   --radius:12px;
 }
@@ -21,19 +21,19 @@
     --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
     --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
     --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-    --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;
+    --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#54b981;--t5:#d878a0;--t6:#7c9fd8;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="light"]{
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
-  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
+  --accent:#2f6a95;--accent-strong:#1f4f74;--accent-soft:#e4eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
+  --t0:#336791;--t1:#2c8493;--t2:#7b5cc4;--t3:#b5622f;--t4:#2f8a5b;--t5:#a83e69;--t6:#4a6fa5;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
   --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-  --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#54b981;--t5:#d878a0;--t6:#7c9fd8;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -78,14 +78,6 @@ main{max-width:1080px;margin:0 auto;padding:30px 22px 90px}
 .sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(23px,3.6vw,31px);margin:.15em 0 .1em;letter-spacing:-.01em;text-wrap:balance}
 .sec-head p{margin:0;color:var(--muted);max-width:74ch}
 
-.notes{margin:22px 0 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
-.notes > summary{list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:center;gap:12px;font-weight:600;color:var(--ink);user-select:none}
-.notes > summary::-webkit-details-marker{display:none}
-.notes > summary .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hue);background:var(--surface-2);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
-.notes > summary .car{margin-left:auto;color:var(--faint);transition:transform .2s}
-.notes[open] > summary .car{transform:rotate(90deg)}
-.notes[open] > summary{border-bottom:1px solid var(--line)}
-.notes-body{padding:6px 18px 20px}
 .note{padding:15px 0;border-bottom:1px dashed var(--line)}
 .note:last-child{border-bottom:none;padding-bottom:2px}
 .note h4{margin:0 0 6px;font-size:15.5px;color:var(--ink);display:flex;align-items:baseline;gap:9px}
@@ -97,7 +89,7 @@ main{max-width:1080px;margin:0 auto;padding:30px 22px 90px}
 code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
 .kw{color:var(--hue);font-weight:600}
 .code{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:9px 0 3px;font-size:12.75px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.55;tab-size:4}
-.tbl{border-collapse:collapse;margin:8px 0;font-size:13.5px;width:100%;max-width:520px}
+.tbl{border-collapse:collapse;margin:8px 0;font-size:13.5px;width:100%;max-width:560px}
 .tbl caption{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--hue);text-align:left;padding-bottom:4px;font-weight:700}
 .tbl th,.tbl td{border:1px solid var(--line);padding:5px 10px;text-align:left;font-variant-numeric:tabular-nums}
 .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:600}
@@ -171,10 +163,10 @@ footer .mono{font-family:var(--mono)}
 .notes-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .notes-toggle .nt-icon{font-size:17px}
 .notes-toggle .nt-label{writing-mode:vertical-rl; text-orientation:mixed}
-body.notes-open .notes-toggle{right:min(50vw,620px)}
+body.notes-open .notes-toggle{right:min(52vw,640px)}
 
 .notes-panel{
-  position:fixed; top:0; right:0; height:100vh; width:min(50vw,620px);
+  position:fixed; top:0; right:0; height:100vh; width:min(52vw,640px);
   background:var(--surface); border-left:1px solid var(--line-strong);
   box-shadow:-10px 0 30px rgba(10,16,22,.16);
   transform:translateX(100%); transition:transform .28s ease;
@@ -191,21 +183,18 @@ body.notes-open .panel.active .notes-panel{transform:translateX(0)}
 .notes-close:hover{border-color:var(--bad);color:var(--bad)}
 .notes-panel-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:4px 18px 34px}
 
-/* split: shrink the left column so questions and notes sit side by side */
 main, .nav-inner, .mast-inner{transition:max-width .28s ease, width .28s ease}
 body.notes-open .mast-inner,
-body.notes-open .nav-inner{max-width:calc(100vw - min(50vw,620px));margin-left:0;margin-right:0}
-body.notes-open main{max-width:none;width:calc(100vw - min(50vw,620px));margin:0}
+body.notes-open .nav-inner{max-width:calc(100vw - min(52vw,640px));margin-left:0;margin-right:0}
+body.notes-open main{max-width:none;width:calc(100vw - min(52vw,640px));margin:0}
 
-@media (max-width:820px){
-  /* full-screen notes overlay on narrow screens */
+@media (max-width:860px){
   .notes-panel{width:100vw;box-shadow:none}
   body.notes-open .notes-toggle{right:0;opacity:0;pointer-events:none}
   body.notes-open .mast-inner,body.notes-open .nav-inner{max-width:100%}
   body.notes-open main{width:auto;max-width:1080px;margin:0 auto}
 }
 @media (prefers-reduced-motion: reduce){.notes-toggle,.notes-panel,main,.nav-inner,.mast-inner{transition:none}}
-
 @media (max-width:600px){.mast-inner{padding:24px 16px 18px}main{padding:24px 16px 70px}.nav-inner{padding:10px 16px}.q,.fr{padding:16px 14px 14px}}
 </style>
 </head>
@@ -214,12 +203,12 @@ body.notes-open main{max-width:none;width:calc(100vw - min(50vw,620px));margin:0
 <header class="masthead">
   <div class="mast-inner">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> Operating Systems · Exam Prep <span class="dot"></span> Self-Test Edition</div>
+      <div class="eyebrow"><span class="dot"></span> COP 4710 · Database Systems <span class="dot"></span> Midterm 1 Prep</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Operating Systems — Processes, Direct Execution &amp; Scheduling</h1>
-    <p class="subtitle">Five testable sections built from the lecture decks (Introduction, Processes, Schedulers) and OSTEP <em>(Three Easy Pieces)</em> chapters 2, 4, 6, 7, and 8. Condensed notes, multiple-choice practice with instant feedback, and worked scheduling calculations.</p>
-    <div class="callout"><b>What's covered:</b> the OS as an abstraction over hardware (Ch 2), the process abstraction (Ch 4), limited direct execution — traps, modes, context switches (Ch 6), CPU scheduling metrics and policies FIFO / SJF / STCF / RR (Ch 7), and MLFQ + a note on lottery scheduling (Ch 8). The scheduling sections include the deck's worked turnaround / response-time traces.</div>
+    <h1 class="title">Database Systems (PostgreSQL) — Midterm 1 Study Guide</h1>
+    <p class="subtitle">Seven testable sections built from Lectures 1–8 (SQL basics, data types, keys &amp; normalization, filtering &amp; subqueries, joins, aggregation) plus a worked walk-through of all 11 exam-review problems. The class dialect is <b>PostgreSQL (pgSQL)</b>.</p>
+    <div class="callout"><b>How to use it:</b> press the <b>📖 Study Notes</b> tab on the right to split the screen — notes on one side, questions on the other. Each section has multiple-choice practice with instant feedback and worked SQL problems with reveal-able solutions. The final tab solves every review problem against the shared Employees / Departments tables.</div>
     <div class="progress-wrap">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> mastered · <span id="overallCount">0 / 0</span> correct</div>
@@ -235,7 +224,7 @@ body.notes-open main{max-width:none;width:calc(100vw - min(50vw,620px));margin:0
 </button>
 
 <footer>
-  <div class="mono">Built from the OS lecture decks (Introduction · Processes Ch 4&amp;6 · Schedulers Ch 7&amp;8) and Arpaci-Dusseau, <em>Operating Systems: Three Easy Pieces</em> — chapters 2, 4, 6, 7, 8.</div>
+  <div class="mono">Built from COP 4710 Database Systems — Lectures 1, 3, 4, 5, 6, 7, 8 and the Midterm 1 review problems. Dialect: PostgreSQL.</div>
   <div style="margin-top:8px">Click any answer to check it — options are shuffled and explanations reveal automatically. Progress is saved in this browser.</div>
 </footer>
 
@@ -245,202 +234,194 @@ body.notes-open main{max-width:none;width:calc(100vw - min(50vw,620px));margin:0
    ========================================================= */
 const SECTIONS = [
 {
-  id:"intro", short:"OS & Design", tag:"Chapter 2 · Introduction", title:"The OS as an Abstraction Over Hardware",
-  blurb:"From the Von Neumann machine and interrupts to the OS as middleware: resources, abstractions, mechanism vs policy, and the three (plus one) easy pieces.",
+  id:"basics", short:"SQL Basics", tag:"Lectures 1 & 3", title:"Databases & SQL Basics",
+  blurb:"What a DBMS is, the relational model and PostgreSQL, DDL vs DML, and the core statements: CREATE, INSERT, SELECT, UPDATE, DELETE, DROP.",
   notes:[
-    {h:"Von Neumann & the fetch–decode–execute cycle", html:`<p>A stored-program computer repeats a simple cycle: <b>Fetch</b> an instruction from memory → <b>Decode</b> it → <b>Execute</b> it → repeat until powered off or a fatal error. Early machines were single-purpose and rewired by hand; the programmable computer runs different tasks from memory instead.</p>`},
-    {h:"Building the OS one interrupt at a time", html:`<p>The course's running theme: each hardware addition is a flip-flop + a register + a handler routine.</p>
-      <ul>
-      <li><b>Overflow flag → error handler</b> (NEWPC register holds the handler address).</li>
-      <li><b>FENCE register → memory protection</b>: records a process's bounds; hardware checks each address against it.</li>
-      <li><b>Mode bit → privileged instructions</b>: opcodes above a threshold are privileged; an unprivileged process attempting one raises an error. This is what stops a process from overwriting the FENCE register.</li>
-      <li><b>I/O interrupt</b>: save program state (PC, R0), run the handler, restore — switch between handler and caller.</li>
-      <li>The array of flip-flops becomes one <b>Interrupt Handler Vector</b>; routines grow into <b>system calls</b>; <b>timer interrupts</b> let the system seize control from a running process.</li></ul>
-      <p>"…from now on we will refer to the interrupt handler as the <b>supervisor</b> and eventually we will call it the <b>operating system</b>."</p>`},
-    {h:"The Von Neumann bottleneck", html:`<p>The CPU and I/O devices run at <b>radically different time scales</b>. A 1981 PC-AT at 4.77 MHz waiting on a 150 ms drive wastes <b>thousands of cycles</b> — motivating interrupts, overlap, and disk optimizations.</p>`},
-    {h:"OS as middleware: resources & abstractions", html:`<p>The OS <b>manages access to hardware, orchestrates running processes, responds to resource requests, and handles access control.</b> It turns raw <b>resources</b> into convenient <b>abstractions</b>:</p>
-      <table class="tbl"><thead><tr><th>Resource</th><th>Abstraction</th></tr></thead>
-      <tbody><tr><td>CPU</td><td>Processes &amp; Threads</td></tr><tr><td>Memory</td><td>Address Space</td></tr><tr><td>Disk</td><td>Files &amp; Directories</td></tr></tbody></table>
-      <p>Resource management provides <b>protection</b> (processes from one another; system from unprivileged code) and <b>efficient, fair</b> access. The design questions split into <b>mechanism</b> (what mechanism?) and <b>policy</b> (what policy?).</p>`},
-    {h:"The three (plus one) easy pieces", html:`<ul>
-      <li><b>Virtualization</b> — abstract each resource so a process acts as if it owns it alone; frees developers from sharing concerns and lets the OS allot resources freely.</li>
-      <li><b>Concurrency</b> — many processes/threads execute at once; the OS handles concurrent events, offers synchronization (locks, semaphores, shared memory) and avoids deadlock.</li>
-      <li><b>Persistence</b> — data survives reboots/crashes via the file &amp; directory abstractions; error handling and (because disks are slow) optimization matter.</li>
-      <li><b>Security</b> — the roof over the pillars: <b>authentication</b> proves a principal is who they claim; <b>authorization</b> decides what they may access and do.</li></ul>`},
-    {h:"The operating system, three ways", html:`<p>The book describes the same OS from three angles:</p>
-      <ul>
-      <li><b>A virtual machine</b> — via virtualization it turns a physical resource into an easier-to-use virtual version.</li>
-      <li><b>A standard library</b> — it exports a few hundred <b>system calls</b> programs use to run code, access memory, and use devices.</li>
-      <li><b>A resource manager</b> — it divides shared CPU, memory, and disk efficiently and fairly.</li></ul>
-      <p><b>Memory demo:</b> two copies of <code>mem.c</code> both print the same pointer (0x200000) yet count independently — each process has its own private <b>virtual address space</b> mapped onto physical memory (works only with address-space randomization off).</p>`},
-    {h:"Concurrency & persistence in one line each", html:`<ul>
-      <li><b>Concurrency</b> — two threads incrementing a shared counter give the <b>wrong</b> total on large inputs, because <code>counter++</code> is really <b>load, add, store</b> (three instructions) that don't run atomically, so interleaved updates are lost.</li>
-      <li><b>Persistence</b> — DRAM is <b>volatile</b>, so hardware (disks/SSDs) + the <b>file system</b> store data durably through <code>open()/write()/close()</code>. Unlike CPU and memory, the OS does <b>not</b> give each program a private virtual disk — users want to <b>share files</b> between programs. The file system may batch/delay writes and use <b>journaling</b> or <b>copy-on-write</b> to survive crashes.</li></ul>`},
-    {h:"Design goals & a short history of UNIX", html:`<p><b>Goals:</b> convenient <b>abstractions</b>; high <b>performance</b> (low time and space overhead); <b>protection</b> between apps and the OS — the underlying principle is <b>isolation</b>; <b>reliability</b>; plus energy efficiency, security, and mobility.</p>
-      <p><b>History, in order:</b> OS as shared <b>libraries</b> (batch processing, one job at a time) → <b>protection</b>: the <b>system call</b> was invented (Atlas); a trap raises <b>user → kernel</b> mode, a return-from-trap lowers it → <b>multiprogramming</b> (keep several jobs in memory, switch while one waits on I/O to raise utilization) → <b>UNIX</b> (Thompson &amp; Ritchie, Bell Labs) simplified Multics: small programs joined by <b>pipes</b>, written in <b>C</b> → early PCs regressed (DOS had no memory protection; early Mac OS used cooperative scheduling) then recovered (macOS is UNIX-based, Windows NT, Linux runs servers and Android).</p>`}
+    {h:"Database vs DBMS", html:`<ul>
+      <li>A <b>database</b> is a set of "files," each holding records of the same type.</li>
+      <li>A <b>DBMS</b> (Database Management System) is the hardware/software that stores databases and provides access to them — it's client-server in nature and the focus of the course.</li>
+      <li>The <b>relational</b> DBMS is the most popular type; data is stored in <b>tables</b> and queried with <b>SQL</b>.</li></ul>`},
+    {h:"SQL dialects", html:`<p>Different systems speak different SQL dialects: <b>Microsoft SQL Server → Transact-SQL</b>, <b>Oracle → PL/SQL</b>, IBM DB2, MySQL, and <b>PostgreSQL → pgSQL</b> (the dialect this class uses). Other database families exist too: network, object-oriented, and NoSQL (Cassandra, MongoDB).</p>`},
+    {h:"Tables, rows, columns", html:`<p>A <b>table</b> stores information of the same type. A <b>row (record)</b> is one entity; a <b>column (field)</b> is one attribute. <b>Every column must have a name and a data type</b> — without a proper type the stored value may be unusable. Naming convention: alphanumeric, must <b>not start with a number</b>, and must not clash with keywords (e.g. <code>my_cars23</code>).</p>`},
+    {h:"DDL vs DML", html:`<ul>
+      <li><b>DDL</b> (Data Definition Language) defines structure — <code>CREATE TABLE</code>, <code>DROP TABLE</code>.</li>
+      <li><b>DML</b> (Data Manipulation Language) works with the data — <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>SELECT</code>.</li></ul>`},
+    {h:"CREATE & INSERT", html:`<div class="code"><span class="kw">DROP TABLE IF EXISTS</span> public.cars;
+<span class="kw">CREATE TABLE</span> public.cars(
+    inv_no      INTEGER NOT NULL,
+    vin         VARCHAR(20) NOT NULL,
+    make        VARCHAR(30) NOT NULL,
+    model       VARCHAR(50) NOT NULL,
+    m_year      INTEGER NOT NULL DEFAULT 2026,
+    net_price   DECIMAL(10,2) NOT NULL,
+    msrp        DECIMAL(10,2) NULL
+);
+
+<span class="kw">INSERT INTO</span> public.cars(inv_no, vin, make, model, net_price, msrp)
+<span class="kw">VALUES</span> (1001, 'BM23HT17AE235710', 'BMW', '760i xDrive', 123910.00, 143500.00);</div>
+      <p>Each column may be marked <code>NULL</code>, <code>NOT NULL</code>, or given a <code>DEFAULT</code>. <code>DROP TABLE IF EXISTS</code> avoids an error when the table isn't there.</p>`},
+    {h:"SELECT, UPDATE, DELETE", html:`<div class="code"><span class="kw">SELECT</span> make, year, model <span class="kw">FROM</span> cars
+<span class="kw">WHERE</span> make = 'BMW' <span class="kw">AND</span> net_price &lt; 50000.00;
+
+<span class="kw">UPDATE</span> cars <span class="kw">SET</span> model = 'M240i' <span class="kw">WHERE</span> inv_no = 1001;
+
+<span class="kw">DELETE FROM</span> cars <span class="kw">WHERE</span> make = 'BMW' <span class="kw">AND</span> model = '228i';</div>
+      <p><b>The WHERE clause is optional</b> on DELETE and UPDATE — but leaving it out affects <b>every row</b> in the table. <code>SELECT * FROM t</code> returns all columns and rows.</p>`}
   ]
 },
 {
-  id:"process", short:"The Process", tag:"Chapter 4 · Abstraction", title:"The Process Abstraction",
-  blurb:"Program vs process, what a process contains, the running/ready/blocked states and their transitions, and where the OS keeps a process's context.",
+  id:"types", short:"Data Types", tag:"Lectures 5, 6 & 7", title:"PostgreSQL Data Types",
+  blurb:"Integers, exact vs approximate numerics, strings, dates/times, plus booleans, enums, arrays, composite types, and bit/binary representation.",
   notes:[
-    {h:"Program vs process", html:`<p>Java analogy: a <b>class is the program</b>, an <b>object is the process</b>. A <b>program is just code</b> (and static data) on disk; a <b>process is a running instance</b> of it. There may be <b>0 or more processes per program</b>.</p>`},
-    {h:"Process creation & layout", html:`<p>To create a process, the OS loads the program's <b>code and static data</b> into memory and allocates a <b>heap</b> (dynamic memory) and a <b>stack</b> (locals, call frames). The running process's memory is: <code>code · static data · heap · … · stack</code>.</p>`},
-    {h:"What's in a process (its context)", html:`<p>Processes may share code, but each has its own <b>context</b>:</p>
-      <ul>
-      <li><b>CPU</b>: the <b>Instruction Pointer</b> (program counter) and <b>Stack Pointer</b> (plus other registers).</li>
-      <li><b>Memory</b>: a set of addresses — its <b>address space</b>.</li>
-      <li><b>Disk</b>: a set of open <b>file descriptors</b>.</li></ul>`},
-    {h:"Process states", html:`<p>The three main states and their transitions:</p>
-      <ul>
-      <li><b>Running</b> — currently executing on the CPU.</li>
-      <li><b>Ready</b> — runnable, waiting to be scheduled onto a CPU.</li>
-      <li><b>Blocked</b> — waiting for an event (e.g. I/O); not runnable.</li></ul>
-      <p>Transitions: Ready → Running is <b>scheduled</b>; Running → Ready is <b>descheduled</b>; Running → Blocked when it <b>initiates I/O</b>; Blocked → Ready when <b>I/O completes</b>.</p>`},
-    {h:"Storing a non-running process", html:`<p>When a process isn't running, the OS saves its state in a <b>process struct</b> (the PCB, e.g. <code>struct proc</code> in <code>kernel/proc.h</code>):</p>
-      <ul>
-      <li><b>context</b> — the saved CPU registers,</li>
-      <li><b>ofile</b> — the open file descriptors,</li>
-      <li><b>state</b> — running / ready / sleeping, etc. (plus pid, parent, page table, kernel stack…).</li></ul>
-      <p>As always, <b>mechanism</b> = <em>how</em> to transition; <b>policy</b> = <em>when</em> to transition.</p>`},
-    {h:"The process API & from program to process", html:`<p>Every OS offers some process <b>API</b>: <b>create</b>, <b>destroy</b>, <b>wait</b>, miscellaneous <b>control</b> (suspend/resume), and <b>status</b> (how long it has run, what state). Turning a program into a process:</p>
-      <ol>
-      <li><b>Load</b> code + static data into the address space — <b>eagerly</b> (all up front) on old systems, <b>lazily</b> (pieces as needed, via paging/swapping) on modern ones.</li>
-      <li>Allocate the run-time <b>stack</b> and fill <code>main()</code>'s <b>argc/argv</b>.</li>
-      <li>Maybe allocate a small <b>heap</b> for <code>malloc()/free()</code>.</li>
-      <li>On UNIX, open three file descriptors: <b>standard input, output, and error</b>.</li>
-      <li><b>Start</b> by jumping to <code>main()</code>, handing over the CPU.</li></ol>`},
-    {h:"Extra states, zombies & the PCB", html:`<p>Real systems add an <b>initial</b> state (while being created) and a <b>final / zombie</b> state (exited but not yet cleaned up) so the parent can read the exit code (0 = success) via <code>wait()</code> — which also lets the OS <b>free</b> the process's structures. xv6's states are <code>UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE</code>. The OS keeps a <b>process list</b> of <b>PCBs</b>; the key field is the saved <b>register context</b>, and saving then restoring it is exactly the <b>context switch</b>. (Remember: a <b>Blocked</b> process returns to <b>Ready</b>, never straight to Running.)</p>`}
-  ]
-},
-{
-  id:"lde", short:"Limited Direct Exec.", tag:"Chapter 6 · Mechanism", title:"Limited Direct Execution",
-  blurb:"Running processes fast yet safely: user vs kernel mode, system calls via traps, privileged instructions, and context switches on the timer interrupt.",
-  notes:[
-    {h:"The two goals & the idea", html:`<p>CPU time-sharing needs <b>efficiency</b> (minimal OS overhead) and <b>control</b> (processes can't do anything bad; the OS decides when they run). The solution is <b>limited direct execution</b>: run the process directly on the CPU, but with hardware-enforced limits.</p>`},
-    {h:"User mode vs kernel mode", html:`<p>Processes run in <b>user mode</b>: they can only see their own memory and can't perform <b>general memory access outside their space, disk I/O, or special instructions</b> (e.g. <code>lidt</code>). The OS runs in <b>kernel mode</b>, where "we can do anything." A privileged instruction attempted in user mode makes the <b>CPU warn the OS, which kills the process</b>.</p>`},
-    {h:"System calls via traps", html:`<p>To request a service, a process makes a <b>system call</b>: put the syscall number in a register and execute a <b>trap</b> instruction.</p>
-      <div class="code">movl  $6,  %eax     <span style="color:var(--faint)"># syscall number (e.g. read)</span>
-int   $64           <span style="color:var(--faint)"># trap into the kernel</span></div>
-      <p>The trap raises privilege to kernel mode and jumps through the <b>trap table</b> (the IDT, <code>idt[256]</code>) to the handler; the handler indexes the <b>syscall table</b> to run e.g. <code>sys_read</code>; then <b>return-from-trap</b> drops back to user mode. The trap table is installed <b>at boot</b> — itself a privileged operation.</p>`},
-    {h:"Regaining control: cooperative vs non-cooperative", html:`<p>Under direct execution, <b>the OS can't run while a process runs</b> — it must regain control via an interrupt.</p>
-      <ul>
-      <li><b>Cooperative</b>: switch only on a syscall, including a special <code>yield()</code>. Flaw: a process stuck in an infinite loop <b>never yields</b>, so the OS never regains control (short of reboot).</li>
-      <li><b>Non-cooperative</b>: a <b>timer interrupt</b> fires periodically and returns control to the OS. It is set up <b>before any process runs</b>, and hardware won't let a process disable it.</li></ul>`},
-    {h:"The timer-interrupt context switch (A → B)", html:`<div class="code"><span class="kw">HW</span>  timer interrupt → save regs(A) to kernel stack(A)
-      move to kernel mode, jump to trap handler
-<span class="kw">OS</span>  handle the trap, call switch()
-      save regs(A) → proc-struct(A)
-      restore regs(B) ← proc-struct(B), switch k-stack
-      return-from-trap (into B)
-<span class="kw">HW</span>  restore regs(B) from kernel stack(B)
-      move to user mode, jump to B's IP</div>
-      <p>Two saves happen: <b>hardware</b> saves A's registers to the <b>kernel stack</b> on the interrupt; the <b>OS's <code>switch()</code></b> saves A's registers into A's <b>process struct</b> and restores B's. Smooth switching makes each process think it has its own CPU — virtualization.</p>`},
-    {h:"The trap table, syscall numbers & argument checks", html:`<p>A process can't pick <b>where</b> in the kernel to jump — that would skip permission checks. At <b>boot</b> (kernel mode) the OS installs a <b>trap table</b> telling the hardware where each handler lives; installing it is a <b>privileged</b> instruction. Each service has a <b>system-call number</b>: user code puts the <b>number</b> (never a kernel address) in a register, and the handler validates it. On a trap the hardware saves the <b>PC, flags, and registers</b> onto the per-process <b>kernel stack</b>. The kernel must <b>validate every argument</b> crossing the boundary — e.g. a <code>write()</code> buffer pointing into <b>kernel memory</b> must be rejected, or a process could read others' memory. System calls look like C functions because they <b>are</b> library functions with hand-written assembly that loads the arguments and call number and executes the trap.</p>`},
-    {h:"Cost, concurrency & the “baby-proofing” analogy", html:`<p>What if a timer interrupt arrives during a syscall, or one interrupt during another? The OS may briefly <b>disable interrupts</b> while handling one (but not too long, or it drops interrupts) and use <b>locking</b> to protect internal structures. Rough 1996 numbers (lmbench, 200 MHz P6): a system call ≈ <b>4 µs</b>, a context switch ≈ <b>6 µs</b>; modern machines are ~10× faster, though many OS ops are <b>memory-bound</b> and don't scale purely with CPU speed. The book's image: the OS <b>“baby-proofs” the CPU</b> — set up trap handlers and the timer at boot, then run processes in restricted mode, stepping in only for privileged work or when a process has held the CPU too long.</p>`}
-  ]
-},
-{
-  id:"sched", short:"Scheduling (FIFO…RR)", tag:"Chapter 7 · Scheduling", title:"CPU Scheduling — Metrics & Policies",
-  blurb:"Workloads, schedulers, and metrics: turnaround vs response time, and the FIFO → SJF → STCF → RR progression, with the convoy effect and I/O overlap.",
-  notes:[
-    {h:"Vocabulary & the scheduler “algebra”", html:`<ul>
-      <li><b>Workload</b>: the set of job descriptions (arrival_time, run_time).</li>
-      <li><b>Scheduler</b>: the logic that decides when jobs run.</li>
-      <li><b>Metric</b>: a measurement of scheduling quality.</li></ul>
-      <p>Think <b>f(W, S) = M</b> — given any two of workload, scheduler, and metric, reason about the third. Simplifying <b>workload assumptions</b> (later relaxed): all jobs run the same time, all arrive together, all use only the CPU (no I/O), and run-times are known.</p>`},
-    {h:"The two metrics", html:`<div class="code">turnaround_time = completion_time − arrival_time
-response_time   = first_run_time − arrival_time</div>
-      <p><b>Turnaround</b> measures when a job <em>finishes</em>; <b>response</b> measures when it first <em>starts</em>. They pull in different directions.</p>`},
-    {h:"FIFO and the convoy effect", html:`<p><b>FIFO</b> runs jobs in arrival order. With three 10 s jobs arriving together, turnaround = (10+20+30)/3 = <b>20 s</b>. But a <b>big first job</b> (60, 10, 10) gives (60+70+80)/3 = <b>70 s</b> — the short jobs are stuck behind the long one: the <b>convoy effect</b>.</p>`},
-    {h:"SJF and STCF", html:`<ul>
-      <li><b>SJF (Shortest Job First)</b> runs the job with the smallest run_time next. For (60,10,10) arriving together: (80+10+20)/3 = <b>36.7 s</b> — much better. But SJF is <b>non-preemptive</b>: if the long job starts first and short jobs arrive later, they wait — (60+60+70)/3 = <b>63.3 s</b>.</li>
-      <li><b>STCF (Shortest Time-to-Completion First)</b> is the <b>preemptive</b> version: whenever a job arrives, switch to whichever will complete soonest. It preempts the long job → <b>≈ 36.6 s</b>.</li></ul>`},
-    {h:"Round Robin & response time", html:`<p>FIFO, SJF, and STCF optimize turnaround but have <b>poor response time</b>. <b>RR (Round Robin)</b> alternates among ready jobs every fixed <b>time slice</b>. For three jobs, RR's average response is (0+1+2)/3 = <b>1</b> vs FIFO's (0+5+10)/3 = <b>5</b> — great response, but worse turnaround.</p>`},
-    {h:"Relaxing assumptions: I/O", html:`<p>Real jobs mix CPU and I/O. A scheduler that's <b>not I/O aware</b> leaves the CPU idle during a job's I/O; an <b>I/O-aware</b> scheduler <b>overlaps</b> — it runs another job's CPU work while the first waits on the disk, keeping both busy.</p>`},
-    {h:"The exact numbers to know", html:`<p><b>FIFO</b>, A=100, B=10, C=10 (all at 0): avg turnaround (100+110+120)/3 = <b>110</b> — the convoy effect. <b>SJF</b>, same jobs: (10+20+120)/3 = <b>50</b> (optimal when all arrive together). SJF is <b>non-preemptive</b>, so if A=100@0 and B,C=10@10, they wait for A → (100+100+110)/3 ≈ <b>103.33</b>. <b>STCF</b> preempts → (120+10+20)/3 = <b>50</b>. For response, three 5 s jobs: SJF avg response (0+5+10)/3 = <b>5</b>; <b>RR</b> (1 s slice) (0+1+2)/3 = <b>1</b> — but RR finishes them at 13/14/15 → turnaround avg <b>14</b>, often worse than FIFO.</p>`},
-    {h:"Fairness, slice size & I/O overlap", html:`<ul>
-      <li><b>Response time is the time to first run, not first output.</b></li>
-      <li><b>Fairness</b> (e.g. Jain's index) usually <b>conflicts</b> with performance — any policy fair over short spans does badly on turnaround.</li>
-      <li><b>Slice size:</b> shorter improves response but context switching dominates; <b>amortize</b> the fixed switch cost — with a 1 ms switch, a 10 ms slice wastes ~10%, a 100 ms slice &lt;1% (switch cost also includes lost cache/TLB/branch-predictor state, not just registers).</li>
-      <li><b>I/O:</b> treat each <b>CPU burst</b> as its own job, so STCF runs a job's short bursts first and <b>overlaps</b> its I/O with another job's CPU work.</li></ul>`}
-  ]
-},
-{
-  id:"mlfq", short:"MLFQ & Lottery", tag:"Chapter 8 (+9) · Advanced", title:"MLFQ & Proportional-Share Scheduling",
-  blurb:"A general-purpose scheduler that learns job behavior: the MLFQ priority rules, gaming and starvation, the priority boost, and lottery scheduling.",
-  notes:[
-    {h:"Why MLFQ", html:`<p><b>MLFQ (Multi-Level Feedback Queue)</b> aims for <b>general-purpose</b> scheduling — supporting two job types with opposite goals: <b>interactive</b> programs care about <b>response time</b>, <b>batch</b> programs care about <b>turnaround time</b>. Approach: <b>multiple levels of round-robin</b>, one queue per priority.</p>`},
-    {h:"The MLFQ rules", html:`<ul>
-      <li><b>Rule 1</b>: if priority(A) &gt; priority(B), <b>A runs</b>.</li>
-      <li><b>Rule 2</b>: if priority(A) = priority(B), A and B run in <b>round-robin</b>.</li>
-      <li><b>Rule 3</b>: a new job <b>starts at the top</b> priority.</li>
-      <li><b>Rule 4</b>: if a job <b>uses its whole time slice</b>, <b>demote</b> it one level.</li>
-      <li><b>Rule 5 (boost)</b>: periodically move <b>all</b> jobs back to the top priority.</li></ul>`},
-    {h:"Learning a job's type", html:`<p>How does MLFQ know a job's type to set priority? Two approaches:</p>
-      <ul>
-      <li><b>nice</b> — a static hint from the user.</li>
-      <li><b>history</b> — infer from past behavior. Processes alternate I/O and CPU; treat each CPU burst as its own "job" and predict from prior bursts.</li></ul>
-      <p>Interactive jobs <b>give up the CPU for I/O</b> before their slice ends, so Rule 4 never demotes them — they <b>stay high</b> and get quick response. CPU-bound jobs use full slices and <b>sink</b> to low priority.</p>`},
-    {h:"Problems & the fix", html:`<ul>
-      <li><b>Starvation</b> — with too many interactive jobs, long CPU-bound jobs never run ("unforgiving").</li>
-      <li><b>Gaming the system</b> — a job relinquishes the CPU just before its slice expires to avoid demotion and stay high.</li>
-      <li><b>Hard to tune</b> — number of queues, slice lengths, boost interval.</li></ul>
-      <p>The <b>priority boost</b> (Rule 5) cures starvation and adapts when a job changes behavior; better accounting (measuring total slice use, not just yielding) defeats gaming.</p>`},
-    {h:"How the rules evolved (and who invented it)", html:`<p>MLFQ dates to <b>Corbató</b>'s CTSS (1962); with Multics it earned him the Turing Award. It approximates SJF <b>without knowing job lengths</b> by learning from the recent past. The rules were reached in three attempts:</p>
-      <ul>
-      <li><b>Attempt 1</b> (Rules 3, 4a/4b): new jobs start at the top; using a whole slice demotes, giving up the CPU early keeps the level. Three flaws — <b>starvation</b>, <b>gaming</b> (run ~99% of a slice then issue a token I/O to stay high), and <b>changed behavior</b> stuck at the bottom.</li>
-      <li><b>Attempt 2</b> (Rule 5, the <b>boost</b>): periodically lift <b>all</b> jobs to the top — fixes starvation and changed behavior. The boost period S is a <b>voo-doo constant</b> (Ousterhout): too high starves long jobs, too low denies interactive jobs their share.</li>
-      <li><b>Attempt 3</b> (better accounting): count <b>total</b> CPU time used at a level (the single Rule 4), so many small bursts still demote — this defeats gaming.</li></ul>`},
-    {h:"Tuning & real systems", html:`<p>How many queues, slice lengths, boost period? No clean answers — it takes workload experience. Usually high queues get <b>short</b> slices (interactive, ~10 ms), low queues <b>long</b> ones (CPU-bound, hundreds of ms). <b>Solaris</b> (Time-Sharing class): table-driven, ~<b>60 queues</b>, slices <b>20 ms → hundreds of ms</b>, boost about every second. <b>FreeBSD</b>: a formula on recent CPU use that <b>decays</b> over time (decay-usage scheduling). Users give <b>advice</b> (e.g. <code>nice</code>) that the OS may or may not follow. A gameable policy is a <b>security</b> risk in shared datacenters.</p>`},
-    {h:"Lottery (proportional share, Ch 9)", html:`<p><b>Lottery scheduling</b> targets <b>proportional share</b>: give each process <b>tickets</b>, hold a lottery each slice, and whoever wins runs — <b>more tickets = higher share</b>. Pick a random winner in <code>[0, total)</code> and walk the list, summing tickets until the running total exceeds the winner:</p>
-      <div class="code">int counter = 0;
-int winner = getrandom(0, totaltickets);
-node_t *current = head;
-while (current) {
-    counter += current-&gt;tickets;
-    if (counter &gt; winner) break;   <span style="color:var(--faint)"># current is the winner</span>
-    current = current-&gt;next;
-}</div>
-      <p>Random algorithms are <b>simple, need little state, and avoid corner cases</b>, though a single draw can be unfair over short spans. Variants: ticket <b>transfers</b>, <b>currencies</b>, and <b>inflation</b>.</p>`}
-  ]
-},
-{
-  id:"exam", short:"Worked Problems & Prep", tag:"Practice · Review", title:"Worked Problems & Exam Prep",
-  blurb:"The announced short-answer topics with model answers, a full four-scheduler trace, and the one-page “easy points to lose” review.",
-  notes:[
-    {h:"Announced short-answer topics", html:`<p>The exam includes a couple of <b>short-answer</b> questions. The announced topics (model answers are in the practice below):</p>
-      <ul>
-      <li><b>History of UNIX</b></li>
-      <li><b>System Calls</b></li>
-      <li><b>Anatomy of a Process</b></li>
-      <li><b>Limited Direct Execution</b></li></ul>
-      <p>There may also be a <b>scheduling question you have to trace</b> — see Worked Problem 1 below.</p>`},
-    {h:"Policies at a glance", html:`<table class="tbl"><thead><tr><th>Policy</th><th>Preempt?</th><th>Needs lengths?</th><th>Good at</th><th>Bad at</th></tr></thead>
+    {h:"Integer types", html:`<table class="tbl"><thead><tr><th>Type</th><th>Bytes</th><th>Bits</th><th>Range</th></tr></thead>
       <tbody>
-      <tr><td>FIFO</td><td>No</td><td>No</td><td>simplicity; equal jobs</td><td>convoy effect</td></tr>
-      <tr><td>SJF</td><td>No</td><td>Yes</td><td>turnaround (if all arrive together)</td><td>late arrivals; response</td></tr>
-      <tr><td>STCF</td><td>Yes</td><td>Yes</td><td>turnaround (optimal here)</td><td>response time</td></tr>
-      <tr><td>RR</td><td>Yes</td><td>No</td><td>response; fairness</td><td>turnaround; switch cost</td></tr>
-      <tr><td>MLFQ</td><td>Yes</td><td>No (learns)</td><td>approximates both</td><td>tuning (voo-doo constants)</td></tr>
+      <tr><td>SMALLINT</td><td>2</td><td>16</td><td>−32768 … 32767</td></tr>
+      <tr><td>INTEGER</td><td>4</td><td>32</td><td>≈ ±2.1 billion</td></tr>
+      <tr><td>BIGINT</td><td>8</td><td>64</td><td>≈ ±9.2 quintillion</td></tr>
+      </tbody></table>
+      <p>A bare whole-number literal (e.g. <code>1728</code>) is treated as an <b>INTEGER</b>; cast with <code>value::SMALLINT</code> when you need another integer type.</p>`},
+    {h:"Auto-numbering & numerics", html:`<ul>
+      <li><b>SERIAL</b> / <b>BIGSERIAL</b> — automatic numbering (like MS SQL <code>identity(1,1)</code>: start 1, increment 1).</li>
+      <li><b>DECIMAL(m,n)</b> / <b>NUMERIC(m,n)</b> — <b>exact</b> values: <code>m</code> total digits, <code>n</code> after the decimal point.</li>
+      <li><b>FLOAT</b> / <b>FLOAT8</b> — floating point (like a double): an <b>approximation</b>, not exact.</li>
+      <li><b>money</b> — a dedicated monetary type.</li></ul>`},
+    {h:"Strings", html:`<ul>
+      <li><b>CHAR(n)</b> — fixed length: <code>'Help'</code> in <code>CHAR(10)</code> is padded to <code>'Help      '</code>.</li>
+      <li><b>VARCHAR(n)</b> — variable length up to n; <b>no padding</b>; better for larger strings (slightly slower than CHAR).</li>
+      <li><b>TEXT</b> — arbitrary-length string.</li></ul>`},
+    {h:"Dates & times", html:`<ul>
+      <li><b>DATE</b> (date only), <b>TIME</b> (time only).</li>
+      <li><b>TIMESTAMP(n)</b> — date + time; precision <code>n</code> is 0 (to the second) … 6 (to the microsecond). <b>timestamptz(n)</b> adds a time zone.</li>
+      <li><b>interval</b> — a span of time, e.g. <code>now() - 5 * interval '1 hour'</code>. <code>clock_timestamp()</code> gives the current time.</li></ul>`},
+    {h:"Booleans, enums, UUID, JSON", html:`<ul>
+      <li><b>boolean</b> — <code>TRUE</code>, <code>FALSE</code>, or <code>NULL</code>.</li>
+      <li><b>ENUM</b> — <code>CREATE TYPE mood AS ENUM ('sad','ok','happy');</code> then use it as a column type.</li>
+      <li><b>UUID</b> (universally unique identifier) and <b>JSON</b> are also supported.</li></ul>`},
+    {h:"Arrays", html:`<p>A column or variable can hold an <b>array</b> of same-type elements: <code>orders_made INTEGER[]</code>. <b>Indexing starts at 1</b> (<code>orders_made[1]</code>). A <b>NULL array</b> (not created yet) differs from an <b>empty array</b> (created, no elements). Handle NULLs: <code>COALESCE(CARDINALITY(orders_made), 0)</code> returns the element count or 0. Test with <code>x IS NULL</code> / <code>x IS NOT NULL</code>. An array can be NOT NULL while individual elements are NULL.</p>`},
+    {h:"Composite types, bits & binary", html:`<div class="code"><span class="kw">CREATE TYPE</span> public.Ball <span class="kw">AS</span> (x SMALLINT, y SMALLINT, radius DECIMAL(5,2), color VARCHAR(20));
+<span class="kw">INSERT INTO</span> t VALUES (..., ROW(37,101,17.5,'Blue')::Ball, ...);</div>
+      <p>Bitwise operators on integers: <code>&amp;</code> (AND), <code>|</code> (OR), <code>~</code> (NOT). Binary: <code>235 = 0000000011101011</code>. For a <b>negative</b> number (two's complement): take |x| in binary, <b>flip every bit</b>, then <b>add 1</b>.</p>`}
+  ]
+},
+{
+  id:"keys", short:"Keys & Normalization", tag:"Lectures 3 & 4", title:"Keys, Constraints & Normalization",
+  blurb:"NULL / NOT NULL / DEFAULT, primary and foreign keys with cascade actions, and the first three normal forms.",
+  notes:[
+    {h:"NULL, NOT NULL, DEFAULT", html:`<p>A column is declared <code>NULL</code> (missing allowed) or <code>NOT NULL</code> (required). <b>Any logical expression containing a NULL evaluates to NULL</b> (unknown) — e.g. <code>NOT(salary &gt; 5000)</code> is NULL when salary is NULL. It's recommended to <b>avoid NULLs</b>; use a <code>DEFAULT</code> instead: <code>salary DECIMAL(10,2) NOT NULL DEFAULT(-1.00)</code>.</p>`},
+    {h:"Primary keys", html:`<p>A <b>primary key</b> is a column (or set of columns) whose values are <b>unique for every row</b> — nothing repeats, and it can't be NULL. It has a <b>unique index</b>, which makes lookups fast (a PK search only scans the relevant 8 KB page).</p>
+      <div class="code"><span class="kw">CREATE TABLE</span> Employees(
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    fname VARCHAR(50), ...
+);</div>
+      <p>A <b>composite primary key</b> uses several columns together: <code>PRIMARY KEY(fname, lname, dept_id)</code>.</p>`},
+    {h:"Foreign keys", html:`<p>A <b>foreign key</b> is a column (or set) that refers to an analogous column in <b>another table (or the same table)</b>. The referenced columns must be a <b>primary key</b> (or have a unique index) there. FK values are checked for <b>consistency</b>.</p>
+      <div class="code">department INTEGER NOT NULL,
+<span class="kw">FOREIGN KEY</span>(department) <span class="kw">REFERENCES</span> Departments(dept_id)
+    <span class="kw">ON UPDATE CASCADE ON DELETE CASCADE</span></div>
+      <p><b>ON DELETE CASCADE</b>: deleting a parent row deletes the referencing children. <b>ON UPDATE CASCADE</b>: changing the parent key rewrites the children's FK.</p>`},
+    {h:"Normalization goals", html:`<p>Normalization aims for <b>consistency</b> (non-contradictory), <b>completeness</b>, and <b>efficiency</b> — reducing redundancy and update anomalies.</p>`},
+    {h:"The three normal forms", html:`<ul>
+      <li><b>1NF — Atomicity:</b> no lists or repeating groups; each cell holds a single value.</li>
+      <li><b>2NF:</b> every row has a <b>unique identifier</b> (a primary key); non-key columns depend on the whole key.</li>
+      <li><b>3NF:</b> a table must <b>not</b> have non-key information related to (dependent on) other non-key information — no transitive dependencies.</li></ul>
+      <p><b>Denormalization example:</b> putting <code>dept_name</code> directly in Employees repeats it for every employee (redundancy → update anomalies). Fix: store a <code>dept_id</code> foreign key and keep <code>dept_name</code> in a Departments table.</p>`}
+  ]
+},
+{
+  id:"where", short:"WHERE & Subqueries", tag:"Lecture 8", title:"Filtering: Operators & Subqueries",
+  blurb:"Comparison and string operators, LIKE / ILIKE / SIMILAR TO masks, IN / BETWEEN, subqueries, and CTEs (WITH).",
+  notes:[
+    {h:"Comparison operators", html:`<p>For numbers and dates: <code>=</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>BETWEEN x AND y</code> (inclusive), <code>NOT BETWEEN</code>, <code>IN (list or subquery)</code>, <code>NOT IN (...)</code>. Combine conditions with <code>AND</code>, <code>OR</code>, <code>NOT</code>.</p>`},
+    {h:"String operators & masks", html:`<p>For strings: <code>=</code>, <code>!=</code>, <code>IN</code>, <code>LIKE 'mask'</code>, <code>ILIKE</code> (case-insensitive), <code>SIMILAR TO</code>, and their <code>NOT</code> forms. In a mask:</p>
+      <ul>
+      <li><code>_</code> matches <b>exactly one</b> symbol.</li>
+      <li><code>%</code> matches <b>any sequence</b> (any length, including nothing).</li></ul>
+      <p>So <code>'J%n'</code> matches names starting with J and ending with n (John, Jonathan); <code>'__ter%'</code> matches any two symbols, then <code>ter</code>, then anything.</p>`},
+    {h:"Subqueries", html:`<p>A <b>subquery</b> is a query nested inside another. List employees whose manager is named John:</p>
+      <div class="code"><span class="kw">SELECT</span> emp_id, fname, lname
+<span class="kw">FROM</span> Employees
+<span class="kw">WHERE</span> manager_id <span class="kw">IN</span> (
+    <span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> fname = 'John'
+);</div>`},
+    {h:"CTEs (WITH)", html:`<p>A <b>common table expression</b> names a temporary result you can reuse — often clearer/more efficient than an inline subquery:</p>
+      <div class="code"><span class="kw">WITH</span> John_ids(emp_id) <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> fname = 'John'
+)
+<span class="kw">SELECT</span> emp_id, fname, lname
+<span class="kw">FROM</span> Employees
+<span class="kw">WHERE</span> manager_id <span class="kw">IN</span> (<span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> John_ids);</div>`}
+  ]
+},
+{
+  id:"joins", short:"Joins", tag:"Lecture 7", title:"Table Joins",
+  blurb:"INNER vs LEFT / RIGHT / FULL OUTER joins, the ON condition, self-joins, and combining columns with the || operator.",
+  notes:[
+    {h:"INNER JOIN", html:`<p>An <b>inner join</b> returns rows only where the match exists in <b>both</b> tables. The <code>ON</code> clause is the join condition.</p>
+      <div class="code"><span class="kw">SELECT</span> t1.order_id, t1.order_dt, t2.fname, t2.lname
+<span class="kw">FROM</span> public.Orders t1
+<span class="kw">INNER JOIN</span> public.Customers t2
+    <span class="kw">ON</span> t1.customer_id = t2.cust_id;</div>`},
+    {h:"OUTER joins", html:`<ul>
+      <li><b>LEFT OUTER JOIN</b> — all <b>left</b> rows, with NULLs where the right has no match.</li>
+      <li><b>RIGHT OUTER JOIN</b> — all <b>right</b> rows, NULLs where the left has no match.</li>
+      <li><b>FULL OUTER JOIN</b> — all rows from <b>both</b> sides, NULLs where either is missing.</li></ul>
+      <p>Use an outer join when you must keep rows that have no counterpart — e.g. list departments even if they have no employees.</p>`},
+    {h:"Self-joins & aliases", html:`<p>Table <b>aliases</b> (<code>t1</code>, <code>t2</code>) rename tables in a query and are required for a <b>self-join</b> — joining a table to itself. To show each employee's manager (both live in Employees), join Employees to a second copy on <code>e.manager_id = m.emp_id</code>.</p>`},
+    {h:"Concatenating columns", html:`<p>The <b>||</b> operator concatenates strings, handy for full names: <code>t3.fname || ' ' || t3.lname</code>.</p>`}
+  ]
+},
+{
+  id:"agg", short:"Aggregation", tag:"Lecture 8", title:"Aggregation, GROUP BY & HAVING",
+  blurb:"SUM / COUNT / MIN / MAX / AVG, COUNT(*) vs COUNT(col) vs COUNT(DISTINCT), grouping rules, HAVING, and COALESCE.",
+  notes:[
+    {h:"Aggregate functions", html:`<ul>
+      <li><b>SUM</b>, <b>MIN</b>, <b>MAX</b>, <b>AVG</b> over a column.</li>
+      <li><b>COUNT(*)</b> counts <b>all</b> rows; <b>COUNT(col)</b> counts rows where <code>col</code> is <b>NOT NULL</b>.</li>
+      <li><b>COUNT(DISTINCT col)</b> counts distinct non-null values; <code>SELECT DISTINCT col</code> lists them.</li>
+      <li>Wrap in <b>COALESCE</b> to replace a NULL result: <code>COALESCE(SUM(salary), 0.00)</code>.</li></ul>`},
+    {h:"GROUP BY", html:`<div class="code"><span class="kw">SELECT</span> dept_id, COUNT(DISTINCT manager_id), COUNT(*), SUM(salary)
+<span class="kw">FROM</span> Employees
+<span class="kw">GROUP BY</span> dept_id;</div>
+      <p><b>The rule:</b> every column in the SELECT list that is <b>not</b> inside an aggregate function must appear in <code>GROUP BY</code>.</p>`},
+    {h:"HAVING", html:`<p><b>HAVING</b> filters <b>groups</b> after aggregation (WHERE filters rows before). Keep only departments whose lowest salary is under 3000:</p>
+      <div class="code"><span class="kw">SELECT</span> dept_id, COUNT(*), SUM(salary)
+<span class="kw">FROM</span> Employees
+<span class="kw">GROUP BY</span> dept_id
+<span class="kw">HAVING</span> MIN(salary) &lt; 3000.00;</div>`},
+    {h:"Aggregates across joins", html:`<p>Combine joins with grouping. Per department, list the head's full name, employee count, and average/total salary — an outer join keeps departments with no employees, and COALESCE handles the empty ones:</p>
+      <div class="code"><span class="kw">SELECT</span> t2.dept_name, t3.fname || ' ' || t3.lname,
+       COUNT(*), COALESCE(AVG(t1.salary),0), COALESCE(SUM(t1.salary),0)
+<span class="kw">FROM</span> Employees t1
+<span class="kw">RIGHT OUTER JOIN</span> Dept t2 <span class="kw">ON</span> t1.dept_id = t2.dept_id
+<span class="kw">LEFT OUTER JOIN</span> Employees t3 <span class="kw">ON</span> t2.dept_head = t3.emp_id
+<span class="kw">GROUP BY</span> t2.dept_name, t3.fname, t3.lname;</div>`}
+  ]
+},
+{
+  id:"review", short:"Exam Review Problems", tag:"Midterm 1 · Worked", title:"Exam Review Problems (Worked)",
+  blurb:"All 11 review problems solved against the shared Employees & Departments tables — normal forms, CREATE, INSERT/FK behavior, UPDATE, DELETE, joins, and grouped reports.",
+  notes:[
+    {h:"The shared tables", html:`<p>Problems 3–11 reference these two tables (from the review sheet). Keep them handy while tracing.</p>
+      <table class="tbl"><caption>Employees</caption>
+      <thead><tr><th>Column</th><th>Type / rule</th></tr></thead>
+      <tbody>
+      <tr><td>emp_id</td><td>SERIAL, PRIMARY KEY (32-bit, auto from 1)</td></tr>
+      <tr><td>fname, lname</td><td>VARCHAR(50)</td></tr>
+      <tr><td>dept_id</td><td>SMALLINT (16-bit), FK → Departments</td></tr>
+      <tr><td>manager_id</td><td>INTEGER, FK → Employees(emp_id)</td></tr>
+      <tr><td>salary</td><td>NUMERIC(10,2)</td></tr>
+      <tr><td>start_date</td><td>DATE</td></tr>
+      <tr><td>tel / email</td><td>VARCHAR(15) / VARCHAR(255)</td></tr>
+      </tbody></table>
+      <table class="tbl"><caption>Departments</caption>
+      <thead><tr><th>Column</th><th>Type / rule</th></tr></thead>
+      <tbody>
+      <tr><td>dept_id</td><td>SMALLSERIAL, PRIMARY KEY (16-bit, auto from 1)</td></tr>
+      <tr><td>dept_name</td><td>VARCHAR(100)</td></tr>
+      <tr><td>dept_head</td><td>INTEGER, FK → Employees(emp_id)</td></tr>
+      <tr><td>budget</td><td>NUMERIC(14,2)</td></tr>
       </tbody></table>`},
-    {h:"Easy points to lose", html:`<ul>
-      <li>Response time = time to <b>first run</b>, not first output.</li>
-      <li><b>Blocked → Ready</b>, never straight to Running.</li>
-      <li>SJF is <b>non-preemptive</b>; STCF is SJF <b>with</b> preemption.</li>
-      <li>RR's time slice must be a <b>multiple of the timer-interrupt period</b>.</li>
-      <li>Two register saves in a switch: <b>hardware</b> → kernel stack, <b>OS</b> → process structure.</li>
-      <li>Installing the trap table and starting/stopping the timer are <b>privileged</b>.</li>
-      <li>User code picks a <b>system-call number</b>, never a kernel address.</li>
-      <li>MLFQ Rule 4 counts <b>total time at a level</b>, not whether one slice was used.</li>
-      <li>CPU and memory are virtualized per process; the <b>file system is shared</b>, not virtualized.</li>
-      <li><b>Zombie</b> = exited but not yet reaped by the parent's <code>wait()</code>.</li></ul>`},
-    {h:"The chain of reasoning, in five sentences", html:`<ol>
-      <li>The OS <b>virtualizes</b> the CPU so many programs seem to run at once (Ch 2).</li>
-      <li>Each running program is a <b>process</b> with memory, registers, and I/O state, moving among running / ready / blocked (Ch 4).</li>
-      <li>Processes run <b>directly</b> on the hardware for speed, but user mode, traps, and the timer interrupt let the OS keep control and switch (Ch 6).</li>
-      <li>Deciding who runs next is a <b>policy</b> question with a basic <b>turnaround-vs-response</b> trade-off (Ch 7).</li>
-      <li><b>MLFQ</b> handles that trade-off without knowing job lengths by watching behavior — boosts prevent starvation, accounting prevents gaming (Ch 8).</li></ol>`}
+    {h:"How to use this tab", html:`<p>The 11 review problems appear below as worked solutions — try each one first, then reveal the SQL and the reasoning. The multiple-choice items here drill the <b>conceptual</b> pieces (normal forms, FK behavior, ordering, empty-group handling) that the problems hinge on.</p>`}
   ]
 }
 ];
@@ -449,484 +430,467 @@ while (current) {
    MULTIPLE-CHOICE QUESTION BANK
    ========================================================= */
 const QB = {
-intro:[
-  {q:"The Von Neumann execution cycle repeats which steps?",
-   o:["fetch, decode, execute, then repeat","compile, link, load, then run","read, write, seek, then repeat","branch, jump, return, then halt"],
-   a:0, e:"A stored-program machine loops fetch → decode → execute until power-off or a fatal error."},
-  {q:"What does adding a <b>FENCE register</b> to the machine provide?",
-   o:["a faster path for input and output work","memory protection by recording a process's bounds","a place to store the interrupt handler address","a privileged mode bit for the running process"],
-   a:1, e:"The FENCE records a process's memory extent; hardware checks each requested address against it to protect other processes."},
-  {q:"The <b>mode bit</b> and privileged instructions exist mainly to…",
-   o:["speed up the fetch–decode–execute cycle a little","let two programs share one region of memory","stop unprivileged code from running restricted opcodes","give each process its own program counter value"],
-   a:2, e:"Opcodes above a threshold are privileged; an unprivileged process attempting one raises an error — which is what protects the FENCE register itself."},
-  {q:"In the course's story, the interrupt handler eventually grows into…",
-   o:["the machine's full compiler and assembler toolchain","the operating system (also called the “supervisor”)","the file system and its directory layer","a helper library linked into user programs"],
-   a:1, e:"“…we will refer to the interrupt handler as the supervisor and eventually we will call it the operating system.”"},
-  {q:"Which best describes the OS acting as <b>middleware</b>?",
-   o:["it compiles source code into machine instructions","it manages hardware access and orchestrates processes","it replaces the CPU's fetch–decode–execute loop","it stores all user files in a single flat directory"],
-   a:1, e:"As middleware the OS manages access to hardware, orchestrates running processes, services resource requests, and handles access control."},
-  {q:"The OS abstractions for CPU, memory, and disk are, respectively…",
-   o:["raw registers, cache lines, and individual disk sectors","processes/threads, address space, and files/directories","interrupts, the FENCE register, and the trap table","tickets, time slices, and multi-level priority queues"],
-   a:1, e:"CPU → processes & threads; memory → the address space; disk → files & directories."},
-  {q:"The <b>Von Neumann bottleneck</b> refers to the fact that…",
-   o:["the CPU and I/O devices run at vastly different speeds","memory can hold only one program at a time","instructions must be decoded before they execute","the program counter can overflow its register"],
-   a:0, e:"CPUs run orders of magnitude faster than I/O; waiting on a slow disk wastes thousands of CPU cycles."},
-  {q:"<b>Virtualization</b> lets a process operate under the assumption that…",
-   o:["it has each resource entirely to itself","every other process has already terminated","its data will persist across a full reboot","it is always running in privileged mode"],
-   a:0, e:"Each process sees only a virtual resource and acts as if it owns it alone; the OS is free to share the real resource underneath."},
-  {q:"Which pillar is about <b>data surviving reboots, power cycles, and crashes</b>?",
-   o:["virtualization of the shared CPU resource","concurrency between many running threads","persistence via files and directories","authentication of the calling principals"],
-   a:2, e:"Persistence keeps data alive beyond a process via the file and directory abstractions, with error handling and disk optimizations."},
-  {q:"How do <b>authentication</b> and <b>authorization</b> differ?",
-   o:["authentication proves identity; authorization grants access rights","authorization proves identity; authentication grants access rights","both simply encrypt the data at rest on disk","both schedule which process runs on the CPU next"],
-   a:0, e:"Authentication proves a principal is who they claim; authorization decides what that principal may access and do."},
-  {q:"In OS design, the split between <b>mechanism</b> and <b>policy</b> asks…",
-   o:["which language versus which compiler to use","how to do something versus when/what to decide","which CPU versus which disk to install","user mode versus kernel mode privileges"],
-   a:1, e:"Mechanism is the machinery (how); policy is the decision (what/when) — e.g. context-switch machinery vs which process to pick."},
-  {q:"Why does a <b>timer interrupt</b> matter for an operating system?",
-   o:["it makes slow disk reads and writes finish much faster","it lets the system seize control from a running process","it encrypts the memory belonging to every process","it removes the need for a program counter entirely"],
-   a:1, e:"The periodic timer interrupt lets the OS regain control and interrupt a running process so another can run in its place."},
-  {q:"Which is <b>not</b> one of the (three-plus-one) “easy pieces”?",
-   o:["virtualization","concurrency","compilation","persistence"],
-   a:2, e:"The pieces are virtualization, concurrency, persistence, and security. Compilation is not among them."},
-  {q:"Why does the two-thread shared-counter program print the wrong total on large inputs?",
-   o:["the two threads run on separate physical CPUs","counter++ is load/add/store and is not atomic","the counter variable overflows its integer range","one thread always finishes before the other starts"],
-   a:1, e:"counter++ compiles to load, add, store; interleaving those non-atomic steps across threads loses updates, so the sum comes out low (and varies)."},
-  {q:"Why does the OS <b>not</b> give each program its own private virtual disk?",
-   o:["disks are far too slow to virtualize at all","users want to share files between programs","a virtual disk would break memory isolation","the file system predates the idea of virtualization"],
-   a:1, e:"Files must be shared across programs (edit → compile → run), so the disk is a shared, persistent store rather than a per-process virtual resource."},
-  {q:"How does a <b>system call</b> differ from an ordinary procedure call?",
-   o:["it traps into the kernel and raises the privilege level","it runs faster by skipping the call stack entirely","it is forbidden from taking any arguments","it never returns control back to the caller"],
-   a:0, e:"A system call is a controlled entry that transfers to a preset handler and raises privilege from user to kernel mode; a return-from-trap lowers it again."},
-  {q:"The principle that underlies <b>protection</b> between applications and the OS is…",
-   o:["amortizing fixed setup costs over many separate operations","isolation — keeping programs from affecting each other","preemption of any job that runs for too long","proportional sharing of the CPU by ticket counts"],
-   a:1, e:"Protection rests on isolation: if the OS fails everything fails, so applications must be kept from one another and from the OS."},
-  {q:"UNIX (Thompson &amp; Ritchie) simplified Multics by favoring…",
-   o:["one large monolithic application per machine","small programs joined by pipes, written in C","cooperative scheduling with no timer interrupt","batch processing of exactly one job at a time"],
-   a:1, e:"UNIX borrowed from Multics but made it simpler: small composable programs connected by pipes and written in C."}
+basics:[
+  {q:"What is the difference between a database and a DBMS?",
+   o:["a database manages the access, while the DBMS only stores the files","a database stores records; a DBMS provides storage and access to it","they are simply two different names for the very same thing","a DBMS is only the hardware, while a database is the software"],
+   a:1, e:"A database is a set of files of records; the DBMS is the hardware/software system that stores databases and provides access to them."},
+  {q:"Which type of DBMS is the most popular, and how does it store data?",
+   o:["object-oriented, storing data as class instances","relational, storing data in tables of rows and columns","network, storing data as linked graph nodes","document, storing data as nested JSON files"],
+   a:1, e:"The relational DBMS is most popular; data lives in tables (rows/records and columns/fields) queried with SQL."},
+  {q:"Which SQL dialect does this course focus on?",
+   o:["Transact-SQL, from Microsoft SQL Server","PostgreSQL's pgSQL","Oracle's PL/SQL","MySQL's stored-procedure dialect"],
+   a:1, e:"The class uses PostgreSQL (pgSQL). T-SQL is Microsoft's, PL/SQL is Oracle's."},
+  {q:"In a table, a <b>row</b> and a <b>column</b> represent, respectively…",
+   o:["one single attribute value and one whole entity","one record (entity) and one field (attribute)","one stored query and one returned result set","one primary key column and one foreign key column"],
+   a:1, e:"A row is a record (an entity instance); a column is a field (an attribute). Every column needs a name and a data type."},
+  {q:"Which statement is <b>DDL</b> rather than DML?",
+   o:["INSERT INTO cars ...","CREATE TABLE cars ...","UPDATE cars SET ...","SELECT * FROM cars"],
+   a:1, e:"CREATE (and DROP) TABLE define structure — DDL. INSERT/UPDATE/DELETE/SELECT manipulate data — DML."},
+  {q:"Which is a valid SQL identifier by the course's naming convention?",
+   o:["a name that begins with a digit character, such as 23cars_table","alphanumeric, not starting with a digit, and not a reserved keyword","absolutely any word at all, including reserved keywords such as SELECT","a name that contains embedded spaces and various punctuation marks"],
+   a:1, e:"Names should be alphanumeric, must not start with a number, and must not coincide with keywords (e.g. my_cars23)."},
+  {q:"What happens if you run <code>DELETE FROM cars;</code> with no WHERE clause?",
+   o:["it is rejected as a syntax error","it deletes every row in the table","it deletes only the first row","it drops the entire table definition"],
+   a:1, e:"WHERE is optional on DELETE, but without it every row is removed. (DROP TABLE would remove the definition too.)"},
+  {q:"Which clause makes a column required (no missing values)?",
+   o:["NULL","NOT NULL","DEFAULT","PRIMARY"],
+   a:1, e:"NOT NULL forbids missing values; NULL allows them; DEFAULT supplies a value when none is given."},
+  {q:"What does <code>DROP TABLE IF EXISTS public.cars;</code> do?",
+   o:["drops the table, but errors out if it happens to be absent","drops the table only if it exists, with no error otherwise","empties the table's rows but keeps its column definitions","renames the table to a timestamped backup copy"],
+   a:1, e:"IF EXISTS drops the table when present and does nothing (no error) when it isn't."},
+  {q:"Which is the correct UPDATE syntax?",
+   o:["UPDATE cars VALUES (model = 'M2') WHERE inv_no = 1","UPDATE cars SET model = 'M2' WHERE inv_no = 1","UPDATE SET cars.model = 'M2' WHERE inv_no = 1","UPDATE INTO cars (model) = ('M2') WHERE inv_no = 1"],
+   a:1, e:"UPDATE <table> SET col = value [, ...] WHERE <condition>."},
+  {q:"To provide a value only for some columns on insert, you write…",
+   o:["INSERT cars = (v1, v2) into the two named columns","INSERT INTO cars (col1, col2) VALUES (v1, v2)","ADD ROW TO cars WITH VALUES (v1, v2) given","CREATE ROW IN cars VALUES (v1, v2) columns"],
+   a:1, e:"INSERT INTO <table>(columns) VALUES(values); unlisted columns take their default or NULL."},
+  {q:"<code>SELECT * FROM cars;</code> returns…",
+   o:["only the primary-key column","all columns and all rows of the table","the number of rows in the table","the table's column definitions"],
+   a:1, e:"The star selects every column, for every row (no WHERE filter)."}
 ],
-process:[
-  {q:"What is the difference between a <b>program</b> and a <b>process</b>?",
-   o:["a program is the running thing; a process is code on disk","a program is code; a process is a running instance of it","they are simply two different words for the same thing","a process is compiled while a program is interpreted"],
-   a:1, e:"A program is static code (and data); a process is a running instance. Like a class (program) versus an object (process)."},
-  {q:"How many processes can exist for a single program?",
-   o:["exactly one, always","0 or more","at most one per CPU core","exactly as many as the program has functions"],
-   a:1, e:"There may be zero or more processes per program — none, one, or many instances running at once."},
-  {q:"Beyond code and static data, process creation allocates a…",
-   o:["heap and a stack","trap table and an IDT","ticket count and a time slice","FENCE register and a mode bit"],
-   a:0, e:"The OS loads code + static data, then allocates a heap (dynamic memory) and a stack (locals and call frames)."},
-  {q:"A process's <b>address space</b> is…",
-   o:["the list of its open file descriptors","the set of memory addresses it can use","the queue it waits in when ready","its saved CPU registers"],
-   a:1, e:"The address space is the process's set of memory addresses — the memory portion of its context."},
-  {q:"Processes running the same program <b>share</b> the ___ but each has its own ___.",
-   o:["code; context","stack; heap","registers; program counter","file descriptors; address space"],
-   a:0, e:"They can share the code, but each process keeps its own context: registers/IP/SP, address space, and file descriptors."},
-  {q:"Which registers are central to a process's CPU context?",
-   o:["the FENCE register and the privileged mode bit","the instruction pointer and the stack pointer","the lottery ticket counter and the winner index","the trap table index and the syscall table index"],
-   a:1, e:"The instruction pointer (program counter) and the stack pointer are core to the CPU context, along with other registers."},
-  {q:"What are the three main process states?",
-   o:["running, ready, and blocked","open, closed, and pending","fetch, decode, and execute","user, kernel, and privileged"],
-   a:0, e:"Running (on the CPU), Ready (runnable, waiting), and Blocked (waiting on an event such as I/O)."},
-  {q:"A process moves from <b>Running</b> to <b>Blocked</b> when it…",
-   o:["is descheduled by the timer interrupt","initiates an I/O operation and must wait","finishes and exits normally","is first placed on the ready queue"],
-   a:1, e:"Initiating I/O blocks the process until the I/O completes; being descheduled instead sends it to Ready."},
-  {q:"A <b>Blocked</b> process becomes <b>Ready</b> again when…",
-   o:["its time slice expires","its I/O completes","it is created by its parent","it calls the exit routine"],
-   a:1, e:"Once the awaited event (e.g. I/O) is done, the process returns to Ready and can be scheduled."},
-  {q:"Where does the OS keep a process's state while it is <b>not</b> running?",
-   o:["inside the CPU's own registers the entire time","in a process struct (PCB): context, ofile, state","in the program's static data section on disk","only on the stack of the currently running process"],
-   a:1, e:"A non-running process's context (registers), open files (ofile), and state live in its process struct / PCB."},
-  {q:"The <b>Ready</b> state means a process is…",
-   o:["waiting on an I/O event to finish","runnable but not currently on a CPU","permanently finished and cleaned up","running in privileged kernel mode"],
-   a:1, e:"Ready = able to run, just waiting for the scheduler to place it on a CPU. Blocked (not Ready) is waiting on an event."},
-  {q:"In the state machine, “mechanism” vs “policy” corresponds to…",
-   o:["how to transition vs when to transition","user mode vs kernel mode of the CPU","the heap region vs the stack region","turnaround time vs response time"],
-   a:0, e:"Mechanism is how a transition is carried out; policy is when/whether it happens (which the scheduler decides)."},
-  {q:"Which set of operations belongs to a typical process <b>API</b>?",
-   o:["compile, link, assemble, and load the program","create, destroy, wait, control, and status","open, read, write, seek, and finally close","fetch, decode, execute, and retire an instruction"],
-   a:1, e:"Any OS offers create, destroy, wait, miscellaneous control (suspend/resume), and status calls for processes."},
-  {q:"The difference between <b>eager</b> and <b>lazy</b> loading of a program is…",
-   o:["loading all code up front vs loading pieces as needed","loading from disk vs loading from the network first","loading onto the stack vs loading into the heap","loading in kernel mode vs loading in user mode"],
-   a:0, e:"Old systems load the whole program eagerly; modern systems load lazily, bringing in pieces on demand via paging and swapping."},
-  {q:"On UNIX, a freshly created process usually starts with which three descriptors open?",
-   o:["standard input, standard output, and standard error","the code, the heap, and the stack segments","its parent, its child, and its sibling process","read access, write access, and execute access"],
-   a:0, e:"Process setup opens file descriptors 0, 1, 2 — standard input, output, and error."},
-  {q:"A process in the <b>zombie</b> state is one that has…",
-   o:["exhausted all of its allotted memory space","exited but not yet been reaped by its parent","blocked while waiting on a slow disk read","been given the highest scheduling priority"],
-   a:1, e:"A zombie has finished but lingers so the parent can read its return code; wait() then reaps it."},
-  {q:"Besides returning the child's exit code, the parent's <code>wait()</code> call…",
-   o:["raises the child's scheduling priority a level","lets the OS free the child's data structures","reopens the child's standard file descriptors","moves the child from ready straight to running"],
-   a:1, e:"wait() reaps the zombie, telling the OS it may release the process's PCB and related structures."}
+types:[
+  {q:"A <code>SMALLINT</code> occupies how much space and what range?",
+   o:["4 bytes, about ±2 billion","2 bytes (16-bit), −32768 … 32767","8 bytes (64-bit), a huge range","1 byte, 0 … 255"],
+   a:1, e:"SMALLINT is 2 bytes / 16-bit, holding −32768 through 32767."},
+  {q:"How do INTEGER and BIGINT differ?",
+   o:["INTEGER is 4 bytes (32-bit); BIGINT is 8 bytes (64-bit)","INTEGER is 8 bytes (64-bit) while BIGINT is 4 bytes","they are actually completely identical to one another in size","INTEGER stores exact values, whereas BIGINT is only approximate"],
+   a:0, e:"INTEGER is 4 bytes / 32-bit; BIGINT is 8 bytes / 64-bit."},
+  {q:"What does <code>DECIMAL(10,2)</code> specify?",
+   o:["10 digits sitting after the decimal point, with only 2 before it","up to 10 total digits, with 2 after the decimal point","exactly 10 rows, each holding 2 separate columns","a 10-byte value that is rounded to 2 decimal places"],
+   a:1, e:"DECIMAL(m,n): m total digits, n of them after the decimal point (so 8 before, 2 after here)."},
+  {q:"How do NUMERIC/DECIMAL differ from FLOAT/FLOAT8?",
+   o:["NUMERIC is exact; FLOAT is an approximation","FLOAT is exact; NUMERIC is an approximation","both are exact; they only differ in size","both are approximate; they only differ in range"],
+   a:0, e:"DECIMAL/NUMERIC store exact values; FLOAT/FLOAT8 (like a double) store approximations."},
+  {q:"What does the <code>SERIAL</code> type provide?",
+   o:["a fixed-length character string that is padded with spaces","automatic numbering (auto-increment, start 1, step 1)","an exact monetary value stored precisely to the cent","a date and time value that is aware of the time zone"],
+   a:1, e:"SERIAL/BIGSERIAL auto-number rows, like MS SQL identity(1,1)."},
+  {q:"How do <code>CHAR(n)</code> and <code>VARCHAR(n)</code> differ?",
+   o:["CHAR is variable-length, while VARCHAR is the fixed and space-padded one","CHAR is fixed-length and space-padded; VARCHAR is variable, unpadded","they are actually identical to each other except for their name","CHAR stores only numbers, whereas VARCHAR stores only text"],
+   a:1, e:"CHAR(n) is fixed length padded with spaces ('Help' → 'Help      '); VARCHAR(n) stores only the characters given, no padding."},
+  {q:"In <code>TIMESTAMP(n)</code>, the precision <code>n</code> ranges from…",
+   o:["0 (to the second) up to 6 (to the microsecond)","1 up to 10 fractional decimal places of a second","0 up to 2, matching the cents used on money","0 up to 100, counting the value in milliseconds"],
+   a:0, e:"n runs 0…6: 0 keeps whole seconds, 6 keeps down to the microsecond."},
+  {q:"How do you define an enumerated type in PostgreSQL?",
+   o:["ENUM COLUMN mood ('sad', 'ok', 'happy') defined","CREATE TYPE mood AS ENUM ('sad','ok','happy')","CREATE ENUM mood = sad | ok | happy values here","DECLARE mood AS ENUM ('sad', 'ok', 'happy') type"],
+   a:1, e:"CREATE TYPE <name> AS ENUM (...) defines it; then a column may use that type."},
+  {q:"PostgreSQL arrays are indexed starting at…",
+   o:["0, exactly like arrays in the C language","1 — the first element is arr[1]","−1, which points at the very last element","any starting value that you choose to declare"],
+   a:1, e:"Array indexing starts at 1, so orders_made[1] is the first element."},
+  {q:"What is the difference between a NULL array and an empty array?",
+   o:["a NULL array has not been created yet; an empty array exists with no elements","a NULL array holds one single NULL element, while an empty array holds none at all","they behave in exactly the same way in every single query you write","an empty array is always automatically declared as NOT NULL by default"],
+   a:0, e:"NULL means the array was never created; an empty array was created but holds zero elements — they are not the same."},
+  {q:"To convert a value to another type in PostgreSQL, you write…",
+   o:["CONVERT(value TO type)","value::type","CAST value type","value AS type"],
+   a:1, e:"The :: cast operator, e.g. 1728::SMALLINT. A bare whole-number literal defaults to INTEGER."},
+  {q:"To represent a negative integer in binary (two's complement), you…",
+   o:["write |x| in binary and prepend a minus sign","take |x| in binary, flip every bit, then add 1","reverse the digit order of |x|","subtract |x| from the largest SMALLINT"],
+   a:1, e:"Two's complement: binary of the absolute value, flip all bits, add 1."}
 ],
-lde:[
-  {q:"What are the two goals of CPU time-sharing that motivate limited direct execution?",
-   o:["portability and readability of the code","efficiency (low overhead) and control (safety)","persistence and encryption of user data","fairness and total absence of interrupts"],
-   a:1, e:"We want efficiency (run directly, little OS overhead) and control (the OS decides scheduling; processes can't misbehave)."},
-  {q:"While running in <b>user mode</b>, a process is prevented from…",
-   o:["reading a value out of its own stack region","doing disk I/O or special privileged instructions","incrementing its own program counter register","calling functions defined within its own code"],
-   a:1, e:"User mode blocks general memory access outside its space, disk I/O, and privileged instructions like lidt."},
-  {q:"To make a <b>system call</b>, a process…",
-   o:["writes directly to the disk controller","puts a syscall number in a register and traps","overwrites the trap table with its handler","switches the mode bit to kernel by itself"],
-   a:1, e:"It sets the syscall number (e.g. movl $6,%eax) and executes a trap (int $64); the kernel takes over from there."},
-  {q:"Executing a <b>trap</b> instruction causes the hardware to…",
-   o:["raise privilege and jump through the trap table","immediately terminate the calling process","disable the timer interrupt permanently","copy the process's heap onto its stack"],
-   a:0, e:"The trap switches to kernel mode and jumps via the trap table (IDT) to the registered handler."},
-  {q:"When is the <b>trap table</b> installed?",
-   o:["by each process as it starts up","at boot time, as a privileged operation","only after the first system call occurs","by the compiler when the program is built"],
-   a:1, e:"The OS sets up the trap table at boot — a privileged action a user process cannot perform."},
-  {q:"If a user-mode process tries a privileged instruction like <code>lidt</code>, the result is…",
-   o:["it runs, but a bit slower than usual","the CPU warns the OS, and the OS kills the process","the instruction is silently turned into a no-op","the process is promoted to kernel mode"],
-   a:1, e:"The hardware traps the illegal instruction and alerts the OS, which terminates the offending process."},
-  {q:"Under pure direct execution, how can the OS run while a process is running?",
-   o:["it runs on a second, completely hidden CPU core","it cannot — it must regain control via an interrupt","it quietly polls the process after every instruction","it runs inside the process's own address space"],
-   a:1, e:"With the CPU given to the process, the OS gets nothing until an interrupt (syscall or timer) returns control."},
-  {q:"The <b>cooperative</b> approach to regaining control relies on…",
-   o:["a periodic hardware timer interrupt","processes trapping via syscalls or yield()","the FENCE register overflowing","the scheduler preempting every instruction"],
-   a:1, e:"Cooperative scheduling only switches when a process makes a system call, including a special yield()."},
-  {q:"The key weakness of the cooperative approach is that a process…",
-   o:["uses up far too much memory for its own stack","in an infinite loop never yields control back","always runs in the privileged kernel mode","cannot make any system calls whatsoever"],
-   a:1, e:"If a process never traps (e.g. an infinite loop with no syscalls), the OS never regains the CPU — reboot territory."},
-  {q:"The <b>non-cooperative</b> approach guarantees control returns to the OS by…",
-   o:["politely asking each process to yield the CPU","using a timer interrupt processes can't disable","scanning memory to find any runaway processes","lowering the scheduling priority of every process"],
-   a:1, e:"A timer interrupt, set up before any process runs and protected by hardware, periodically hands control to the OS."},
-  {q:"During a timer-interrupt context switch, the <b>OS's <code>switch()</code></b> routine…",
-   o:["saves A's registers to proc-struct(A) and restores B's","reboots the machine and reloads the entire trap table","deletes process A and creates process B from scratch","copies A's open file descriptors into B's address space"],
-   a:0, e:"switch() saves A's registers to proc-struct(A) and restores B's from proc-struct(B). (Hardware first saved A's regs to the kernel stack.)"},
-  {q:"On the timer interrupt itself, who first saves the running process's registers?",
-   o:["the compiler, ahead of time","the hardware, onto the kernel stack","the process, into its own heap","the disk controller, into a file"],
-   a:1, e:"Hardware saves the interrupted process's registers to its kernel stack and enters kernel mode before the trap handler runs."},
-  {q:"When invoking a system call, user code places into a register…",
-   o:["the kernel address of the routine to run","the system-call number for the desired service","a full copy of the trap table itself","the current countdown of the timer interrupt"],
-   a:1, e:"User code supplies a system-call number (an index), never a kernel address; the handler validates it and dispatches. This indirection is itself protection."},
-  {q:"Why must the kernel validate a pointer argument passed to <code>write()</code>?",
-   o:["so the passed buffer can never exceed a single memory page in size","so a process can't make the kernel read or write protected memory","because all user pointers are exactly 64 bits wide","to stop the write from ever blocking on slow I/O"],
-   a:1, e:"An unchecked buffer address could point into kernel or another process's memory, so every argument crossing the boundary must be validated."},
-  {q:"On a trap, the hardware saves the process's PC, flags, and registers onto…",
-   o:["the process's own heap region","the per-process kernel stack","a reserved slot in the trap table","the timer interrupt's private buffer"],
-   a:1, e:"x86 saves the caller's PC, flags, and some registers on that process's kernel stack during the trap, and restores them on return-from-trap."},
-  {q:"While the OS is handling one interrupt, a simple way to avoid nested-interrupt trouble is to…",
-   o:["briefly disable interrupts during the handler","permanently promote the process to kernel mode","switch the whole system to cooperative scheduling","reboot the machine back to a known state"],
-   a:0, e:"Disabling interrupts during handling avoids re-entrancy — but only briefly, since disabling them too long can lose interrupts; locking guards shared structures."},
-  {q:"System calls look like ordinary C function calls because they…",
-   o:["are library functions wrapping a trap in assembly","are compiled straight into the kernel binary","execute fully in user mode without ever trapping","skip the trap table to run a little faster"],
-   a:0, e:"A syscall is a C library function whose hand-written assembly places the arguments and call number in agreed spots and executes the trap instruction."}
+keys:[
+  {q:"A logical expression that contains a NULL value evaluates to…",
+   o:["FALSE, so the row is skipped","NULL (unknown)","TRUE, to be safe","zero"],
+   a:1, e:"Any expression involving NULL yields NULL (unknown) — which is why the course recommends avoiding NULLs or using a DEFAULT."},
+  {q:"Which is guaranteed by a <b>primary key</b>?",
+   o:["values are unique and non-repeating across rows","values may repeat, as long as exactly one is NULL","the values are automatically encrypted while at rest","the column is restricted to storing text values only"],
+   a:0, e:"A primary key's values are unique for every row (and non-null); it has a unique index that makes lookups fast."},
+  {q:"What is a <code>DEFAULT</code> clause used for?",
+   o:["to forbid the column from ever being changed again later","to supply a value when none is given, instead of NULL","to mark the column as the table's own primary key","to index the column so that lookups run faster"],
+   a:1, e:"e.g. salary NUMERIC(10,2) NOT NULL DEFAULT(-1.00) — a stand-in value when the insert omits it, avoiding NULL."},
+  {q:"A foreign key must reference columns that, in the other table, are…",
+   o:["any column at all, whether it is indexed or not","a primary key (or a uniquely indexed column)","a column that is always permitted to be NULL","a column that has a completely different data type"],
+   a:1, e:"The referenced columns must be a primary key there (or have a corresponding unique index); FK values are checked for consistency."},
+  {q:"With <code>ON DELETE CASCADE</code>, deleting a referenced parent row…",
+   o:["is rejected as long as any child rows still exist","also deletes the child rows that reference it","sets the referencing child foreign keys to NULL","has no effect at all on the child rows involved"],
+   a:1, e:"CASCADE propagates the delete to the referencing rows. (ON UPDATE CASCADE rewrites the children's FK when the key changes.)"},
+  {q:"<b>First normal form (1NF)</b> requires…",
+   o:["that there be a primary key on every single table","atomicity — no lists or repeating groups in a column","that non-key columns must never depend on one another","foreign keys defined between all of the related tables"],
+   a:1, e:"1NF is about atomicity: each cell holds a single value, no lists."},
+  {q:"In the course's terms, <b>2NF</b> requires that…",
+   o:["every row has a unique identifier (a primary key)","no single column may contain a list of values","every table has at least one foreign key defined on it","all of the table's columns are declared as NOT NULL"],
+   a:0, e:"The notes state 2NF as: every row must have a unique identifier — a primary key of one or more columns."},
+  {q:"<b>Third normal form (3NF)</b> forbids…",
+   o:["storing any date or time values inside a table","a non-key column depending on another non-key column","having more than one foreign key defined on a table","using composite primary keys built from several columns"],
+   a:1, e:"3NF removes transitive dependencies: non-key data must not depend on other non-key data."},
+  {q:"A <b>composite primary key</b> is…",
+   o:["a primary key that references another table","a key made of several columns taken together","a key that is automatically numbered","a key that permits duplicate values"],
+   a:1, e:"e.g. PRIMARY KEY(fname, lname, dept_id) — the combination must be unique per row."},
+  {q:"Why is a lookup by primary key fast?",
+   o:["it caches the entire table fully into memory ahead of time","it uses a unique index, scanning only the relevant page","it skips reading from the disk entirely each time","it keeps all of the rows sorted in alphabetical order"],
+   a:1, e:"The PK's unique index lets the search go straight to the relevant 8 KB page rather than scanning the table."},
+  {q:"Putting a <code>dept_name</code> column directly in Employees is a bad design because…",
+   o:["department names are simply far too long to store in a single column efficiently","it repeats the name on every employee row (redundancy → update anomalies)","a VARCHAR column like this can never be indexed for lookups","it completely prevents anyone from adding brand-new employees"],
+   a:1, e:"Duplicating dept_name violates normalization; changing a name means updating many rows. Store a dept_id FK instead, with the name in Departments."},
+  {q:"The stated goals of normalization are…",
+   o:["speed, security, and backup","consistency, completeness, and efficiency","encryption, compression, and indexing","atomicity, isolation, and durability"],
+   a:1, e:"Normalization targets consistency (non-contradictory data), completeness, and efficiency by reducing redundancy."}
 ],
-sched:[
-  {q:"How is <b>turnaround time</b> defined?",
-   o:["first_run_time − arrival_time","completion_time − arrival_time","completion_time − first_run_time","arrival_time − completion_time"],
-   a:1, e:"Turnaround = completion_time − arrival_time — how long from arrival until the job finishes."},
-  {q:"How is <b>response time</b> defined?",
-   o:["completion_time − arrival_time","first_run_time − arrival_time","completion_time − first_run_time","time_slice × number_of_jobs"],
-   a:1, e:"Response = first_run_time − arrival_time — how long until the job first gets to run."},
-  {q:"The <b>FIFO</b> scheduler runs jobs…",
-   o:["in order of shortest run_time first","in the order they arrived","in random ticket-draw order","alternating one slice at a time"],
-   a:1, e:"FIFO (First In, First Out) simply runs jobs in arrival order."},
-  {q:"The <b>convoy effect</b> in FIFO occurs when…",
-   o:["short jobs are stuck waiting behind a long job","two jobs arrive at exactly the same instant","the timer interrupt fires too frequently","a job blocks on I/O and then resumes"],
-   a:0, e:"A long job scheduled first forces later short jobs to wait, inflating their turnaround — the convoy effect."},
-  {q:"The <b>SJF</b> policy chooses to run…",
-   o:["the job with the smallest run_time next","the job that arrived earliest","whichever job holds the most tickets","the job currently using the most memory"],
-   a:0, e:"Shortest Job First picks the job with the smallest run_time, minimizing average turnaround when all arrive together."},
-  {q:"Which statement about preemption is correct?",
-   o:["FIFO and SJF are non-preemptive; STCF is preemptive","FIFO is preemptive, whereas SJF and STCF are not at all","all three of them are fully preemptive schedulers","only Round Robin is ever able to preempt a running job"],
-   a:0, e:"FIFO and SJF run a job to completion (non-preemptive); STCF preempts to switch to a sooner-finishing job."},
-  {q:"The <b>STCF</b> scheduler always runs the job that…",
-   o:["arrived first among those still waiting","will complete the soonest, preempting if needed","has consumed the least memory so far","has been waiting in the ready queue longest"],
-   a:1, e:"Shortest Time-to-Completion First preempts the running job whenever an arrival would finish sooner."},
-  {q:"The <b>Round Robin</b> scheduler works by…",
-   o:["running each job fully before the next","alternating ready jobs every fixed time slice","always picking the shortest remaining job","drawing a random winner each interrupt"],
-   a:1, e:"RR cycles through the ready jobs, giving each a fixed time slice in turn — optimizing response time."},
-  {q:"Compared with FIFO/SJF/STCF, Round Robin generally gives…",
-   o:["better response time but worse turnaround","better turnaround but worse response","better response and better turnaround","worse response and worse turnaround"],
-   a:0, e:"RR starts every job quickly (great response) but by spreading them out it hurts average turnaround."},
-  {q:"SJF is optimal for average turnaround only under the assumption that…",
-   o:["all jobs are strictly CPU-bound forever","all jobs arrive at the same time","the time slice is exactly one second","every job holds an equal number of tickets"],
-   a:1, e:"When jobs arrive together, SJF minimizes average turnaround. With staggered arrivals a long job can still block newcomers (needs STCF)."},
-  {q:"An <b>I/O-aware</b> scheduler improves efficiency by…",
-   o:["running a job's CPU work while another waits on I/O","never scheduling any job that performs I/O","forcing all I/O to finish before any CPU work","giving I/O-bound jobs the fewest tickets"],
-   a:0, e:"It overlaps: while one job blocks on the disk, the CPU runs another job's work, keeping both the CPU and disk busy."},
-  {q:"The relation <b>f(W, S) = M</b> expresses that…",
-   o:["the metric by itself determines the workload and the scheduler","the workload and scheduler together determine the metric","the scheduler on its own completely fixes the workload","every new workload requires a brand-new quality metric"],
-   a:1, e:"Given a workload W and scheduler S, the quality metric M follows; knowing any two lets you reason about the third."},
-  {q:"SJF is provably optimal for average turnaround only under the assumption that…",
-   o:["every job performs at least some I/O","all jobs arrive at the same time","the time slice is exactly one second long","the scheduler is allowed to preempt jobs"],
-   a:1, e:"When all jobs arrive together, running the shortest first minimizes average turnaround. Staggered arrivals break it (a long job blocks newcomers — needs STCF)."},
-  {q:"In this book, a job's <b>response time</b> is measured up to its…",
-   o:["first line of printed output","first time being run on the CPU","completion time minus arrival","first blocking system call"],
-   a:1, e:"response_time = first_run_time − arrival_time — the time until the job first runs, not until it first produces output."},
-  {q:"Fairness (for example, Jain's Fairness Index) tends to…",
-   o:["improve average turnaround at the same time","conflict with raw performance","matter only for pure batch workloads","require the scheduler to know job lengths"],
-   a:1, e:"Fairness and performance usually pull apart: a policy that's fair over short intervals (like RR) does poorly on turnaround."},
-  {q:"Enlarging the Round-Robin time slice mainly helps by…",
-   o:["amortizing the fixed context-switch cost","guaranteeing the shortest possible turnaround","removing the need for a timer interrupt","making the scheduler fully non-preemptive"],
-   a:0, e:"A bigger slice spreads the fixed switch cost over more useful work — e.g. a 1 ms switch is ~10% of a 10 ms slice but <1% of a 100 ms slice."},
-  {q:"To schedule around I/O well, a scheduler treats each of a job's CPU bursts as…",
-   o:["one long uninterruptible unit of work","its own separate job for scheduling","a reason to permanently demote the job","an error that should be logged and skipped"],
-   a:1, e:"Treating each CPU burst as a job lets STCF run short bursts first and overlap one job's I/O with another job's CPU work."}
+where:[
+  {q:"In a <code>LIKE</code> mask, the underscore <code>_</code> matches…",
+   o:["exactly one symbol","zero or more symbols","only a digit","the end of the string"],
+   a:0, e:"_ matches exactly one character; % matches any sequence (including nothing)."},
+  {q:"In a <code>LIKE</code> mask, the percent sign <code>%</code> matches…",
+   o:["exactly one single symbol and no more","any sequence of characters, including none","only whitespace characters such as spaces and tabs","only the uppercase letters from A to Z"],
+   a:1, e:"% stands for any run of characters of any length, including the empty string."},
+  {q:"How does <code>ILIKE</code> differ from <code>LIKE</code>?",
+   o:["ILIKE is case-insensitive","ILIKE only matches integers","ILIKE requires a subquery","ILIKE is the negation of LIKE"],
+   a:0, e:"ILIKE performs a case-insensitive pattern match; otherwise it behaves like LIKE."},
+  {q:"<code>salary BETWEEN 1000 AND 2000</code> is equivalent to…",
+   o:["salary &gt; 1000 AND salary &lt; 2000 (exclusive)","salary &gt;= 1000 AND salary &lt;= 2000 (inclusive)","salary = 1000 OR salary = 2000","salary IN (1000, 2000)"],
+   a:1, e:"BETWEEN is inclusive of both endpoints."},
+  {q:"What does the pattern <code>'J%n'</code> match?",
+   o:["names containing the letters J and n anywhere","names that start with J and end with n","names exactly three letters long","names with J as the second character"],
+   a:1, e:"J, then any sequence, then a final n — e.g. John, Jonathan, Jن... anything starting J and ending n."},
+  {q:"A <b>subquery</b> is…",
+   o:["a query saved as a stored procedure","a query nested inside another query","a query that only returns one row","a backup copy of a query"],
+   a:1, e:"A subquery is a query embedded within another, e.g. inside an IN (...) or WHERE clause."},
+  {q:"<code>WHERE manager_id IN (SELECT emp_id FROM Employees WHERE fname='John')</code> returns employees…",
+   o:["named John","whose manager is named John","who have no manager","who manage someone named John"],
+   a:1, e:"The subquery lists the emp_ids of Johns; the outer query keeps rows whose manager_id is one of them."},
+  {q:"A <code>WITH</code> clause (common table expression) is used to…",
+   o:["permanently create a brand-new physical table stored on disk","define a named temporary result reusable in the main query","add a brand-new column to an already existing table","enforce a foreign-key referential integrity constraint"],
+   a:1, e:"A CTE names a temporary result set (e.g. John_ids) that the following query can reference — often clearer than an inline subquery."},
+  {q:"Which operator means <b>not equal</b> in these notes?",
+   o:["==","!=","=/=","NOT ="],
+   a:1, e:"!= tests inequality (PostgreSQL also accepts <>)."},
+  {q:"The pattern <code>'__ter%'</code> matches strings that…",
+   o:["contain the three letters 'ter' somewhere in the middle","begin with any two symbols, then 'ter', then anything","end with exactly the three letters 't', 'e', and 'r'","are exactly five characters long in total length"],
+   a:1, e:"Two underscores = two single symbols, then the literal 'ter', then % = anything."},
+  {q:"To keep rows whose value is NOT in a set of values, you use…",
+   o:["NOT IN (list or subquery)","EXCEPT (the given list of values)","OUTSIDE (the given list of values)","IS NOT (the given list of values)"],
+   a:0, e:"NOT IN (...) excludes rows whose value appears in the given list or subquery result."},
+  {q:"Which comparison works on strings but not plain numbers?",
+   o:["BETWEEN x AND y","LIKE 'mask'","&gt;=","IN (...)"],
+   a:1, e:"LIKE/ILIKE/SIMILAR TO are string pattern operators; BETWEEN, >=, and IN apply to numbers and dates too."}
 ],
-mlfq:[
-  {q:"What is the central goal of <b>MLFQ</b>?",
-   o:["strict proportional sharing based on ticket counts","general-purpose scheduling for interactive and batch jobs","guaranteeing only the very shortest possible turnaround time","eliminating the need for time slices altogether"],
-   a:1, e:"MLFQ is general-purpose: it serves interactive jobs (want response) and batch jobs (want turnaround) at once."},
-  {q:"MLFQ <b>Rule 1</b> states that…",
-   o:["a new job always starts at the lowest priority","if priority(A) &gt; priority(B), then A runs","jobs of equal priority never run at all","a job keeps the CPU until it finishes"],
-   a:1, e:"Rule 1: the higher-priority job runs. Rule 2 handles ties with round-robin."},
-  {q:"When two jobs sit at the <b>same</b> priority level, MLFQ…",
-   o:["runs them in round-robin (Rule 2)","runs only the one that arrived first","demotes both to the next level down","picks one at random by ticket draw"],
-   a:0, e:"Rule 2: equal-priority jobs share the CPU in round-robin within that queue."},
-  {q:"Under MLFQ, a brand-new job starts at…",
-   o:["the lowest priority queue","the top priority (Rule 3)","whichever queue is currently emptiest","a priority set by its ticket count"],
-   a:1, e:"Rule 3: new jobs enter at the highest priority, giving them a chance to prove they are interactive."},
-  {q:"MLFQ <b>Rule 4</b> demotes a job when it…",
-   o:["uses up its entire time slice at a level","gives up the CPU early for I/O","has waited too long in the ready queue","is assigned a low nice value"],
-   a:0, e:"Using the whole slice signals CPU-bound behavior, so the job is demoted one level."},
-  {q:"Why do <b>interactive</b> jobs stay at high priority in MLFQ?",
-   o:["they are given extra tickets automatically","they yield the CPU for I/O before the slice ends","the OS pins them there permanently by hand","they always arrive earlier than batch jobs"],
-   a:1, e:"Interactive jobs relinquish the CPU for I/O before using a full slice, so Rule 4 never demotes them — they keep quick response."},
-  {q:"Two ways MLFQ can learn a job's type are…",
-   o:["nice (a static hint) and history (past behavior)","polling the device and fielding its interrupts","the FENCE register and the privileged mode bit","lottery tickets and their assorted currencies"],
-   a:0, e:"A static nice value hints priority; otherwise MLFQ infers behavior from history — each CPU burst predicts the next."},
-  {q:"<b>Starvation</b> in a naive MLFQ happens when…",
-   o:["a single job requests far more memory than physically exists","many interactive jobs keep long CPU jobs from ever running","the timer interrupt gets disabled by a rogue process","two jobs happen to hold the same number of tickets"],
-   a:1, e:"With enough high-priority interactive work, a demoted CPU-bound job may never get the CPU — it starves."},
-  {q:"“Gaming the system” in MLFQ refers to a job that…",
-   o:["gives up the CPU just before its slice ends to stay high","requests the maximum possible number of lottery tickets it can","overwrites the trap table so it can run in kernel mode","forks many child processes to grab extra run queues"],
-   a:0, e:"By relinquishing the CPU right before the slice expires, a job avoids Rule 4 demotion and keeps high priority unfairly."},
-  {q:"The standard fix for MLFQ starvation is to…",
-   o:["periodically boost all jobs to the top priority","delete the lowest-priority queue entirely","give every job the same fixed time slice","switch permanently to FIFO scheduling"],
-   a:0, e:"A periodic priority boost (Rule 5) lifts every job back to the top, guaranteeing progress and adapting to changed behavior."},
-  {q:"<b>Lottery scheduling</b> is designed to achieve…",
-   o:["the shortest possible turnaround time","proportional share of the CPU","zero response time for every job","strict first-come, first-served order"],
-   a:1, e:"Lottery gives each process tickets and draws a winner each slice, so CPU share is proportional to tickets held."},
-  {q:"In the lottery winner loop, the code walks the list…",
-   o:["summing tickets until the total exceeds the winner","until it reaches the job with the most tickets","picking the first job whose tickets equal zero","until the timer interrupt fires once"],
-   a:0, e:"It accumulates each node's tickets into a running counter and stops at the first node where counter &gt; winner."},
-  {q:"A commonly cited advantage of <b>random</b> algorithms like lottery is that they…",
-   o:["always beat MLFQ on turnaround time","are simple and tend to avoid corner cases","need no tickets or priorities at all","guarantee perfect fairness every single slice"],
-   a:1, e:"Randomized schedulers are simple, keep little state, and dodge many corner cases — though a single draw can be unfair short-term."},
-  {q:"How does MLFQ approximate SJF <b>without</b> knowing job lengths?",
-   o:["it asks each job to declare its run time first","it assumes new jobs are short, then demotes long ones","it always runs whichever job holds the fewest tickets","it preempts and reshuffles after every single slice"],
-   a:1, e:"New jobs start at the top (assumed short); a job that keeps burning full slices sinks, so short jobs finish high — SJF-like behavior learned from observed usage."},
-  {q:"Which MLFQ rule is the fix for <b>starvation</b>?",
-   o:["Rule 3, which starts jobs at the top","Rule 5, the periodic priority boost","Rule 1, which runs the higher-priority job","Rule 2, round-robin within a single level"],
-   a:1, e:"The periodic boost (Rule 5) lifts every job to the top, guaranteeing even a demoted long job eventually runs."},
-  {q:"Under the old Rules 4a/4b, the <b>gaming</b> attack works when a job…",
-   o:["runs most of a slice then issues a token I/O to stay high","requests every single one of the available lottery tickets at once","overwrites the trap table so it can reach kernel mode","forks many child processes to occupy all the queues"],
-   a:0, e:"By giving up the CPU just before the slice ends, the job avoided demotion under 4a/4b and kept top priority."},
-  {q:"The improved single <b>Rule 4</b> stops gaming by counting…",
-   o:["how many times the job has yielded the CPU","total CPU time used at a level, however it's split","the number of queues the job has passed through","the job's total count of I/O requests issued"],
-   a:1, e:"Tracking total time (allotment) at a level means many small bursts add up and still demote the job — the trick no longer helps."},
-  {q:"The boost period S is called a “voo-doo constant” because…",
-   o:["it must always be a power of two to work","there is no clean, principled way to set it well","only the hardware timer is allowed to choose it","it changes automatically on every context switch"],
-   a:1, e:"Ousterhout's term for a parameter that seems to need black magic to tune: too high starves long jobs, too low shortchanges interactive ones."}
+joins:[
+  {q:"An <b>INNER JOIN</b> returns…",
+   o:["all rows from the left table only","only rows that have a match in both tables","all rows from both tables regardless of matching","rows from neither table unless keys are equal to zero"],
+   a:1, e:"Inner join keeps only rows where the ON condition matches in both tables."},
+  {q:"A <b>LEFT OUTER JOIN</b> returns…",
+   o:["all left rows, with NULLs where the right has no match","all right rows, with NULLs where the left has no match","only rows matched on both sides","the rows unique to the right table"],
+   a:0, e:"LEFT OUTER JOIN keeps every left row; unmatched right columns come back NULL."},
+  {q:"A <b>FULL OUTER JOIN</b> returns…",
+   o:["only the rows that happen to be matched in both of the tables","all rows from both tables, NULLs where either side is missing","all of the left rows plus only the matched right rows","a full Cartesian product of the two tables' rows"],
+   a:1, e:"FULL OUTER JOIN keeps every row from both sides, filling NULLs where there is no counterpart."},
+  {q:"In a join, the <code>ON</code> clause specifies…",
+   o:["exactly which columns should be displayed","the join condition linking the two tables","the sort order to apply to the final result","which one of the tables should be updated"],
+   a:1, e:"ON gives the matching condition, e.g. ON t1.customer_id = t2.cust_id."},
+  {q:"To show each employee's manager, where both are rows in Employees, you use…",
+   o:["a self-join of Employees to a second copy of itself","a FULL OUTER JOIN over to the Departments table alone","a subquery placed inside the SELECT list only","a UNION of two entirely separate Employees queries"],
+   a:0, e:"Join Employees (e) to another alias of Employees (m) on e.manager_id = m.emp_id — a self-join."},
+  {q:"To list departments <b>including</b> those with no employees, you should use…",
+   o:["an INNER JOIN, which supposedly keeps all departments","an OUTER JOIN, so unmatched departments still appear","a WHERE clause using only an IS NULL test on the join","no join between the two tables at all here"],
+   a:1, e:"An inner join would drop empty departments; a LEFT/RIGHT OUTER JOIN keeps them with NULLs on the employee side."},
+  {q:"Which operator concatenates strings in PostgreSQL?",
+   o:["+","||","&amp;","CONCAT_WS only"],
+   a:1, e:"The || operator joins strings, e.g. fname || ' ' || lname for a full name."},
+  {q:"Table aliases such as <code>t1</code> and <code>t2</code> are…",
+   o:["required only when you are writing INNER joins","short names for tables, and necessary in a self-join","brand-new physical copies of the two underlying tables","exactly the same thing as a column alias would be"],
+   a:1, e:"Aliases rename tables within a query and are essential when a table is joined to itself."},
+  {q:"An INNER JOIN where a left row has no matching right row will…",
+   o:["include that row with NULLs on the right","exclude that row from the result entirely","raise an error","include it twice"],
+   a:1, e:"Unmatched rows are dropped by an inner join; use an outer join to keep them."},
+  {q:"A <b>RIGHT OUTER JOIN</b> keeps all rows from…",
+   o:["the left table, padding the right with NULLs","the right table, padding the left with NULLs","both tables equally","neither table unless matched"],
+   a:1, e:"RIGHT OUTER JOIN preserves every right-table row, with NULLs where the left has no match."}
 ],
-exam:[
-  {q:"When a <b>Blocked</b> process's awaited event completes, it moves…",
-   o:["directly back onto the CPU as Running","to Ready, and may be scheduled later","into the zombie / final exit state","back to the initial creation state"],
-   a:1, e:"A blocked job returns to Ready when its event (e.g. I/O) finishes; the scheduler then decides whether to run it — it never jumps straight to Running."},
-  {q:"The Round-Robin time slice must always be…",
-   o:["a multiple of the timer-interrupt period","longer than the single longest job","a power of two in milliseconds","exactly equal to the context-switch cost"],
-   a:0, e:"RR can only switch when the timer fires, so its quantum must be a whole-number multiple of the timer-interrupt period."},
-  {q:"During a timer-driven switch from A to B, the two register saves are done by…",
-   o:["hardware to the kernel stack, then OS to the process struct","the OS to the kernel stack, then hardware to the process struct","the hardware alone, doing both saves automatically","the OS alone, saving both into the trap table"],
-   a:0, e:"Hardware saves A's user registers to A's kernel stack on the interrupt; the OS's switch() then saves A's kernel registers into proc-struct(A) and restores B's."},
-  {q:"Which pair of operations is <b>privileged</b>?",
-   o:["reading a file and then closing that file","installing the trap table and starting the timer","calling malloc() and later calling free()","writing to standard output and standard error"],
-   a:1, e:"Installing the trap table and starting/stopping the timer must be privileged — a program that could do them could seize the whole machine."},
-  {q:"Compared with the CPU and memory, the file system is…",
-   o:["given its own private virtual copy for each running program","shared between programs rather than per-process virtualized","completely inaccessible from within user mode entirely","wiped clean on every single context switch that occurs"],
-   a:1, e:"The OS virtualizes CPU and memory per process, but users need to share files across programs, so the file system is a shared, persistent store."},
-  {q:"SJF and STCF differ in that…",
-   o:["SJF is non-preemptive, while STCF adds preemption","STCF is non-preemptive, while SJF adds preemption","both of them are strictly non-preemptive","both of them require a periodic priority boost"],
-   a:0, e:"STCF is simply the preemptive version of SJF: on each arrival it runs whichever job has the least time remaining."},
-  {q:"MLFQ's final <b>Rule 4</b> decides to demote a job based on…",
-   o:["whether it used up one single time slice","total CPU time used at a level, however split","how many lottery tickets it currently holds","the number of queues it has already visited"],
-   a:1, e:"Counting the total allotment used at a level (not a single slice) is what stops a job from gaming the scheduler with token I/O."}
+agg:[
+  {q:"How do <code>COUNT(*)</code> and <code>COUNT(col)</code> differ?",
+   o:["COUNT(*) counts all rows; COUNT(col) counts rows where col is NOT NULL","COUNT(*) skips over the NULLs, while COUNT(col) counts every single row","they always return exactly the same number in every case","COUNT(col) counts only the distinct values found in the column"],
+   a:0, e:"COUNT(*) counts every row; COUNT(col) counts only rows whose col value is not NULL."},
+  {q:"<code>COUNT(DISTINCT manager_id)</code> returns…",
+   o:["the total number of rows found in the whole table","the number of distinct non-null manager values","the total number of NULL manager values present","the single largest manager_id value in the table"],
+   a:1, e:"DISTINCT inside COUNT tallies unique non-null values of the column."},
+  {q:"Which of these is an aggregate function?",
+   o:["COALESCE","AVG","DISTINCT","BETWEEN"],
+   a:1, e:"AVG (like SUM, MIN, MAX, COUNT) aggregates over rows. COALESCE and DISTINCT are not aggregates."},
+  {q:"The GROUP BY rule says that every SELECT column…",
+   o:["must always be wrapped inside an aggregate function call","that is not inside an aggregate must appear in GROUP BY","must be the primary key of one of the tables","must be sorted into strictly ascending order"],
+   a:1, e:"Any non-aggregated column in the SELECT list has to be listed in GROUP BY."},
+  {q:"How do WHERE and HAVING differ?",
+   o:["WHERE filters the resulting groups, while HAVING instead filters the individual rows","WHERE filters rows before grouping; HAVING filters groups after aggregation","they are completely interchangeable in every situation","HAVING is evaluated before the FROM clause even runs"],
+   a:1, e:"WHERE removes rows before grouping; HAVING removes whole groups based on aggregate results."},
+  {q:"What does <code>COALESCE(SUM(salary), 0.00)</code> return when there are no rows?",
+   o:["NULL","0.00","an error","the average salary"],
+   a:1, e:"SUM over no rows is NULL; COALESCE replaces that NULL with 0.00."},
+  {q:"To compute a total salary <b>per department</b>, you add…",
+   o:["ORDER BY dept_id","GROUP BY dept_id","DISTINCT dept_id","HAVING dept_id"],
+   a:1, e:"GROUP BY dept_id partitions rows by department so SUM(salary) is computed within each."},
+  {q:"<code>HAVING MIN(salary) &lt; 3000</code> keeps the department groups whose…",
+   o:["average salary is below 3000","lowest salary is below 3000","total salary is below 3000","employee count is below 3000"],
+   a:1, e:"HAVING filters groups by an aggregate — here, groups where the minimum salary is under 3000."},
+  {q:"<code>SELECT DISTINCT manager_id FROM Employees</code> produces…",
+   o:["the count of managers","the list of unique manager_id values","the manager with the most reports","all rows, duplicates included"],
+   a:1, e:"DISTINCT collapses duplicates, listing each manager_id once."},
+  {q:"To count employees per department <b>including</b> departments with zero, you combine GROUP BY with…",
+   o:["an INNER JOIN and COUNT(*)","an OUTER JOIN and COUNT(emp_id)","a HAVING COUNT(*) = 0 clause","a NOT IN subquery"],
+   a:1, e:"An outer join keeps empty departments; COUNT(emp_id) yields 0 for them because it ignores the NULL employee side."},
+  {q:"To sort a result from largest count to smallest, you add…",
+   o:["ORDER BY count ASC","ORDER BY count DESC","GROUP BY count","HAVING count DESC"],
+   a:1, e:"ORDER BY <expr> DESC sorts descending (largest to smallest)."}
+],
+review:[
+  {q:"Adding <code>dept_name</code> as a column in Employees violates good design mainly because it…",
+   o:["makes the whole table become far too wide to query in any efficient way","duplicates the name on every employee row, risking update anomalies","prevents the table from ever using a primary key","stops the foreign keys from working at all here"],
+   a:1, e:"Review problem 2: storing dept_name per employee is redundant; store dept_id (FK) and keep the name once in Departments."},
+  {q:"Can you INSERT an employee whose <code>dept_id</code> does not exist in Departments?",
+   o:["yes, the row is added with a warning","no — the foreign key rejects it","yes, dept_id is set to NULL automatically","only if the department is created afterward"],
+   a:1, e:"Review problem 6: the FK on dept_id requires an existing department, so the insert is rejected."},
+  {q:"Can you INSERT an employee whose <code>manager_id</code> is not any existing emp_id?",
+   o:["yes, this is always allowed without any issue","no, unless manager_id is NULL (e.g. the top manager)","yes, it automatically creates the missing manager row","only if the employee's salary is above 3000"],
+   a:1, e:"Review problem 6: the self-referencing FK requires an existing emp_id — so it's rejected unless manager_id is left NULL."},
+  {q:"In the department-report query, listing a department that has <b>no employees</b> with a count of 0 requires…",
+   o:["an INNER JOIN and COUNT(*)","an OUTER JOIN plus COUNT(emp_id)","a HAVING COUNT(*) = 0","a UNION with an empty table"],
+   a:1, e:"Review problem 9: an inner join would drop empty departments; an outer join with COUNT(emp_id) reports 0 for them."},
+  {q:"To list departments from most to fewest employees, the query ends with…",
+   o:["GROUP BY num_employees","ORDER BY num_employees DESC","HAVING num_employees &gt; 0","DISTINCT num_employees"],
+   a:1, e:"Review problem 9: ORDER BY the employee count DESC gives largest-to-smallest."},
+  {q:"To delete departments that have no employees, a correct approach is…",
+   o:["DELETE FROM Departments WHERE dept_id NOT IN (SELECT dept_id FROM Employees)","DELETE FROM Departments WHERE COUNT(*) = 0 aggregated for each department","DELETE the empty rows FROM the Departments table right now","TRUNCATE the Departments table WHERE the employee count equals exactly 0"],
+   a:0, e:"Review problem 11: delete departments whose dept_id appears in no employee row (NOT IN a subquery, or NOT EXISTS)."}
 ]
 };
 
 /* =========================================================
-   FREE-RESPONSE PRACTICE — worked problems & traces
+   FREE-RESPONSE PRACTICE
    ========================================================= */
 const FR = {
-intro:[
-  {q:"Trace how the machine grows from a bare CPU into “the operating system” by listing the hardware additions and what each one enables.",
-   a:`<p>Each step adds a flip-flop (a flag), a register, and a handler routine:</p>
-      <ol>
-        <li><b>Overflow flip-flop + NEWPC register</b> → <b>error handling</b>: on overflow, jump to the handler at NEWPC.</li>
-        <li><b>FENCE register + bounds-check hardware</b> → <b>memory protection</b>: reject addresses outside a process's extent.</li>
-        <li><b>Mode bit + privileged opcodes</b> → <b>self-protection</b>: unprivileged code can't touch the FENCE or other privileged state.</li>
-        <li><b>I/O interrupt + saved PC/R0</b> → <b>I/O handling</b>: save state, run the handler, restore.</li>
-        <li><b>Interrupt Handler Vector, system calls, timer interrupts</b> → a library of services processes can request, and the ability to preempt a running process.</li>
-      </ol>
-      <p>Once the handler offers this whole suite of services, we stop calling it the interrupt handler / <b>supervisor</b> and call it the <b>operating system</b>.</p>`},
-  {q:"Explain the difference between <b>mechanism</b> and <b>policy</b>, and list the three-plus-one “easy pieces” with a one-line description of each.",
-   a:`<p><b>Mechanism vs policy:</b> a <b>mechanism</b> is the low-level machinery that <em>how</em> something is done (e.g. the context-switch code that saves and restores registers); a <b>policy</b> is the decision of <em>what/when</em> to do it (e.g. which process the scheduler picks next). Separating them lets you change decisions without rewriting machinery.</p>
-      <p><b>The easy pieces:</b></p>
-      <ul>
-        <li><b>Virtualization</b> — abstract each resource so a process acts as if it owns it alone.</li>
-        <li><b>Concurrency</b> — manage many execution contexts at once, with synchronization and no deadlock.</li>
-        <li><b>Persistence</b> — keep data alive across reboots/crashes via files and directories.</li>
-        <li><b>Security</b> — authenticate principals and authorize what they may do.</li>
-      </ul>`}
+basics:[
+  {q:"Write DDL that (safely) creates a <code>cars</code> table with an inventory number, VIN, make, model, a model year defaulting to 2026, a net price, and a nullable MSRP — then insert one BMW.",
+   a:`<div class="code"><span class="kw">DROP TABLE IF EXISTS</span> public.cars;
+<span class="kw">CREATE TABLE</span> public.cars (
+    inv_no      INTEGER NOT NULL,
+    vin         VARCHAR(20) NOT NULL,
+    make        VARCHAR(30) NOT NULL,
+    model       VARCHAR(50) NOT NULL,
+    m_year      INTEGER NOT NULL DEFAULT 2026,
+    net_price   DECIMAL(10,2) NOT NULL,
+    msrp        DECIMAL(10,2) NULL
+);
+
+<span class="kw">INSERT INTO</span> public.cars (inv_no, vin, make, model, net_price, msrp)
+<span class="kw">VALUES</span> (1001, 'BM23HT17AE235710', 'BMW', '760i xDrive', 123910.00, 143500.00);</div>
+      <p><code>DROP TABLE IF EXISTS</code> avoids an error on re-run; <code>DEFAULT 2026</code> fills m_year when omitted; MSRP is the only nullable column.</p>`},
+  {q:"Write a query for all BMWs under $50,000 net price, then a statement that changes car 1001's model to 'M240i', then one that deletes the BMW 228i.",
+   a:`<div class="code"><span class="kw">SELECT</span> make, m_year, model
+<span class="kw">FROM</span> public.cars
+<span class="kw">WHERE</span> make = 'BMW' <span class="kw">AND</span> net_price &lt; 50000.00;
+
+<span class="kw">UPDATE</span> public.cars <span class="kw">SET</span> model = 'M240i' <span class="kw">WHERE</span> inv_no = 1001;
+
+<span class="kw">DELETE FROM</span> public.cars <span class="kw">WHERE</span> make = 'BMW' <span class="kw">AND</span> model = '228i';</div>
+      <p>Note the <code>WHERE</code> on the UPDATE and DELETE — without it they would change or remove <b>every</b> row.</p>`}
 ],
-process:[
-  {q:"Draw the three-state process model and name every transition between <b>Running</b>, <b>Ready</b>, and <b>Blocked</b>.",
-   a:`<p><b>States:</b> Running (on the CPU), Ready (runnable, waiting), Blocked (waiting on an event).</p>
-      <ul>
-        <li><b>Ready → Running:</b> <b>scheduled</b> (the scheduler dispatches it).</li>
-        <li><b>Running → Ready:</b> <b>descheduled</b> (e.g. its time slice ends / a timer interrupt preempts it).</li>
-        <li><b>Running → Blocked:</b> the process <b>initiates I/O</b> (or otherwise waits on an event).</li>
-        <li><b>Blocked → Ready:</b> the awaited <b>I/O completes</b>.</li>
-      </ul>
-      <p>Note there is no direct Blocked → Running edge: a woken process goes to Ready first, then must be scheduled.</p>`},
-  {q:"When a process is <b>not</b> running, what does the OS store about it, and where? Why is each piece needed?",
-   a:`<p>The OS keeps everything in the process's <b>process struct / PCB</b> (e.g. <code>struct proc</code>):</p>
-      <ul>
-        <li><b>context</b> — the saved <b>CPU registers</b> (including IP and SP), so execution can resume exactly where it left off.</li>
-        <li><b>ofile</b> — the <b>open file descriptors</b>, so the process keeps its I/O connections.</li>
-        <li><b>state</b> — running / ready / sleeping, so the scheduler knows if it's runnable.</li>
-        <li>(plus pid, parent, page table / address space, kernel stack, etc.)</li>
-      </ul>
-      <p>Without saving the register context, a descheduled process could never be correctly resumed.</p>`},
-  {q:"<b>Worked problem 2 — state trace.</b> P0 runs 3 CPU units, then issues an I/O that takes 3 units, then needs 1 more CPU unit. P1 needs 4 CPU units and no I/O. P0 starts first; the OS switches to P1 when P0 blocks and does <b>not</b> switch back when P0's I/O completes. Give each process's state over time.",
-   a:`<table class="tbl"><thead><tr><th>Time</th><th>P0</th><th>P1</th></tr></thead>
-      <tbody>
-      <tr><td>0–3</td><td>Running (CPU)</td><td>Ready</td></tr>
-      <tr><td>3–6</td><td>Blocked (I/O)</td><td>Running</td></tr>
-      <tr><td>6–7</td><td>Ready (I/O done)</td><td>Running</td></tr>
-      <tr><td>7–8</td><td>Running (last unit)</td><td>Done</td></tr>
-      </tbody></table>
-      <ul>
-        <li>At <b>t=3</b> P0 issues I/O → <b>Blocked</b>, and the OS switches to P1.</li>
-        <li>At <b>t=6</b> P0's I/O completes → P0 goes to <b>Ready</b> (not Running — a blocked job never jumps straight to Running, and the OS chose not to switch back). P1 keeps running.</li>
-        <li>P1 runs t=3–7 (its 4 units) and finishes at <b>t=7</b>; only then does P0 get the CPU for its final unit, finishing at <b>t=8</b>.</li>
-      </ul>`}
-],
-lde:[
-  {q:"Walk through a <code>read()</code> system call from a user process into the kernel and back, naming each step.",
-   a:`<ol>
-        <li>The process is in <b>user mode</b> and can see only its own memory.</li>
-        <li>It sets the <b>syscall number</b> in a register (<code>movl $6,%eax</code>) and executes a <b>trap</b> (<code>int $64</code>).</li>
-        <li>The hardware raises privilege to <b>kernel mode</b> and jumps through the <b>trap table (IDT)</b> to the trap handler.</li>
-        <li>The handler uses the <b>syscall table</b> to call the right routine, e.g. <code>sys_read</code>, which does the work (copying into <code>buf</code>).</li>
-        <li><b>return-from-trap</b> restores the user registers and drops back to <b>user mode</b>, resuming the process after the trap.</li>
-      </ol>
-      <p>The trap table was installed at boot (privileged), so a user process can't redirect it.</p>`},
-  {q:"Trace the full <b>timer-interrupt context switch</b> from process A to process B, distinguishing hardware from OS actions.",
-   a:`<ol>
-        <li><b>HW (timer interrupt):</b> save A's registers to <b>A's kernel stack</b>, switch to <b>kernel mode</b>, jump to the trap handler.</li>
-        <li><b>OS:</b> handle the trap and call <b>switch()</b>.</li>
-        <li><b>OS (switch()):</b> save A's registers into <b>proc-struct(A)</b>, restore B's registers from <b>proc-struct(B)</b>, switch to B's kernel stack.</li>
-        <li><b>OS:</b> <b>return-from-trap</b> (into B).</li>
-        <li><b>HW:</b> restore B's registers from <b>B's kernel stack</b>, switch to <b>user mode</b>, jump to <b>B's instruction pointer</b>.</li>
-      </ol>
-      <p>Two levels of saving: hardware saves to the kernel stack on entry; the OS's switch() saves/restores via the process structs. The result: each process behaves as if it had its own CPU.</p>`}
-],
-sched:[
-  {q:"Workload: A, B, C each with run_time 10 s, all arriving at time ~0. Under <b>FIFO</b>, give each job's turnaround and the average. Then change A's run_time to 60 s — what happens, and what is the effect called?",
-   a:`<p><b>Equal jobs (10, 10, 10):</b> A finishes at 10, B at 20, C at 30.</p>
-      <div class="code">turnaround: A=10, B=20, C=30
-average = (10 + 20 + 30) / 3 = 20 s</div>
-      <p><b>Big first job (A=60, B=10, C=10):</b> A finishes at 60, B at 70, C at 80.</p>
-      <div class="code">average = (60 + 70 + 80) / 3 = 70 s</div>
-      <p>The two short jobs are stuck waiting behind the long one — the <b>convoy effect</b>.</p>`},
-  {q:"Jobs: A arrives at 0 with run_time 60; B and C arrive at ~10 each with run_time 10. Compare average turnaround under <b>SJF</b> (non-preemptive) and <b>STCF</b> (preemptive).",
-   a:`<p><b>SJF (non-preemptive):</b> A is already running when B and C arrive, and SJF can't preempt. So A runs 0–60, then B 60–70, C 70–80.</p>
-      <div class="code">turnaround: A = 60−0 = 60
-            B = 70−10 = 60
-            C = 80−10 = 70
-average = (60 + 60 + 70) / 3 = 63.3 s</div>
-      <p><b>STCF (preemptive):</b> when B and C arrive at 10, each has 10 s left vs A's remaining 50, so STCF preempts A. Run B 10–20, C 20–30, then A 30–80.</p>
-      <div class="code">turnaround: A = 80−0 = 80
-            B = 20−10 = 10
-            C = 30−10 = 20
-average = (80 + 10 + 20) / 3 = 36.6 s</div>
-      <p>Preemption lets the short jobs finish first, roughly halving average turnaround.</p>`},
-  {q:"Three jobs A, B, C each of length 5 arrive at ~0. Compare average <b>response time</b> under FIFO versus Round Robin (time slice ~1). Which optimizes response?",
-   a:`<p><b>FIFO:</b> A starts at 0, B must wait for A (starts at 5), C waits for both (starts at 10).</p>
-      <div class="code">response: A=0, B=5, C=10
-average = (0 + 5 + 10) / 3 = 5</div>
-      <p><b>Round Robin (slice ~1):</b> A runs first (0), B next (1), C next (2) — everyone starts almost immediately.</p>
-      <div class="code">response: A=0, B=1, C=2
-average = (0 + 1 + 2) / 3 = 1</div>
-      <p><b>RR</b> optimizes response time by starting every job quickly — at the cost of worse turnaround.</p>`},
-  {q:"<b>Worked problem 4 — amortizing the switch.</b> A context switch costs 0.5 ms. Roughly what fraction of CPU time goes to switching with a <b>5 ms</b> slice? With a <b>50 ms</b> slice?",
-   a:`<p>Each slice pays one switch, so the overhead fraction is switch / (slice + switch):</p>
-      <div class="code">5 ms slice:   0.5 / (5 + 0.5)  = 0.5 / 5.5  ≈ 9%   (~10% if you use 0.5/5)
-50 ms slice:  0.5 / (50 + 0.5) = 0.5 / 50.5 ≈ 1%</div>
-      <p>A longer slice <b>amortizes</b> the fixed switch cost — dropping overhead from ~10% to ~1% — but hurts response time. (Real switch cost is even higher once you count lost cache/TLB/branch-predictor state.)</p>`}
-],
-mlfq:[
-  {q:"State all the MLFQ rules (including the boost), and explain how they let a single scheduler serve both interactive and batch jobs.",
+types:[
+  {q:"Pick appropriate PostgreSQL types: (a) an ID auto-numbered from 1, (b) a name up to 50 characters, (c) money with 2 decimals up to 10 digits, (d) a calendar date, (e) a true/false flag, (f) an array of integers.",
    a:`<ul>
-        <li><b>Rule 1:</b> if priority(A) &gt; priority(B), A runs.</li>
-        <li><b>Rule 2:</b> if priority(A) = priority(B), A and B run round-robin.</li>
-        <li><b>Rule 3:</b> a job starts at the top priority.</li>
-        <li><b>Rule 4:</b> if a job uses its whole time slice, demote it one level.</li>
-        <li><b>Rule 5 (boost):</b> periodically move all jobs back to the top priority.</li>
-      </ul>
-      <p><b>How it separates job types:</b> interactive jobs give up the CPU for I/O before their slice ends, so Rule 4 never demotes them — they stay high and get fast <b>response</b>. CPU-bound (batch) jobs use full slices and sink to low priority, where they still make <b>turnaround</b> progress via round-robin. The periodic <b>boost</b> prevents starvation and lets a job that changes behavior rise again.</p>`},
-  {q:"Lottery: jobs in list order are A(1), B(1), C(100), D(200), E(100), for 402 total tickets. Who runs if the random winner is <b>50</b>, <b>350</b>, or <b>0</b>?",
-   a:`<p>Walk the list, accumulating tickets, and stop at the first job where the running <code>counter &gt; winner</code>. Cumulative totals: A→1, B→2, C→102, D→302, E→402.</p>
-      <ul>
-        <li><b>winner = 50:</b> A→1, B→2, C→102. 102 &gt; 50 first at <b>C</b> → <b>C runs</b>.</li>
-        <li><b>winner = 350:</b> …D→302 (not &gt; 350), E→402. 402 &gt; 350 → <b>E runs</b>.</li>
-        <li><b>winner = 0:</b> A→1. 1 &gt; 0 immediately → <b>A runs</b>.</li>
-      </ul>
-      <p>Bigger ticket blocks (C, D, E) cover more of the range, so they win proportionally more often.</p>`},
-  {q:"<b>Worked problem 3 — MLFQ timeline.</b> Queues: Q2 slice 10 ms, Q1 slice 20 ms, Q0 slice 40 ms; each level's allotment is one slice. Job A (100 ms CPU, no I/O) arrives at t=0; Job B (15 ms CPU, no I/O) arrives at t=50; no boost occurs. When does each job finish?",
-   a:`<p><b>Job A</b> starts at the top and sinks:</p>
-      <div class="code">Q2: A runs 0–10  (used full 10 ms slice → demote)
-Q1: A runs 10–30 (used full 20 ms allotment → demote)
-Q0: A runs 30–50 (20 ms so far) … then B arrives at t=50</div>
-      <p>By t=50, A has used 10 + 20 + 20 = <b>50 ms</b>, so <b>50 ms remain</b>. B arrives in Q2 (top) and <b>preempts</b> A.</p>
-      <div class="code">Q2: B runs 50–60 (full slice → demote)
-Q1: B runs 60–65 (needs only 5 more) → B finishes at t=65</div>
-      <p>A then resumes alone in Q0 and runs its remaining 50 ms:</p>
-      <div class="code">Q0: A runs 65–115 → A finishes at t=115</div>
-      <p><b>B finishes at t=65; A finishes at t=115.</b></p>`}
+      <li>(a) <code>SERIAL PRIMARY KEY</code> (or BIGSERIAL) — auto-numbering.</li>
+      <li>(b) <code>VARCHAR(50)</code> — variable-length, no padding.</li>
+      <li>(c) <code>NUMERIC(10,2)</code> (or DECIMAL(10,2)) — exact, 2 decimals.</li>
+      <li>(d) <code>DATE</code> — date only (use TIMESTAMP for date + time).</li>
+      <li>(e) <code>BOOLEAN</code> — TRUE / FALSE / NULL.</li>
+      <li>(f) <code>INTEGER[]</code> — an array; remember indexing starts at 1.</li>
+      </ul>`},
+  {q:"Show 235 as a 16-bit binary number, then give −235 in 16-bit two's complement.",
+   a:`<p><b>235</b> in 16 bits:</p>
+      <div class="code">235 = 0000 0000 1110 1011</div>
+      <p><b>−235</b> (two's complement): flip every bit of 235, then add 1.</p>
+      <div class="code">flip: 1111 1111 0001 0100
+ + 1: 1111 1111 0001 0101   →  −235</div>`}
 ],
-exam:[
-  {q:"<b>Worked problem 1 — trace four schedulers.</b> One CPU. Jobs: A arrives at 0 needing 8, B arrives at 1 needing 4, C arrives at 2 needing 2. Give the average turnaround and response under FIFO, SJF, STCF, and RR (quantum 2). For RR, assume a newly arrived job joins the queue ahead of a job preempted at the same instant.",
-   a:`<p><b>FIFO</b> (arrival order A→B→C): A 0–8, B 8–12, C 12–14.</p>
-      <div class="code">TAT: A 8, B 11, C 12  → avg 10.33
-resp: A 0, B 7, C 10  → avg 5.67</div>
-      <p><b>SJF</b> (non-preemptive; A can't be preempted): A 0–8; at t=8 pick C (shorter) 8–10, then B 10–14.</p>
-      <div class="code">TAT: A 8, C 8, B 13  → avg 9.67
-resp: A 0, C 6, B 9  → avg 5.00</div>
-      <p><b>STCF</b> (preempt for least time remaining): A 0–1, B 1–2, C 2–4, B 4–7, A 7–14.</p>
-      <div class="code">TAT: A 14, B 6, C 2  → avg 7.33
-resp: A 0, B 0, C 0  → avg 0.00</div>
-      <p><b>RR</b> (quantum 2): A 0–2, B 2–4, C 4–6, A 6–8, B 8–10, A 10–14. Completions A=14, B=10, C=6.</p>
-      <div class="code">TAT: A 14, B 9, C 4  → avg 9.00
-resp: A 0, B 1, C 2  → avg 1.00</div>
-      <p>STCF wins turnaround (7.33) and response (0.00); RR gives the next-best response (1.00) but a worse turnaround (9.00). FIFO's turnaround suffers from big A blocking B and C.</p>`},
-  {q:"<b>Short answer — History of UNIX.</b> Sketch where UNIX came from and why it mattered.",
-   a:`<p><b>UNIX</b> was built by <b>Ken Thompson and Dennis Ritchie at Bell Labs</b>, borrowing from <b>Multics</b> but deliberately <b>simpler</b>. Its philosophy: many <b>small programs</b> that each do one thing well, composed with <b>pipes</b>, written in the portable <b>C</b> language. It brought back minicomputer-era ideas (memory protection, multiprogramming) that early PCs had dropped. Its descendants are everywhere: <b>macOS</b> is UNIX-based, plus the BSDs and <b>Linux</b> (servers and Android). For context, OSes evolved from shared <b>libraries</b> with batch processing → <b>system calls</b> and user/kernel modes for protection → <b>multiprogramming</b> to overlap I/O → UNIX.</p>`},
-  {q:"<b>Short answer — System Calls.</b> What is a system call and how does one work?",
-   a:`<p>A <b>system call</b> is a controlled entry into the OS that lets a user program request a <b>privileged service</b> (I/O, memory, process control) — there are a few hundred. Mechanism:</p>
-      <ol>
-        <li>User code puts a <b>system-call number</b> (never a kernel address) in a register and executes a <b>trap</b> instruction.</li>
-        <li>The hardware raises privilege to <b>kernel mode</b> and jumps via the boot-installed <b>trap table</b> to the handler.</li>
-        <li>The handler <b>validates</b> the number and arguments, does the work, and executes <b>return-from-trap</b> to drop back to user mode.</li>
-      </ol>
-      <p>Syscalls look like ordinary C functions because they are library wrappers whose assembly sets up the arguments and call number and traps.</p>`},
-  {q:"<b>Short answer — Anatomy of a Process.</b> What state makes up a process, and how is one created?",
-   a:`<p>A <b>process</b> is a running program, described by its <b>machine state</b>:</p>
-      <ul>
-        <li><b>Memory</b> — its address space: code, static data, heap, and stack.</li>
-        <li><b>Registers</b> — especially the <b>program counter</b> (instruction pointer) and the <b>stack pointer</b>.</li>
-        <li><b>I/O state</b> — its open file descriptors.</li>
+keys:[
+  {q:"Define the first three normal forms in the course's terms.",
+   a:`<ul>
+      <li><b>1NF — Atomicity:</b> no lists or repeating groups; every column holds a single (atomic) value.</li>
+      <li><b>2NF:</b> every row has a <b>unique identifier</b> — a primary key (a column or set of columns with unique values); non-key columns depend on the whole key.</li>
+      <li><b>3NF:</b> a table must <b>not</b> hold non-key information that depends on other non-key information (no transitive dependencies).</li>
       </ul>
-      <p>The OS records each process in a <b>PCB</b> in the process list: saved <b>register context</b>, state (running/ready/blocked, plus initial and zombie), PID, and parent. <b>Creation</b>: load code and static data, allocate the stack (with argc/argv) and a heap, open stdin/out/err, then jump to <code>main()</code>.</p>`},
-  {q:"<b>Short answer — Limited Direct Execution.</b> What problems does LDE solve, and how?",
-   a:`<p><b>LDE</b> runs a program <b>directly</b> on the CPU for speed, but with hardware limits so the OS keeps <b>control</b>. Two problems:</p>
-      <ol>
-        <li><b>Restricted operations:</b> <b>user mode</b> forbids privileged actions (I/O, arbitrary memory). To request one, a program <b>traps</b> into <b>kernel mode</b> and returns via return-from-trap; the <b>trap table</b> (installed at boot, privileged) fixes where traps may go, and a system-call number selects the service.</li>
-        <li><b>Regaining control:</b> a hardware <b>timer interrupt</b> periodically returns the CPU to the OS — versus the <b>cooperative</b> approach, which relies on processes trapping/yielding and can be defeated by an infinite loop.</li>
-      </ol>
-      <p>On a switch, <b>hardware</b> saves the user registers to the kernel stack and the OS's <b>switch()</b> saves/restores kernel registers via the process structs.</p>`}
+      <p>The overall goals are consistency, completeness, and efficiency.</p>`},
+  {q:"Create an Employees table with a composite primary key of (fname, lname, dept_id) and a foreign key on dept_id that cascades on update and delete.",
+   a:`<div class="code"><span class="kw">CREATE TABLE</span> Employees (
+    fname   VARCHAR(50) NOT NULL,
+    lname   VARCHAR(50) NOT NULL,
+    salary  DECIMAL(10,2) NOT NULL DEFAULT(-1.00),
+    dept_id INTEGER NOT NULL,
+    <span class="kw">PRIMARY KEY</span> (fname, lname, dept_id),
+    <span class="kw">FOREIGN KEY</span> (dept_id) <span class="kw">REFERENCES</span> Departments(dept_id)
+        <span class="kw">ON UPDATE CASCADE ON DELETE CASCADE</span>
+);</div>
+      <p>The composite PK makes the <em>combination</em> unique. CASCADE means changing/removing a department id updates/removes the matching employee rows automatically.</p>`}
+],
+where:[
+  {q:"What strings does <code>LIKE '__ter%'</code> match? Then write a query for employees whose first name starts with J and ends with n.",
+   a:`<p><code>'__ter%'</code> = any <b>two</b> single symbols, then the literal <code>ter</code>, then <b>anything</b> (including nothing) — e.g. <em>oyster</em>, <em>banterX</em>, <em>waters</em>… (matches 'water' too: <code>wa</code> + <code>ter</code> + empty).</p>
+      <div class="code"><span class="kw">SELECT</span> emp_id, fname, lname
+<span class="kw">FROM</span> Employees
+<span class="kw">WHERE</span> fname <span class="kw">LIKE</span> 'J%n';</div>
+      <p><code>_</code> = exactly one symbol; <code>%</code> = any sequence. Use <code>ILIKE</code> for case-insensitive matching.</p>`},
+  {q:"List employees (emp_id, fname, lname) whose manager's first name is 'John' — first with a subquery, then with a CTE.",
+   a:`<p><b>Subquery:</b></p>
+      <div class="code"><span class="kw">SELECT</span> emp_id, fname, lname
+<span class="kw">FROM</span> Employees
+<span class="kw">WHERE</span> manager_id <span class="kw">IN</span> (
+    <span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> fname = 'John'
+);</div>
+      <p><b>CTE (WITH):</b></p>
+      <div class="code"><span class="kw">WITH</span> John_ids(emp_id) <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> fname = 'John'
+)
+<span class="kw">SELECT</span> emp_id, fname, lname
+<span class="kw">FROM</span> Employees
+<span class="kw">WHERE</span> manager_id <span class="kw">IN</span> (<span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> John_ids);</div>
+      <p>Both give the same result; the CTE names the John list once, which can be clearer and more efficient.</p>`}
+],
+joins:[
+  {q:"Explain when to use INNER vs LEFT/RIGHT/FULL OUTER join, using Orders and Customers.",
+   a:`<ul>
+      <li><b>INNER JOIN</b> — only orders that have a matching customer (and vice-versa). Unmatched rows drop out.</li>
+      <li><b>LEFT OUTER JOIN</b> (Orders left) — every order, even those whose customer_id has no Customers row (customer columns come back NULL).</li>
+      <li><b>RIGHT OUTER JOIN</b> — every customer, even those with no orders.</li>
+      <li><b>FULL OUTER JOIN</b> — every order and every customer, NULLs wherever there's no counterpart.</li>
+      </ul>`},
+  {q:"Write an INNER JOIN of Orders to Customers showing order_id, order_dt, and the customer's name and phone; then convert it to keep <b>all</b> orders even without a customer.",
+   a:`<div class="code"><span class="kw">SELECT</span> t1.order_id, t1.order_dt, t2.fname, t2.lname, t2.tel
+<span class="kw">FROM</span> public.Orders t1
+<span class="kw">INNER JOIN</span> public.Customers t2
+    <span class="kw">ON</span> t1.customer_id = t2.cust_id;</div>
+      <p>To keep every order regardless of a matching customer, switch to a left outer join:</p>
+      <div class="code"><span class="kw">SELECT</span> t1.order_id, t1.order_dt, t2.fname, t2.lname, t2.tel
+<span class="kw">FROM</span> public.Orders t1
+<span class="kw">LEFT OUTER JOIN</span> public.Customers t2
+    <span class="kw">ON</span> t1.customer_id = t2.cust_id;</div>`}
+],
+agg:[
+  {q:"For each department, list dept_id, number of distinct managers, number of employees, and total salary — then restrict to departments whose minimum salary is under 3000.",
+   a:`<div class="code"><span class="kw">SELECT</span> dept_id,
+       COUNT(DISTINCT manager_id) <span class="kw">AS</span> num_managers,
+       COUNT(*)                   <span class="kw">AS</span> num_employees,
+       SUM(salary)                <span class="kw">AS</span> total_salary
+<span class="kw">FROM</span> Employees
+<span class="kw">GROUP BY</span> dept_id
+<span class="kw">HAVING</span> MIN(salary) &lt; 3000.00;</div>
+      <p>Every non-aggregated SELECT column (<code>dept_id</code>) is in GROUP BY. <code>HAVING</code> filters the groups after aggregating; <code>WHERE</code> could not use <code>MIN()</code>.</p>`},
+  {q:"Explain the difference between <code>COUNT(*)</code>, <code>COUNT(manager_id)</code>, and <code>COUNT(DISTINCT manager_id)</code>.",
+   a:`<ul>
+      <li><b>COUNT(*)</b> — the total number of rows, NULLs included.</li>
+      <li><b>COUNT(manager_id)</b> — rows where <code>manager_id</code> is <b>NOT NULL</b> (employees who have a manager).</li>
+      <li><b>COUNT(DISTINCT manager_id)</b> — the number of <b>distinct</b> non-null managers.</li>
+      </ul>
+      <p>Wrap in <code>COALESCE(..., 0)</code> if you need 0 instead of NULL when there are no rows.</p>`}
+],
+review:[
+  {q:"<b>Problem 1.</b> Review the definitions of the first three normal forms.",
+   a:`<ul>
+      <li><b>1NF (Atomicity):</b> no lists / repeating groups — every cell holds one value.</li>
+      <li><b>2NF:</b> every row has a unique identifier (a primary key); non-key columns depend on the whole key.</li>
+      <li><b>3NF:</b> no non-key column depends on another non-key column (no transitive dependencies).</li>
+      </ul>
+      <p>Goals throughout: consistency, completeness, efficiency.</p>`},
+  {q:"<b>Problem 2.</b> Employees has a <code>dept_name</code> column. Why is that not good, and how do you fix it?",
+   a:`<p><b>Why it's bad:</b> the department name is <b>repeated on every employee row</b>. That's redundant (wasted space) and causes <b>update anomalies</b> — renaming a department means updating many rows, and inconsistencies creep in if some are missed. It violates normalization.</p>
+      <p><b>Fix:</b> store the department name <b>once</b> in a Departments table and reference it from Employees by a <b>foreign key</b> <code>dept_id</code>:</p>
+      <div class="code">Employees(..., dept_id SMALLINT NOT NULL REFERENCES Departments(dept_id))
+Departments(dept_id SMALLSERIAL PRIMARY KEY, dept_name VARCHAR(100), ...)</div>`},
+  {q:"<b>Problem 3.</b> Write <code>CREATE TABLE</code> for Employees per the spec (emp_id 32-bit auto PK; fname/lname VARCHAR(50); dept_id 16-bit FK; manager_id FK; salary NUMERIC(10,2); start_date; tel; email).",
+   a:`<div class="code"><span class="kw">CREATE TABLE</span> Employees (
+    emp_id      SERIAL PRIMARY KEY,          <span style="color:var(--faint)">-- 32-bit, auto from 1</span>
+    fname       VARCHAR(50) NOT NULL,
+    lname       VARCHAR(50) NOT NULL,
+    dept_id     SMALLINT NOT NULL,           <span style="color:var(--faint)">-- 16-bit</span>
+    manager_id  INTEGER NULL,                <span style="color:var(--faint)">-- NULL for the top boss</span>
+    salary      NUMERIC(10,2) NOT NULL,
+    start_date  DATE NOT NULL,
+    tel         VARCHAR(15),
+    email       VARCHAR(255),
+    <span class="kw">FOREIGN KEY</span> (dept_id)    <span class="kw">REFERENCES</span> Departments(dept_id),
+    <span class="kw">FOREIGN KEY</span> (manager_id) <span class="kw">REFERENCES</span> Employees(emp_id)
+);</div>
+      <p><code>SERIAL</code> gives 32-bit auto-numbering; <code>dept_id</code> is <code>SMALLINT</code> (16-bit) as a FK; <code>manager_id</code> self-references Employees and is nullable so the top manager can exist. (Employees and Departments reference each other, so create one, then add the other's FK — or make the FKs deferrable.)</p>`},
+  {q:"<b>Problem 4.</b> Write <code>CREATE TABLE</code> for Departments (dept_id 16-bit auto PK; dept_name VARCHAR(100); dept_head FK to Employees; budget NUMERIC(14,2)).",
+   a:`<div class="code"><span class="kw">CREATE TABLE</span> Departments (
+    dept_id    SMALLSERIAL PRIMARY KEY,      <span style="color:var(--faint)">-- 16-bit, auto from 1</span>
+    dept_name  VARCHAR(100) NOT NULL,
+    dept_head  INTEGER NULL,                 <span style="color:var(--faint)">-- FK to an employee</span>
+    budget     NUMERIC(14,2) NOT NULL,
+    <span class="kw">FOREIGN KEY</span> (dept_head) <span class="kw">REFERENCES</span> Employees(emp_id)
+);</div>
+      <p><code>SMALLSERIAL</code> is 16-bit auto-numbering. <code>dept_head</code> references an employee (nullable, since a new department may not have a head yet).</p>`},
+  {q:"<b>Problem 5.</b> Delete all employees in the department called “Research and Development” whose salary is below 5000.00.",
+   a:`<div class="code"><span class="kw">DELETE FROM</span> Employees
+<span class="kw">WHERE</span> salary &lt; 5000.00
+  <span class="kw">AND</span> dept_id = (
+      <span class="kw">SELECT</span> dept_id <span class="kw">FROM</span> Departments
+      <span class="kw">WHERE</span> dept_name = 'Research and Development'
+  );</div>
+      <p>A subquery turns the department <em>name</em> into its <code>dept_id</code>; both conditions must hold. (Use <code>IN (...)</code> instead of <code>=</code> if the name might not be unique.)</p>`},
+  {q:"<b>Problem 6.</b> Can you add an employee of a non-existing department? An employee whose manager's ID isn't among existing employee IDs? Why or why not?",
+   a:`<p><b>Non-existing department — no.</b> <code>dept_id</code> is a foreign key to Departments, so a value with no matching department violates referential integrity and the insert is <b>rejected</b> (unless dept_id allowed NULL, which the spec doesn't).</p>
+      <p><b>Manager not among emp_ids — rejected too,</b> because <code>manager_id</code> is a self-referencing foreign key to <code>Employees(emp_id)</code>. The only way in is to set <code>manager_id = NULL</code> (e.g. the top manager who reports to no one).</p>`},
+  {q:"<b>Problem 7.</b> Increase salary by 10% for every employee whose first name starts with J and ends with n and whose salary is below 3000.00.",
+   a:`<div class="code"><span class="kw">UPDATE</span> Employees
+<span class="kw">SET</span> salary = salary * 1.10
+<span class="kw">WHERE</span> fname <span class="kw">LIKE</span> 'J%n'
+  <span class="kw">AND</span> salary &lt; 3000.00;</div>
+      <p><code>'J%n'</code> matches John, Jonathan, etc. Multiplying by 1.10 adds 10%. Both conditions must hold.</p>`},
+  {q:"<b>Problem 8.</b> List EmpID, Emp Last, Emp First, Department Name, Salary, Manager Last, Manager Full name, Tel, Email.",
+   a:`<div class="code"><span class="kw">SELECT</span> e.emp_id,
+       e.lname  <span class="kw">AS</span> emp_last,
+       e.fname  <span class="kw">AS</span> emp_first,
+       d.dept_name,
+       e.salary,
+       m.lname  <span class="kw">AS</span> mgr_last,
+       m.fname || ' ' || m.lname <span class="kw">AS</span> mgr_full,
+       e.tel, e.email
+<span class="kw">FROM</span> Employees e
+<span class="kw">INNER JOIN</span> Departments d <span class="kw">ON</span> e.dept_id = d.dept_id
+<span class="kw">LEFT OUTER JOIN</span> Employees m <span class="kw">ON</span> e.manager_id = m.emp_id;</div>
+      <p>A <b>self-join</b> (alias <code>m</code>) pulls the manager's name; it's a <b>LEFT</b> join so employees without a manager still appear. <code>||</code> builds the manager's full name.</p>`},
+  {q:"<b>Problem 9.</b> List Department ID, Department Name, Head's Full Name, and Number of Employees — reverse-sorted by count, including departments with 0 employees.",
+   a:`<div class="code"><span class="kw">SELECT</span> d.dept_id, d.dept_name,
+       h.fname || ' ' || h.lname <span class="kw">AS</span> head_full,
+       COUNT(e.emp_id) <span class="kw">AS</span> num_employees
+<span class="kw">FROM</span> Departments d
+<span class="kw">LEFT OUTER JOIN</span> Employees e <span class="kw">ON</span> e.dept_id = d.dept_id
+<span class="kw">LEFT OUTER JOIN</span> Employees h <span class="kw">ON</span> d.dept_head = h.emp_id
+<span class="kw">GROUP BY</span> d.dept_id, d.dept_name, h.fname, h.lname
+<span class="kw">ORDER BY</span> num_employees <span class="kw">DESC</span>;</div>
+      <p>The <b>outer join</b> keeps empty departments; <code>COUNT(e.emp_id)</code> returns <b>0</b> for them (it ignores the NULL employee side). A second self-join gets the head's name; <code>ORDER BY ... DESC</code> sorts largest-to-smallest.</p>`},
+  {q:"<b>Problem 10.</b> Increase salary by 5% for employees working in departments with fewer than 10 people.",
+   a:`<div class="code"><span class="kw">UPDATE</span> Employees
+<span class="kw">SET</span> salary = salary * 1.05
+<span class="kw">WHERE</span> dept_id <span class="kw">IN</span> (
+    <span class="kw">SELECT</span> dept_id
+    <span class="kw">FROM</span> Employees
+    <span class="kw">GROUP BY</span> dept_id
+    <span class="kw">HAVING</span> COUNT(*) &lt; 10
+);</div>
+      <p>The subquery finds the small departments (fewer than 10 employees) with <code>GROUP BY … HAVING COUNT(*) &lt; 10</code>; the UPDATE bumps everyone in those departments.</p>`},
+  {q:"<b>Problem 11.</b> Delete the empty departments — those with no employees.",
+   a:`<div class="code"><span class="kw">DELETE FROM</span> Departments
+<span class="kw">WHERE</span> dept_id <span class="kw">NOT IN</span> (
+    <span class="kw">SELECT</span> DISTINCT dept_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> dept_id <span class="kw">IS NOT NULL</span>
+);</div>
+      <p>Remove any department whose id appears in no employee row. The <code>IS NOT NULL</code> guard matters: with <code>NOT IN</code>, a NULL in the subquery would make the whole condition unknown and delete nothing. (An equivalent <code>NOT EXISTS</code> form also works.)</p>`}
 ]
 };
 
@@ -937,7 +901,7 @@ SECTIONS.forEach(s=>{ s.questions = QB[s.id] || []; });
    RENDER + LOGIC
    ========================================================= */
 const store = (()=>{ try{ const t="__t"; localStorage.setItem(t,"1"); localStorage.removeItem(t); return localStorage;}catch(e){ return null; }})();
-const KEY="os-guide-progress-v1";
+const KEY="db4710-guide-progress-v1";
 let state = {};
 try{ if(store){ state = JSON.parse(store.getItem(KEY)||"{}"); } }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
@@ -999,8 +963,8 @@ SECTIONS.forEach((sec,si)=>{
     <div class="section-done" id="done-${sec.id}"></div>
     ${(FR[sec.id]&&FR[sec.id].length)?`
     <div class="fr-head">
-      <div class="qt">Worked Practice · ${FR[sec.id].length} problems</div>
-      <div class="fr-sub">Work each one out, then reveal the full solution.</div>
+      <div class="qt">${sec.id==="review"?"The 11 Review Problems":"Worked SQL Practice"} · ${FR[sec.id].length} problems</div>
+      <div class="fr-sub">Write or trace each one, then reveal the worked solution.</div>
     </div>
     <div id="fr-${sec.id}"></div>`:``}
   `;
@@ -1030,7 +994,7 @@ SECTIONS.forEach((sec,si)=>{
       const c=document.createElement("div");
       c.className="fr";
       c.innerHTML=`
-        <div class="qnum">Problem ${fi+1}</div>
+        <div class="qnum">${sec.id==="review"?"Review":"Problem"} ${fi+1}</div>
         <div class="qtext">${f.q}</div>
         <button class="reveal" type="button" aria-expanded="false">Show worked solution</button>
         <div class="fr-ans">${f.a}</div>`;
@@ -1094,12 +1058,12 @@ function refresh(secId){
   const scEl=document.getElementById("sc-"+secId);
   scEl.textContent = st.answered ? `${st.correct}/${st.total}` : "";
   const done=document.getElementById("done-"+secId);
-  if(st.answered===st.total){
+  if(st.total>0 && st.answered===st.total){
     const pct=Math.round(100*st.correct/st.total);
-    let msg = pct===100 ? "Perfect — you've nailed this chapter. 🎯"
+    let msg = pct===100 ? "Perfect — you've nailed this section. 🎯"
             : pct>=80 ? "Strong grasp — review the few you missed."
-            : pct>=60 ? "Solid start — revisit the notes for the missed items."
-            : "Worth another pass — open the Study Notes above and retry.";
+            : pct>=60 ? "Solid start — open the Study Notes and revisit the misses."
+            : "Worth another pass — press Study Notes and retry.";
     done.innerHTML=`<strong>Section complete — ${st.correct}/${st.total} (${pct}%).</strong> ${msg}`;
     done.classList.add("show");
   } else { done.classList.remove("show"); }
@@ -1141,12 +1105,12 @@ function setNotesOpen(open){
   document.body.classList.toggle("notes-open", open);
   notesToggle.setAttribute("aria-pressed", open?"true":"false");
   ntLabel.textContent = open ? "Hide Notes" : "Study Notes";
-  try{ store && store.setItem("os-guide-notes-open", open?"1":"0"); }catch(e){}
+  try{ store && store.setItem("db4710-notes-open", open?"1":"0"); }catch(e){}
 }
 notesToggle.addEventListener("click", ()=> setNotesOpen(!document.body.classList.contains("notes-open")));
 panelsEl.addEventListener("click", (ev)=>{ if(ev.target.closest(".notes-close")) setNotesOpen(false); });
 document.addEventListener("keydown", (ev)=>{ if(ev.key==="Escape" && document.body.classList.contains("notes-open")) setNotesOpen(false); });
-try{ if(store && store.getItem("os-guide-notes-open")==="1") setNotesOpen(true); }catch(e){}
+try{ if(store && store.getItem("db4710-notes-open")==="1") setNotesOpen(true); }catch(e){}
 
 /* Theme toggle */
 const root=document.documentElement, tb=document.getElementById("themeBtn"),
@@ -1154,10 +1118,10 @@ const root=document.documentElement, tb=document.getElementById("themeBtn"),
 function applyTheme(t){
   if(t==="system"){ root.removeAttribute("data-theme"); ti.textContent="◐"; tl.textContent="Auto"; }
   else{ root.setAttribute("data-theme",t); ti.textContent= t==="dark"?"☾":"☀"; tl.textContent= t==="dark"?"Dark":"Light"; }
-  try{ store && store.setItem("os-guide-theme",t); }catch(e){}
+  try{ store && store.setItem("db4710-theme",t); }catch(e){}
 }
 let curTheme="system";
-try{ if(store) curTheme=store.getItem("os-guide-theme")||"system"; }catch(e){}
+try{ if(store) curTheme=store.getItem("db4710-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{
   curTheme = curTheme==="system" ? "light" : curTheme==="light" ? "dark" : "system";
