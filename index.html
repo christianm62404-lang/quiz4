@@ -863,6 +863,103 @@ eval2:[
 ]
 };
 
+/* =========================================================
+   COMPUTE-AND-SELECT MCQs (previous-quiz style, graded)
+   ========================================================= */
+const QBC = {
+perceptron:[
+  {q:"The line is <code>z = x₁ + x₂ − 6</code>. For the point P1 = (4, 4), what are the score z and its distance to the line (‖w‖ = √2)?",
+   o:["z = 2, distance 1.414","z = 2, distance 2.828","z = 8, distance 5.657","z = −2, distance 1.414"],
+   a:0, e:"z = 4 + 4 − 6 = 2 (positive side); distance = |z|/‖w‖ = 2/√2 = 1.414."},
+  {q:"A perceptron with η = 1 has w = (1, 4), b = −1. Point P7 = (3, 0) with y = −1 is a mistake. After the update, w and b are:",
+   o:["w = (−2, 4), b = −2","w = (4, 4), b = 0","w = (−2, 4), b = 0","w = (1, 4), b = −2"],
+   a:0, e:"y = −1 mistake: w ← w − x = (1,4) − (3,0) = (−2,4); b ← b − 1 = −2 (its score then drops to −8)."},
+  {q:"Four points share one w and b, with (y, z): A(+1, 2.5), B(−1, 0.8), C(+1, −0.3), D(−1, −4.0). How many are misclassified?",
+   o:["2 (B and C)","1 (C only)","3 (B, C, D)","0 (all are correct)"],
+   a:0, e:"Products y·z: +2.5, −0.8, −0.3, +4.0. B and C are negative, so 2 are misclassified."},
+  {q:"A separating line gives point scores 2, 4, 5, 6, −5, −4, −3, −2, with ‖w‖ = √2. What is its margin?",
+   o:["1.414","0.707","2.828","4.243"],
+   a:0, e:"Margin = smallest |z|/‖w‖ = 2/√2 = 1.414 (the closest points have |z| = 2)."}
+],
+svm:[
+  {q:"A hard-margin SVM returns w = (0.2, 0.6). What is the margin, 1/‖w‖?",
+   o:["1.581","0.632","2.500","0.400"],
+   a:0, e:"‖w‖ = √(0.2² + 0.6²) = √0.40 = 0.632; margin = 1/0.632 = 1.581."},
+  {q:"A point has y·z = 0.3 under a soft-margin SVM. What is its slack, max(0, 1 − y·z)?",
+   o:["0.7","0.3","1.3","0.0"],
+   a:0, e:"Slack = max(0, 1 − 0.3) = 0.7 — between 0 and 1, so inside the street but still correct."},
+  {q:"With x = (2, 1) and u = (1, 3), compute the kernel K(x, u) = (x·u)².",
+   o:["25","5","13","10"],
+   a:0, e:"x·u = 2·1 + 1·3 = 5, so K = 5² = 25 — no feature map needed."},
+  {q:"A point has y·z = −0.4. Its slack max(0, 1 − y·z) and status are:",
+   o:["1.4, misclassified","0.4, still correct","1.4, still correct","0.6, misclassified"],
+   a:0, e:"Slack = max(0, 1 − (−0.4)) = 1.4 > 1, so the point is on the wrong side — misclassified."}
+],
+knn:[
+  {q:"A tree node holds 8 USA and 2 other cars. Compute its Gini impurity, 1 − Σ pₖ².",
+   o:["0.32","0.20","0.16","0.50"],
+   a:0, e:"Gini = 1 − 0.8² − 0.2² = 1 − 0.64 − 0.04 = 0.32."},
+  {q:"A split has parent Gini 0.50; each child has Gini 0.48 and holds half the cars. The gain is:",
+   o:["0.02","0.48","0.98","0.50"],
+   a:0, e:"Weighted child impurity = ½(0.48) + ½(0.48) = 0.48; gain = 0.50 − 0.48 = 0.02."},
+  {q:"A new point's seven nearest labels, nearest first: USA, not, not, USA, USA, not, not. The k = 5 vote predicts:",
+   o:["USA","not USA","a tie","cannot tell"],
+   a:0, e:"The five nearest are USA, not, not, USA, USA → 3 USA vs 2, so the prediction is USA."},
+  {q:"Compute the Gini impurity of a node holding 6 USA and 4 other cars.",
+   o:["0.48","0.50","0.24","0.60"],
+   a:0, e:"Gini = 1 − 0.6² − 0.4² = 1 − 0.36 − 0.16 = 0.48."}
+],
+ensembles:[
+  {q:"25 independent models each predict with variance σ² = 4 (ρ = 0). The variance of their average is:",
+   o:["0.16","2.00","4.00","0.08"],
+   a:0, e:"Independent averaging: variance = σ²/M = 4/25 = 0.16."},
+  {q:"Models have σ² = 4 and pairwise ρ = 0.5. As M → ∞, the variance of their average approaches:",
+   o:["2.0","0.16","4.0","0.5"],
+   a:0, e:"The floor is ρσ² = 0.5 × 4 = 2.0; the (1−ρ)σ²/M term vanishes as M grows."},
+  {q:"A random forest has 100 trees, each leaving ~37% of cars out of bag. About how many trees never saw a given car?",
+   o:["about 37","about 63","about 13","about 100"],
+   a:0, e:"~37% of 100 trees ≈ 37 never trained on the car — those are its out-of-bag voters."},
+  {q:"AdaBoost: 8 points each weight 0.125, and a stump gets 2 of them wrong. The weighted error ε is:",
+   o:["0.25","0.125","0.50","0.20"],
+   a:0, e:"ε = sum of the misclassified weights = 2 × 0.125 = 0.25."},
+  {q:"A dataset has D = 16 features. With the √D default, how many features compete at each split of a random forest?",
+   o:["4","8","16","2"],
+   a:0, e:"m = √16 = 4 features are drawn at each split (the classification default)."}
+],
+eval1:[
+  {q:"A model has bias² = 0.006, variance = 0.026, and noise σ² = 0.09. Its expected squared error is:",
+   o:["0.122","0.032","0.090","0.116"],
+   a:0, e:"Expected error = bias² + variance + noise = 0.006 + 0.026 + 0.09 = 0.122."},
+  {q:"10-fold cross-validation on 500 examples fits how many models, each on how many examples?",
+   o:["10 fits, 450 each","10 fits, 500 each","500 fits, 499 each","50 fits, 450 each"],
+   a:0, e:"K = 10 → 10 fits, each on 500 − 50 = 450 examples (one 50-example fold held out)."},
+  {q:"Five fold errors are 0.15, 0.20, 0.25, 0.20, 0.15. The 5-fold CV estimate is:",
+   o:["0.19","0.20","0.25","0.17"],
+   a:0, e:"CV estimate = mean = (0.15 + 0.20 + 0.25 + 0.20 + 0.15)/5 = 0.95/5 = 0.19."},
+  {q:"The best model has CV error 0.20 with standard error 0.015. The one-SE cutoff for a near tie is:",
+   o:["0.215","0.185","0.200","0.230"],
+   a:0, e:"Cutoff = best CV error + 1 SE = 0.20 + 0.015 = 0.215; any model at or below it is a near tie."}
+],
+eval2:[
+  {q:"A spam filter has TP = 3, FP = 2, FN = 7, TN = 88. Compute its precision.",
+   o:["0.6","0.3","0.4","0.9"],
+   a:0, e:"Precision = TP/(TP + FP) = 3/(3 + 2) = 3/5 = 0.6."},
+  {q:"With TP = 3 and FN = 7, compute the recall.",
+   o:["0.3","0.6","0.7","0.43"],
+   a:0, e:"Recall = TP/(TP + FN) = 3/(3 + 7) = 3/10 = 0.3."},
+  {q:"With precision 0.6 and recall 0.3, compute the F1 score, 2PR/(P + R).",
+   o:["0.40","0.45","0.30","0.50"],
+   a:0, e:"F1 = 2(0.6)(0.3)/(0.6 + 0.3) = 0.36/0.9 = 0.40."},
+  {q:"A model scores 4 positives and 6 negatives; at one threshold it flags 3 positives and 2 negatives. The ROC point (FPR, TPR) is:",
+   o:["(0.33, 0.75)","(0.75, 0.33)","(0.50, 0.50)","(0.20, 0.60)"],
+   a:0, e:"TPR = 3/4 = 0.75; FPR = 2/6 = 0.333 → the point (0.33, 0.75)."},
+  {q:"A test calls everyone healthy when 5 of 100 patients are sick (sick = positive). Its recall is:",
+   o:["0","0.95","0.05","1.0"],
+   a:0, e:"Recall = TP/(TP + FN) = 0/5 = 0 — it finds no sick patient, though accuracy is 0.95."}
+]
+};
+for(const k in QBC){ QB[k] = (QB[k] || []).concat(QBC[k]); }
+
 /* attach question banks */
 SECTIONS.forEach(s=>{ s.questions = QB[s.id] || []; });
 
