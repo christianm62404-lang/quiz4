@@ -181,6 +181,34 @@ footer .mono{font-family:var(--mono)}
 }
 @media (prefers-reduced-motion: reduce){.guide,.scrim,.pbar>span{transition:none}}
 @media (max-width:620px){.mast-inner{padding:24px 16px 18px}.wrap{padding:0 16px}.qbadge,.wbadge{width:38px}.qbody,.wbody{padding:13px 14px 14px}}
+/* ---- cram-study additions ---- */
+.exam-toolbar{position:sticky;top:0;z-index:25;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:16px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.fbtn{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 12px}
+.fbtn:hover{border-color:var(--accent);color:var(--accent-strong)}
+.fbtn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.fcount{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.jump{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.jump:hover{border-color:var(--accent);color:var(--accent-strong)}
+.kbd-hint{flex-basis:100%;font-size:11.5px;color:var(--faint);padding-top:2px}
+.kbd-hint b{font-family:var(--mono);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:0 5px}
+.qitem.hide,.witem.hide,.wpdiv.hide,.part-head.hide{display:none}
+.star{flex:0 0 auto;margin-left:auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--faint);border-radius:7px;width:30px;height:26px;font-size:14px;line-height:1;display:grid;place-items:center;transition:.12s}
+.star:hover{border-color:var(--t4);color:var(--t4)}
+.star.on{background:var(--t4);border-color:var(--t4);color:#fff}
+.qitem.kfocus{outline:2px solid var(--accent);outline-offset:2px}
+.empty-state{border:1px dashed var(--line-strong);border-radius:12px;padding:30px 18px;text-align:center;color:var(--muted);font-size:14.5px;background:var(--surface-2)}
+.cram{font-size:13.5px;color:var(--ink-soft)}
+.cram h5{margin:15px 0 5px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--gh);border-bottom:1px solid var(--line);padding-bottom:3px}
+.cram h5:first-child{margin-top:2px}
+.cram ul{margin:0 0 4px;padding-left:17px}
+.cram li{margin:4px 0;line-height:1.5}
+.cram li::marker{color:var(--gh)}
+.cram b{color:var(--ink)}
+.cram code{font-size:.85em}
+.gchip.cramchip{--gh:var(--accent);font-weight:700}
+
 </style>
 </head>
 <body>
@@ -204,7 +232,23 @@ footer .mono{font-family:var(--mono)}
 
 <div class="wrap">
   <div class="layout">
-    <main class="exam" id="exam" aria-label="Practice exam"></main>
+        <main class="exam">
+      <div class="exam-toolbar" id="examBar">
+        <div class="filters" role="group" aria-label="Filter questions">
+          <button class="fbtn active" data-f="all" type="button">All</button>
+          <button class="fbtn" data-f="unanswered" type="button">Unanswered</button>
+          <button class="fbtn" data-f="incorrect" type="button">Incorrect</button>
+          <button class="fbtn" data-f="starred" type="button">★ Review</button>
+        </div>
+        <div class="bar-right">
+          <span class="fcount" id="fcount"></span>
+          <button class="jump" id="jumpNext" type="button" title="Scroll to the next unanswered question">Next unanswered ↓</button>
+        </div>
+        <div class="kbd-hint">Cram tips: press <b>1</b>–<b>4</b> to answer the question in view · <b>F</b> to flag it · use <b>★ Review</b> / <b>Incorrect</b> to drill only your gaps · open <b>⚡ Cram Sheet</b> on the right.</div>
+      </div>
+      <div class="exam-list" id="exam" aria-label="Practice exam"></div>
+      <div class="empty-state" id="emptyState" hidden></div>
+    </main>
     <aside class="guide" id="guide" aria-label="Study guide">
       <div class="guide-head">
         <span class="glbl">Study Guide</span>
@@ -225,8 +269,7 @@ footer .mono{font-family:var(--mono)}
 </footer>
 
 <script>
-
-/* ===== DATA + helpers (unchanged, validated) ===== */
+/* ===== DATA + helpers (validated) ===== */
 const SECTIONS = [
 {
   id:"perceptron", short:"Perceptron & Margin", tag:"Lecture 06 · Classification II", title:"The Perceptron and the Margin",
@@ -763,14 +806,70 @@ function seededPerm(n, seed){
 }
 
 /* =========================================================
-   RENDER — exam (left) + study guide (right)
+   RENDER — exam (left) + study guide (right) + cram tools
    ========================================================= */
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const examEl  = document.getElementById("exam");
 const gnav    = document.getElementById("gnav");
 const gbody   = document.getElementById("gbody");
 const gtitle  = document.getElementById("gtitle");
-let activePart = null;
+let activePart = null, cramPinned = false, curFilter = "all", focusQ = null;
+
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("ml-exam-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("ml-exam-flags", JSON.stringify(flags)); }catch(e){} }
+
+/* ---- condensed reference (Cram Sheet) ---- */
+const CRAM_HTML = `<div class="cram">
+<h5>Perceptron &amp; Margin (L06)</h5>
+<ul>
+<li>Score <code>z = w·x + b</code>; correct ⟺ <b>y·z &gt; 0</b>; <code>z = 0</code> is a mistake.</li>
+<li>Distance <code>= |z| / ‖w‖</code>; signed <code>r = z/‖w‖</code>. Doubling w,b moves no line.</li>
+<li>Mistake update: <code>w ← w + η y x</code>, <code>b ← b + η y</code>. Correct point: no change.</li>
+<li>Converges (finite steps) <b>⟺ linearly separable</b>; else never stops.</li>
+<li>Margin = distance to the <b>closest</b> point; prefer the largest margin.</li>
+</ul>
+<h5>SVM &amp; Kernels (L07)</h5>
+<ul>
+<li>Max margin = <b>min ½‖w‖²</b> s.t. <code>y·z ≥ 1</code>; margin <code>= 1/‖w‖</code>.</li>
+<li>Support vectors: points with <code>y·z = 1</code> — they alone set the line.</li>
+<li>Slack <code>ξ = max(0, 1 − y·z)</code>: 0 safe · 0–1 in street · 1 on line · &gt;1 wrong.</li>
+<li>Large <b>C</b> → narrow margin; small C → wide. C→∞ = hard margin.</li>
+<li>Hinge loss <code>max(0, 1 − y·z)</code>; SVM gives <b>no probabilities</b>.</li>
+<li>Kernel <code>K(x,u) = φ(x)·φ(u)</code>, e.g. <code>(x·u)²</code>. Large RBF <b>γ → overfit</b>.</li>
+</ul>
+<h5>kNN &amp; Trees (L08)</h5>
+<ul>
+<li>kNN: majority vote of <b>k nearest</b> (standardize first); stores data, no fit; odd k.</li>
+<li>Small k <b>overfits</b> (1-NN memorizes); large k <b>underfits</b>. Curse of dim: distances converge.</li>
+<li><code>Gini = 1 − Σ pₖ²</code>; <code>Entropy = −Σ pₖ log₂ pₖ</code>; pure = 0, max at p = 0.5.</li>
+<li><b>Gain</b> = parent − Σ(child share)(child impurity); greedy largest-gain split.</li>
+<li>Deep tree overfits; trees need <b>no standardization</b>; trees are unstable.</li>
+</ul>
+<h5>Ensembles (L09)</h5>
+<ul>
+<li>Var of avg: indep <code>σ²/M</code>; correlated <code>ρσ² + (1−ρ)σ²/M</code> → floor <b>ρσ²</b>.</li>
+<li>Bootstrap: N draws with replacement → <b>~63% in, ~37% out-of-bag</b>.</li>
+<li>Bagging = deep trees voted → cuts <b>variance</b>. Forest: <code>m = √D</code> per split → lowers ρ.</li>
+<li>Boosting = small trees in sequence → cuts <b>bias</b>. AdaBoost <code>α = ½ ln((1−ε)/ε)</code>; misclassified → half the weight.</li>
+<li>Gradient boosting: fit <b>residuals</b>, add <code>ν·tree</code>. Too many stages overfit.</li>
+</ul>
+<h5>Bias–Variance &amp; CV (L10)</h5>
+<ul>
+<li><code>E[err] = bias² + variance + noise σ²</code>; more flexible → ↓bias, ↑variance.</li>
+<li>Underfit: both high. Overfit: train low, held-out high (big gap = variance).</li>
+<li>k-fold: each example held out once; <b>CV = mean of K fold errors</b>; LOOCV K = N.</li>
+<li>Recipe: CV on train → pick (one-SE: simpler within 1 SE) → refit on all train → <b>test once</b>.</li>
+<li>Leakage: fitting/choosing with test info; do every fitted step <b>inside each fold</b>.</li>
+</ul>
+<h5>Metrics &amp; ROC (L11)</h5>
+<ul>
+<li>Confusion: TP/FP/FN/TN; accuracy <code>=(TP+TN)/all</code> misleads on a rare class.</li>
+<li><code>Precision = TP/(TP+FP)</code> · <code>Recall = TP/(TP+FN)</code> · <code>F1 = 2PR/(P+R)</code>.</li>
+<li>Lower threshold → TP, FP <b>never fall</b> (recall never drops).</li>
+<li>ROC: <code>TPR = recall</code> vs <code>FPR = FP/(FP+TN)</code>; <b>AUC = P(rand pos &gt; rand neg)</b> (0.5 random, 1 perfect).</li>
+<li>Rare class: report precision/recall + PR curve; fixes: move threshold, class weights, resample (train only).</li>
+</ul>
+</div>`;
 
 /* ---- build the exam ---- */
 let qnum = 0;
@@ -788,6 +887,7 @@ SECTIONS.forEach((sec,si)=>{
     const perm=seededPerm(q.o.length, hashStr(sec.id+"#"+qi));
     const item=document.createElement("div");
     item.className="qitem"; item.id=`q-${sec.id}-${qi}`; item.style.setProperty("--hue",hue);
+    const on=flags[sec.id+"#"+qi]?" on":"";
     const opts=perm.map(oi=>`
       <button class="opt" data-sec="${sec.id}" data-q="${qi}" data-o="${oi}">
         <span class="radio" aria-hidden="true"></span><span class="ot">${q.o[oi]}</span><span class="tag">Correct answer</span>
@@ -795,7 +895,7 @@ SECTIONS.forEach((sec,si)=>{
     item.innerHTML=`
       <div class="qbadge">${qnum}</div>
       <div class="qbody">
-        <div class="qmeta"><span class="qpts" id="pts-${sec.id}-${qi}">1 point</span><span class="qtype">Multiple Choice</span></div>
+        <div class="qmeta"><span class="qpts" id="pts-${sec.id}-${qi}">1 point</span><span class="qtype">Multiple Choice</span><button class="star${on}" data-sec="${sec.id}" data-q="${qi}" type="button" title="Flag for review" aria-label="Flag for review">★</button></div>
         <div class="qtext">${q.q}</div>
         <div class="opts">${opts}</div>
         <div class="explain" id="ex-${sec.id}-${qi}"></div>
@@ -806,11 +906,11 @@ SECTIONS.forEach((sec,si)=>{
   const fr=FR[sec.id]||[];
   if(fr.length){
     const div=document.createElement("div");
-    div.className="wp-divider"; div.textContent=`Worked Problems · ${sec.short}`;
+    div.className="wp-divider wpdiv"; div.dataset.sec=sec.id; div.textContent=`Worked Problems · ${sec.short}`;
     examEl.appendChild(div);
     fr.forEach((f,fi)=>{
       const w=document.createElement("div");
-      w.className="witem"; w.style.setProperty("--hue",hue);
+      w.className="witem"; w.dataset.sec=sec.id; w.style.setProperty("--hue",hue);
       w.innerHTML=`
         <div class="wbadge">WP${fi+1}</div>
         <div class="wbody">
@@ -830,15 +930,25 @@ SECTIONS.forEach((sec,si)=>{
   }
 });
 
-/* ---- answering ---- */
+/* ---- answering + starring ---- */
 examEl.addEventListener("click",(ev)=>{
+  const star=ev.target.closest(".star");
+  if(star){
+    const key=star.dataset.sec+"#"+star.dataset.q;
+    if(flags[key]){ delete flags[key]; star.classList.remove("on"); }
+    else { flags[key]=1; star.classList.add("on"); }
+    saveFlags();
+    if(curFilter==="starred") applyFilter();
+    updateCount();
+    return;
+  }
   const btn=ev.target.closest(".opt");
   if(!btn) return;
   const sec=btn.dataset.sec, qi=+btn.dataset.q, oi=+btn.dataset.o;
   if(state[sec][qi]!==undefined) return;
   state[sec][qi]=oi; save();
   renderQuestion(sec,qi);
-  refreshOverall();
+  refreshOverall(); updateCount();
 });
 
 function renderQuestion(secId,qi){
@@ -888,18 +998,67 @@ function refreshOverall(){
   document.getElementById("overallPts").textContent=`${s.correct} / ${s.total}`;
 }
 
+/* ---- filtering (cram drill) ---- */
+function applyFilter(mode){
+  if(mode) curFilter=mode;
+  document.querySelectorAll(".fbtn").forEach(b=>b.classList.toggle("active",b.dataset.f===curFilter));
+  let visible=0;
+  SECTIONS.forEach(sec=>{
+    let any=false;
+    sec.questions.forEach((q,qi)=>{
+      const el=document.getElementById(`q-${sec.id}-${qi}`);
+      const ans=state[sec.id][qi];
+      let show;
+      if(curFilter==="all") show=true;
+      else if(curFilter==="unanswered") show=ans===undefined;
+      else if(curFilter==="incorrect") show=ans!==undefined && ans!==q.a;
+      else show=!!flags[sec.id+"#"+qi];
+      el.classList.toggle("hide",!show);
+      if(show){ visible++; any=true; }
+    });
+    const showW = curFilter==="all";
+    examEl.querySelectorAll(`.witem[data-sec="${sec.id}"],.wpdiv[data-sec="${sec.id}"]`).forEach(w=>w.classList.toggle("hide",!showW));
+    document.getElementById("part-"+sec.id).classList.toggle("hide", !any && !showW);
+  });
+  const es=document.getElementById("emptyState");
+  if(visible===0 && curFilter!=="all"){
+    es.hidden=false;
+    es.textContent = curFilter==="incorrect" ? "No incorrect answers here — switch to All to keep practicing."
+      : curFilter==="unanswered" ? "Everything is answered. Switch to All, or ★ Review your flagged ones."
+      : "Nothing flagged yet — tap the ★ on any question to add it to your review list.";
+  } else es.hidden=true;
+  updateCount(visible);
+}
+function updateCount(vis){
+  if(vis===undefined) vis=document.querySelectorAll(".qitem:not(.hide)").length;
+  const s=stats();
+  document.getElementById("fcount").textContent=`${vis} shown · ${s.answered}/${s.total} done · ${s.correct} right`;
+}
+document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{ applyFilter(b.dataset.f); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }));
+document.getElementById("jumpNext").addEventListener("click",()=>{
+  const items=[...document.querySelectorAll(".qitem:not(.hide)")];
+  const t=items.find(el=>!el.querySelector(".opt.correct"));
+  if(t) t.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"center"});
+  else { const fc=document.getElementById("fcount"); fc.textContent="All shown questions answered ✓"; }
+});
+
 document.getElementById("resetBtn").addEventListener("click",()=>{
   SECTIONS.forEach(sec=>{ state[sec.id]={}; });
   save();
   SECTIONS.forEach(sec=>sec.questions.forEach((q,qi)=>renderQuestion(sec.id,qi)));
-  refreshOverall();
+  refreshOverall(); applyFilter("all");
   window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
 });
 
-/* ---- study guide (right) ---- */
+/* ---- study guide (right) with Cram Sheet ---- */
+const cramChip=document.createElement("button");
+cramChip.className="gchip cramchip"; cramChip.id="gchip-cram"; cramChip.type="button";
+cramChip.innerHTML=`<span class="gdot"></span>⚡ Cram Sheet`;
+cramChip.addEventListener("click",()=>showCram());
+gnav.appendChild(cramChip);
 SECTIONS.forEach((sec,si)=>{
   const chip=document.createElement("button");
-  chip.className="gchip"; chip.id="gchip-"+sec.id; chip.setAttribute("role","tab");
+  chip.className="gchip"; chip.id="gchip-"+sec.id; chip.type="button"; chip.setAttribute("role","tab");
   chip.style.setProperty("--gh",`var(--t${si})`);
   chip.innerHTML=`<span class="gdot"></span>${sec.short}`;
   chip.addEventListener("click",()=>setActivePart(sec.id,true));
@@ -912,9 +1071,19 @@ function renderGuideBody(secId){
   gbody.innerHTML=SECTIONS[si].notes.map((n,i)=>`<div class="note"><h4><span class="n">${String(i+1).padStart(2,"0")}</span>${n.h}</h4>${n.html}</div>`).join("");
   gbody.scrollTop=0;
 }
+function showCram(){
+  cramPinned=true; activePart=null;
+  gtitle.textContent="Cram Sheet — Key Formulas & Facts";
+  gbody.style.setProperty("--gh","var(--accent)");
+  document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
+  cramChip.classList.add("active");
+  gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
+  try{ store && store.setItem("ml-exam-part","cram"); }catch(e){}
+}
 function setActivePart(secId, fromClick){
+  if(fromClick) cramPinned=false;
   if(activePart===secId && !fromClick) return;
-  const changed = activePart!==secId;
+  const changed=activePart!==secId;
   activePart=secId;
   const si=SECTIONS.findIndex(s=>s.id===secId);
   gtitle.textContent=SECTIONS[si].title;
@@ -929,21 +1098,50 @@ function setActivePart(secId, fromClick){
   }
 }
 
-/* ---- scroll-sync: guide follows the part you're reading ---- */
+/* ---- scroll-sync + keyboard focus target ---- */
 let ticking=false;
 function onScroll(){
   if(ticking) return; ticking=true;
   requestAnimationFrame(()=>{
     ticking=false;
-    let cur=SECTIONS[0].id;
-    for(const s of SECTIONS){
-      const el=document.getElementById("part-"+s.id);
-      if(el.getBoundingClientRect().top<=150) cur=s.id; else break;
+    if(!cramPinned){
+      let cur=SECTIONS[0].id;
+      for(const s of SECTIONS){
+        const el=document.getElementById("part-"+s.id);
+        if(el.classList.contains("hide")) continue;
+        if(el.getBoundingClientRect().top<=150) cur=s.id; else break;
+      }
+      if(cur!==activePart) setActivePart(cur,false);
     }
-    if(cur!==activePart) setActivePart(cur,false);
+    const mid=window.innerHeight/2; let best=null,bd=1e9;
+    document.querySelectorAll(".qitem:not(.hide)").forEach(el=>{
+      const r=el.getBoundingClientRect(); const c=(r.top+r.bottom)/2; const d=Math.abs(c-mid);
+      if(d<bd){ bd=d; best=el; }
+    });
+    document.querySelectorAll(".qitem.kfocus").forEach(e=>{ if(e!==best) e.classList.remove("kfocus"); });
+    if(best){ best.classList.add("kfocus"); focusQ=best.id; }
   });
 }
 window.addEventListener("scroll",onScroll,{passive:true});
+window.addEventListener("resize",onScroll,{passive:true});
+
+/* ---- keyboard: 1–4 answer the question in view, F to flag ---- */
+document.addEventListener("keydown",(ev)=>{
+  if(ev.key==="Escape"){ setGuideOpen(false); return; }
+  if(ev.metaKey||ev.ctrlKey||ev.altKey) return;
+  const tag=(ev.target.tagName||"").toLowerCase();
+  if(tag==="input"||tag==="textarea") return;
+  if(!focusQ) return;
+  const el=document.getElementById(focusQ);
+  if(!el||el.classList.contains("hide")) return;
+  if(ev.key>="1"&&ev.key<="4"){
+    const opts=el.querySelectorAll(".opt");
+    const i=+ev.key-1;
+    if(opts[i] && !opts[i].disabled){ opts[i].click(); ev.preventDefault(); }
+  } else if(ev.key==="f"||ev.key==="F"){
+    const st=el.querySelector(".star"); if(st){ st.click(); ev.preventDefault(); }
+  }
+});
 
 /* ---- mobile drawer ---- */
 const guideToggle=document.getElementById("guideToggle");
@@ -953,7 +1151,6 @@ function setGuideOpen(open){ document.body.classList.toggle("guide-open",open); 
 guideToggle.addEventListener("click",()=>setGuideOpen(true));
 guideClose.addEventListener("click",()=>setGuideOpen(false));
 scrim.addEventListener("click",()=>setGuideOpen(false));
-document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
 /* ---- theme ---- */
 const root=document.documentElement, tb=document.getElementById("themeBtn"),
@@ -973,11 +1170,14 @@ tb.addEventListener("click",()=>{
 
 /* ---- init ---- */
 SECTIONS.forEach(sec=>sec.questions.forEach((q,qi)=>renderQuestion(sec.id,qi)));
-refreshOverall();
-let initPart=SECTIONS[0].id;
-try{ const sp=store&&store.getItem("ml-exam-part"); if(sp && SECTIONS.some(s=>s.id===sp)) initPart=sp; }catch(e){}
-setActivePart(initPart,false);
+refreshOverall(); applyFilter("all");
+let initPart=null;
+try{ initPart=store&&store.getItem("ml-exam-part"); }catch(e){}
+if(initPart==="cram"||!initPart) showCram();
+else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
+else showCram();
 onScroll();
 </script>
 </body>
 </html>
+
