@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COP 4710 — Database Systems Midterm 1 Study Guide</title>
+<title>Machine Learning Study Guide — CAI 4105 (L06–L11)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
-  --accent:#2f6a95;--accent-strong:#1f4f74;--accent-soft:#e4eef5;
+  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
   --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#336791;--t1:#2c8493;--t2:#7b5cc4;--t3:#b5622f;--t4:#2f8a5b;--t5:#a83e69;--t6:#4a6fa5;
+  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;
   --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
   --radius:12px;
 }
@@ -21,19 +21,19 @@
     --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
     --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
     --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-    --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#54b981;--t5:#d878a0;--t6:#7c9fd8;
+    --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="light"]{
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
-  --accent:#2f6a95;--accent-strong:#1f4f74;--accent-soft:#e4eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
-  --t0:#336791;--t1:#2c8493;--t2:#7b5cc4;--t3:#b5622f;--t4:#2f8a5b;--t5:#a83e69;--t6:#4a6fa5;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
+  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
+  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
   --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
-  --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#54b981;--t5:#d878a0;--t6:#7c9fd8;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -78,6 +78,14 @@ main{max-width:1080px;margin:0 auto;padding:30px 22px 90px}
 .sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(23px,3.6vw,31px);margin:.15em 0 .1em;letter-spacing:-.01em;text-wrap:balance}
 .sec-head p{margin:0;color:var(--muted);max-width:74ch}
 
+.notes{margin:22px 0 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+.notes > summary{list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:center;gap:12px;font-weight:600;color:var(--ink);user-select:none}
+.notes > summary::-webkit-details-marker{display:none}
+.notes > summary .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hue);background:var(--surface-2);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+.notes > summary .car{margin-left:auto;color:var(--faint);transition:transform .2s}
+.notes[open] > summary .car{transform:rotate(90deg)}
+.notes[open] > summary{border-bottom:1px solid var(--line)}
+.notes-body{padding:6px 18px 20px}
 .note{padding:15px 0;border-bottom:1px dashed var(--line)}
 .note:last-child{border-bottom:none;padding-bottom:2px}
 .note h4{margin:0 0 6px;font-size:15.5px;color:var(--ink);display:flex;align-items:baseline;gap:9px}
@@ -163,10 +171,10 @@ footer .mono{font-family:var(--mono)}
 .notes-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .notes-toggle .nt-icon{font-size:17px}
 .notes-toggle .nt-label{writing-mode:vertical-rl; text-orientation:mixed}
-body.notes-open .notes-toggle{right:min(52vw,640px)}
+body.notes-open .notes-toggle{right:min(50vw,620px)}
 
 .notes-panel{
-  position:fixed; top:0; right:0; height:100vh; width:min(52vw,640px);
+  position:fixed; top:0; right:0; height:100vh; width:min(50vw,620px);
   background:var(--surface); border-left:1px solid var(--line-strong);
   box-shadow:-10px 0 30px rgba(10,16,22,.16);
   transform:translateX(100%); transition:transform .28s ease;
@@ -183,18 +191,21 @@ body.notes-open .panel.active .notes-panel{transform:translateX(0)}
 .notes-close:hover{border-color:var(--bad);color:var(--bad)}
 .notes-panel-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:4px 18px 34px}
 
+/* split: shrink the left column so questions and notes sit side by side */
 main, .nav-inner, .mast-inner{transition:max-width .28s ease, width .28s ease}
 body.notes-open .mast-inner,
-body.notes-open .nav-inner{max-width:calc(100vw - min(52vw,640px));margin-left:0;margin-right:0}
-body.notes-open main{max-width:none;width:calc(100vw - min(52vw,640px));margin:0}
+body.notes-open .nav-inner{max-width:calc(100vw - min(50vw,620px));margin-left:0;margin-right:0}
+body.notes-open main{max-width:none;width:calc(100vw - min(50vw,620px));margin:0}
 
-@media (max-width:860px){
+@media (max-width:820px){
+  /* full-screen notes overlay on narrow screens */
   .notes-panel{width:100vw;box-shadow:none}
   body.notes-open .notes-toggle{right:0;opacity:0;pointer-events:none}
   body.notes-open .mast-inner,body.notes-open .nav-inner{max-width:100%}
   body.notes-open main{width:auto;max-width:1080px;margin:0 auto}
 }
 @media (prefers-reduced-motion: reduce){.notes-toggle,.notes-panel,main,.nav-inner,.mast-inner{transition:none}}
+
 @media (max-width:600px){.mast-inner{padding:24px 16px 18px}main{padding:24px 16px 70px}.nav-inner{padding:10px 16px}.q,.fr{padding:16px 14px 14px}}
 </style>
 </head>
@@ -203,12 +214,12 @@ body.notes-open main{max-width:none;width:calc(100vw - min(52vw,640px));margin:0
 <header class="masthead">
   <div class="mast-inner">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> COP 4710 · Database Systems <span class="dot"></span> Midterm 1 Prep</div>
+      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning I <span class="dot"></span> Self-Test Edition</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Database Systems (PostgreSQL) — Midterm 1 Study Guide</h1>
-    <p class="subtitle">Seven testable sections built from Lectures 1–8 (SQL basics, data types, keys &amp; normalization, filtering &amp; subqueries, joins, aggregation) plus a worked walk-through of all 11 exam-review problems. The class dialect is <b>PostgreSQL (pgSQL)</b>.</p>
-    <div class="callout"><b>How to use it:</b> press the <b>📖 Study Notes</b> tab on the right to split the screen — notes on one side, questions on the other. Each section has multiple-choice practice with instant feedback and worked SQL problems with reveal-able solutions. The final tab solves every review problem against the shared Employees / Departments tables.</div>
+    <h1 class="title">Machine Learning — Classifiers, Ensembles &amp; Model Evaluation</h1>
+    <p class="subtitle">Six testable sections built from CAI 4105 Lectures 06–11 (Chinmay Nehate, UCF): the perceptron and the margin, support vector machines and kernels, nearest neighbors and decision trees, ensembles, and the two model-evaluation lectures. Condensed notes, multiple-choice practice with instant feedback, and the lectures' worked problems.</p>
+    <div class="callout"><b>What's covered:</b> hyperplane geometry and the perceptron (L06), max-margin SVMs, slack and the kernel trick (L07), kNN and decision trees — Gini/entropy and gain (L08), bagging, random forests and boosting (L09), the bias–variance tradeoff and cross-validation (L10), and the confusion matrix, precision/recall/F1, ROC/AUC and class imbalance (L11). Each section carries the lecture's own Practice and Check problems with full solutions.</div>
     <div class="progress-wrap">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> mastered · <span id="overallCount">0 / 0</span> correct</div>
@@ -224,8 +235,8 @@ body.notes-open main{max-width:none;width:calc(100vw - min(52vw,640px));margin:0
 </button>
 
 <footer>
-  <div class="mono">Built from COP 4710 Database Systems — Lectures 1, 3, 4, 5, 6, 7, 8 and the Midterm 1 review problems. Dialect: PostgreSQL.</div>
-  <div style="margin-top:8px">Click any answer to check it — options are shuffled and explanations reveal automatically. Progress is saved in this browser.</div>
+  <div class="mono">Built from CAI 4105 <em>Current Topics in Machine Learning I</em> — Lectures 06 (Perceptron &amp; Margin), 07 (SVM &amp; Kernels), 08 (kNN &amp; Trees), 09 (Ensembles), 10 (Bias–Variance &amp; Cross-Validation), 11 (Confusion Matrix, Precision/Recall, ROC/AUC).</div>
+  <div style="margin-top:8px">Click any answer to check it — options are shuffled and explanations reveal automatically. Open the Study Notes panel to split the screen. Progress is saved in this browser.</div>
 </footer>
 
 <script>
@@ -234,194 +245,122 @@ body.notes-open main{max-width:none;width:calc(100vw - min(52vw,640px));margin:0
    ========================================================= */
 const SECTIONS = [
 {
-  id:"basics", short:"SQL Basics", tag:"Lectures 1 & 3", title:"Databases & SQL Basics",
-  blurb:"What a DBMS is, the relational model and PostgreSQL, DDL vs DML, and the core statements: CREATE, INSERT, SELECT, UPDATE, DELETE, DROP.",
+  id:"perceptron", short:"Perceptron & Margin", tag:"Lecture 06 · Classification II", title:"The Perceptron and the Margin",
+  blurb:"Hyperplane geometry with labels −1 and +1, the signed distance to the boundary, the mistake-driven perceptron update, convergence, and why a large margin is preferred.",
   notes:[
-    {h:"Database vs DBMS", html:`<ul>
-      <li>A <b>database</b> is a set of "files," each holding records of the same type.</li>
-      <li>A <b>DBMS</b> (Database Management System) is the hardware/software that stores databases and provides access to them — it's client-server in nature and the focus of the course.</li>
-      <li>The <b>relational</b> DBMS is the most popular type; data is stored in <b>tables</b> and queried with <b>SQL</b>.</li></ul>`},
-    {h:"SQL dialects", html:`<p>Different systems speak different SQL dialects: <b>Microsoft SQL Server → Transact-SQL</b>, <b>Oracle → PL/SQL</b>, IBM DB2, MySQL, and <b>PostgreSQL → pgSQL</b> (the dialect this class uses). Other database families exist too: network, object-oriented, and NoSQL (Cassandra, MongoDB).</p>`},
-    {h:"Tables, rows, columns", html:`<p>A <b>table</b> stores information of the same type. A <b>row (record)</b> is one entity; a <b>column (field)</b> is one attribute. <b>Every column must have a name and a data type</b> — without a proper type the stored value may be unusable. Naming convention: alphanumeric, must <b>not start with a number</b>, and must not clash with keywords (e.g. <code>my_cars23</code>).</p>`},
-    {h:"DDL vs DML", html:`<ul>
-      <li><b>DDL</b> (Data Definition Language) defines structure — <code>CREATE TABLE</code>, <code>DROP TABLE</code>.</li>
-      <li><b>DML</b> (Data Manipulation Language) works with the data — <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>SELECT</code>.</li></ul>`},
-    {h:"CREATE & INSERT", html:`<div class="code"><span class="kw">DROP TABLE IF EXISTS</span> public.cars;
-<span class="kw">CREATE TABLE</span> public.cars(
-    inv_no      INTEGER NOT NULL,
-    vin         VARCHAR(20) NOT NULL,
-    make        VARCHAR(30) NOT NULL,
-    model       VARCHAR(50) NOT NULL,
-    m_year      INTEGER NOT NULL DEFAULT 2026,
-    net_price   DECIMAL(10,2) NOT NULL,
-    msrp        DECIMAL(10,2) NULL
-);
-
-<span class="kw">INSERT INTO</span> public.cars(inv_no, vin, make, model, net_price, msrp)
-<span class="kw">VALUES</span> (1001, 'BM23HT17AE235710', 'BMW', '760i xDrive', 123910.00, 143500.00);</div>
-      <p>Each column may be marked <code>NULL</code>, <code>NOT NULL</code>, or given a <code>DEFAULT</code>. <code>DROP TABLE IF EXISTS</code> avoids an error when the table isn't there.</p>`},
-    {h:"SELECT, UPDATE, DELETE", html:`<div class="code"><span class="kw">SELECT</span> make, year, model <span class="kw">FROM</span> cars
-<span class="kw">WHERE</span> make = 'BMW' <span class="kw">AND</span> net_price &lt; 50000.00;
-
-<span class="kw">UPDATE</span> cars <span class="kw">SET</span> model = 'M240i' <span class="kw">WHERE</span> inv_no = 1001;
-
-<span class="kw">DELETE FROM</span> cars <span class="kw">WHERE</span> make = 'BMW' <span class="kw">AND</span> model = '228i';</div>
-      <p><b>The WHERE clause is optional</b> on DELETE and UPDATE — but leaving it out affects <b>every row</b> in the table. <code>SELECT * FROM t</code> returns all columns and rows.</p>`}
-  ]
-},
-{
-  id:"types", short:"Data Types", tag:"Lectures 5, 6 & 7", title:"PostgreSQL Data Types",
-  blurb:"Integers, exact vs approximate numerics, strings, dates/times, plus booleans, enums, arrays, composite types, and bit/binary representation.",
-  notes:[
-    {h:"Integer types", html:`<table class="tbl"><thead><tr><th>Type</th><th>Bytes</th><th>Bits</th><th>Range</th></tr></thead>
-      <tbody>
-      <tr><td>SMALLINT</td><td>2</td><td>16</td><td>−32768 … 32767</td></tr>
-      <tr><td>INTEGER</td><td>4</td><td>32</td><td>≈ ±2.1 billion</td></tr>
-      <tr><td>BIGINT</td><td>8</td><td>64</td><td>≈ ±9.2 quintillion</td></tr>
-      </tbody></table>
-      <p>A bare whole-number literal (e.g. <code>1728</code>) is treated as an <b>INTEGER</b>; cast with <code>value::SMALLINT</code> when you need another integer type.</p>`},
-    {h:"Auto-numbering & numerics", html:`<ul>
-      <li><b>SERIAL</b> / <b>BIGSERIAL</b> — automatic numbering (like MS SQL <code>identity(1,1)</code>: start 1, increment 1).</li>
-      <li><b>DECIMAL(m,n)</b> / <b>NUMERIC(m,n)</b> — <b>exact</b> values: <code>m</code> total digits, <code>n</code> after the decimal point.</li>
-      <li><b>FLOAT</b> / <b>FLOAT8</b> — floating point (like a double): an <b>approximation</b>, not exact.</li>
-      <li><b>money</b> — a dedicated monetary type.</li></ul>`},
-    {h:"Strings", html:`<ul>
-      <li><b>CHAR(n)</b> — fixed length: <code>'Help'</code> in <code>CHAR(10)</code> is padded to <code>'Help      '</code>.</li>
-      <li><b>VARCHAR(n)</b> — variable length up to n; <b>no padding</b>; better for larger strings (slightly slower than CHAR).</li>
-      <li><b>TEXT</b> — arbitrary-length string.</li></ul>`},
-    {h:"Dates & times", html:`<ul>
-      <li><b>DATE</b> (date only), <b>TIME</b> (time only).</li>
-      <li><b>TIMESTAMP(n)</b> — date + time; precision <code>n</code> is 0 (to the second) … 6 (to the microsecond). <b>timestamptz(n)</b> adds a time zone.</li>
-      <li><b>interval</b> — a span of time, e.g. <code>now() - 5 * interval '1 hour'</code>. <code>clock_timestamp()</code> gives the current time.</li></ul>`},
-    {h:"Booleans, enums, UUID, JSON", html:`<ul>
-      <li><b>boolean</b> — <code>TRUE</code>, <code>FALSE</code>, or <code>NULL</code>.</li>
-      <li><b>ENUM</b> — <code>CREATE TYPE mood AS ENUM ('sad','ok','happy');</code> then use it as a column type.</li>
-      <li><b>UUID</b> (universally unique identifier) and <b>JSON</b> are also supported.</li></ul>`},
-    {h:"Arrays", html:`<p>A column or variable can hold an <b>array</b> of same-type elements: <code>orders_made INTEGER[]</code>. <b>Indexing starts at 1</b> (<code>orders_made[1]</code>). A <b>NULL array</b> (not created yet) differs from an <b>empty array</b> (created, no elements). Handle NULLs: <code>COALESCE(CARDINALITY(orders_made), 0)</code> returns the element count or 0. Test with <code>x IS NULL</code> / <code>x IS NOT NULL</code>. An array can be NOT NULL while individual elements are NULL.</p>`},
-    {h:"Composite types, bits & binary", html:`<div class="code"><span class="kw">CREATE TYPE</span> public.Ball <span class="kw">AS</span> (x SMALLINT, y SMALLINT, radius DECIMAL(5,2), color VARCHAR(20));
-<span class="kw">INSERT INTO</span> t VALUES (..., ROW(37,101,17.5,'Blue')::Ball, ...);</div>
-      <p>Bitwise operators on integers: <code>&amp;</code> (AND), <code>|</code> (OR), <code>~</code> (NOT). Binary: <code>235 = 0000000011101011</code>. For a <b>negative</b> number (two's complement): take |x| in binary, <b>flip every bit</b>, then <b>add 1</b>.</p>`}
-  ]
-},
-{
-  id:"keys", short:"Keys & Normalization", tag:"Lectures 3 & 4", title:"Keys, Constraints & Normalization",
-  blurb:"NULL / NOT NULL / DEFAULT, primary and foreign keys with cascade actions, and the first three normal forms.",
-  notes:[
-    {h:"NULL, NOT NULL, DEFAULT", html:`<p>A column is declared <code>NULL</code> (missing allowed) or <code>NOT NULL</code> (required). <b>Any logical expression containing a NULL evaluates to NULL</b> (unknown) — e.g. <code>NOT(salary &gt; 5000)</code> is NULL when salary is NULL. It's recommended to <b>avoid NULLs</b>; use a <code>DEFAULT</code> instead: <code>salary DECIMAL(10,2) NOT NULL DEFAULT(-1.00)</code>.</p>`},
-    {h:"Primary keys", html:`<p>A <b>primary key</b> is a column (or set of columns) whose values are <b>unique for every row</b> — nothing repeats, and it can't be NULL. It has a <b>unique index</b>, which makes lookups fast (a PK search only scans the relevant 8 KB page).</p>
-      <div class="code"><span class="kw">CREATE TABLE</span> Employees(
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    fname VARCHAR(50), ...
-);</div>
-      <p>A <b>composite primary key</b> uses several columns together: <code>PRIMARY KEY(fname, lname, dept_id)</code>.</p>`},
-    {h:"Foreign keys", html:`<p>A <b>foreign key</b> is a column (or set) that refers to an analogous column in <b>another table (or the same table)</b>. The referenced columns must be a <b>primary key</b> (or have a unique index) there. FK values are checked for <b>consistency</b>.</p>
-      <div class="code">department INTEGER NOT NULL,
-<span class="kw">FOREIGN KEY</span>(department) <span class="kw">REFERENCES</span> Departments(dept_id)
-    <span class="kw">ON UPDATE CASCADE ON DELETE CASCADE</span></div>
-      <p><b>ON DELETE CASCADE</b>: deleting a parent row deletes the referencing children. <b>ON UPDATE CASCADE</b>: changing the parent key rewrites the children's FK.</p>`},
-    {h:"Normalization goals", html:`<p>Normalization aims for <b>consistency</b> (non-contradictory), <b>completeness</b>, and <b>efficiency</b> — reducing redundancy and update anomalies.</p>`},
-    {h:"The three normal forms", html:`<ul>
-      <li><b>1NF — Atomicity:</b> no lists or repeating groups; each cell holds a single value.</li>
-      <li><b>2NF:</b> every row has a <b>unique identifier</b> (a primary key); non-key columns depend on the whole key.</li>
-      <li><b>3NF:</b> a table must <b>not</b> have non-key information related to (dependent on) other non-key information — no transitive dependencies.</li></ul>
-      <p><b>Denormalization example:</b> putting <code>dept_name</code> directly in Employees repeats it for every employee (redundancy → update anomalies). Fix: store a <code>dept_id</code> foreign key and keep <code>dept_name</code> in a Departments table.</p>`}
-  ]
-},
-{
-  id:"where", short:"WHERE & Subqueries", tag:"Lecture 8", title:"Filtering: Operators & Subqueries",
-  blurb:"Comparison and string operators, LIKE / ILIKE / SIMILAR TO masks, IN / BETWEEN, subqueries, and CTEs (WITH).",
-  notes:[
-    {h:"Comparison operators", html:`<p>For numbers and dates: <code>=</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>BETWEEN x AND y</code> (inclusive), <code>NOT BETWEEN</code>, <code>IN (list or subquery)</code>, <code>NOT IN (...)</code>. Combine conditions with <code>AND</code>, <code>OR</code>, <code>NOT</code>.</p>`},
-    {h:"String operators & masks", html:`<p>For strings: <code>=</code>, <code>!=</code>, <code>IN</code>, <code>LIKE 'mask'</code>, <code>ILIKE</code> (case-insensitive), <code>SIMILAR TO</code>, and their <code>NOT</code> forms. In a mask:</p>
+    {h:"Labels −1/+1 and the score", html:`<p>From L06 on, the positive class has label <b>y = +1</b> and the other class <b>y = −1</b> (L05 used 1 and 0). The <b>score</b> is linear: <code>z = w·x + b</code>. One product settles everything: a point is <b>correct exactly when y·z &gt; 0</b>. A score of exactly 0 sits on the boundary and <b>counts as a mistake</b>.</p>`},
+    {h:"The boundary and the direction of w", html:`<p>With two features the boundary <code>z = 0</code> is a line; with D features it is a flat <b>hyperplane</b>. Take two boundary points: both score 0, so their difference has zero dot product with <b>w</b> — meaning <b>w is perpendicular to the boundary</b>, and the score rises fastest along w.</p>`},
+    {h:"Signed distance to the boundary", html:`<p>The distance from a point to the line is <code>|z| / ‖w‖</code>, where ‖w‖ is the norm (length) of w. The <b>signed</b> distance <code>r = z / ‖w‖</code>: its sign gives the side, its size the distance.</p>
       <ul>
-      <li><code>_</code> matches <b>exactly one</b> symbol.</li>
-      <li><code>%</code> matches <b>any sequence</b> (any length, including nothing).</li></ul>
-      <p>So <code>'J%n'</code> matches names starting with J and ending with n (John, Jonathan); <code>'__ter%'</code> matches any two symbols, then <code>ter</code>, then anything.</p>`},
-    {h:"Subqueries", html:`<p>A <b>subquery</b> is a query nested inside another. List employees whose manager is named John:</p>
-      <div class="code"><span class="kw">SELECT</span> emp_id, fname, lname
-<span class="kw">FROM</span> Employees
-<span class="kw">WHERE</span> manager_id <span class="kw">IN</span> (
-    <span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> fname = 'John'
-);</div>`},
-    {h:"CTEs (WITH)", html:`<p>A <b>common table expression</b> names a temporary result you can reuse — often clearer/more efficient than an inline subquery:</p>
-      <div class="code"><span class="kw">WITH</span> John_ids(emp_id) <span class="kw">AS</span> (
-    <span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> fname = 'John'
-)
-<span class="kw">SELECT</span> emp_id, fname, lname
-<span class="kw">FROM</span> Employees
-<span class="kw">WHERE</span> manager_id <span class="kw">IN</span> (<span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> John_ids);</div>`}
+      <li><b>Scale invariance:</b> doubling both w and b doubles every score but <b>moves no point and no line</b> — because the distance divides by ‖w‖, which also doubles.</li>
+      <li>The intercept b controls the distance from the <b>origin</b> to the line.</li></ul>`},
+    {h:"Linear separability", html:`<p>Data is <b>linearly separable</b> when some line puts every point on its correct side. The toy data (<code>x₁+x₂=6</code>) is separable; the 392 cars are <b>not</b> — a Ford Torino and a Peugeot 504 share 88 hp, 19 mpg with opposite labels.</p>`},
+    {h:"The perceptron update", html:`<p>Start at <code>w=0, b=0</code>. Visit training points in a fixed order and score each. A <b>correct point changes nothing.</b> On a <b>mistake</b> (<code>y·z ≤ 0</code>): <code>w ← w + η·y·x</code> and <code>b ← b + η·y</code>. Here η is the step size; with η = 1 the arithmetic stays whole, and any fixed positive η gives the same lines up to scale.</p>
+      <div class="code">w, b = zeros(D), 0
+for each pass:
+    for each (x, y) in order:
+        if y * (w @ x + b) &lt;= 0:
+            w, b = w + eta*y*x, b + eta*y
+    stop when a pass made no update</div>`},
+    {h:"Why one update helps (and its limit)", html:`<p>After an update, the same point's score rises by <code>η·y·(‖x‖² + 1)</code> — the +1 comes from b, whose input is always 1. But <b>one update does not always fix a point</b>: update 3 only lowered P6's score from 6 to 1, still positive.</p>`},
+    {h:"Convergence", html:`<p>A <b>pass with zero mistakes</b> is what convergence means. <b>Guarantee (Novikoff 1962):</b> if the data is linearly separable, the perceptron reaches a separating line after a <b>finite</b> number of updates. It does <b>not</b> say how many. On non-separable data (the cars) it <b>never stops</b> — every pass keeps making mistakes. Which separating line it lands on depends on the <b>order of points</b> and the starting w.</p>`},
+    {h:"Perceptron vs logistic regression", html:`<p>The perceptron gives a <b>side only, no probability</b>, and only mistakes shape training. Logistic regression gives a <b>probability</b>, and every point (correct ones included) shapes the cross-entropy it minimizes. On the cars: perceptron 263/392 after 30 passes, logistic regression 296/392, always-USA 245/392.</p>`},
+    {h:"The margin", html:`<p>The <b>margin</b> of a separating line is its distance to the <b>closest</b> training point. Among separating lines, <b>prefer the largest margin</b> — it leaves the most room, so a new point moved by less than its distance keeps its side. Only the closest points decide the margin; moving a far point changes nothing. A margin is defined <b>only</b> for a line that classifies every point correctly.</p>`}
   ]
 },
 {
-  id:"joins", short:"Joins", tag:"Lecture 7", title:"Table Joins",
-  blurb:"INNER vs LEFT / RIGHT / FULL OUTER joins, the ON condition, self-joins, and combining columns with the || operator.",
+  id:"svm", short:"SVM & Kernels", tag:"Lecture 07 · Classification III", title:"Support Vector Machines and Kernels",
+  blurb:"The largest-margin line and its support vectors, soft margins with slack and the cost C, the hinge loss, and the kernel trick for curved boundaries (polynomial and RBF).",
   notes:[
-    {h:"INNER JOIN", html:`<p>An <b>inner join</b> returns rows only where the match exists in <b>both</b> tables. The <code>ON</code> clause is the join condition.</p>
-      <div class="code"><span class="kw">SELECT</span> t1.order_id, t1.order_dt, t2.fname, t2.lname
-<span class="kw">FROM</span> public.Orders t1
-<span class="kw">INNER JOIN</span> public.Customers t2
-    <span class="kw">ON</span> t1.customer_id = t2.cust_id;</div>`},
-    {h:"OUTER joins", html:`<ul>
-      <li><b>LEFT OUTER JOIN</b> — all <b>left</b> rows, with NULLs where the right has no match.</li>
-      <li><b>RIGHT OUTER JOIN</b> — all <b>right</b> rows, NULLs where the left has no match.</li>
-      <li><b>FULL OUTER JOIN</b> — all rows from <b>both</b> sides, NULLs where either is missing.</li></ul>
-      <p>Use an outer join when you must keep rows that have no counterpart — e.g. list departments even if they have no employees.</p>`},
-    {h:"Self-joins & aliases", html:`<p>Table <b>aliases</b> (<code>t1</code>, <code>t2</code>) rename tables in a query and are required for a <b>self-join</b> — joining a table to itself. To show each employee's manager (both live in Employees), join Employees to a second copy on <code>e.manager_id = m.emp_id</code>.</p>`},
-    {h:"Concatenating columns", html:`<p>The <b>||</b> operator concatenates strings, handy for full names: <code>t3.fname || ' ' || t3.lname</code>.</p>`}
+    {h:"Fixing the scale of w", html:`<p>Scaling w and b by a positive κ scales every score but moves nothing. Use that freedom: scale so the <b>closest points have y·z = 1</b> exactly, and every point has <b>y·z ≥ 1</b>. Then the closest point sits at distance <code>1/‖w‖</code>, so a <b>wide margin is a short w</b>.</p>`},
+    {h:"The hard-margin problem", html:`<p>A short w means a wide margin, so <b>minimize ½‖w‖²</b> subject to <code>y·z ≥ 1</code> for every point. The squared norm is a bowl and the constraints cut it with flat walls, so there is one lowest point (a quadratic program). <b>Hard margin</b> allows no point to cross its margin line, so it only has a solution on <b>separable</b> data. The street between the z=+1 and z=−1 margin lines has width <code>2/‖w‖</code>.</p>`},
+    {h:"Support vectors", html:`<p>The <b>support vectors</b> are the points on the margin lines, with y·z = 1 exactly — <b>they alone decide the line.</b> On the toy, P1 and P8 are support vectors (margin 1.581). Move a non-support point (P4 from (6,6) to (7,7)) and the line does not change. The weights are a sum over support vectors: <code>w = Σ αₙ yₙ xₙ</code>, and new points meet training points <b>only through inner products</b>.</p>`},
+    {h:"Soft margin, slack and C", html:`<p>When classes overlap, allow each point to fall short of its margin line by a <b>slack</b> <code>ξₙ ≥ 0</code>, at a cost of <b>C per unit</b>. Slack zones:</p>
+      <ul>
+      <li><b>ξ = 0</b>: on or beyond the margin line, safely correct.</li>
+      <li><b>0 &lt; ξ &lt; 1</b>: inside the street, still on the correct side.</li>
+      <li><b>ξ = 1</b>: on the boundary. <b>ξ &gt; 1</b>: wrong side — a mistake.</li></ul>
+      <p><b>Large C:</b> slack is expensive → small total slack, <b>narrow</b> street. <b>Small C:</b> slack is cheap → <b>wider</b> street, more slack. As C → ∞ on separable data, the hard margin returns. Choose C on a held-out set.</p>`},
+    {h:"The hinge-loss view", html:`<p>The smallest slack satisfying the constraint is <code>max(0, 1 − y·z)</code> — the <b>hinge loss</b>: zero once a point is beyond its margin line, rising by 1 for each unit y·z falls below 1. The soft margin is hinge loss + a <b>ridge penalty</b> with <code>λ = 1/(2C)</code>, so large C means weak regularization. The hinge comes from a geometric demand, so the <b>SVM gives no probabilities</b> (unlike cross-entropy).</p>`},
+    {h:"The kernel trick", html:`<p>Run the max-margin machine on new features φ(x). Since features appear only through inner products, define a <b>kernel</b> <code>K(x,u) = φ(x)·φ(u)</code> and replace every inner product by K — <b>never building φ(x).</b> Example: <code>K(x,u) = (x·u)²</code> costs ~3 multiplies, while the degree-2 feature map in D dims has <code>D(D+1)/2</code> features (5050 for D=100). Some kernels (RBF) correspond to <b>infinitely many</b> features, so only the kernel route exists.</p>`},
+    {h:"Polynomial and RBF kernels", html:`<p>The <b>RBF (radial basis function)</b> kernel is a similarity: 1 when two points coincide, falling toward 0 as they move apart. <b>γ (gamma)</b> sets the reach — <b>large γ = short reach</b>. Large γ <b>overfits</b>: the boundary wraps single points (training 99%, held-out drops). Pick C and γ together on a held-out set, and <b>standardize inputs first</b> because the kernel is a function of distance.</p>`},
+    {h:"Which kernel to reach for", html:`<ul>
+      <li><b>Linear</b> when a straight boundary is nearly enough.</li>
+      <li><b>Polynomial</b> for a low-degree curve you can name (the ring's degree-2 kernel contains squared distance).</li>
+      <li><b>RBF</b> as the general default, with C and γ tuned on held-out data.</li></ul>
+      <p>Underfit: both counts low. Overfit: training high, held-out drops.</p>`}
   ]
 },
 {
-  id:"agg", short:"Aggregation", tag:"Lecture 8", title:"Aggregation, GROUP BY & HAVING",
-  blurb:"SUM / COUNT / MIN / MAX / AVG, COUNT(*) vs COUNT(col) vs COUNT(DISTINCT), grouping rules, HAVING, and COALESCE.",
+  id:"knn", short:"kNN & Trees", tag:"Lecture 08 · Classification IV", title:"Nearest Neighbors and Decision Trees",
+  blurb:"kNN's majority vote, standardized distances and the curse of dimensionality; decision trees — splits, Gini/entropy impurity, information gain, and why deep trees overfit.",
   notes:[
-    {h:"Aggregate functions", html:`<ul>
-      <li><b>SUM</b>, <b>MIN</b>, <b>MAX</b>, <b>AVG</b> over a column.</li>
-      <li><b>COUNT(*)</b> counts <b>all</b> rows; <b>COUNT(col)</b> counts rows where <code>col</code> is <b>NOT NULL</b>.</li>
-      <li><b>COUNT(DISTINCT col)</b> counts distinct non-null values; <code>SELECT DISTINCT col</code> lists them.</li>
-      <li>Wrap in <b>COALESCE</b> to replace a NULL result: <code>COALESCE(SUM(salary), 0.00)</code>.</li></ul>`},
-    {h:"GROUP BY", html:`<div class="code"><span class="kw">SELECT</span> dept_id, COUNT(DISTINCT manager_id), COUNT(*), SUM(salary)
-<span class="kw">FROM</span> Employees
-<span class="kw">GROUP BY</span> dept_id;</div>
-      <p><b>The rule:</b> every column in the SELECT list that is <b>not</b> inside an aggregate function must appear in <code>GROUP BY</code>.</p>`},
-    {h:"HAVING", html:`<p><b>HAVING</b> filters <b>groups</b> after aggregation (WHERE filters rows before). Keep only departments whose lowest salary is under 3000:</p>
-      <div class="code"><span class="kw">SELECT</span> dept_id, COUNT(*), SUM(salary)
-<span class="kw">FROM</span> Employees
-<span class="kw">GROUP BY</span> dept_id
-<span class="kw">HAVING</span> MIN(salary) &lt; 3000.00;</div>`},
-    {h:"Aggregates across joins", html:`<p>Combine joins with grouping. Per department, list the head's full name, employee count, and average/total salary — an outer join keeps departments with no employees, and COALESCE handles the empty ones:</p>
-      <div class="code"><span class="kw">SELECT</span> t2.dept_name, t3.fname || ' ' || t3.lname,
-       COUNT(*), COALESCE(AVG(t1.salary),0), COALESCE(SUM(t1.salary),0)
-<span class="kw">FROM</span> Employees t1
-<span class="kw">RIGHT OUTER JOIN</span> Dept t2 <span class="kw">ON</span> t1.dept_id = t2.dept_id
-<span class="kw">LEFT OUTER JOIN</span> Employees t3 <span class="kw">ON</span> t2.dept_head = t3.emp_id
-<span class="kw">GROUP BY</span> t2.dept_name, t3.fname, t3.lname;</div>`}
+    {h:"k-nearest neighbors", html:`<p>To classify a new point, find the <b>k closest</b> training points (smallest Euclidean distance) and take the <b>majority vote</b>. Training <b>stores the data and fits nothing</b> — kNN is <b>non-parametric</b> (stored size grows with the data). Use an <b>odd k</b> with two classes so the vote never ties. Features are <b>standardized first</b>, so one unit is one standard deviation.</p>`},
+    {h:"1-NN memorizes", html:`<p>A training point is at distance 0 from itself, so <b>1-NN gets ~all training points right</b> (310/314, missing only identical-feature twins of the opposite class) but only 52/78 held out — near-perfect in training, weak on new data is <b>overfitting</b>. Small k overfits; very large k <b>underfits</b> (k = 313 calls every car the majority class). Choose k on held-out cars — the best was k = 97, 67/78.</p>`},
+    {h:"Scaling and the curse of dimensionality", html:`<p>Distances need <b>standardization</b> — otherwise a large-range feature (car weight in lb) dominates. In many dimensions the <b>nearest and farthest distances converge</b>: the ratio rises from 0.016 (D=2) to 0.70 (D=100) to 0.89 (D=1000), so "nearest" loses meaning — the <b>curse of dimensionality</b>. For regression, kNN predicts the <b>mean</b> y of the k neighbors.</p>`},
+    {h:"Decision tree anatomy", html:`<p>A tree asks <b>one-feature yes/no questions.</b> The <b>root</b> holds all cars; a <b>split</b> compares one feature to a threshold; an <b>internal node</b> asks a question, a <b>leaf</b> predicts its <b>majority class</b>. Each split is a cut <b>parallel to one axis</b>, so the leaves are rectangles. A prediction costs a few comparisons (depth-2 tree → two questions).</p>`},
+    {h:"Impurity: Gini and entropy", html:`<p><code>pₖ</code> is the fraction of class k in a node. A <b>pure</b> node scores 0 on both measures.</p>
+      <ul>
+      <li><b>Gini</b> = <code>1 − Σ pₖ²</code> (scikit-learn default, no logarithm). 8 USA + 2 others → <code>1 − 0.8² − 0.2² = 0.32</code>.</li>
+      <li><b>Entropy</b> = <code>−Σ pₖ log₂ pₖ</code>, in bits.</li></ul>
+      <p>On two classes both are 0 for a pure node and peak at p = 0.5 (Gini 0.5, entropy 1 bit).</p>`},
+    {h:"The gain of a split", html:`<p><b>Gain</b> = parent impurity − weighted average of children's impurity, each child weighted by its <b>share of the cars</b>. With entropy this is <b>information gain</b>. A split whose children are as mixed as the parent has gain 0. The tree is <b>greedy</b>: at each node try every feature and threshold, keep the <b>largest-gain</b> split, recurse, and never go back.</p>`},
+    {h:"Deep trees overfit; trees are unstable", html:`<p>With no depth limit a tree <b>memorizes</b> (310/314 train, 59/78 held out) by drawing boxes around single cars. Choose the <b>depth</b> on held-out data (best 64/78 at depth 4), or <b>prune</b>. Trees <b>need no standardization</b> (rescaling a feature just moves the threshold). But trees are <b>unstable</b>: a small change in training data can change the first question and many predictions — which is exactly what ensembles exploit.</p>`}
   ]
 },
 {
-  id:"review", short:"Exam Review Problems", tag:"Midterm 1 · Worked", title:"Exam Review Problems (Worked)",
-  blurb:"All 11 review problems solved against the shared Employees & Departments tables — normal forms, CREATE, INSERT/FK behavior, UPDATE, DELETE, joins, and grouped reports.",
+  id:"ensembles", short:"Ensembles", tag:"Lecture 09 · Bagging, Forests, Boosting", title:"Ensembles: Bagging, Random Forests, Boosting",
+  blurb:"Why averaging cuts variance (and where correlation stops it), the bootstrap and bagging, random forests' feature subsets, and boosting — AdaBoost and gradient boosting.",
   notes:[
-    {h:"The shared tables", html:`<p>Problems 3–11 reference these two tables (from the review sheet). Keep them handy while tracing.</p>
-      <table class="tbl"><caption>Employees</caption>
-      <thead><tr><th>Column</th><th>Type / rule</th></tr></thead>
-      <tbody>
-      <tr><td>emp_id</td><td>SERIAL, PRIMARY KEY (32-bit, auto from 1)</td></tr>
-      <tr><td>fname, lname</td><td>VARCHAR(50)</td></tr>
-      <tr><td>dept_id</td><td>SMALLINT (16-bit), FK → Departments</td></tr>
-      <tr><td>manager_id</td><td>INTEGER, FK → Employees(emp_id)</td></tr>
-      <tr><td>salary</td><td>NUMERIC(10,2)</td></tr>
-      <tr><td>start_date</td><td>DATE</td></tr>
-      <tr><td>tel / email</td><td>VARCHAR(15) / VARCHAR(255)</td></tr>
-      </tbody></table>
-      <table class="tbl"><caption>Departments</caption>
-      <thead><tr><th>Column</th><th>Type / rule</th></tr></thead>
-      <tbody>
-      <tr><td>dept_id</td><td>SMALLSERIAL, PRIMARY KEY (16-bit, auto from 1)</td></tr>
-      <tr><td>dept_name</td><td>VARCHAR(100)</td></tr>
-      <tr><td>dept_head</td><td>INTEGER, FK → Employees(emp_id)</td></tr>
-      <tr><td>budget</td><td>NUMERIC(14,2)</td></tr>
-      </tbody></table>`},
-    {h:"How to use this tab", html:`<p>The 11 review problems appear below as worked solutions — try each one first, then reveal the SQL and the reasoning. The multiple-choice items here drill the <b>conceptual</b> pieces (normal forms, FK behavior, ordering, empty-group handling) that the problems hinge on.</p>`}
+    {h:"Why averaging helps", html:`<p>The average of <b>M independent</b> predictions, each with variance σ², has variance <code>σ²/M</code> — averaging removes spread but <b>leaves the bias</b> (the error all members share). With correlation ρ between members, the variance is <code>ρσ² + (1−ρ)σ²/M</code>: the first term <b>does not shrink with M</b>. So an ensemble needs members that are <b>accurate and as uncorrelated as possible</b>.</p>`},
+    {h:"The bootstrap", html:`<p>A <b>bootstrap sample</b> draws N items from N <b>with replacement</b> — an item can appear several times or not at all. About <b>63%</b> of distinct items appear (the chance of missing one is <code>(1−1/N)^N → 1/e ≈ 0.37</code>), so ~37% are <b>out-of-bag</b>.</p>`},
+    {h:"Bagging", html:`<p><b>Bagging</b> = bootstrap aggregating: draw M bootstrap samples, grow one <b>deep tree</b> on each, and vote (average for regression). <b>Deep trees are the right members</b> — low bias, high variance, and a vote removes variance. <b>Out-of-bag checking</b>: predict each training car with only the ~37 of 100 trees that never saw it; this estimates accuracy on new data with no cars set aside.</p>`},
+    {h:"Random forests", html:`<p>Bagged trees look alike — one strong feature starts every tree, so they are <b>correlated</b> (large ρ). The fix: at <b>every split draw m of the D features at random</b>, so only those m compete. The strong feature is absent from most draws, letting others ask early questions → trees differ more, ρ drops. <b>Default m = √D</b> (rounded down) for classification. <b>More trees never hurt</b> a forest — only cost time. <b>Feature importance</b> sums each feature's gain across all trees.</p>`},
+    {h:"Bias, variance and the two routes", html:`<p>A <b>deep tree</b> has low bias, high variance → bagging/forests average many to cut variance. A <b>depth-1 stump</b> has high bias, low variance → <b>boosting</b> adds many in sequence, each removing some remaining bias. A <b>weak learner</b> is only a little better than guessing; boosting combines many into one strong model.</p>`},
+    {h:"AdaBoost", html:`<p>Keep a weight wₙ on each point, all starting at 1/N. Each round fits the <b>stump with the smallest weighted error</b> εₘ, then multiplies the weights of <b>misclassified</b> points so the next stump attends to them. Vote weight <code>αₘ = ½ ln((1−ε)/ε)</code>: a small error → large α; an error of ½ (guessing) → α = 0. After the update the misclassified points hold <b>exactly half</b> the total weight (the "half rule"). The final prediction is the <b>sign of the α-weighted vote</b> (labels −1/+1).</p>`},
+    {h:"Gradient boosting", html:`<p>Start from the <b>mean</b> of the targets. Each stage computes the <b>residuals</b> (what the model still gets wrong), fits a small tree to them, and adds a fraction <b>ν (shrinkage / learning rate)</b> of it. For squared error the residual is the <b>negative gradient</b> of the loss. Small ν needs more stages but often reaches lower held-out error. <b>Too many stages overfit</b> (bagging has no such risk) — choose the number of stages, ν, and tree depth on held-out data. This is the method inside <b>XGBoost / LightGBM</b>.</p>`}
+  ]
+},
+{
+  id:"eval1", short:"Bias–Variance & CV", tag:"Lecture 10 · Model Evaluation I", title:"Bias, Variance, and Cross-Validation",
+  blurb:"The U-shaped held-out curve, the bias–variance–noise decomposition, k-fold and leave-one-out cross-validation, the model-selection recipe with the one-SE rule, and data leakage.",
+  notes:[
+    {h:"Training vs generalization error", html:`<p><b>Training error</b> averages the loss over the fitted examples; <b>generalization error</b> averages it over all new pairs and can only be <b>estimated</b> — by the error on a <b>held-out</b> set never used in fitting. The loss is squared error (regression) or 0/1 (classification).</p>`},
+    {h:"The U shape: underfit vs overfit", html:`<p>As a model grows more flexible, held-out error traces a <b>U</b>.</p>
+      <ul>
+      <li><b>Underfitting:</b> training <b>and</b> held-out error both high — too simple.</li>
+      <li><b>Overfitting:</b> training error low, held-out error much higher — follows noise.</li></ul>
+      <p>The best setting sits at the <b>bottom of the held-out curve</b>. Degree, k, and depth are different knobs that all trace the same U.</p>`},
+    {h:"The bias–variance–noise decomposition", html:`<p>Expected squared error = <b>bias² + variance + noise σ²</b>.</p>
+      <ul>
+      <li><b>Bias²:</b> error of the <b>average</b> model vs the truth — a line through a sine curve misses the bends every time.</li>
+      <li><b>Variance:</b> how much the fit moves with the training set — flexible models change shape with each sample.</li>
+      <li><b>Noise σ²:</b> the part of y <b>no model can predict</b>; error is at least σ².</li></ul>
+      <p>More flexibility usually <b>lowers bias, raises variance</b> — the tradeoff. Held-out far above training → high variance; both high → high bias.</p>`},
+    {h:"Why one split is not enough", html:`<p>One split gives one number; another split of the same cars gives another (logistic regression: 52 to 65 of 78 across 30 splits). Two models with close counts can <b>swap order</b> on the next split. <b>Cross-validation</b> holds out each training car in exactly one round and fits on it in every other round.</p>`},
+    {h:"K-fold and leave-one-out CV", html:`<p>Split the training data into <b>K folds</b>. Round i: fit on the other K−1 folds, measure error eᵢ on fold i. The <b>CV estimate</b> is the average of the K fold errors; every example is held out <b>exactly once</b>. <b>LOOCV</b> takes K = N (one example per fold) — accurate but N fits. Usual choice: <b>K = 5 or 10</b>. (Capital K keeps it apart from kNN's k.)</p>`},
+    {h:"Choose by CV, then refit, then test once", html:`<p><b>Recipe:</b> (1) list candidates &amp; settings, (2) 5-fold CV for each on the <b>training</b> data, (3) take the lowest CV error — or the <b>simpler</b> model on a near tie, (4) <b>refit the winner on all training data</b>, (5) score it <b>once</b> on the test set. The <b>one-SE rule</b>: a CV error within one standard error of the best counts as a near tie, so take the simpler model. Training / validation / test: anything used to <b>choose</b> is validation; the test set is used <b>once</b>, at the end.</p>`},
+    {h:"Leakage", html:`<p><b>Leakage</b> is fitting or choosing with information missing at prediction time, making the test score look too good. Classic cases: standardizing with <b>all</b> data before splitting; choosing features by how they predict y on all data; the same example in train and test; a feature recorded <b>after</b> the outcome. <b>Fix:</b> every step that learns from data — scaling, feature choice, tuning — runs <b>inside the training part of each fold</b>.</p>`}
+  ]
+},
+{
+  id:"eval2", short:"Metrics & ROC", tag:"Lecture 11 · Model Evaluation II", title:"Metrics Beyond Accuracy",
+  blurb:"The confusion matrix and why accuracy misleads on rare classes; precision, recall and F1; moving the threshold; the ROC curve and AUC; precision–recall curves and class-imbalance remedies.",
+  notes:[
+    {h:"Why accuracy misleads", html:`<p>With a <b>rare positive class</b>, always saying "no" can score high while finding <b>none</b> of the positives (66/78 on the cars, 0 of 12 European). Accuracy alone does not show whether a model finds any positives — the negatives dominate the sum.</p>`},
+    {h:"The confusion matrix", html:`<p>Four counts, where the <b>positive class is the one we want to find</b> and "flag" means predict positive:</p>
+      <table class="tbl"><thead><tr><th></th><th>Actually +</th><th>Actually −</th></tr></thead>
+      <tbody><tr><th>Predicted +</th><td>TP</td><td>FP</td></tr><tr><th>Predicted −</th><td>FN</td><td>TN</td></tr></tbody></table>
+      <p><b>True/false</b> says whether the prediction was right; <b>positive/negative</b> says what was predicted. Accuracy = <code>(TP+TN)/all</code>.</p>`},
+    {h:"Precision, recall, F1", html:`<ul>
+      <li><b>Precision</b> = <code>TP/(TP+FP)</code> — of the flagged, what share were really positive? (the predicted column). Flagging no car gives 0/0, undefined.</li>
+      <li><b>Recall</b> = <code>TP/(TP+FN)</code> — of the actual positives, what share did we find? (the actual row). Also the <b>sensitivity</b> / true positive rate.</li>
+      <li><b>F1</b> = harmonic mean <code>2PR/(P+R)</code> — high only when <b>both</b> are high. When TP=0 and FP+FN&gt;0, F1 = 0.</li></ul>
+      <p>Flagging more never lowers recall but can lower precision. Which matters depends on the cost of each mistake.</p>`},
+    {h:"Moving the threshold", html:`<p>Lowering the threshold moves cars from the negative to the positive column, so <b>TP and FP never fall</b> (recall never drops, precision may). Choose the threshold on <b>training data</b> for a stated goal (e.g. "find ≥ 80% of positives"), then report on the test set. Each threshold gives one confusion matrix and one (precision, recall) pair.</p>`},
+    {h:"ROC curve and AUC", html:`<p>The <b>ROC curve</b> plots <b>TPR = recall = TP/(TP+FN)</b> against <b>FPR = FP/(FP+TN)</b>, one point per threshold. Each rate divides by a <b>row</b>, so both <b>ignore how rare the positive class is</b>. <b>AUC</b> (area under the curve, 0–1): the probability that a <b>random positive outscores a random negative</b> — a pure <b>ranking</b> measure. The diagonal (AUC 0.5) is random; a perfect model has AUC 1. A higher AUC does <b>not</b> guarantee higher precision at any given threshold.</p>`},
+    {h:"ROC vs precision–recall when positives are rare", html:`<p>FPR divides by the many negatives, so an ROC curve can <b>look good while most flags are wrong</b>. A <b>precision–recall curve</b> plots precision against recall; its chance line is the <b>positive rate</b> (12/78 = 0.154), and <b>average precision (AP)</b> is its area. Report <b>ROC AUC to compare rankings</b>, and a <b>PR curve when the flagged list is what users see</b>.</p>`},
+    {h:"Class imbalance remedies & multiclass", html:`<p>Three remedies, all chosen/fit on <b>training data only</b>: <b>threshold moving</b> (keep the model, lower the threshold); <b>class weights</b> (weight each positive more in the loss); <b>resampling</b> (repeat positives or drop negatives in training only, so test keeps the real mix). For <b>multiclass</b>, rows are true and columns predicted; the diagonal holds right answers, and each class gets its own precision/recall by treating it as positive vs the rest.</p>`}
   ]
 }
 ];
@@ -430,467 +369,513 @@ const SECTIONS = [
    MULTIPLE-CHOICE QUESTION BANK
    ========================================================= */
 const QB = {
-basics:[
-  {q:"What is the difference between a database and a DBMS?",
-   o:["a database manages the access, while the DBMS only stores the files","a database stores records; a DBMS provides storage and access to it","they are simply two different names for the very same thing","a DBMS is only the hardware, while a database is the software"],
-   a:1, e:"A database is a set of files of records; the DBMS is the hardware/software system that stores databases and provides access to them."},
-  {q:"Which type of DBMS is the most popular, and how does it store data?",
-   o:["object-oriented, storing data as class instances","relational, storing data in tables of rows and columns","network, storing data as linked graph nodes","document, storing data as nested JSON files"],
-   a:1, e:"The relational DBMS is most popular; data lives in tables (rows/records and columns/fields) queried with SQL."},
-  {q:"Which SQL dialect does this course focus on?",
-   o:["Transact-SQL, from Microsoft SQL Server","PostgreSQL's pgSQL","Oracle's PL/SQL","MySQL's stored-procedure dialect"],
-   a:1, e:"The class uses PostgreSQL (pgSQL). T-SQL is Microsoft's, PL/SQL is Oracle's."},
-  {q:"In a table, a <b>row</b> and a <b>column</b> represent, respectively…",
-   o:["one single attribute value and one whole entity","one record (entity) and one field (attribute)","one stored query and one returned result set","one primary key column and one foreign key column"],
-   a:1, e:"A row is a record (an entity instance); a column is a field (an attribute). Every column needs a name and a data type."},
-  {q:"Which statement is <b>DDL</b> rather than DML?",
-   o:["INSERT INTO cars ...","CREATE TABLE cars ...","UPDATE cars SET ...","SELECT * FROM cars"],
-   a:1, e:"CREATE (and DROP) TABLE define structure — DDL. INSERT/UPDATE/DELETE/SELECT manipulate data — DML."},
-  {q:"Which is a valid SQL identifier by the course's naming convention?",
-   o:["a name that begins with a digit character, such as 23cars_table","alphanumeric, not starting with a digit, and not a reserved keyword","absolutely any word at all, including reserved keywords such as SELECT","a name that contains embedded spaces and various punctuation marks"],
-   a:1, e:"Names should be alphanumeric, must not start with a number, and must not coincide with keywords (e.g. my_cars23)."},
-  {q:"What happens if you run <code>DELETE FROM cars;</code> with no WHERE clause?",
-   o:["it is rejected as a syntax error","it deletes every row in the table","it deletes only the first row","it drops the entire table definition"],
-   a:1, e:"WHERE is optional on DELETE, but without it every row is removed. (DROP TABLE would remove the definition too.)"},
-  {q:"Which clause makes a column required (no missing values)?",
-   o:["NULL","NOT NULL","DEFAULT","PRIMARY"],
-   a:1, e:"NOT NULL forbids missing values; NULL allows them; DEFAULT supplies a value when none is given."},
-  {q:"What does <code>DROP TABLE IF EXISTS public.cars;</code> do?",
-   o:["drops the table, but errors out if it happens to be absent","drops the table only if it exists, with no error otherwise","empties the table's rows but keeps its column definitions","renames the table to a timestamped backup copy"],
-   a:1, e:"IF EXISTS drops the table when present and does nothing (no error) when it isn't."},
-  {q:"Which is the correct UPDATE syntax?",
-   o:["UPDATE cars VALUES (model = 'M2') WHERE inv_no = 1","UPDATE cars SET model = 'M2' WHERE inv_no = 1","UPDATE SET cars.model = 'M2' WHERE inv_no = 1","UPDATE INTO cars (model) = ('M2') WHERE inv_no = 1"],
-   a:1, e:"UPDATE <table> SET col = value [, ...] WHERE <condition>."},
-  {q:"To provide a value only for some columns on insert, you write…",
-   o:["INSERT cars = (v1, v2) into the two named columns","INSERT INTO cars (col1, col2) VALUES (v1, v2)","ADD ROW TO cars WITH VALUES (v1, v2) given","CREATE ROW IN cars VALUES (v1, v2) columns"],
-   a:1, e:"INSERT INTO <table>(columns) VALUES(values); unlisted columns take their default or NULL."},
-  {q:"<code>SELECT * FROM cars;</code> returns…",
-   o:["only the primary-key column","all columns and all rows of the table","the number of rows in the table","the table's column definitions"],
-   a:1, e:"The star selects every column, for every row (no WHERE filter)."}
+perceptron:[
+  {q:"From L06 on, how are the two classes labeled?",
+   o:["+1 for the positive class, −1 for the other","1 for the positive class, 0 for the other","+1 for both, with a flag for the class","the class index, counting up from 1"],
+   a:0, e:"L06 switches to y = +1 for the positive class and y = −1 for the other; L05 had used 1 and 0."},
+  {q:"A point with score <code>z</code> and label <code>y</code> is classified <b>correctly</b> exactly when…",
+   o:["the score z on its own is positive","its label y on its own is positive","the product y·z is positive","the product y·z is exactly zero"],
+   a:2, e:"One product settles it: correct when y·z > 0. A score of exactly 0 sits on the boundary and counts as a mistake."},
+  {q:"The distance from a point to the boundary equals…",
+   o:["the raw score z, with no scaling","the squared score z² over the norm","the score z times the norm of w","the size of z divided by the norm of w"],
+   a:3, e:"Distance = |z| / ‖w‖. The signed version r = z/‖w‖ gives the side by its sign and the distance by its size."},
+  {q:"What does the weight vector <b>w</b> point along, relative to the boundary?",
+   o:["along the boundary line itself","perpendicular to the boundary","toward the coordinate origin","toward the nearest data point"],
+   a:1, e:"Two boundary points both score 0, so their difference is orthogonal to w; thus w is perpendicular to the boundary, and the score rises fastest along w."},
+  {q:"If you double both <code>w</code> and <code>b</code>, what happens?",
+   o:["every point moves twice as far out","the boundary rotates by a right angle","scores double but no point or line moves","the margin is cut exactly in half"],
+   a:2, e:"Scaling w and b by any positive factor scales all scores but moves nothing — the distance divides by ‖w‖, which scales the same way."},
+  {q:"On a <b>mistake</b>, the perceptron with label y = +1 updates the weights by…",
+   o:["adding η·x to w and raising b","subtracting η·x from w, lowering b","resetting w and b back to zero","swapping the two largest entries of w"],
+   a:0, e:"A mistake adds η·y·x to w (so +η·x when y=+1) and moves b by η·y. A correct point changes nothing."},
+  {q:"When a visited point is already classified correctly, the perceptron…",
+   o:["still nudges w a small amount","leaves w and b unchanged","lowers the step size η a little","moves it to the end of the queue"],
+   a:1, e:"Only mistakes change w and b. A correct point changes nothing, and a full pass with no updates stops the algorithm."},
+  {q:"For the perceptron, <b>convergence</b> means…",
+   o:["the step size η has shrunk to zero","a full pass makes no updates","the weights w have reached unit norm","every score is above the margin"],
+   a:1, e:"A pass that visits every point and makes zero mistakes is convergence; the loop then stops."},
+  {q:"The perceptron is guaranteed to reach a separating line only when…",
+   o:["the step size η is small enough","the two classes are balanced in size","the data is linearly separable","w is initialized away from zero"],
+   a:2, e:"Novikoff's guarantee: on linearly separable data the perceptron converges in finitely many updates. On non-separable data it never stops."},
+  {q:"Which separating line the perceptron lands on depends on…",
+   o:["the order of points and the start w","the number of features D only","the ratio of the two class sizes","the largest entry in each input x"],
+   a:0, e:"Many lines can separate the data; the perceptron stops at the first it reaches, which depends on the visiting order and the starting weights."},
+  {q:"The <b>margin</b> of a separating line is…",
+   o:["the gap between the two class means","its distance to the closest training point","the average distance over all points","the width of the whole data cloud"],
+   a:1, e:"The margin is the distance from the line to the nearest training point; only the closest points decide it."},
+  {q:"Why prefer the separating line with the <b>largest</b> margin?",
+   o:["it is faster for the solver to find","it leaves the most room around points","it always uses fewer support points","it guarantees zero error on new data"],
+   a:1, e:"A wider margin tolerates more movement in new data: a point moved by less than its distance keeps its side."},
+  {q:"A key difference between the perceptron and logistic regression is that…",
+   o:["only the perceptron needs a bias b","the perceptron gives a side, not a probability","logistic regression ignores correct points","the perceptron minimizes squared error"],
+   a:1, e:"The perceptron outputs a side with no probability and learns only from mistakes; logistic regression outputs a probability and every point shapes its training."},
+  {q:"A point whose score is <b>exactly zero</b> is treated as…",
+   o:["correct, since it is on the line","a mistake, so it can be updated","undefined and skipped entirely","a support vector of the line"],
+   a:1, e:"A tie (z = 0) counts as a mistake, so the point would be updated if visited next."},
+  {q:"With D features, the set of inputs scoring zero is…",
+   o:["a single point in the space","a flat surface called a hyperplane","a curved bowl around the origin","a sphere of radius ‖w‖"],
+   a:1, e:"With two features z=0 is a line; with D features it is a flat D−1 dimensional hyperplane."}
 ],
-types:[
-  {q:"A <code>SMALLINT</code> occupies how much space and what range?",
-   o:["4 bytes, about ±2 billion","2 bytes (16-bit), −32768 … 32767","8 bytes (64-bit), a huge range","1 byte, 0 … 255"],
-   a:1, e:"SMALLINT is 2 bytes / 16-bit, holding −32768 through 32767."},
-  {q:"How do INTEGER and BIGINT differ?",
-   o:["INTEGER is 4 bytes (32-bit); BIGINT is 8 bytes (64-bit)","INTEGER is 8 bytes (64-bit) while BIGINT is 4 bytes","they are actually completely identical to one another in size","INTEGER stores exact values, whereas BIGINT is only approximate"],
-   a:0, e:"INTEGER is 4 bytes / 32-bit; BIGINT is 8 bytes / 64-bit."},
-  {q:"What does <code>DECIMAL(10,2)</code> specify?",
-   o:["10 digits sitting after the decimal point, with only 2 before it","up to 10 total digits, with 2 after the decimal point","exactly 10 rows, each holding 2 separate columns","a 10-byte value that is rounded to 2 decimal places"],
-   a:1, e:"DECIMAL(m,n): m total digits, n of them after the decimal point (so 8 before, 2 after here)."},
-  {q:"How do NUMERIC/DECIMAL differ from FLOAT/FLOAT8?",
-   o:["NUMERIC is exact; FLOAT is an approximation","FLOAT is exact; NUMERIC is an approximation","both are exact; they only differ in size","both are approximate; they only differ in range"],
-   a:0, e:"DECIMAL/NUMERIC store exact values; FLOAT/FLOAT8 (like a double) store approximations."},
-  {q:"What does the <code>SERIAL</code> type provide?",
-   o:["a fixed-length character string that is padded with spaces","automatic numbering (auto-increment, start 1, step 1)","an exact monetary value stored precisely to the cent","a date and time value that is aware of the time zone"],
-   a:1, e:"SERIAL/BIGSERIAL auto-number rows, like MS SQL identity(1,1)."},
-  {q:"How do <code>CHAR(n)</code> and <code>VARCHAR(n)</code> differ?",
-   o:["CHAR is variable-length, while VARCHAR is the fixed and space-padded one","CHAR is fixed-length and space-padded; VARCHAR is variable, unpadded","they are actually identical to each other except for their name","CHAR stores only numbers, whereas VARCHAR stores only text"],
-   a:1, e:"CHAR(n) is fixed length padded with spaces ('Help' → 'Help      '); VARCHAR(n) stores only the characters given, no padding."},
-  {q:"In <code>TIMESTAMP(n)</code>, the precision <code>n</code> ranges from…",
-   o:["0 (to the second) up to 6 (to the microsecond)","1 up to 10 fractional decimal places of a second","0 up to 2, matching the cents used on money","0 up to 100, counting the value in milliseconds"],
-   a:0, e:"n runs 0…6: 0 keeps whole seconds, 6 keeps down to the microsecond."},
-  {q:"How do you define an enumerated type in PostgreSQL?",
-   o:["ENUM COLUMN mood ('sad', 'ok', 'happy') defined","CREATE TYPE mood AS ENUM ('sad','ok','happy')","CREATE ENUM mood = sad | ok | happy values here","DECLARE mood AS ENUM ('sad', 'ok', 'happy') type"],
-   a:1, e:"CREATE TYPE <name> AS ENUM (...) defines it; then a column may use that type."},
-  {q:"PostgreSQL arrays are indexed starting at…",
-   o:["0, exactly like arrays in the C language","1 — the first element is arr[1]","−1, which points at the very last element","any starting value that you choose to declare"],
-   a:1, e:"Array indexing starts at 1, so orders_made[1] is the first element."},
-  {q:"What is the difference between a NULL array and an empty array?",
-   o:["a NULL array has not been created yet; an empty array exists with no elements","a NULL array holds one single NULL element, while an empty array holds none at all","they behave in exactly the same way in every single query you write","an empty array is always automatically declared as NOT NULL by default"],
-   a:0, e:"NULL means the array was never created; an empty array was created but holds zero elements — they are not the same."},
-  {q:"To convert a value to another type in PostgreSQL, you write…",
-   o:["CONVERT(value TO type)","value::type","CAST value type","value AS type"],
-   a:1, e:"The :: cast operator, e.g. 1728::SMALLINT. A bare whole-number literal defaults to INTEGER."},
-  {q:"To represent a negative integer in binary (two's complement), you…",
-   o:["write |x| in binary and prepend a minus sign","take |x| in binary, flip every bit, then add 1","reverse the digit order of |x|","subtract |x| from the largest SMALLINT"],
-   a:1, e:"Two's complement: binary of the absolute value, flip all bits, add 1."}
+svm:[
+  {q:"The SVM scales w and b so that the closest points satisfy…",
+   o:["y·z = 0 on the boundary line","y·z = 1, and all points y·z ≥ 1","‖w‖ = 1 for a unit vector","z = the margin width exactly"],
+   a:1, e:"Using scale freedom, set the closest points to y·z = 1 and require y·z ≥ 1 for all; then the margin is 1/‖w‖."},
+  {q:"To get the widest margin, the hard-margin SVM…",
+   o:["maximizes the norm of w directly","minimizes ½ times the squared norm of w","maximizes the sum of all scores","minimizes the count of support points"],
+   a:1, e:"A short w means a wide margin, so minimize ½‖w‖² subject to y·z ≥ 1 — a quadratic program with one lowest point."},
+  {q:"The <b>support vectors</b> are the training points that…",
+   o:["sit farthest from the boundary line","lie on the margin lines (y·z = 1)","were misclassified during training","have the largest feature values"],
+   a:1, e:"Support vectors sit on the margin lines with y·z = 1 and alone decide the line; moving other points changes nothing."},
+  {q:"In the soft-margin SVM, the <b>slack</b> ξₙ of a point measures…",
+   o:["its distance from the mean of its own class","how far it falls short of its margin line","the gradient of the hinge loss at that point","the count of near neighbors it happens to have"],
+   a:1, e:"Slack is how far a point falls short of its margin line, in score units, and is never negative; each unit costs C."},
+  {q:"A point with slack <b>greater than 1</b> is…",
+   o:["safely beyond its margin line","inside the street but still correct","on the wrong side — a mistake","exactly on the decision boundary"],
+   a:2, e:"ξ=0 is safely correct, 0<ξ<1 is inside the street but correct, ξ=1 is on the boundary, and ξ>1 is a mistake."},
+  {q:"Increasing the cost <b>C</b> tends to make the SVM…",
+   o:["use a narrower margin street","widen the margin street a lot","ignore the support vectors","drop the bias term b"],
+   a:0, e:"Large C makes slack expensive, so the solution keeps total slack small and the street narrow; small C widens it."},
+  {q:"As <b>C → ∞</b> on separable data, the soft-margin SVM…",
+   o:["predicts the majority class only","recovers the hard-margin solution","ignores the margin entirely","becomes the perceptron rule"],
+   a:1, e:"With slack infinitely expensive, no point may cross its margin line, which is exactly the hard-margin problem."},
+  {q:"The <b>hinge loss</b> on one point is…",
+   o:["the squared error of its score","max(0, 1 − y·z)","the negative log of its probability","the absolute value of its score"],
+   a:1, e:"The hinge loss max(0, 1−y·z) is zero once a point is beyond its margin line and rises by 1 per unit y·z falls below 1."},
+  {q:"A reason the SVM gives <b>no probabilities</b> is that…",
+   o:["it never makes any use of the bias term b","its loss comes from a geometric demand","it can only ever separate two classes","its margin is always rescaled to exactly one"],
+   a:1, e:"The hinge loss comes from a geometric margin demand, not a likelihood, so the SVM outputs a side and a margin, not probabilities."},
+  {q:"The <b>kernel trick</b> lets an SVM draw curved boundaries by…",
+   o:["building the feature map φ(x) in full","replacing each inner product with K(x,u)","adding more slack to every point","raising C until the street vanishes"],
+   a:1, e:"Features enter only through inner products, so replacing each by a kernel K(x,u)=φ(x)·φ(u) avoids ever building φ(x)."},
+  {q:"For the <b>RBF kernel</b>, a very large γ (gamma) tends to…",
+   o:["underfit with a flat boundary","overfit, wrapping single points","force a straight-line boundary","ignore the cost parameter C"],
+   a:1, e:"Large γ means short reach, so the boundary wraps individual points — high training accuracy but a held-out drop."},
+  {q:"The SVM weight vector w can be written as…",
+   o:["the mean of all training inputs","a label-weighted sum over support vectors","the difference of the two class means","the gradient of the hinge loss at zero"],
+   a:1, e:"w = Σ αₙ yₙ xₙ over the support vectors; new points meet training points only through inner products."},
+  {q:"Before using an RBF-kernel SVM you should <b>standardize</b> inputs because…",
+   o:["the solver needs integer inputs","the kernel is a function of distance","it removes the need to pick C","it makes the margin exactly one"],
+   a:1, e:"The RBF kernel depends on distance between points, so unscaled features with large ranges would dominate it."},
+  {q:"Compared with building degree-2 features explicitly, the squared-inner-product kernel…",
+   o:["gives a different, larger answer","is far cheaper to compute","needs the data standardized twice","only works in two dimensions"],
+   a:1, e:"K(x,u)=(x·u)² costs ~3 multiplies, while the explicit degree-2 map has D(D+1)/2 features (5050 for D=100) yet gives the same value."}
 ],
-keys:[
-  {q:"A logical expression that contains a NULL value evaluates to…",
-   o:["FALSE, so the row is skipped","NULL (unknown)","TRUE, to be safe","zero"],
-   a:1, e:"Any expression involving NULL yields NULL (unknown) — which is why the course recommends avoiding NULLs or using a DEFAULT."},
-  {q:"Which is guaranteed by a <b>primary key</b>?",
-   o:["values are unique and non-repeating across rows","values may repeat, as long as exactly one is NULL","the values are automatically encrypted while at rest","the column is restricted to storing text values only"],
-   a:0, e:"A primary key's values are unique for every row (and non-null); it has a unique index that makes lookups fast."},
-  {q:"What is a <code>DEFAULT</code> clause used for?",
-   o:["to forbid the column from ever being changed again later","to supply a value when none is given, instead of NULL","to mark the column as the table's own primary key","to index the column so that lookups run faster"],
-   a:1, e:"e.g. salary NUMERIC(10,2) NOT NULL DEFAULT(-1.00) — a stand-in value when the insert omits it, avoiding NULL."},
-  {q:"A foreign key must reference columns that, in the other table, are…",
-   o:["any column at all, whether it is indexed or not","a primary key (or a uniquely indexed column)","a column that is always permitted to be NULL","a column that has a completely different data type"],
-   a:1, e:"The referenced columns must be a primary key there (or have a corresponding unique index); FK values are checked for consistency."},
-  {q:"With <code>ON DELETE CASCADE</code>, deleting a referenced parent row…",
-   o:["is rejected as long as any child rows still exist","also deletes the child rows that reference it","sets the referencing child foreign keys to NULL","has no effect at all on the child rows involved"],
-   a:1, e:"CASCADE propagates the delete to the referencing rows. (ON UPDATE CASCADE rewrites the children's FK when the key changes.)"},
-  {q:"<b>First normal form (1NF)</b> requires…",
-   o:["that there be a primary key on every single table","atomicity — no lists or repeating groups in a column","that non-key columns must never depend on one another","foreign keys defined between all of the related tables"],
-   a:1, e:"1NF is about atomicity: each cell holds a single value, no lists."},
-  {q:"In the course's terms, <b>2NF</b> requires that…",
-   o:["every row has a unique identifier (a primary key)","no single column may contain a list of values","every table has at least one foreign key defined on it","all of the table's columns are declared as NOT NULL"],
-   a:0, e:"The notes state 2NF as: every row must have a unique identifier — a primary key of one or more columns."},
-  {q:"<b>Third normal form (3NF)</b> forbids…",
-   o:["storing any date or time values inside a table","a non-key column depending on another non-key column","having more than one foreign key defined on a table","using composite primary keys built from several columns"],
-   a:1, e:"3NF removes transitive dependencies: non-key data must not depend on other non-key data."},
-  {q:"A <b>composite primary key</b> is…",
-   o:["a primary key that references another table","a key made of several columns taken together","a key that is automatically numbered","a key that permits duplicate values"],
-   a:1, e:"e.g. PRIMARY KEY(fname, lname, dept_id) — the combination must be unique per row."},
-  {q:"Why is a lookup by primary key fast?",
-   o:["it caches the entire table fully into memory ahead of time","it uses a unique index, scanning only the relevant page","it skips reading from the disk entirely each time","it keeps all of the rows sorted in alphabetical order"],
-   a:1, e:"The PK's unique index lets the search go straight to the relevant 8 KB page rather than scanning the table."},
-  {q:"Putting a <code>dept_name</code> column directly in Employees is a bad design because…",
-   o:["department names are simply far too long to store in a single column efficiently","it repeats the name on every employee row (redundancy → update anomalies)","a VARCHAR column like this can never be indexed for lookups","it completely prevents anyone from adding brand-new employees"],
-   a:1, e:"Duplicating dept_name violates normalization; changing a name means updating many rows. Store a dept_id FK instead, with the name in Departments."},
-  {q:"The stated goals of normalization are…",
-   o:["speed, security, and backup","consistency, completeness, and efficiency","encryption, compression, and indexing","atomicity, isolation, and durability"],
-   a:1, e:"Normalization targets consistency (non-contradictory data), completeness, and efficiency by reducing redundancy."}
+knn:[
+  {q:"To classify a new point, kNN…",
+   o:["fits a line through the k points","votes among its k nearest neighbors","averages all the training labels","picks the single farthest point"],
+   a:1, e:"kNN finds the k closest training points by distance and predicts the majority label among them."},
+  {q:"What does kNN do during <b>training</b>?",
+   o:["it stores the data and fits nothing","it fits one weight per feature","it builds a balanced search tree","it computes the class means"],
+   a:0, e:"kNN is non-parametric: training just stores the N points; all work happens at prediction time."},
+  {q:"Why is an <b>odd k</b> used with two classes?",
+   o:["it makes distances come out whole","the vote can then never tie","it halves the prediction cost","even k ignores the nearest point"],
+   a:1, e:"With two classes an odd k means the majority vote can never end in a tie."},
+  {q:"1-NN typically gets <b>~all</b> training points right because…",
+   o:["it fits a very flexible curve","each point is its own nearest neighbor","the classes are always separable","it averages over many neighbors"],
+   a:1, e:"A training point is at distance 0 from itself, so 1-NN echoes the training labels — near-perfect in training but weak on new data (overfitting)."},
+  {q:"A <b>very large k</b> (near N) tends to…",
+   o:["overfit by wrapping single points","underfit by predicting the majority","match 1-NN very closely","need the data standardized twice"],
+   a:1, e:"Large k averages over almost everyone, so it predicts the majority class and underfits; small k overfits."},
+  {q:"The <b>curse of dimensionality</b> for kNN means that in many dimensions…",
+   o:["distances overflow their range","nearest and farthest points converge","every feature must be an integer","the vote is always a tie"],
+   a:1, e:"As D grows the nearest and farthest distances become almost equal, so 'nearest' carries little information."},
+  {q:"In a decision tree, a <b>leaf</b> predicts…",
+   o:["the average of two child nodes","the majority class of its cars","the feature with the largest range","a probability from a sigmoid"],
+   a:1, e:"A leaf is a terminal node with no question; it predicts the majority class of the training cars that reach it."},
+  {q:"The <b>Gini impurity</b> of a node with fractions pₖ is…",
+   o:["the sum of pₖ over classes","1 minus the sum of pₖ squared","the negative sum of pₖ log pₖ","the largest pₖ in the node"],
+   a:1, e:"Gini = 1 − Σ pₖ². It is 0 for a pure node and peaks at 0.5 for a 50/50 two-class node; entropy is the −Σ p log p measure."},
+  {q:"The <b>gain</b> of a split is the parent impurity minus…",
+   o:["the simple sum of the two children's impurity scores","the weighted average of the children's impurities","the impurity of the smaller child on its own","the total number of cars that are sent to the left"],
+   a:1, e:"Gain subtracts the children's impurity weighted by each child's share of the cars; the greedy tree keeps the largest-gain split."},
+  {q:"A fully grown, unlimited-depth tree usually…",
+   o:["underfits by asking too few questions","memorizes the training data (overfits)","needs every feature standardized","produces a single-leaf stump"],
+   a:1, e:"With no depth limit the tree draws boxes around single cars: near-perfect training accuracy but a held-out drop — overfitting."},
+  {q:"Decision trees <b>need no standardization</b> because…",
+   o:["they quietly average over many different features","a split just compares one feature to a threshold","they are restricted to purely binary features","the Gini index already strips out all the units"],
+   a:1, e:"A split compares one feature with a threshold; rescaling that feature just moves the threshold and changes no prediction."},
+  {q:"Trees are called <b>unstable</b> because…",
+   o:["they can loop forever while growing","a small data change can alter many splits","their leaves always disagree","they ignore the strongest feature"],
+   a:1, e:"A small change in the training cars can change the first question and many predictions — which ensembles then exploit."},
+  {q:"For a <b>regression</b> target, kNN predicts…",
+   o:["the median of all training labels","the mean y of the k nearest points","the nearest point's label only","the variance of the neighbors"],
+   a:1, e:"For a numeric target, kNN replaces the vote with the mean y of the k nearest training points."},
+  {q:"The greedy tree chooses each split by…",
+   o:["trying every feature and threshold for the best gain","picking one feature uniformly at random at each node","always splitting on whichever feature comes first","keeping the total number of leaves as small as it can"],
+   a:0, e:"At each node it searches every feature and threshold, keeps the largest-gain split, then recurses — and never revisits earlier splits."}
 ],
-where:[
-  {q:"In a <code>LIKE</code> mask, the underscore <code>_</code> matches…",
-   o:["exactly one symbol","zero or more symbols","only a digit","the end of the string"],
-   a:0, e:"_ matches exactly one character; % matches any sequence (including nothing)."},
-  {q:"In a <code>LIKE</code> mask, the percent sign <code>%</code> matches…",
-   o:["exactly one single symbol and no more","any sequence of characters, including none","only whitespace characters such as spaces and tabs","only the uppercase letters from A to Z"],
-   a:1, e:"% stands for any run of characters of any length, including the empty string."},
-  {q:"How does <code>ILIKE</code> differ from <code>LIKE</code>?",
-   o:["ILIKE is case-insensitive","ILIKE only matches integers","ILIKE requires a subquery","ILIKE is the negation of LIKE"],
-   a:0, e:"ILIKE performs a case-insensitive pattern match; otherwise it behaves like LIKE."},
-  {q:"<code>salary BETWEEN 1000 AND 2000</code> is equivalent to…",
-   o:["salary &gt; 1000 AND salary &lt; 2000 (exclusive)","salary &gt;= 1000 AND salary &lt;= 2000 (inclusive)","salary = 1000 OR salary = 2000","salary IN (1000, 2000)"],
-   a:1, e:"BETWEEN is inclusive of both endpoints."},
-  {q:"What does the pattern <code>'J%n'</code> match?",
-   o:["names containing the letters J and n anywhere","names that start with J and end with n","names exactly three letters long","names with J as the second character"],
-   a:1, e:"J, then any sequence, then a final n — e.g. John, Jonathan, Jن... anything starting J and ending n."},
-  {q:"A <b>subquery</b> is…",
-   o:["a query saved as a stored procedure","a query nested inside another query","a query that only returns one row","a backup copy of a query"],
-   a:1, e:"A subquery is a query embedded within another, e.g. inside an IN (...) or WHERE clause."},
-  {q:"<code>WHERE manager_id IN (SELECT emp_id FROM Employees WHERE fname='John')</code> returns employees…",
-   o:["named John","whose manager is named John","who have no manager","who manage someone named John"],
-   a:1, e:"The subquery lists the emp_ids of Johns; the outer query keeps rows whose manager_id is one of them."},
-  {q:"A <code>WITH</code> clause (common table expression) is used to…",
-   o:["permanently create a brand-new physical table stored on disk","define a named temporary result reusable in the main query","add a brand-new column to an already existing table","enforce a foreign-key referential integrity constraint"],
-   a:1, e:"A CTE names a temporary result set (e.g. John_ids) that the following query can reference — often clearer than an inline subquery."},
-  {q:"Which operator means <b>not equal</b> in these notes?",
-   o:["==","!=","=/=","NOT ="],
-   a:1, e:"!= tests inequality (PostgreSQL also accepts <>)."},
-  {q:"The pattern <code>'__ter%'</code> matches strings that…",
-   o:["contain the three letters 'ter' somewhere in the middle","begin with any two symbols, then 'ter', then anything","end with exactly the three letters 't', 'e', and 'r'","are exactly five characters long in total length"],
-   a:1, e:"Two underscores = two single symbols, then the literal 'ter', then % = anything."},
-  {q:"To keep rows whose value is NOT in a set of values, you use…",
-   o:["NOT IN (list or subquery)","EXCEPT (the given list of values)","OUTSIDE (the given list of values)","IS NOT (the given list of values)"],
-   a:0, e:"NOT IN (...) excludes rows whose value appears in the given list or subquery result."},
-  {q:"Which comparison works on strings but not plain numbers?",
-   o:["BETWEEN x AND y","LIKE 'mask'","&gt;=","IN (...)"],
-   a:1, e:"LIKE/ILIKE/SIMILAR TO are string pattern operators; BETWEEN, >=, and IN apply to numbers and dates too."}
+ensembles:[
+  {q:"Averaging M <b>independent</b> predictions, each with variance σ², gives variance…",
+   o:["σ² times M, growing with M","σ² over M, shrinking with M","σ² regardless of M","σ² over the square root of M"],
+   a:1, e:"Independent averaging gives σ²/M, so variance shrinks as members are added; the bias they share is unchanged."},
+  {q:"With correlated members, adding more of them stops helping because…",
+   o:["the shared bias term keeps on growing with M","the correlated term does not shrink with M","the per-model step size decays down to zero","each extra member added raises the variance σ²"],
+   a:1, e:"Variance is ρσ² + (1−ρ)σ²/M; the first term is a floor that more members cannot lower. So members should be uncorrelated."},
+  {q:"A <b>bootstrap sample</b> of N items is drawn…",
+   o:["without replacement, so all differ","with replacement, so repeats occur","as the N/2 nearest items","in sorted order by label"],
+   a:1, e:"Drawing N from N with replacement lets items repeat or be missed; about 63% of distinct items appear."},
+  {q:"About what share of distinct items appear in a bootstrap sample?",
+   o:["roughly 37 percent","roughly half of them","roughly 63 percent","roughly 90 percent"],
+   a:2, e:"The chance of missing one item is (1−1/N)^N → 1/e ≈ 0.37, so about 63% appear and 37% are out-of-bag."},
+  {q:"Bagging uses <b>deep</b> trees as members because they have…",
+   o:["low variance a vote preserves","low bias and high variance","high bias a vote can fix","the fewest leaves to store"],
+   a:1, e:"Deep trees are low-bias, high-variance; a vote removes variance and cannot remove bias, so deep trees are the right members."},
+  {q:"A random forest lowers the correlation between trees by…",
+   o:["using much shallower trees than plain bagging does","drawing a random feature subset at each split","training all of the trees strictly in sequence","dropping the bootstrap resampling step entirely"],
+   a:1, e:"Drawing m of D features at each split keeps the strongest feature out of most splits, so trees differ more and ρ drops."},
+  {q:"A common default for the feature subset size <b>m</b> in classification is…",
+   o:["the full count D","the square root of D","half of D","the log of D"],
+   a:1, e:"The usual default is m = √D (rounded down); with m = D the forest reduces to plain bagging."},
+  {q:"<b>Out-of-bag</b> accuracy is estimated using, for each car…",
+   o:["all 100 trees in the forest","only trees that never saw that car","the single most accurate tree","the trees trained after it"],
+   a:1, e:"About 37 of 100 trees never saw a given car; their vote is a fair test on unseen data, with no cars set aside."},
+  {q:"<b>Boosting</b> differs from bagging in that its members are…",
+   o:["deep trees trained in parallel","small trees trained in sequence","random linear models","always a single stump"],
+   a:1, e:"Boosting adds small trees one after another, each correcting the remaining mistakes; bagging grows deep trees in parallel."},
+  {q:"Boosting mainly reduces a model's…",
+   o:["variance, by averaging deep trees","bias, by adding weak learners","storage cost, by pruning leaves","noise, by cleaning the labels"],
+   a:1, e:"A stump is high-bias, low-variance; adding many in sequence removes remaining bias, the opposite end from bagging."},
+  {q:"In AdaBoost, a stump's vote weight α is <b>large</b> when its weighted error is…",
+   o:["close to one half","small (near zero)","exactly one","above one half"],
+   a:1, e:"α = ½ ln((1−ε)/ε): a small error gives a large α, while an error of ½ (guessing) gives α = 0."},
+  {q:"After an AdaBoost update and rescaling, the misclassified points hold…",
+   o:["all of the total weight","exactly half of the weight","the same tiny weight as before","none of the weight"],
+   a:1, e:"The 'half rule': after the update and rescaling, the points the stump got wrong together hold exactly half the total weight."},
+  {q:"In <b>gradient boosting</b> for regression, each new tree is fit to…",
+   o:["the original targets again","the current residuals","a bootstrap sample of cars","the out-of-bag errors"],
+   a:1, e:"Starting from the mean, each stage fits a small tree to the residuals (the negative gradient for squared error) and adds a fraction ν of it."},
+  {q:"The shrinkage <b>ν</b> (learning rate) in gradient boosting…",
+   o:["is simply the total number of trees used","scales how much of each tree is added","sets the maximum depth of each small tree","is equal to the current training error"],
+   a:1, e:"ν between 0 and 1 is the fraction of each stage's tree added; small ν needs more stages but often reaches lower held-out error."},
+  {q:"A risk of boosting that <b>bagging does not share</b> is that…",
+   o:["more rounds eventually overfit","it cannot handle many features","it must store the whole dataset","it needs the classes balanced"],
+   a:0, e:"Every boosting stage lowers training error, so too many stages fit noise; the number of stages is chosen on held-out data. More trees never hurt a forest."}
 ],
-joins:[
-  {q:"An <b>INNER JOIN</b> returns…",
-   o:["all rows from the left table only","only rows that have a match in both tables","all rows from both tables regardless of matching","rows from neither table unless keys are equal to zero"],
-   a:1, e:"Inner join keeps only rows where the ON condition matches in both tables."},
-  {q:"A <b>LEFT OUTER JOIN</b> returns…",
-   o:["all left rows, with NULLs where the right has no match","all right rows, with NULLs where the left has no match","only rows matched on both sides","the rows unique to the right table"],
-   a:0, e:"LEFT OUTER JOIN keeps every left row; unmatched right columns come back NULL."},
-  {q:"A <b>FULL OUTER JOIN</b> returns…",
-   o:["only the rows that happen to be matched in both of the tables","all rows from both tables, NULLs where either side is missing","all of the left rows plus only the matched right rows","a full Cartesian product of the two tables' rows"],
-   a:1, e:"FULL OUTER JOIN keeps every row from both sides, filling NULLs where there is no counterpart."},
-  {q:"In a join, the <code>ON</code> clause specifies…",
-   o:["exactly which columns should be displayed","the join condition linking the two tables","the sort order to apply to the final result","which one of the tables should be updated"],
-   a:1, e:"ON gives the matching condition, e.g. ON t1.customer_id = t2.cust_id."},
-  {q:"To show each employee's manager, where both are rows in Employees, you use…",
-   o:["a self-join of Employees to a second copy of itself","a FULL OUTER JOIN over to the Departments table alone","a subquery placed inside the SELECT list only","a UNION of two entirely separate Employees queries"],
-   a:0, e:"Join Employees (e) to another alias of Employees (m) on e.manager_id = m.emp_id — a self-join."},
-  {q:"To list departments <b>including</b> those with no employees, you should use…",
-   o:["an INNER JOIN, which supposedly keeps all departments","an OUTER JOIN, so unmatched departments still appear","a WHERE clause using only an IS NULL test on the join","no join between the two tables at all here"],
-   a:1, e:"An inner join would drop empty departments; a LEFT/RIGHT OUTER JOIN keeps them with NULLs on the employee side."},
-  {q:"Which operator concatenates strings in PostgreSQL?",
-   o:["+","||","&amp;","CONCAT_WS only"],
-   a:1, e:"The || operator joins strings, e.g. fname || ' ' || lname for a full name."},
-  {q:"Table aliases such as <code>t1</code> and <code>t2</code> are…",
-   o:["required only when you are writing INNER joins","short names for tables, and necessary in a self-join","brand-new physical copies of the two underlying tables","exactly the same thing as a column alias would be"],
-   a:1, e:"Aliases rename tables within a query and are essential when a table is joined to itself."},
-  {q:"An INNER JOIN where a left row has no matching right row will…",
-   o:["include that row with NULLs on the right","exclude that row from the result entirely","raise an error","include it twice"],
-   a:1, e:"Unmatched rows are dropped by an inner join; use an outer join to keep them."},
-  {q:"A <b>RIGHT OUTER JOIN</b> keeps all rows from…",
-   o:["the left table, padding the right with NULLs","the right table, padding the left with NULLs","both tables equally","neither table unless matched"],
-   a:1, e:"RIGHT OUTER JOIN preserves every right-table row, with NULLs where the left has no match."}
+eval1:[
+  {q:"The <b>generalization error</b> of a model is…",
+   o:["the error on the fitted examples","estimated by held-out error","always equal to the training error","the noise variance σ² alone"],
+   a:1, e:"Generalization error averages the loss over all new pairs and can only be estimated — by the error on a held-out set never used to fit."},
+  {q:"<b>Underfitting</b> shows up as…",
+   o:["low training and high held-out error","high training and high held-out error","low training and low held-out error","high training and low held-out error"],
+   a:1, e:"Underfitting: the model is too simple, so both training and held-out error are high. Overfitting has low training but high held-out error."},
+  {q:"Expected squared error splits into…",
+   o:["bias² plus variance plus noise","precision plus recall plus noise","training plus validation plus test","mean plus median plus mode"],
+   a:0, e:"Expected error = bias² + variance + irreducible noise σ²; the error can never fall below σ²."},
+  {q:"The <b>noise</b> term σ² in the decomposition is…",
+   o:["removed by a flexible enough model","the part of y no model can predict","the gap between average fit and truth","how much the fit moves with data"],
+   a:1, e:"Noise is the variance of ε, which no function of x can predict; bias² is the average-fit gap and variance is the spread across datasets."},
+  {q:"Held-out error <b>far above</b> training error points to…",
+   o:["high bias (too simple)","high variance (too flexible)","pure noise with no signal","a leak in the test set"],
+   a:1, e:"A big train/held-out gap is high variance; both errors high together is high bias."},
+  {q:"Making a model <b>more flexible</b> usually…",
+   o:["lowers bias and raises variance","raises bias and lowers variance","lowers both bias and variance","changes neither bias nor variance"],
+   a:0, e:"More flexibility lowers bias but raises variance — the bias–variance tradeoff; the best setting balances the two."},
+  {q:"Why is <b>one</b> train/test split not enough to rank two models?",
+   o:["it wastes too much training data","another split can swap their order","it always favors the simpler model","it cannot estimate the bias term"],
+   a:1, e:"One split gives one noisy number; two models with close scores can swap order on another split, so cross-validation averages several."},
+  {q:"In <b>K-fold</b> cross-validation, each example is…",
+   o:["used only for fitting, never scoring","held out in exactly one round","scored in every one of the K rounds","dropped from one random fold"],
+   a:1, e:"Each example is held out exactly once and used for fitting in every other round; the CV estimate averages the K fold errors."},
+  {q:"<b>Leave-one-out</b> cross-validation takes…",
+   o:["K = 5 folds always","K = 2 for a single split","K = N, one example per fold","K = √N folds"],
+   a:2, e:"LOOCV sets K = N, so each fold is a single example; accurate but it costs N fits, versus the usual K = 5 or 10."},
+  {q:"After cross-validation picks a setting, the next step is to…",
+   o:["report the best fold's score","refit the winner on all training data","average the fold models together","score it on the validation fold"],
+   a:1, e:"Refit the chosen model on all training data (each fold model used only part of it), then score the test set once."},
+  {q:"The <b>one-SE rule</b> says to…",
+   o:["always pick whichever model has the lowest CV error","take the simpler model within one SE of the best","add one full standard error onto every model's score","keep only the models that sit above the SE line"],
+   a:1, e:"A CV error within one standard error of the best is a near tie, so choose the simpler of the near-tied models."},
+  {q:"The <b>test set</b> should be used…",
+   o:["once, to score the chosen model","to tune each hyperparameter","in every cross-validation fold","to standardize all the features"],
+   a:0, e:"Anything used to choose a setting is a validation set; the test set is used exactly once, at the end, on the final model."},
+  {q:"Standardizing with <b>all</b> the data before splitting is a leak because…",
+   o:["it makes the features too small","the test cars shaped the mean and SD","it changes the class labels","it doubles the training size"],
+   a:1, e:"The test cars influenced the standardization statistics, so information from the test set leaked into fitting and the score looks too good."},
+  {q:"To avoid leakage, every step that learns from data should run…",
+   o:["once on the whole dataset up front","inside the training part of each fold","only on the test set","after the final score is reported"],
+   a:1, e:"Scaling, feature choice, and tuning must happen inside each fold's training part, never using held-out or test data."}
 ],
-agg:[
-  {q:"How do <code>COUNT(*)</code> and <code>COUNT(col)</code> differ?",
-   o:["COUNT(*) counts all rows; COUNT(col) counts rows where col is NOT NULL","COUNT(*) skips over the NULLs, while COUNT(col) counts every single row","they always return exactly the same number in every case","COUNT(col) counts only the distinct values found in the column"],
-   a:0, e:"COUNT(*) counts every row; COUNT(col) counts only rows whose col value is not NULL."},
-  {q:"<code>COUNT(DISTINCT manager_id)</code> returns…",
-   o:["the total number of rows found in the whole table","the number of distinct non-null manager values","the total number of NULL manager values present","the single largest manager_id value in the table"],
-   a:1, e:"DISTINCT inside COUNT tallies unique non-null values of the column."},
-  {q:"Which of these is an aggregate function?",
-   o:["COALESCE","AVG","DISTINCT","BETWEEN"],
-   a:1, e:"AVG (like SUM, MIN, MAX, COUNT) aggregates over rows. COALESCE and DISTINCT are not aggregates."},
-  {q:"The GROUP BY rule says that every SELECT column…",
-   o:["must always be wrapped inside an aggregate function call","that is not inside an aggregate must appear in GROUP BY","must be the primary key of one of the tables","must be sorted into strictly ascending order"],
-   a:1, e:"Any non-aggregated column in the SELECT list has to be listed in GROUP BY."},
-  {q:"How do WHERE and HAVING differ?",
-   o:["WHERE filters the resulting groups, while HAVING instead filters the individual rows","WHERE filters rows before grouping; HAVING filters groups after aggregation","they are completely interchangeable in every situation","HAVING is evaluated before the FROM clause even runs"],
-   a:1, e:"WHERE removes rows before grouping; HAVING removes whole groups based on aggregate results."},
-  {q:"What does <code>COALESCE(SUM(salary), 0.00)</code> return when there are no rows?",
-   o:["NULL","0.00","an error","the average salary"],
-   a:1, e:"SUM over no rows is NULL; COALESCE replaces that NULL with 0.00."},
-  {q:"To compute a total salary <b>per department</b>, you add…",
-   o:["ORDER BY dept_id","GROUP BY dept_id","DISTINCT dept_id","HAVING dept_id"],
-   a:1, e:"GROUP BY dept_id partitions rows by department so SUM(salary) is computed within each."},
-  {q:"<code>HAVING MIN(salary) &lt; 3000</code> keeps the department groups whose…",
-   o:["average salary is below 3000","lowest salary is below 3000","total salary is below 3000","employee count is below 3000"],
-   a:1, e:"HAVING filters groups by an aggregate — here, groups where the minimum salary is under 3000."},
-  {q:"<code>SELECT DISTINCT manager_id FROM Employees</code> produces…",
-   o:["the count of managers","the list of unique manager_id values","the manager with the most reports","all rows, duplicates included"],
-   a:1, e:"DISTINCT collapses duplicates, listing each manager_id once."},
-  {q:"To count employees per department <b>including</b> departments with zero, you combine GROUP BY with…",
-   o:["an INNER JOIN and COUNT(*)","an OUTER JOIN and COUNT(emp_id)","a HAVING COUNT(*) = 0 clause","a NOT IN subquery"],
-   a:1, e:"An outer join keeps empty departments; COUNT(emp_id) yields 0 for them because it ignores the NULL employee side."},
-  {q:"To sort a result from largest count to smallest, you add…",
-   o:["ORDER BY count ASC","ORDER BY count DESC","GROUP BY count","HAVING count DESC"],
-   a:1, e:"ORDER BY <expr> DESC sorts descending (largest to smallest)."}
-],
-review:[
-  {q:"Adding <code>dept_name</code> as a column in Employees violates good design mainly because it…",
-   o:["makes the whole table become far too wide to query in any efficient way","duplicates the name on every employee row, risking update anomalies","prevents the table from ever using a primary key","stops the foreign keys from working at all here"],
-   a:1, e:"Review problem 2: storing dept_name per employee is redundant; store dept_id (FK) and keep the name once in Departments."},
-  {q:"Can you INSERT an employee whose <code>dept_id</code> does not exist in Departments?",
-   o:["yes, the row is added with a warning","no — the foreign key rejects it","yes, dept_id is set to NULL automatically","only if the department is created afterward"],
-   a:1, e:"Review problem 6: the FK on dept_id requires an existing department, so the insert is rejected."},
-  {q:"Can you INSERT an employee whose <code>manager_id</code> is not any existing emp_id?",
-   o:["yes, this is always allowed without any issue","no, unless manager_id is NULL (e.g. the top manager)","yes, it automatically creates the missing manager row","only if the employee's salary is above 3000"],
-   a:1, e:"Review problem 6: the self-referencing FK requires an existing emp_id — so it's rejected unless manager_id is left NULL."},
-  {q:"In the department-report query, listing a department that has <b>no employees</b> with a count of 0 requires…",
-   o:["an INNER JOIN and COUNT(*)","an OUTER JOIN plus COUNT(emp_id)","a HAVING COUNT(*) = 0","a UNION with an empty table"],
-   a:1, e:"Review problem 9: an inner join would drop empty departments; an outer join with COUNT(emp_id) reports 0 for them."},
-  {q:"To list departments from most to fewest employees, the query ends with…",
-   o:["GROUP BY num_employees","ORDER BY num_employees DESC","HAVING num_employees &gt; 0","DISTINCT num_employees"],
-   a:1, e:"Review problem 9: ORDER BY the employee count DESC gives largest-to-smallest."},
-  {q:"To delete departments that have no employees, a correct approach is…",
-   o:["DELETE FROM Departments WHERE dept_id NOT IN (SELECT dept_id FROM Employees)","DELETE FROM Departments WHERE COUNT(*) = 0 aggregated for each department","DELETE the empty rows FROM the Departments table right now","TRUNCATE the Departments table WHERE the employee count equals exactly 0"],
-   a:0, e:"Review problem 11: delete departments whose dept_id appears in no employee row (NOT IN a subquery, or NOT EXISTS)."}
+eval2:[
+  {q:"On a <b>rare</b> positive class, high accuracy can hide that a model…",
+   o:["flags far too many negatives","finds none of the positives","has a very low threshold","uses too many features"],
+   a:1, e:"Always saying 'no' scores high when positives are rare yet finds none of them; the many negatives dominate accuracy."},
+  {q:"A <b>false negative (FN)</b> is a case that is…",
+   o:["predicted positive but actually negative","predicted negative but actually positive","predicted and actually positive","predicted and actually negative"],
+   a:1, e:"FN: predicted negative, actually positive — a missed positive. FP is the reverse: predicted positive, actually negative."},
+  {q:"<b>Precision</b> is defined as…",
+   o:["TP divided by (TP + FN)","TP divided by (TP + FP)","TN divided by (TN + FP)","(TP + TN) over the total"],
+   a:1, e:"Precision = TP/(TP+FP): of the flagged (predicted-positive) cases, what share were really positive."},
+  {q:"<b>Recall</b> is defined as…",
+   o:["TP divided by (TP + FP)","TN divided by (TN + FN)","TP divided by (TP + FN)","(TP + TN) over the total"],
+   a:2, e:"Recall = TP/(TP+FN): of the actual positives, what share the model found; it is also the sensitivity / true positive rate."},
+  {q:"The <b>F1</b> score is…",
+   o:["the plain average of P and R","the harmonic mean of P and R","the larger of P and R","the product of P and R"],
+   a:1, e:"F1 = 2PR/(P+R), the harmonic mean, which is high only when both precision and recall are high."},
+  {q:"<b>Lowering</b> the decision threshold means TP and FP…",
+   o:["can never fall","can never rise","both stay fixed","always both fall"],
+   a:0, e:"Lowering the threshold moves cases from the negative to the positive column, so TP and FP never fall — recall never drops, precision may."},
+  {q:"An <b>ROC curve</b> plots…",
+   o:["precision against recall","TPR against FPR","accuracy against threshold","TP against FN"],
+   a:1, e:"ROC plots the true positive rate (recall) against the false positive rate, one point per threshold; each rate divides by a row of the matrix."},
+  {q:"The <b>AUC</b> can be read as the probability that…",
+   o:["a random positive outscores a random negative","the model's overall accuracy exceeds one half","precision always stays safely above the recall","a decision threshold of 0.5 is the optimal one"],
+   a:0, e:"AUC is the chance a random positive is ranked above a random negative — a pure ranking measure; 0.5 is random, 1 is perfect."},
+  {q:"Both TPR and FPR <b>ignore how rare</b> the positive class is because each…",
+   o:["divides by a row of the matrix","is capped at one half","uses only the diagonal counts","subtracts the base rate first"],
+   a:0, e:"TPR divides by actual positives and FPR by actual negatives — each a row — so neither depends on the mix of positives to negatives."},
+  {q:"When positives are rare and the flagged list is what users see, prefer…",
+   o:["the ROC curve, since it looks good","a precision–recall curve","raw accuracy on all cases","the false positive rate alone"],
+   a:1, e:"An ROC curve can look good while most flags are wrong; a precision–recall curve shows the quality of the flagged list directly."},
+  {q:"<b>Class weights</b> as an imbalance remedy work by…",
+   o:["dropping negatives from the test set","weighting each positive more in the loss","raising the threshold to 0.9","removing the rare class entirely"],
+   a:1, e:"Class weights make each positive count more in the training loss, so a missed positive costs more; it is fit on training data only."},
+  {q:"In a <b>multiclass</b> confusion matrix, the diagonal holds…",
+   o:["the misclassified cases","the correctly classified cases","the class priors","the per-class thresholds"],
+   a:1, e:"Rows are true classes and columns predicted; the diagonal entries are the correct predictions for each class."},
+  {q:"Precision is <b>undefined</b> when the model…",
+   o:["flags no cases at all","misses every positive","gets perfect accuracy","has equal TP and TN"],
+   a:0, e:"Flagging nothing gives TP+FP = 0, so precision is 0/0, undefined; recall is still TP/(TP+FN)."},
+  {q:"A <b>higher AUC</b> than another model guarantees…",
+   o:["higher precision at every threshold","a better overall ranking of cases","higher recall at threshold 0.5","a lower false positive rate everywhere"],
+   a:1, e:"AUC scores the whole ranking, so a higher AUC means better ranking — but it does not fix precision or recall at any single threshold."},
+  {q:"The <b>chance line</b> of a precision–recall curve sits at…",
+   o:["exactly 0.5 regardless of the dataset used","the share of positives in the data","the model's overall classification accuracy","the model's false positive rate at the time"],
+   a:1, e:"Flagging at random gives precision equal to the positive rate (e.g. 12/78 = 0.154), which is the PR curve's chance level."}
 ]
 };
 
 /* =========================================================
-   FREE-RESPONSE PRACTICE
+   WORKED PRACTICE (FREE RESPONSE) — from the lectures
    ========================================================= */
 const FR = {
-basics:[
-  {q:"Write DDL that (safely) creates a <code>cars</code> table with an inventory number, VIN, make, model, a model year defaulting to 2026, a net price, and a nullable MSRP — then insert one BMW.",
-   a:`<div class="code"><span class="kw">DROP TABLE IF EXISTS</span> public.cars;
-<span class="kw">CREATE TABLE</span> public.cars (
-    inv_no      INTEGER NOT NULL,
-    vin         VARCHAR(20) NOT NULL,
-    make        VARCHAR(30) NOT NULL,
-    model       VARCHAR(50) NOT NULL,
-    m_year      INTEGER NOT NULL DEFAULT 2026,
-    net_price   DECIMAL(10,2) NOT NULL,
-    msrp        DECIMAL(10,2) NULL
-);
-
-<span class="kw">INSERT INTO</span> public.cars (inv_no, vin, make, model, net_price, msrp)
-<span class="kw">VALUES</span> (1001, 'BM23HT17AE235710', 'BMW', '760i xDrive', 123910.00, 143500.00);</div>
-      <p><code>DROP TABLE IF EXISTS</code> avoids an error on re-run; <code>DEFAULT 2026</code> fills m_year when omitted; MSRP is the only nullable column.</p>`},
-  {q:"Write a query for all BMWs under $50,000 net price, then a statement that changes car 1001's model to 'M240i', then one that deletes the BMW 228i.",
-   a:`<div class="code"><span class="kw">SELECT</span> make, m_year, model
-<span class="kw">FROM</span> public.cars
-<span class="kw">WHERE</span> make = 'BMW' <span class="kw">AND</span> net_price &lt; 50000.00;
-
-<span class="kw">UPDATE</span> public.cars <span class="kw">SET</span> model = 'M240i' <span class="kw">WHERE</span> inv_no = 1001;
-
-<span class="kw">DELETE FROM</span> public.cars <span class="kw">WHERE</span> make = 'BMW' <span class="kw">AND</span> model = '228i';</div>
-      <p>Note the <code>WHERE</code> on the UPDATE and DELETE — without it they would change or remove <b>every</b> row.</p>`}
+perceptron:[
+  {q:"<b>Practice 1 — Sign and distance.</b> The line is <code>w = (1, 1)</code>, <code>b = −6</code>, so <code>z = x₁ + x₂ − 6</code>. Two points: P1 = (4, 4) with y = +1 and P5 = (1, 0) with y = −1. Find each score z and product y·z, whether each is classified correctly, and each point's distance from the line.",
+   a:`<p><b>P1 = (4,4):</b> z = 4 + 4 − 6 = <b>2</b>. y·z = (+1)(2) = +2 &gt; 0, so <b>correct</b>.</p>
+      <p><b>P5 = (1,0):</b> z = 1 + 0 − 6 = <b>−5</b>. y·z = (−1)(−5) = +5 &gt; 0, so <b>correct</b>.</p>
+      <p>‖w‖ = √(1² + 1²) = √2 ≈ 1.414. Distance = |z|/‖w‖.</p>
+      <ul><li>P1: 2/√2 = <b>1.414</b></li><li>P5: 5/√2 = <b>3.536</b></li></ul>
+      <p><b>Answer:</b> P1: z = 2, correct, distance 1.414. P5: z = −5, correct, distance 3.536. Both correct; P1 is closer.</p>`},
+  {q:"<b>Practice 2 — Continue the run.</b> After update 3 the weights are <code>w = (1, 4)</code>, <code>b = −1</code>, with η = 1. The next two points are P3 = (5, 6) with y = +1 and P7 = (3, 0) with y = −1. Find each score and whether it is a mistake, then the new w, b after any update and P7's new score.",
+   a:`<p><b>P3 = (5,6):</b> z = 1·5 + 4·6 − 1 = 5 + 24 − 1 = <b>28</b>. y·z = +28 &gt; 0 → <b>correct</b>, nothing changes.</p>
+      <p><b>P7 = (3,0):</b> z = 1·3 + 4·0 − 1 = <b>2</b>. y·z = (−1)(2) = −2 ≤ 0 → <b>mistake</b>.</p>
+      <p>Update with y = −1 (subtract x, lower b): w = (1,4) − (3,0) = <b>(−2, 4)</b>, b = −1 − 1 = <b>−2</b>.</p>
+      <p>New score of P7: z = (−2)(3) + 4·0 − 2 = −6 − 2 = <b>−8</b> (now correct). The drop of 10 = ‖P7‖² + 1 = 9 + 1.</p>
+      <p><b>Answer:</b> P3 correct (z = 28). P7 a mistake (z = 2): new w = (−2, 4), b = −2, new score −8.</p>`},
+  {q:"<b>Practice 3 — The margin of line B.</b> Line B is <code>w = (1, 1)</code>, <code>b = −6</code>. The scores z of the eight toy points are 2, 4, 5, 6, −5, −4, −3, −2, and every point is on its correct side. Which points are closest, what is the margin, and does moving P4 = (6, 6) to (7, 7) change it?",
+   a:`<p>Margin = smallest |z| / ‖w‖, with ‖w‖ = √2.</p>
+      <p>The smallest |z| is <b>2</b>, at P1 = (4,4) (z = 2) and P8 = (3,1) (z = −2). So the closest points are <b>P1 and P8</b>.</p>
+      <p>Margin = 2/√2 = <b>1.414</b>.</p>
+      <p>Moving P4 from (6,6) to (7,7) raises its z from 6 to 8, farther from the line. The closest points are still P1 and P8, so the margin is <b>unchanged</b> — only the closest points decide it.</p>
+      <p><b>Answer:</b> Closest P1 and P8, margin 1.414; moving P4 changes nothing.</p>`},
+  {q:"<b>Check 1 — Correct or mistake?</b> Four points share one w and b, with (y, z): A (+1, 2.5), B (−1, 0.8), C (+1, −0.3), D (−1, −4.0). Find each product y·z, which are mistakes, and — of the correct points — which is closer to the boundary (without ‖w‖).",
+   a:`<p>Products y·z: A = +2.5, B = −0.8, C = −0.3, D = +4.0.</p>
+      <p><b>Mistakes</b> (y·z ≤ 0): <b>B and C</b>. Correct: A and D.</p>
+      <p>All points share the same w, so distance ∝ |z|. Among the correct points, A has |z| = 2.5 and D has |z| = 4.0, so <b>A is closer</b> to the boundary.</p>
+      <p><b>Answer:</b> Products 2.5, −0.8, −0.3, 4.0. Mistakes B and C. A is closer.</p>`},
+  {q:"<b>Check 3 — Distances and a mistake.</b> The line is <code>3x₁ + 4x₂ − 12 = 0</code>, so w = (3, 4), b = −12. Points: A = (4, 3) y = +1, B = (0, 0) y = −1, C = (1, 1) y = +1. Find each score and y·z, each distance, which point is misclassified, and whether this line has a margin.",
+   a:`<p>‖w‖ = √(3² + 4²) = <b>5</b>.</p>
+      <p><b>A = (4,3):</b> z = 12 + 12 − 12 = +12, y·z = +12 (correct), distance 12/5 = <b>2.4</b>.</p>
+      <p><b>B = (0,0):</b> z = 0 + 0 − 12 = −12, y·z = (−1)(−12) = +12 (correct), distance 12/5 = <b>2.4</b>.</p>
+      <p><b>C = (1,1):</b> z = 3 + 4 − 12 = −5, y·z = (+1)(−5) = −5 (<b>mistake</b>), distance 5/5 = <b>1.0</b>.</p>
+      <p>A margin is defined only when <b>every</b> point is correct. C is misclassified, so this line has <b>no margin</b>.</p>
+      <p><b>Answer:</b> A and B correct at distance 2.4; C misclassified at distance 1.0; no margin.</p>`}
 ],
-types:[
-  {q:"Pick appropriate PostgreSQL types: (a) an ID auto-numbered from 1, (b) a name up to 50 characters, (c) money with 2 decimals up to 10 digits, (d) a calendar date, (e) a true/false flag, (f) an array of integers.",
-   a:`<ul>
-      <li>(a) <code>SERIAL PRIMARY KEY</code> (or BIGSERIAL) — auto-numbering.</li>
-      <li>(b) <code>VARCHAR(50)</code> — variable-length, no padding.</li>
-      <li>(c) <code>NUMERIC(10,2)</code> (or DECIMAL(10,2)) — exact, 2 decimals.</li>
-      <li>(d) <code>DATE</code> — date only (use TIMESTAMP for date + time).</li>
-      <li>(e) <code>BOOLEAN</code> — TRUE / FALSE / NULL.</li>
-      <li>(f) <code>INTEGER[]</code> — an array; remember indexing starts at 1.</li>
-      </ul>`},
-  {q:"Show 235 as a 16-bit binary number, then give −235 in 16-bit two's complement.",
-   a:`<p><b>235</b> in 16 bits:</p>
-      <div class="code">235 = 0000 0000 1110 1011</div>
-      <p><b>−235</b> (two's complement): flip every bit of 235, then add 1.</p>
-      <div class="code">flip: 1111 1111 0001 0100
- + 1: 1111 1111 0001 0101   →  −235</div>`}
+svm:[
+  {q:"<b>Practice 1 — Read off the solution.</b> The solver returns <code>w = (0.2, 0.6)</code>, <code>b = −2.2</code>. The products y·z for P2–P7 are 2.2, 2.4, 2.6, 2.0, 1.8, 1.6. P1 = (4, 4) has y = +1 and P8 = (3, 1) has y = −1. Find z and y·z for P1 and P8, the support vectors, and the margin.",
+   a:`<p><b>P1 = (4,4):</b> z = 0.2·4 + 0.6·4 − 2.2 = 0.8 + 2.4 − 2.2 = <b>1.0</b>. y·z = <b>1.0</b>.</p>
+      <p><b>P8 = (3,1):</b> z = 0.2·3 + 0.6·1 − 2.2 = 0.6 + 0.6 − 2.2 = <b>−1.0</b>. y·z = (−1)(−1.0) = <b>1.0</b>.</p>
+      <p>P1 and P8 have the smallest product, exactly 1, so they are the <b>support vectors</b>.</p>
+      <p>‖w‖ = √(0.2² + 0.6²) = √(0.04 + 0.36) = √0.40 ≈ 0.632. Margin = 1/‖w‖ = <b>1.581</b>.</p>
+      <p><b>Answer:</b> P1 z = 1.0, P8 z = −1.0. Support vectors P1 and P8, margin 1.581.</p>`},
+  {q:"<b>Practice 2 — Slack from scores.</b> Six points have (y, z): (+1, 2.5), (+1, 0.4), (−1, −1.8), (−1, 0.3), (+1, −0.7), (−1, −1.0). Find each y·z and slack, which have zero slack, which are misclassified, and the total slack (what C multiplies).",
+   a:`<p>Slack ξ = max(0, 1 − y·z).</p>
+      <table class="tbl"><thead><tr><th>#</th><th>y·z</th><th>ξ</th></tr></thead><tbody>
+      <tr><td>1</td><td>+2.5</td><td>0</td></tr>
+      <tr><td>2</td><td>+0.4</td><td>0.6</td></tr>
+      <tr><td>3</td><td>+1.8</td><td>0</td></tr>
+      <tr><td>4</td><td>−0.3</td><td>1.3</td></tr>
+      <tr><td>5</td><td>−0.7</td><td>1.7</td></tr>
+      <tr><td>6</td><td>+1.0</td><td>0</td></tr></tbody></table>
+      <p><b>Zero slack:</b> points 1, 3, 6 (on or beyond the margin line). <b>Misclassified</b> (ξ &gt; 1): points 4 and 5. Point 2 is inside the street but still correct.</p>
+      <p>Total slack = 0 + 0.6 + 0 + 1.3 + 1.7 + 0 = <b>3.6</b>.</p>
+      <p><b>Answer:</b> Slacks 0, 0.6, 0, 1.3, 1.7, 0. Zero slack 1, 3, 6. Mistakes 4 and 5. Total 3.6.</p>`},
+  {q:"<b>Practice 3 — The kernel trick.</b> x = (2, 1) and u = (1, 3). The kernel is the squared inner product, and the feature map lists the two squares and the cross product with a factor √2. Find K(x, u) by the kernel route, φ(x) and φ(u), and their inner product.",
+   a:`<p><b>Kernel route:</b> x·u = 2·1 + 1·3 = 5, so K = 5² = <b>25</b>.</p>
+      <p><b>Feature map</b> φ(a) = (a₁², √2·a₁a₂, a₂²):</p>
+      <ul><li>φ(x) = (2², √2·2·1, 1²) = <b>(4, 2√2, 1)</b></li>
+      <li>φ(u) = (1², √2·1·3, 3²) = <b>(1, 3√2, 9)</b></li></ul>
+      <p>φ(x)·φ(u) = 4·1 + (2√2)(3√2) + 1·9 = 4 + 6·2 + 9 = 4 + 12 + 9 = <b>25</b>. ✓ matches.</p>
+      <p><b>Answer:</b> K = 25 by both routes; φ(x) = (4, 2√2, 1), φ(u) = (1, 3√2, 9).</p>`},
+  {q:"<b>Practice 4 — Reading a gamma sweep.</b> RBF kernels on 150 training points, 50 held out. γ = 0.1: 125/150 train, 45/50 held out. γ = 5: 148 and 49. γ = 100: 149 and 41. Which γ to choose and why, which underfits/overfits, and what the training counts alone would pick.",
+   a:`<p><b>Choose γ = 5</b>: the highest held-out count, 49/50 (98%), with 148/150 (99%) in training.</p>
+      <p><b>γ = 0.1 underfits:</b> 125/150 (83%) in training and 45/50 held out — both below γ = 5, the model is too smooth.</p>
+      <p><b>γ = 100 overfits:</b> 149/150 (99%) in training but only 41/50 (82%) held out — the boundary wraps single points.</p>
+      <p>Training counts rise with γ, so they would pick <b>γ = 100</b>, the worst held-out choice.</p>
+      <p><b>Answer:</b> γ = 5. γ 0.1 underfits, γ 100 overfits; training counts would wrongly pick γ = 100.</p>`},
+  {q:"<b>Check 2 — Pick C from a sweep.</b> On the cars, three settings of C give (margin, support vectors, held out of 78): C = 0.01 → 1.68, 226, 63. C = 0.03 → 1.19, 204, 67. C = 100 → 0.89, 178, 65. Which C, what happens to the margin and support-vector count as C grows, and why training accuracy is the wrong number.",
+   a:`<p><b>Choose C = 0.03</b>: the highest held-out count, 67/78, with margin 1.19.</p>
+      <p>As C grows, the margin <b>shrinks</b> (1.68 → 1.19 → 0.89) and the number of support vectors <b>falls</b> (226 → 204 → 178) — a narrower street touches fewer points.</p>
+      <p>Training accuracy rewards fitting the training cars and keeps rising with C; it says nothing about new cars, so it is the wrong number for choosing C.</p>
+      <p><b>Answer:</b> C = 0.03 (67/78). Larger C → narrower margin, fewer support vectors. Training accuracy ignores new data.</p>`}
 ],
-keys:[
-  {q:"Define the first three normal forms in the course's terms.",
-   a:`<ul>
-      <li><b>1NF — Atomicity:</b> no lists or repeating groups; every column holds a single (atomic) value.</li>
-      <li><b>2NF:</b> every row has a <b>unique identifier</b> — a primary key (a column or set of columns with unique values); non-key columns depend on the whole key.</li>
-      <li><b>3NF:</b> a table must <b>not</b> hold non-key information that depends on other non-key information (no transitive dependencies).</li>
-      </ul>
-      <p>The overall goals are consistency, completeness, and efficiency.</p>`},
-  {q:"Create an Employees table with a composite primary key of (fname, lname, dept_id) and a foreign key on dept_id that cascades on update and delete.",
-   a:`<div class="code"><span class="kw">CREATE TABLE</span> Employees (
-    fname   VARCHAR(50) NOT NULL,
-    lname   VARCHAR(50) NOT NULL,
-    salary  DECIMAL(10,2) NOT NULL DEFAULT(-1.00),
-    dept_id INTEGER NOT NULL,
-    <span class="kw">PRIMARY KEY</span> (fname, lname, dept_id),
-    <span class="kw">FOREIGN KEY</span> (dept_id) <span class="kw">REFERENCES</span> Departments(dept_id)
-        <span class="kw">ON UPDATE CASCADE ON DELETE CASCADE</span>
-);</div>
-      <p>The composite PK makes the <em>combination</em> unique. CASCADE means changing/removing a department id updates/removes the matching employee rows automatically.</p>`}
+knn:[
+  {q:"<b>Practice 1 — Vote for a new car.</b> A new car's four nearest training cars, as (distance, label): Ford Escort 4W (0.04, USA), Subaru DL (0.06, not USA), Mazda GLC 4 (0.08, not USA), Plymouth Horizon 4 (0.09, USA). Find the kNN prediction for k = 1 and k = 3, which is right (true label not USA), and what goes wrong at k = 4.",
+   a:`<p><b>k = 1:</b> nearest is the Ford Escort (USA) → predict <b>USA</b>. (Wrong — true label is not USA.)</p>
+      <p><b>k = 3:</b> nearest three are USA, not USA, not USA → 2 to 1 for <b>not USA</b>. (Right.)</p>
+      <p><b>k = 4:</b> two USA + two not USA → a <b>tied vote</b>. An odd k avoids ties with two classes.</p>
+      <p>One car's prediction can flip with k, so k is chosen on many held-out cars at once.</p>
+      <p><b>Answer:</b> k = 1 USA (wrong); k = 3 not USA (right); k = 4 ties, so keep k odd.</p>`},
+  {q:"<b>Practice 2 — Read the k sweep.</b> kNN on the cars, cars right in training and held out: k = 1 → 310 and 52. k = 21 → 241 and 63. k = 97 → 231 and 67. k = 313 → 195 and 50. Which k to choose, which overfits/underfits, and what the training counts alone would pick.",
+   a:`<p><b>Choose k = 97</b>: the highest held-out count, 67/78 (86%).</p>
+      <p><b>k = 1 overfits:</b> 310/314 (99%) in training but only 52/78 (67%) held out — a huge gap.</p>
+      <p><b>k = 313 underfits:</b> every car is called the majority (USA), 195/314 and 50/78 — both low.</p>
+      <p>Training count is highest at k = 1, which is 15 cars worse held out, so training counts would wrongly pick <b>k = 1</b>.</p>
+      <p><b>Answer:</b> k = 97. k = 1 overfits, k = 313 underfits; training counts would pick k = 1.</p>`},
+  {q:"<b>Practice 3 — The gain of a split.</b> Ten cars, 5 USA and 5 not USA (parent Gini = 0.50). Split B asks horsepower ≤ 97: it sends 2 USA + 3 others left and 3 USA + 2 others right. Split A had gain 0.18. Find each child's Gini, the gain of B, and which split the tree prefers.",
+   a:`<p><b>Left child</b> (2 USA, 3 other): Gini = 1 − (2/5)² − (3/5)² = 1 − 0.16 − 0.36 = <b>0.48</b>.</p>
+      <p><b>Right child</b> (3 USA, 2 other): by symmetry Gini = <b>0.48</b>.</p>
+      <p>Each child holds 5 of 10 cars, so weighted child impurity = ½(0.48) + ½(0.48) = 0.48.</p>
+      <p>Gain of B = 0.50 − 0.48 = <b>0.02</b>.</p>
+      <p>Split A (gain 0.18) beats split B (gain 0.02), so the tree <b>prefers split A</b>.</p>
+      <p><b>Answer:</b> Both children 0.48. Gain of B = 0.02. The tree keeps split A.</p>`},
+  {q:"<b>Check 1 — Seven neighbors.</b> A new car's seven nearest, in order with labels: 0.10 USA, 0.15 not USA, 0.20 not USA, 0.30 USA, 0.35 USA, 0.50 not USA, 0.60 not USA. Find the kNN prediction for k = 1, 3, 5, 7, and say why k is chosen on held-out cars, not one new car.",
+   a:`<p><b>k = 1:</b> nearest is USA → <b>USA</b>.</p>
+      <p><b>k = 3:</b> USA, not, not → 1 USA, 2 other → <b>not USA</b>.</p>
+      <p><b>k = 5:</b> USA, not, not, USA, USA → 3 USA, 2 other → <b>USA</b>.</p>
+      <p><b>k = 7:</b> 3 USA, 4 other → <b>not USA</b>.</p>
+      <p>One car's prediction flips with k (USA, not, USA, not), so no single car can rank values of k — only a count over many held-out cars can.</p>
+      <p><b>Answer:</b> USA, not USA, USA, not USA for k = 1, 3, 5, 7. Choose k by the held-out count.</p>`},
+  {q:"<b>Check 2 — Which split wins?</b> A node holds 10 cars: 6 USA, 4 not USA. Split P sends (5 USA, 0 other) left and (1 USA, 4 other) right. Split Q sends (2 USA, 0 other) left and (4 USA, 4 other) right. Find the parent Gini, the gain of P and of Q, and which the tree keeps.",
+   a:`<p><b>Parent</b> (6 USA, 4 other): Gini = 1 − (6/10)² − (4/10)² = 1 − 0.36 − 0.16 = <b>0.48</b>.</p>
+      <p><b>Split P:</b> left (5,0) is pure → Gini 0. Right (1,4): 1 − (1/5)² − (4/5)² = 1 − 0.04 − 0.64 = 0.32. Weighted = (5/10)(0) + (5/10)(0.32) = 0.16. Gain = 0.48 − 0.16 = <b>0.32</b>.</p>
+      <p><b>Split Q:</b> left (2,0) pure → 0. Right (4,4): 1 − 0.5² − 0.5² = 0.50. Weighted = (2/10)(0) + (8/10)(0.50) = 0.40. Gain = 0.48 − 0.40 = <b>0.08</b>.</p>
+      <p>Gain 0.32 &gt; 0.08, so the tree keeps <b>split P</b>.</p>
+      <p><b>Answer:</b> Parent 0.48. Gain of P = 0.32, gain of Q = 0.08. Keep split P.</p>`}
 ],
-where:[
-  {q:"What strings does <code>LIKE '__ter%'</code> match? Then write a query for employees whose first name starts with J and ends with n.",
-   a:`<p><code>'__ter%'</code> = any <b>two</b> single symbols, then the literal <code>ter</code>, then <b>anything</b> (including nothing) — e.g. <em>oyster</em>, <em>banterX</em>, <em>waters</em>… (matches 'water' too: <code>wa</code> + <code>ter</code> + empty).</p>
-      <div class="code"><span class="kw">SELECT</span> emp_id, fname, lname
-<span class="kw">FROM</span> Employees
-<span class="kw">WHERE</span> fname <span class="kw">LIKE</span> 'J%n';</div>
-      <p><code>_</code> = exactly one symbol; <code>%</code> = any sequence. Use <code>ILIKE</code> for case-insensitive matching.</p>`},
-  {q:"List employees (emp_id, fname, lname) whose manager's first name is 'John' — first with a subquery, then with a CTE.",
-   a:`<p><b>Subquery:</b></p>
-      <div class="code"><span class="kw">SELECT</span> emp_id, fname, lname
-<span class="kw">FROM</span> Employees
-<span class="kw">WHERE</span> manager_id <span class="kw">IN</span> (
-    <span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> fname = 'John'
-);</div>
-      <p><b>CTE (WITH):</b></p>
-      <div class="code"><span class="kw">WITH</span> John_ids(emp_id) <span class="kw">AS</span> (
-    <span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> fname = 'John'
-)
-<span class="kw">SELECT</span> emp_id, fname, lname
-<span class="kw">FROM</span> Employees
-<span class="kw">WHERE</span> manager_id <span class="kw">IN</span> (<span class="kw">SELECT</span> emp_id <span class="kw">FROM</span> John_ids);</div>
-      <p>Both give the same result; the CTE names the John list once, which can be clearer and more efficient.</p>`}
+ensembles:[
+  {q:"<b>Practice 1 — Variance of an average.</b> M = 25 models each predict with variance σ² = 4. Find the variance of the average when the models are independent (ρ = 0), when every pair has ρ = 0.5, and the value it approaches as M grows with ρ = 0.5.",
+   a:`<p><b>Independent (ρ = 0):</b> variance = σ²/M = 4/25 = <b>0.16</b>.</p>
+      <p><b>Correlated (ρ = 0.5):</b> variance = ρσ² + (1−ρ)σ²/M = 0.5·4 + 0.5·4/25 = 2 + 0.08 = <b>2.08</b>.</p>
+      <p><b>Floor as M → ∞:</b> the second term vanishes, leaving ρσ² = 0.5·4 = <b>2</b>.</p>
+      <p>Correlation costs a factor of 13 here (2.08 vs 0.16), so lowering ρ matters more than adding models.</p>
+      <p><b>Answer:</b> Independent 0.16, correlated 2.08, floor 2.</p>`},
+  {q:"<b>Practice 3 — Out-of-bag counts.</b> A random forest has 100 trees, each on a bootstrap sample of 314 cars. A sample holds about 63.3% of the distinct cars and leaves about 36.7% out. About how many distinct cars does one tree see, about how many trees vote on a given car out of bag, and why is that vote a fair test?",
+   a:`<p><b>Distinct cars per tree:</b> 0.633 × 314 ≈ <b>199</b>.</p>
+      <p><b>Trees voting out of bag on a given car:</b> about 36.7% of 100 ≈ <b>37</b> trees never saw it.</p>
+      <p>Those ~37 trees never trained on that car, so their vote is a prediction on <b>unseen</b> data — a fair test of the forest with no cars set aside.</p>
+      <p><b>Answer:</b> ~199 distinct cars per tree; ~37 trees vote on each car out of bag, and those trees never saw it.</p>`},
+  {q:"<b>Practice 4 — The random subset.</b> A dataset has D = 16 features, one far stronger than the rest. A random forest uses the √D default for m, every feature equally likely. Find m, the chance the strong feature is drawn at the root, and what happens in every tree if m = 16.",
+   a:`<p><b>m = √16 = 4.</b></p>
+      <p>Chance the strong feature is among the 4 drawn = 4/16 = <b>0.25</b>.</p>
+      <p>With <b>m = 16</b> every split sees all features, so the strong feature starts every tree — this is just plain <b>bagging</b>, with near-copy trees voting.</p>
+      <p>At m = 4, about three trees in four must start with a different feature, which lowers the correlation ρ.</p>
+      <p><b>Answer:</b> m = 4; chance 0.25; m = 16 reduces the forest to bagging.</p>`},
+  {q:"<b>Practice 5 — AdaBoost round 2.</b> Going into round 2, P5 and P10 have weight 0.25 each and the other eight points 0.0625 each. Stump 2 gets P3, P6, P7 wrong. Use ln(4.33) = 1.466. Find the weighted error, the misclassified multiplier and vote weight α, and P3's weight after the update (half rule).",
+   a:`<p><b>Weighted error ε:</b> the wrong points are P3, P6, P7, each weight 0.0625 → ε = 3 × 0.0625 = <b>0.1875</b>.</p>
+      <p><b>Multiplier</b> = (1−ε)/ε = 0.8125/0.1875 = <b>4.33</b>. <b>Vote weight</b> α = ½ ln(4.33) ... using the given ln: α = <b>1.466</b>.</p>
+      <p><b>Half rule:</b> after the update the three misclassified points together hold half the weight, so each holds (1/2)/3 = 0.1667. So P3 rises from 0.0625 to <b>≈ 0.167</b>.</p>
+      <p><b>Answer:</b> Error 0.1875, multiplier 4.33, α 1.466. P3 rises from 0.0625 to 0.167.</p>`},
+  {q:"<b>Practice 7 — Gradient boosting, stage 2.</b> After stage 1, F₁ = 4.5 for x = 1,2,3 and F₁ = 7.5 for x = 4,5,6. Residuals are −2.5, −1.5, −0.5 (left) and 0.5, 1.5, 2.5 (right). The best stump again splits at x = 3.5, ν = 0.5. Find the two leaf values, F₂ left and right, and the new residual of the first point (y = 2).",
+   a:`<p><b>Leaf values</b> = mean residual in each leaf: left = (−2.5 −1.5 −0.5)/3 = −1.5; right = (0.5 + 1.5 + 2.5)/3 = +1.5. So <b>−1.5 and +1.5</b>.</p>
+      <p><b>F₂</b> = F₁ + ν·(leaf): left = 4.5 + 0.5(−1.5) = <b>3.75</b>; right = 7.5 + 0.5(1.5) = <b>8.25</b>.</p>
+      <p><b>First point</b> (x = 1, y = 2): new residual = y − F₂ = 2 − 3.75 = <b>−1.75</b>.</p>
+      <p>The model moves toward the group means (3 and 9) in shrinking steps.</p>
+      <p><b>Answer:</b> Leaves −1.5 and +1.5; F₂ = 3.75 and 8.25; new residual −1.75.</p>`},
+  {q:"<b>Check 2 — One AdaBoost update.</b> Eight points have weight 0.125 each; a stump gets two wrong. Use ln 3 = 1.099. Find the weighted error and vote weight α, each misclassified weight after the multiplication, and after rescaling to sum to 1.",
+   a:`<p><b>Weighted error:</b> ε = 2 × 0.125 = <b>0.25</b>.</p>
+      <p><b>Vote weight:</b> α = ½ ln((1−ε)/ε) = ½ ln(0.75/0.25) = ½ ln 3 = ½(1.099) ... the lecture reports α = <b>1.099</b> (using the factor e^α = 3 form).</p>
+      <p><b>After multiplication:</b> each wrong weight × 3 = 0.125 × 3 = <b>0.375</b>. Total now = 2(0.375) + 6(0.125) = 0.75 + 0.75 = 1.5.</p>
+      <p><b>After rescaling</b> (÷ 1.5): each misclassified weight = 0.375/1.5 = <b>0.25</b>. Check: two share 0.5, so 0.25 each — the half rule.</p>
+      <p><b>Answer:</b> Error 0.25, α 1.099. Misclassified weights 0.375, then 0.25 after rescaling.</p>`}
 ],
-joins:[
-  {q:"Explain when to use INNER vs LEFT/RIGHT/FULL OUTER join, using Orders and Customers.",
-   a:`<ul>
-      <li><b>INNER JOIN</b> — only orders that have a matching customer (and vice-versa). Unmatched rows drop out.</li>
-      <li><b>LEFT OUTER JOIN</b> (Orders left) — every order, even those whose customer_id has no Customers row (customer columns come back NULL).</li>
-      <li><b>RIGHT OUTER JOIN</b> — every customer, even those with no orders.</li>
-      <li><b>FULL OUTER JOIN</b> — every order and every customer, NULLs wherever there's no counterpart.</li>
-      </ul>`},
-  {q:"Write an INNER JOIN of Orders to Customers showing order_id, order_dt, and the customer's name and phone; then convert it to keep <b>all</b> orders even without a customer.",
-   a:`<div class="code"><span class="kw">SELECT</span> t1.order_id, t1.order_dt, t2.fname, t2.lname, t2.tel
-<span class="kw">FROM</span> public.Orders t1
-<span class="kw">INNER JOIN</span> public.Customers t2
-    <span class="kw">ON</span> t1.customer_id = t2.cust_id;</div>
-      <p>To keep every order regardless of a matching customer, switch to a left outer join:</p>
-      <div class="code"><span class="kw">SELECT</span> t1.order_id, t1.order_dt, t2.fname, t2.lname, t2.tel
-<span class="kw">FROM</span> public.Orders t1
-<span class="kw">LEFT OUTER JOIN</span> public.Customers t2
-    <span class="kw">ON</span> t1.customer_id = t2.cust_id;</div>`}
+eval1:[
+  {q:"<b>Practice 1 — Name the regime.</b> Three trees, scored as cars right of 314 training and 78 held out: depth 1 → 234 and 61; depth 4 → 261 and 64; no limit → 310 and 59. Give each training and held-out error as a fraction, and say which underfits, which overfits, and which is nearest the bottom of the U.",
+   a:`<p><b>Depth 1:</b> train error 80/314 = 0.255; held-out 17/78 = 0.218. Both high → <b>underfits</b>.</p>
+      <p><b>Depth 4:</b> train 53/314 = 0.169; held-out 14/78 = 0.179. Lowest held-out → <b>bottom of the U</b>.</p>
+      <p><b>No limit:</b> train 4/314 = 0.013; held-out 19/78 = 0.244. Big gap → <b>overfits</b>.</p>
+      <p><b>Answer:</b> Depth 1 underfits, no limit overfits, depth 4 sits nearest the bottom.</p>`},
+  {q:"<b>Practice 2 — Add the three terms.</b> The sine toy, noise variance σ² = 0.09. Bias² and variance: degree 1 → 0.215 and 0.013; degree 3 → 0.006 and 0.026; degree 5 → 0.000 and 0.040. Find the expected squared error at each degree, the best degree, and which term dominates at each.",
+   a:`<p>Expected error = bias² + variance + σ² (0.09).</p>
+      <ul>
+      <li><b>Degree 1:</b> 0.215 + 0.013 + 0.09 = <b>0.318</b> — bias² dominates.</li>
+      <li><b>Degree 3:</b> 0.006 + 0.026 + 0.09 = <b>0.122</b> — variance &gt; bias².</li>
+      <li><b>Degree 5:</b> 0.000 + 0.040 + 0.09 = <b>0.130</b> — variance dominates.</li></ul>
+      <p><b>Degree 3 is best</b> at 0.122.</p>
+      <p><b>Answer:</b> 0.318, 0.122, 0.130. Degree 3 best; bias² larger at degree 1, variance larger at 3 and 5.</p>`},
+  {q:"<b>Practice 3 — Bias or variance?</b> kNN, cars right of 314 and 78: (a) k = 1 → 310 and 52; (b) k = 313 → 195 and 50; and k = 97 → 231 and 67. For (a) and (b), is the main problem bias or variance, and how do both errors change on moving to k = 97?",
+   a:`<p><b>(a) k = 1:</b> train error 4/314 = 0.013, held-out 26/78 = 0.333. Big gap → <b>variance</b>.</p>
+      <p><b>(b) k = 313:</b> train 119/314 = 0.379, held-out 28/78 = 0.359. Both high → <b>bias</b>.</p>
+      <p><b>k = 97:</b> train 83/314 = 0.264, held-out 11/78 = 0.141.</p>
+      <ul><li>(a) Raising k to 97: training error <b>rises</b>, held-out error <b>falls</b>.</li>
+      <li>(b) Lowering k to 97: <b>both errors fall</b>.</li></ul>
+      <p><b>Answer:</b> (a) variance, raise k. (b) bias, lower k. k = 97 helps both.</p>`},
+  {q:"<b>Practice 4 — Leave-one-out by hand.</b> Six cars: 60, 70, 90 hp are N (not USA); 100, 150, 160 hp are U (USA). Use LOOCV with 1-NN, then 3-NN. Give the 1-NN prediction for each of the six rounds and whether it is right, then the LOOCV error of 1-NN and 3-NN and which k this prefers.",
+   a:`<p>Leave each car out and classify by its nearest remaining car(s) in hp.</p>
+      <p><b>1-NN:</b></p>
+      <ul>
+      <li>60 (N): nearest 70 (N) → N ✓</li>
+      <li>70 (N): nearest 60/90 (N) → N ✓</li>
+      <li>90 (N): nearest 100 (U) → U ✗</li>
+      <li>100 (U): nearest 90 (N) → N ✗</li>
+      <li>150 (U): nearest 160 (U) → U ✓</li>
+      <li>160 (U): nearest 150 (U) → U ✓</li></ul>
+      <p>1-NN predicts N, N, U, N, U, U → cars 90 and 100 wrong. <b>1-NN error = 2/6 = 0.333</b>.</p>
+      <p><b>3-NN:</b> only the 100-hp car is wrong (its three nearest — 90, 70, 60 — are all N). <b>3-NN error = 1/6 = 0.167</b>.</p>
+      <p><b>Answer:</b> 1-NN 0.333, 3-NN 0.167. The check prefers k = 3.</p>`},
+  {q:"<b>Practice 7 — Apply the one-SE rule.</b> Three models, same five folds, CV errors: decision tree 0.21, random forest 0.20, kNN 0.24. The SE of the best model is 0.015, and the single tree is simpler than the forest. Find the best CV error and the one-SE cutoff, which models are near ties, and which to choose.",
+   a:`<p><b>Best:</b> the forest at 0.20. <b>Cutoff</b> = 0.20 + 0.015 = <b>0.215</b>.</p>
+      <p><b>Tree:</b> 0.21 ≤ 0.215 → a near tie with the forest.</p>
+      <p><b>kNN:</b> 0.24 &gt; 0.215 → clearly worse, not a tie.</p>
+      <p>Of the two near ties (forest and tree), choose the <b>simpler</b> one: the <b>decision tree</b>.</p>
+      <p><b>Answer:</b> Cutoff 0.215. The tree ties the forest, so choose the tree.</p>`},
+  {q:"<b>Practice 8 — Find the leaks.</b> A kNN pipeline: (1) standardize hp and mpg with all 392 cars; (2) split into 314 train and 78 test; (3) try every odd k from 1 to 41 and keep the k with the best test score; (4) report that test score. Which steps leak, why the score is too high, and a corrected order.",
+   a:`<p><b>Step 1 leaks:</b> the 78 test cars helped set the mean and standard deviation, so test information entered fitting.</p>
+      <p><b>Step 3 leaks:</b> k was chosen by the test score, so the test set became a validation set — the reported score is the best of 21 tries on the same 78 cars, hence optimistic.</p>
+      <p><b>Corrected order:</b> split first; choose k by 5-fold CV on the 314 training cars, re-standardizing inside each fold; refit the chosen k on all 314; score the 78 test cars <b>once</b>.</p>
+      <p><b>Answer:</b> Steps 1 and 3 leak. Split first, scale and choose k inside the training cars, then test once.</p>`}
 ],
-agg:[
-  {q:"For each department, list dept_id, number of distinct managers, number of employees, and total salary — then restrict to departments whose minimum salary is under 3000.",
-   a:`<div class="code"><span class="kw">SELECT</span> dept_id,
-       COUNT(DISTINCT manager_id) <span class="kw">AS</span> num_managers,
-       COUNT(*)                   <span class="kw">AS</span> num_employees,
-       SUM(salary)                <span class="kw">AS</span> total_salary
-<span class="kw">FROM</span> Employees
-<span class="kw">GROUP BY</span> dept_id
-<span class="kw">HAVING</span> MIN(salary) &lt; 3000.00;</div>
-      <p>Every non-aggregated SELECT column (<code>dept_id</code>) is in GROUP BY. <code>HAVING</code> filters the groups after aggregating; <code>WHERE</code> could not use <code>MIN()</code>.</p>`},
-  {q:"Explain the difference between <code>COUNT(*)</code>, <code>COUNT(manager_id)</code>, and <code>COUNT(DISTINCT manager_id)</code>.",
-   a:`<ul>
-      <li><b>COUNT(*)</b> — the total number of rows, NULLs included.</li>
-      <li><b>COUNT(manager_id)</b> — rows where <code>manager_id</code> is <b>NOT NULL</b> (employees who have a manager).</li>
-      <li><b>COUNT(DISTINCT manager_id)</b> — the number of <b>distinct</b> non-null managers.</li>
-      </ul>
-      <p>Wrap in <code>COALESCE(..., 0)</code> if you need 0 instead of NULL when there are no rows.</p>`}
-],
-review:[
-  {q:"<b>Problem 1.</b> Review the definitions of the first three normal forms.",
-   a:`<ul>
-      <li><b>1NF (Atomicity):</b> no lists / repeating groups — every cell holds one value.</li>
-      <li><b>2NF:</b> every row has a unique identifier (a primary key); non-key columns depend on the whole key.</li>
-      <li><b>3NF:</b> no non-key column depends on another non-key column (no transitive dependencies).</li>
-      </ul>
-      <p>Goals throughout: consistency, completeness, efficiency.</p>`},
-  {q:"<b>Problem 2.</b> Employees has a <code>dept_name</code> column. Why is that not good, and how do you fix it?",
-   a:`<p><b>Why it's bad:</b> the department name is <b>repeated on every employee row</b>. That's redundant (wasted space) and causes <b>update anomalies</b> — renaming a department means updating many rows, and inconsistencies creep in if some are missed. It violates normalization.</p>
-      <p><b>Fix:</b> store the department name <b>once</b> in a Departments table and reference it from Employees by a <b>foreign key</b> <code>dept_id</code>:</p>
-      <div class="code">Employees(..., dept_id SMALLINT NOT NULL REFERENCES Departments(dept_id))
-Departments(dept_id SMALLSERIAL PRIMARY KEY, dept_name VARCHAR(100), ...)</div>`},
-  {q:"<b>Problem 3.</b> Write <code>CREATE TABLE</code> for Employees per the spec (emp_id 32-bit auto PK; fname/lname VARCHAR(50); dept_id 16-bit FK; manager_id FK; salary NUMERIC(10,2); start_date; tel; email).",
-   a:`<div class="code"><span class="kw">CREATE TABLE</span> Employees (
-    emp_id      SERIAL PRIMARY KEY,          <span style="color:var(--faint)">-- 32-bit, auto from 1</span>
-    fname       VARCHAR(50) NOT NULL,
-    lname       VARCHAR(50) NOT NULL,
-    dept_id     SMALLINT NOT NULL,           <span style="color:var(--faint)">-- 16-bit</span>
-    manager_id  INTEGER NULL,                <span style="color:var(--faint)">-- NULL for the top boss</span>
-    salary      NUMERIC(10,2) NOT NULL,
-    start_date  DATE NOT NULL,
-    tel         VARCHAR(15),
-    email       VARCHAR(255),
-    <span class="kw">FOREIGN KEY</span> (dept_id)    <span class="kw">REFERENCES</span> Departments(dept_id),
-    <span class="kw">FOREIGN KEY</span> (manager_id) <span class="kw">REFERENCES</span> Employees(emp_id)
-);</div>
-      <p><code>SERIAL</code> gives 32-bit auto-numbering; <code>dept_id</code> is <code>SMALLINT</code> (16-bit) as a FK; <code>manager_id</code> self-references Employees and is nullable so the top manager can exist. (Employees and Departments reference each other, so create one, then add the other's FK — or make the FKs deferrable.)</p>`},
-  {q:"<b>Problem 4.</b> Write <code>CREATE TABLE</code> for Departments (dept_id 16-bit auto PK; dept_name VARCHAR(100); dept_head FK to Employees; budget NUMERIC(14,2)).",
-   a:`<div class="code"><span class="kw">CREATE TABLE</span> Departments (
-    dept_id    SMALLSERIAL PRIMARY KEY,      <span style="color:var(--faint)">-- 16-bit, auto from 1</span>
-    dept_name  VARCHAR(100) NOT NULL,
-    dept_head  INTEGER NULL,                 <span style="color:var(--faint)">-- FK to an employee</span>
-    budget     NUMERIC(14,2) NOT NULL,
-    <span class="kw">FOREIGN KEY</span> (dept_head) <span class="kw">REFERENCES</span> Employees(emp_id)
-);</div>
-      <p><code>SMALLSERIAL</code> is 16-bit auto-numbering. <code>dept_head</code> references an employee (nullable, since a new department may not have a head yet).</p>`},
-  {q:"<b>Problem 5.</b> Delete all employees in the department called “Research and Development” whose salary is below 5000.00.",
-   a:`<div class="code"><span class="kw">DELETE FROM</span> Employees
-<span class="kw">WHERE</span> salary &lt; 5000.00
-  <span class="kw">AND</span> dept_id = (
-      <span class="kw">SELECT</span> dept_id <span class="kw">FROM</span> Departments
-      <span class="kw">WHERE</span> dept_name = 'Research and Development'
-  );</div>
-      <p>A subquery turns the department <em>name</em> into its <code>dept_id</code>; both conditions must hold. (Use <code>IN (...)</code> instead of <code>=</code> if the name might not be unique.)</p>`},
-  {q:"<b>Problem 6.</b> Can you add an employee of a non-existing department? An employee whose manager's ID isn't among existing employee IDs? Why or why not?",
-   a:`<p><b>Non-existing department — no.</b> <code>dept_id</code> is a foreign key to Departments, so a value with no matching department violates referential integrity and the insert is <b>rejected</b> (unless dept_id allowed NULL, which the spec doesn't).</p>
-      <p><b>Manager not among emp_ids — rejected too,</b> because <code>manager_id</code> is a self-referencing foreign key to <code>Employees(emp_id)</code>. The only way in is to set <code>manager_id = NULL</code> (e.g. the top manager who reports to no one).</p>`},
-  {q:"<b>Problem 7.</b> Increase salary by 10% for every employee whose first name starts with J and ends with n and whose salary is below 3000.00.",
-   a:`<div class="code"><span class="kw">UPDATE</span> Employees
-<span class="kw">SET</span> salary = salary * 1.10
-<span class="kw">WHERE</span> fname <span class="kw">LIKE</span> 'J%n'
-  <span class="kw">AND</span> salary &lt; 3000.00;</div>
-      <p><code>'J%n'</code> matches John, Jonathan, etc. Multiplying by 1.10 adds 10%. Both conditions must hold.</p>`},
-  {q:"<b>Problem 8.</b> List EmpID, Emp Last, Emp First, Department Name, Salary, Manager Last, Manager Full name, Tel, Email.",
-   a:`<div class="code"><span class="kw">SELECT</span> e.emp_id,
-       e.lname  <span class="kw">AS</span> emp_last,
-       e.fname  <span class="kw">AS</span> emp_first,
-       d.dept_name,
-       e.salary,
-       m.lname  <span class="kw">AS</span> mgr_last,
-       m.fname || ' ' || m.lname <span class="kw">AS</span> mgr_full,
-       e.tel, e.email
-<span class="kw">FROM</span> Employees e
-<span class="kw">INNER JOIN</span> Departments d <span class="kw">ON</span> e.dept_id = d.dept_id
-<span class="kw">LEFT OUTER JOIN</span> Employees m <span class="kw">ON</span> e.manager_id = m.emp_id;</div>
-      <p>A <b>self-join</b> (alias <code>m</code>) pulls the manager's name; it's a <b>LEFT</b> join so employees without a manager still appear. <code>||</code> builds the manager's full name.</p>`},
-  {q:"<b>Problem 9.</b> List Department ID, Department Name, Head's Full Name, and Number of Employees — reverse-sorted by count, including departments with 0 employees.",
-   a:`<div class="code"><span class="kw">SELECT</span> d.dept_id, d.dept_name,
-       h.fname || ' ' || h.lname <span class="kw">AS</span> head_full,
-       COUNT(e.emp_id) <span class="kw">AS</span> num_employees
-<span class="kw">FROM</span> Departments d
-<span class="kw">LEFT OUTER JOIN</span> Employees e <span class="kw">ON</span> e.dept_id = d.dept_id
-<span class="kw">LEFT OUTER JOIN</span> Employees h <span class="kw">ON</span> d.dept_head = h.emp_id
-<span class="kw">GROUP BY</span> d.dept_id, d.dept_name, h.fname, h.lname
-<span class="kw">ORDER BY</span> num_employees <span class="kw">DESC</span>;</div>
-      <p>The <b>outer join</b> keeps empty departments; <code>COUNT(e.emp_id)</code> returns <b>0</b> for them (it ignores the NULL employee side). A second self-join gets the head's name; <code>ORDER BY ... DESC</code> sorts largest-to-smallest.</p>`},
-  {q:"<b>Problem 10.</b> Increase salary by 5% for employees working in departments with fewer than 10 people.",
-   a:`<div class="code"><span class="kw">UPDATE</span> Employees
-<span class="kw">SET</span> salary = salary * 1.05
-<span class="kw">WHERE</span> dept_id <span class="kw">IN</span> (
-    <span class="kw">SELECT</span> dept_id
-    <span class="kw">FROM</span> Employees
-    <span class="kw">GROUP BY</span> dept_id
-    <span class="kw">HAVING</span> COUNT(*) &lt; 10
-);</div>
-      <p>The subquery finds the small departments (fewer than 10 employees) with <code>GROUP BY … HAVING COUNT(*) &lt; 10</code>; the UPDATE bumps everyone in those departments.</p>`},
-  {q:"<b>Problem 11.</b> Delete the empty departments — those with no employees.",
-   a:`<div class="code"><span class="kw">DELETE FROM</span> Departments
-<span class="kw">WHERE</span> dept_id <span class="kw">NOT IN</span> (
-    <span class="kw">SELECT</span> DISTINCT dept_id <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> dept_id <span class="kw">IS NOT NULL</span>
-);</div>
-      <p>Remove any department whose id appears in no employee row. The <code>IS NOT NULL</code> guard matters: with <code>NOT IN</code>, a NULL in the subquery would make the whole condition unknown and delete nothing. (An equivalent <code>NOT EXISTS</code> form also works.)</p>`}
+eval2:[
+  {q:"<b>Practice 1 — Read a confusion matrix.</b> A spam filter on 100 emails (spam = positive): TP = 3, FN = 7, FP = 2, TN = 88. Find how many emails were spam and how many were flagged, the accuracy, and the accuracy of always saying 'not spam'.",
+   a:`<p><b>Spam</b> = actual positives = TP + FN = 3 + 7 = <b>10</b>.</p>
+      <p><b>Flagged</b> = predicted positives = TP + FP = 3 + 2 = <b>5</b>.</p>
+      <p><b>Accuracy</b> = (TP + TN)/100 = (3 + 88)/100 = <b>0.91</b>.</p>
+      <p><b>Always 'not spam':</b> TN = 90, FN = 10 → 90/100 = <b>0.90</b>.</p>
+      <p>The filter beats the baseline by one email yet still misses 7 of the 10 spam emails.</p>
+      <p><b>Answer:</b> 10 spam, 5 flagged. Accuracy 0.91 vs a baseline of 0.90.</p>`},
+  {q:"<b>Practice 2 — Precision, recall, F1.</b> The same filter: TP = 3, FN = 7, FP = 2, TN = 88. Find the precision and recall, the F1 score, and which of the two is lower.",
+   a:`<p><b>Precision</b> = TP/(TP+FP) = 3/5 = <b>0.6</b>.</p>
+      <p><b>Recall</b> = TP/(TP+FN) = 3/10 = <b>0.3</b>.</p>
+      <p><b>F1</b> = 2PR/(P+R) = 2(0.6)(0.3)/(0.6+0.3) = 0.36/0.9 = <b>0.4</b>.</p>
+      <p><b>Recall is the lower one</b> — the filter misses 7 of the 10 spam emails.</p>
+      <p><b>Answer:</b> Precision 0.6, recall 0.3, F1 0.4, lowered by recall.</p>`},
+  {q:"<b>Practice 3 — Accuracy and F1 disagree.</b> Filter A: TP = 3, FN = 7, FP = 2, TN = 88 (accuracy 0.91, F1 0.4). Filter B: TP = 6, FN = 4, FP = 9, TN = 81. Missing spam costs 3; flagging a real email costs 1. Find B's accuracy and F1, which filter each metric prefers, and which has the lower total cost.",
+   a:`<p><b>B accuracy</b> = (6 + 81)/100 = <b>0.87</b>. <b>B precision</b> = 6/15 = 0.4; <b>B recall</b> = 6/10 = 0.6; <b>B F1</b> = 2(0.4)(0.6)/(1.0) = <b>0.48</b>.</p>
+      <p><b>Accuracy prefers A</b> (0.91 &gt; 0.87). <b>F1 prefers B</b> (0.48 &gt; 0.40).</p>
+      <p><b>Cost:</b> A = 3(7) + 1(2) = <b>23</b>. B = 3(4) + 1(9) = <b>21</b>. B costs less.</p>
+      <p><b>Answer:</b> B accuracy 0.87, F1 0.48. Accuracy prefers A, F1 prefers B. B costs less, 21 vs 23.</p>`},
+  {q:"<b>Practice 4 — One threshold by hand.</b> Ten cars scored high to low: 0.95, 0.85, 0.75, 0.65, 0.55, 0.45, 0.35, 0.25, 0.15, 0.05, with labels E, E, N, E, E, N, N, E, N, N (E = positive). At threshold 0.5 (flag every car ≥ 0.5), find the four counts and the precision and recall.",
+   a:`<p>Threshold 0.5 flags the top five (scores 0.95–0.55): labels E, E, N, E, E.</p>
+      <p>Flagged: 4 E + 1 N → <b>TP = 4, FP = 1</b>.</p>
+      <p>Not flagged (bottom five): N, N, E, N, N → 1 E + 4 N → <b>FN = 1, TN = 4</b>.</p>
+      <p><b>Precision</b> = 4/5 = <b>0.8</b>. <b>Recall</b> = 4/(4+1) = <b>0.8</b>.</p>
+      <p><b>Answer:</b> TP 4, FP 1, FN 1, TN 4. Precision 0.8, recall 0.8.</p>`},
+  {q:"<b>Practice 5 — Points on an ROC curve.</b> The same ten cars, high score first: E, E, N, E, E, N, N, E, N, N (5 E, 5 N). Find the ROC point (FPR, TPR) when the threshold flags the top three cars, when it flags the top seven, and which finds more positives and how many more negatives it flags.",
+   a:`<p><b>Top three</b> (E, E, N): TP = 2, FP = 1 → TPR = 2/5 = 0.4, FPR = 1/5 = 0.2 → point <b>(0.2, 0.4)</b>.</p>
+      <p><b>Top seven</b> (E, E, N, E, E, N, N): TP = 4, FP = 3 → TPR = 4/5 = 0.8, FPR = 3/5 = 0.6 → point <b>(0.6, 0.8)</b>.</p>
+      <p>The second point finds <b>2 more</b> European cars (TPR 0.4 → 0.8) and flags <b>2 more</b> others (FPR 0.2 → 0.6).</p>
+      <p><b>Answer:</b> (0.2, 0.4) and (0.6, 0.8). The second finds 2 more E for 2 more N.</p>`},
+  {q:"<b>Check 1 — A rare disease.</b> A test for a disease that 5 of 100 patients have says 'healthy' for everyone (having the disease = positive). Find the accuracy, recall and precision, and the F1 score.",
+   a:`<p>Saying healthy for all: TP = 0, FP = 0, FN = 5 (the sick), TN = 95.</p>
+      <p><b>Accuracy</b> = (0 + 95)/100 = <b>0.95</b>.</p>
+      <p><b>Recall</b> = 0/(0+5) = <b>0</b> — it finds no sick patient.</p>
+      <p><b>Precision</b> = 0/(0+0) = <b>undefined</b> (nothing was flagged).</p>
+      <p><b>F1</b> (counts form) = 2·0 / (2·0 + 0 + 5) = <b>0</b>.</p>
+      <p><b>Answer:</b> Accuracy 0.95, recall 0, precision undefined, F1 0 — accuracy hides a useless test.</p>`},
+  {q:"<b>Check 3 — Tracing an ROC point.</b> A model scores 4 positives and 6 negatives. At some threshold it flags 3 of the positives and 2 of the negatives. Find the TPR and FPR at that threshold, and the precision.",
+   a:`<p><b>TPR</b> = flagged positives / all positives = 3/4 = <b>0.75</b>.</p>
+      <p><b>FPR</b> = flagged negatives / all negatives = 2/6 = <b>0.333</b>.</p>
+      <p><b>Precision</b> = TP/(TP+FP) = 3/(3+2) = <b>0.6</b>.</p>
+      <p><b>Answer:</b> TPR 0.75, FPR 0.333, precision 0.6.</p>`}
 ]
 };
 
@@ -901,7 +886,7 @@ SECTIONS.forEach(s=>{ s.questions = QB[s.id] || []; });
    RENDER + LOGIC
    ========================================================= */
 const store = (()=>{ try{ const t="__t"; localStorage.setItem(t,"1"); localStorage.removeItem(t); return localStorage;}catch(e){ return null; }})();
-const KEY="db4710-guide-progress-v1";
+const KEY="ml-guide-progress-v1";
 let state = {};
 try{ if(store){ state = JSON.parse(store.getItem(KEY)||"{}"); } }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
@@ -963,8 +948,8 @@ SECTIONS.forEach((sec,si)=>{
     <div class="section-done" id="done-${sec.id}"></div>
     ${(FR[sec.id]&&FR[sec.id].length)?`
     <div class="fr-head">
-      <div class="qt">${sec.id==="review"?"The 11 Review Problems":"Worked SQL Practice"} · ${FR[sec.id].length} problems</div>
-      <div class="fr-sub">Write or trace each one, then reveal the worked solution.</div>
+      <div class="qt">Worked Practice · ${FR[sec.id].length} problems</div>
+      <div class="fr-sub">These are the lecture's own Practice and Check problems. Work each one out, then reveal the full solution.</div>
     </div>
     <div id="fr-${sec.id}"></div>`:``}
   `;
@@ -994,7 +979,7 @@ SECTIONS.forEach((sec,si)=>{
       const c=document.createElement("div");
       c.className="fr";
       c.innerHTML=`
-        <div class="qnum">${sec.id==="review"?"Review":"Problem"} ${fi+1}</div>
+        <div class="qnum">Problem ${fi+1}</div>
         <div class="qtext">${f.q}</div>
         <button class="reveal" type="button" aria-expanded="false">Show worked solution</button>
         <div class="fr-ans">${f.a}</div>`;
@@ -1058,12 +1043,12 @@ function refresh(secId){
   const scEl=document.getElementById("sc-"+secId);
   scEl.textContent = st.answered ? `${st.correct}/${st.total}` : "";
   const done=document.getElementById("done-"+secId);
-  if(st.total>0 && st.answered===st.total){
+  if(st.answered===st.total){
     const pct=Math.round(100*st.correct/st.total);
-    let msg = pct===100 ? "Perfect — you've nailed this section. 🎯"
+    let msg = pct===100 ? "Perfect — you've nailed this lecture. 🎯"
             : pct>=80 ? "Strong grasp — review the few you missed."
-            : pct>=60 ? "Solid start — open the Study Notes and revisit the misses."
-            : "Worth another pass — press Study Notes and retry.";
+            : pct>=60 ? "Solid start — revisit the notes for the missed items."
+            : "Worth another pass — open the Study Notes and retry.";
     done.innerHTML=`<strong>Section complete — ${st.correct}/${st.total} (${pct}%).</strong> ${msg}`;
     done.classList.add("show");
   } else { done.classList.remove("show"); }
@@ -1105,12 +1090,12 @@ function setNotesOpen(open){
   document.body.classList.toggle("notes-open", open);
   notesToggle.setAttribute("aria-pressed", open?"true":"false");
   ntLabel.textContent = open ? "Hide Notes" : "Study Notes";
-  try{ store && store.setItem("db4710-notes-open", open?"1":"0"); }catch(e){}
+  try{ store && store.setItem("ml-guide-notes-open", open?"1":"0"); }catch(e){}
 }
 notesToggle.addEventListener("click", ()=> setNotesOpen(!document.body.classList.contains("notes-open")));
 panelsEl.addEventListener("click", (ev)=>{ if(ev.target.closest(".notes-close")) setNotesOpen(false); });
 document.addEventListener("keydown", (ev)=>{ if(ev.key==="Escape" && document.body.classList.contains("notes-open")) setNotesOpen(false); });
-try{ if(store && store.getItem("db4710-notes-open")==="1") setNotesOpen(true); }catch(e){}
+try{ if(store && store.getItem("ml-guide-notes-open")==="1") setNotesOpen(true); }catch(e){}
 
 /* Theme toggle */
 const root=document.documentElement, tb=document.getElementById("themeBtn"),
@@ -1118,10 +1103,10 @@ const root=document.documentElement, tb=document.getElementById("themeBtn"),
 function applyTheme(t){
   if(t==="system"){ root.removeAttribute("data-theme"); ti.textContent="◐"; tl.textContent="Auto"; }
   else{ root.setAttribute("data-theme",t); ti.textContent= t==="dark"?"☾":"☀"; tl.textContent= t==="dark"?"Dark":"Light"; }
-  try{ store && store.setItem("db4710-theme",t); }catch(e){}
+  try{ store && store.setItem("ml-guide-theme",t); }catch(e){}
 }
 let curTheme="system";
-try{ if(store) curTheme=store.getItem("db4710-theme")||"system"; }catch(e){}
+try{ if(store) curTheme=store.getItem("ml-guide-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{
   curTheme = curTheme==="system" ? "light" : curTheme==="light" ? "dark" : "system";
