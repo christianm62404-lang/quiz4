@@ -12,6 +12,7 @@
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
   --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
+  --badge:#2b3a4a;--badge-ink:#eaf0f6;
   --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;
   --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
   --radius:12px;
@@ -21,6 +22,7 @@
     --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
     --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
     --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
+    --badge:#32414f;--badge-ink:#eaf0f6;
     --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
   }
@@ -28,11 +30,13 @@
 :root[data-theme="light"]{
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
+  --badge:#2b3a4a;--badge-ink:#eaf0f6;
   --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
   --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
+  --badge:#32414f;--badge-ink:#eaf0f6;
   --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
@@ -41,208 +45,188 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:var(--accent-strong)}
 ::selection{background:var(--accent-soft)}
+.wrap{max-width:1300px;margin:0 auto;padding:0 24px}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
 
+/* ---------- masthead ---------- */
 .masthead{border-bottom:1px solid var(--line-strong);background:linear-gradient(180deg, var(--surface), var(--surface-2))}
-.mast-inner{max-width:1080px;margin:0 auto;padding:30px 22px 22px}
+.mast-inner{padding:30px 24px 22px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
-h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-size:clamp(27px,5vw,43px);line-height:1.1;margin:.32em 0 .18em;text-wrap:balance;color:var(--ink)}
-.subtitle{color:var(--muted);max-width:68ch;font-size:16.5px;margin:0}
+h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-size:clamp(26px,4.4vw,40px);line-height:1.1;margin:.32em 0 .18em;text-wrap:balance;color:var(--ink)}
+.subtitle{color:var(--muted);max-width:76ch;font-size:16.5px;margin:0}
 .mast-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .theme-btn{flex:0 0 auto;font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
 .theme-btn:hover{border-color:var(--accent);color:var(--accent-strong)}
 .callout{margin-top:18px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14.5px;color:var(--ink-soft)}
 .callout b{color:var(--ink)}
-.progress-wrap{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.scorebar{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .pbar{flex:1 1 320px;min-width:220px;height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
 .pbar > span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-strong));transition:width .5s ease}
 .pmeta{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .pmeta b{color:var(--ink)}
-
-.nav{position:sticky;top:0;z-index:30;background:color-mix(in srgb, var(--bg) 86%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav-inner{max-width:1080px;margin:0 auto;padding:11px 22px;display:flex;gap:9px;overflow-x:auto;scrollbar-width:thin}
-.tab{--hue:var(--accent);flex:0 0 auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:8px 15px 8px 12px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;line-height:1;transition:.15s}
-.tab:hover{border-color:var(--hue);color:var(--ink)}
-.tab .chip{width:9px;height:9px;border-radius:3px;background:var(--hue);flex:0 0 auto}
-.tab .sc{font-family:var(--mono);font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums;font-weight:500}
-.tab[aria-selected="true"]{background:var(--hue);border-color:var(--hue);color:#fff;box-shadow:var(--shadow)}
-.tab[aria-selected="true"] .chip{background:rgba(255,255,255,.9)}
-.tab[aria-selected="true"] .sc{color:rgba(255,255,255,.85)}
-
-main{max-width:1080px;margin:0 auto;padding:30px 22px 90px}
-.panel{display:none;animation:fade .35s ease}
-.panel.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.sec-head{border-left:4px solid var(--hue);padding:4px 0 4px 16px;margin-bottom:8px}
-.sec-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hue);font-weight:600}
-.sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(23px,3.6vw,31px);margin:.15em 0 .1em;letter-spacing:-.01em;text-wrap:balance}
-.sec-head p{margin:0;color:var(--muted);max-width:74ch}
-
-.notes{margin:22px 0 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
-.notes > summary{list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:center;gap:12px;font-weight:600;color:var(--ink);user-select:none}
-.notes > summary::-webkit-details-marker{display:none}
-.notes > summary .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hue);background:var(--surface-2);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
-.notes > summary .car{margin-left:auto;color:var(--faint);transition:transform .2s}
-.notes[open] > summary .car{transform:rotate(90deg)}
-.notes[open] > summary{border-bottom:1px solid var(--line)}
-.notes-body{padding:6px 18px 20px}
-.note{padding:15px 0;border-bottom:1px dashed var(--line)}
-.note:last-child{border-bottom:none;padding-bottom:2px}
-.note h4{margin:0 0 6px;font-size:15.5px;color:var(--ink);display:flex;align-items:baseline;gap:9px}
-.note h4 .n{font-family:var(--mono);font-size:12px;color:var(--hue);font-weight:700}
-.note p{margin:0 0 6px;color:var(--ink-soft);font-size:15px}
-.note ul,.note ol{margin:6px 0 0;padding-left:20px;color:var(--ink-soft);font-size:15px}
-.note li{margin:3px 0}
-.note li::marker{color:var(--hue)}
-code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
-.kw{color:var(--hue);font-weight:600}
-.code{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:9px 0 3px;font-size:12.75px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.55;tab-size:4}
-.tbl{border-collapse:collapse;margin:8px 0;font-size:13.5px;width:100%;max-width:560px}
-.tbl caption{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--hue);text-align:left;padding-bottom:4px;font-weight:700}
-.tbl th,.tbl td{border:1px solid var(--line);padding:5px 10px;text-align:left;font-variant-numeric:tabular-nums}
-.tbl th{background:var(--surface-2);font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:600}
-.tbl td{color:var(--ink-soft)}
-
-.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:6px 0 14px;flex-wrap:wrap}
-.quiz-head .qt{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.score-badge{font-family:var(--mono);font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line-strong);border-radius:99px;padding:6px 13px;font-variant-numeric:tabular-nums}
-.score-badge b{color:var(--hue)}
-.reset{font-family:var(--sans);font-size:12.5px;color:var(--muted);background:none;border:1px solid var(--line-strong);border-radius:99px;padding:6px 12px;cursor:pointer}
+.reset{font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line-strong);border-radius:99px;padding:7px 14px;cursor:pointer}
 .reset:hover{border-color:var(--bad);color:var(--bad)}
-.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;margin-bottom:16px}
-.q .qnum{font-family:var(--mono);font-size:12px;color:var(--hue);font-weight:700;letter-spacing:.05em}
-.q .qtext{font-weight:600;font-size:16.5px;color:var(--ink);margin:6px 0 12px;text-wrap:pretty}
-.q .qtext code{font-weight:500}
-.opts{display:flex;flex-direction:column;gap:9px}
-.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit;line-height:1.45;transition:.12s}
+
+/* ---------- layout ---------- */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:36px;align-items:start;padding:28px 0 90px}
+.exam{min-width:0}
+.guide{position:sticky;top:16px;height:calc(100vh - 32px);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+
+/* ---------- exam ---------- */
+.exam-lead{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+.part-head{scroll-margin-top:16px;margin:30px 0 14px;padding:4px 0 4px 16px;border-left:4px solid var(--hue)}
+.part-head:first-of-type{margin-top:4px}
+.part-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hue);font-weight:600}
+.part-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(21px,3vw,27px);margin:.15em 0 .1em;letter-spacing:-.01em;text-wrap:balance}
+.part-head p{margin:0;color:var(--muted);max-width:74ch;font-size:14.5px}
+
+.qitem,.witem{display:flex;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+.qbadge,.wbadge{flex:0 0 auto;width:46px;background:var(--badge);color:var(--badge-ink);display:flex;align-items:flex-start;justify-content:center;padding-top:16px;font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.wbadge{background:var(--hue);font-size:12px;letter-spacing:.04em}
+.qbody,.wbody{flex:1;min-width:0;padding:14px 18px 16px}
+.qmeta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:9px}
+.qpts{font-family:var(--mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
+.qpts.ok{color:var(--ok)}.qpts.no{color:var(--bad)}
+.qtype{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px}
+.qtype.wp{color:var(--hue);border-color:var(--hue)}
+.qtext{font-weight:600;font-size:16px;color:var(--ink);margin:0 0 12px;text-wrap:pretty}
+.qtext code{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:10px;padding:11px 13px;font-size:14.5px;font-family:inherit;line-height:1.45;transition:.12s;position:relative}
 .opt:hover:not(:disabled){border-color:var(--hue);background:var(--surface-2)}
 .opt:disabled{cursor:default}
-.opt .mk{flex:0 0 auto;width:24px;height:24px;border-radius:7px;border:1px solid var(--line-strong);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--muted);background:var(--surface-2)}
 .opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.opt.correct{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ink)}
-.opt.correct .mk{background:var(--ok);border-color:var(--ok);color:#fff}
-.opt.wrong{border-color:var(--bad-line);background:var(--bad-bg);color:var(--ink)}
-.opt.wrong .mk{background:var(--bad);border-color:var(--bad);color:#fff}
-.opt.dim{opacity:.62}
+.opt .radio{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--line-strong);margin-top:1px;display:grid;place-items:center}
+.opt .radio::after{content:"";width:9px;height:9px;border-radius:50%;background:transparent}
+.opt .ot{flex:1}
 .opt .ot code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:0 4px}
-.explain{margin-top:13px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:11px 14px;font-size:14.5px;color:var(--ink-soft);display:none}
+.opt .tag{display:none;flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--ok);border-radius:5px;padding:3px 7px;align-self:center}
+.opt.correct{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ink)}
+.opt.correct .radio{border-color:var(--ok);background:var(--ok)}
+.opt.correct .radio::after{background:#fff}
+.opt.correct .tag{display:inline-block}
+.opt.chosen-wrong{border-color:var(--bad-line);background:var(--bad-bg);color:var(--ink)}
+.opt.chosen-wrong .radio{border-color:var(--bad);background:var(--bad)}
+.opt.chosen-wrong .radio::after{width:8px;height:8px;border-radius:0;background:#fff;clip-path:polygon(20% 0,100% 80%,80% 100%,0 20%)}
+.opt.dim{opacity:.6}
+.explain{margin-top:12px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:10px 14px;font-size:14px;color:var(--ink-soft);display:none}
 .explain.show{display:block;animation:fade .25s ease}
 .explain b{color:var(--ink)}
 .explain code{font-family:var(--mono);font-size:.9em}
-.explain .verdict{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-right:8px}
+.explain .verdict{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-right:8px}
 .explain .verdict.ok{color:var(--ok)}
 .explain .verdict.no{color:var(--bad)}
-.section-done{margin-top:8px;border:1px dashed var(--hue);border-radius:var(--radius);padding:16px 18px;background:var(--surface-2);display:none}
-.section-done.show{display:block}
-.section-done strong{color:var(--hue)}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
-.fr-head{margin:34px 0 4px;padding-top:22px;border-top:1px dashed var(--line-strong)}
-.fr-head .qt{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.fr-head .fr-sub{color:var(--faint);font-size:14px;margin-top:4px}
-.fr{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--hue);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;margin-top:16px}
-.fr .qnum{font-family:var(--mono);font-size:12px;color:var(--hue);font-weight:700;letter-spacing:.05em}
-.fr .qtext{font-weight:600;font-size:16.5px;color:var(--ink);margin:6px 0 12px;text-wrap:pretty}
-.fr .qtext code{font-weight:500;font-family:var(--mono);font-size:.9em}
-.reveal{font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;border:1px solid var(--hue);color:var(--hue);background:transparent;border-radius:99px;padding:9px 18px;transition:.14s}
+.wp-divider{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:22px 0 12px;padding-top:14px;border-top:1px dashed var(--line-strong)}
+.reveal{font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--hue);color:var(--hue);background:transparent;border-radius:99px;padding:8px 16px;transition:.14s}
 .reveal:hover{background:var(--hue);color:#fff}
 .reveal:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.fr-ans{display:none;margin-top:14px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:4px 16px 6px;font-size:15px;color:var(--ink-soft)}
-.fr.open .fr-ans{display:block;animation:fade .25s ease}
-.fr-ans p{margin:11px 0}
-.fr-ans ul,.fr-ans ol{margin:9px 0;padding-left:20px}
-.fr-ans li{margin:4px 0}
-.fr-ans li::marker{color:var(--hue)}
-.fr-ans b{color:var(--ink)}
-.fr-ans code{font-family:var(--mono);font-size:.9em}
+.wans{display:none;margin-top:13px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:2px 15px 4px;font-size:14.5px;color:var(--ink-soft)}
+.witem.open .wans{display:block;animation:fade .25s ease}
+.wans p{margin:10px 0}
+.wans ul,.wans ol{margin:8px 0;padding-left:20px}
+.wans li{margin:3px 0}
+.wans li::marker{color:var(--hue)}
+.wans b{color:var(--ink)}
+.wans code{font-family:var(--mono);font-size:.9em}
+.wans .tbl,.note .tbl{border-collapse:collapse;margin:8px 0;font-size:13px;width:100%;max-width:520px}
+.wans .tbl th,.wans .tbl td,.note .tbl th,.note .tbl td{border:1px solid var(--line);padding:4px 9px;text-align:left;font-variant-numeric:tabular-nums}
+.wans .tbl th,.note .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:600}
+.wans .tbl td,.note .tbl td{color:var(--ink-soft)}
 
-footer{max-width:1080px;margin:0 auto;padding:26px 22px 50px;color:var(--faint);font-size:13px;border-top:1px solid var(--line)}
+/* ---------- guide (right) ---------- */
+.guide-head{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.guide-head .glbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-strong);background:var(--surface);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+.guide-head .gtitle{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.guide-close{display:none;flex:0 0 auto;font-family:var(--mono);font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line-strong);border-radius:99px;width:30px;height:30px;cursor:pointer}
+.guide-close:hover{border-color:var(--bad);color:var(--bad)}
+.guide-nav{flex:0 0 auto;display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding:10px 14px;border-bottom:1px solid var(--line)}
+.gchip{flex:0 0 auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;transition:.14s}
+.gchip .gdot{width:8px;height:8px;border-radius:3px;background:var(--gh)}
+.gchip:hover{border-color:var(--gh);color:var(--ink)}
+.gchip.active{background:var(--gh);border-color:var(--gh);color:#fff}
+.gchip.active .gdot{background:rgba(255,255,255,.9)}
+.guide-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:4px 18px 26px}
+.note{padding:14px 0;border-bottom:1px dashed var(--line)}
+.note:last-child{border-bottom:none}
+.note h4{margin:0 0 6px;font-size:14.5px;color:var(--ink);display:flex;align-items:baseline;gap:8px}
+.note h4 .n{font-family:var(--mono);font-size:11.5px;color:var(--gh);font-weight:700}
+.note p{margin:0 0 6px;color:var(--ink-soft);font-size:14px}
+.note ul,.note ol{margin:6px 0 0;padding-left:19px;color:var(--ink-soft);font-size:14px}
+.note li{margin:3px 0}
+.note li::marker{color:var(--gh)}
+.note code{font-size:.86em}
+.note .kw{color:var(--gh);font-weight:600}
+.note .code{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0 3px;font-size:12px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.5;tab-size:4}
+.note .tbl caption{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--gh);text-align:left;padding-bottom:4px;font-weight:700}
+
+/* ---------- mobile drawer ---------- */
+.guide-toggle{display:none;position:fixed;right:18px;bottom:18px;z-index:60;background:var(--accent);color:#fff;border:none;cursor:pointer;padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.06em;gap:8px;align-items:center}
+.guide-toggle:hover{background:var(--accent-strong)}
+.scrim{display:none}
+footer{padding:26px 24px 50px;color:var(--faint);font-size:13px;border-top:1px solid var(--line);margin-top:10px}
 footer .mono{font-family:var(--mono)}
 
-/* ===== side-tab toggle + slide-in study-notes drawer (split screen) ===== */
-.notes-toggle{
-  position:fixed; right:0; top:50%; transform:translateY(-50%);
-  z-index:60; display:flex; flex-direction:column; align-items:center; gap:8px;
-  background:var(--accent); color:#fff; border:none; cursor:pointer;
-  padding:16px 9px; border-radius:12px 0 0 12px; box-shadow:var(--shadow);
-  font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
-  transition:right .28s ease, background .15s ease;
+@media (max-width:1024px){
+  .layout{grid-template-columns:1fr}
+  .guide{position:fixed;top:0;right:0;height:100vh;width:min(90vw,420px);border-radius:0;border:none;border-left:1px solid var(--line-strong);transform:translateX(100%);transition:transform .28s ease;z-index:65;box-shadow:-10px 0 30px rgba(10,16,22,.18)}
+  body.guide-open .guide{transform:translateX(0)}
+  .guide-close{display:grid;place-items:center}
+  .guide-toggle{display:inline-flex}
+  body.guide-open .guide-toggle{opacity:0;pointer-events:none}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(10,16,22,.4);opacity:0;pointer-events:none;transition:opacity .28s ease;z-index:64}
+  body.guide-open .scrim{opacity:1;pointer-events:auto}
 }
-.notes-toggle:hover{background:var(--accent-strong)}
-.notes-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.notes-toggle .nt-icon{font-size:17px}
-.notes-toggle .nt-label{writing-mode:vertical-rl; text-orientation:mixed}
-body.notes-open .notes-toggle{right:min(50vw,620px)}
-
-.notes-panel{
-  position:fixed; top:0; right:0; height:100vh; width:min(50vw,620px);
-  background:var(--surface); border-left:1px solid var(--line-strong);
-  box-shadow:-10px 0 30px rgba(10,16,22,.16);
-  transform:translateX(100%); transition:transform .28s ease;
-  z-index:55; display:flex; flex-direction:column;
-}
-body.notes-open .panel.active .notes-panel{transform:translateX(0)}
-.notes-panel-head{
-  flex:0 0 auto; display:flex; align-items:center; gap:12px;
-  padding:14px 18px; border-bottom:1px solid var(--line); background:var(--surface-2);
-}
-.notes-panel-head .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-strong);background:var(--surface);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
-.notes-panel-head .np-title{font-family:var(--serif);font-weight:600;font-size:16px;color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.notes-close{flex:0 0 auto;font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--line-strong);border-radius:99px;padding:6px 12px;cursor:pointer}
-.notes-close:hover{border-color:var(--bad);color:var(--bad)}
-.notes-panel-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:4px 18px 34px}
-
-/* split: shrink the left column so questions and notes sit side by side */
-main, .nav-inner, .mast-inner{transition:max-width .28s ease, width .28s ease}
-body.notes-open .mast-inner,
-body.notes-open .nav-inner{max-width:calc(100vw - min(50vw,620px));margin-left:0;margin-right:0}
-body.notes-open main{max-width:none;width:calc(100vw - min(50vw,620px));margin:0}
-
-@media (max-width:820px){
-  /* full-screen notes overlay on narrow screens */
-  .notes-panel{width:100vw;box-shadow:none}
-  body.notes-open .notes-toggle{right:0;opacity:0;pointer-events:none}
-  body.notes-open .mast-inner,body.notes-open .nav-inner{max-width:100%}
-  body.notes-open main{width:auto;max-width:1080px;margin:0 auto}
-}
-@media (prefers-reduced-motion: reduce){.notes-toggle,.notes-panel,main,.nav-inner,.mast-inner{transition:none}}
-
-@media (max-width:600px){.mast-inner{padding:24px 16px 18px}main{padding:24px 16px 70px}.nav-inner{padding:10px 16px}.q,.fr{padding:16px 14px 14px}}
+@media (prefers-reduced-motion: reduce){.guide,.scrim,.pbar>span{transition:none}}
+@media (max-width:620px){.mast-inner{padding:24px 16px 18px}.wrap{padding:0 16px}.qbadge,.wbadge{width:38px}.qbody,.wbody{padding:13px 14px 14px}}
 </style>
 </head>
 <body>
 
 <header class="masthead">
-  <div class="mast-inner">
+  <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning I <span class="dot"></span> Self-Test Edition</div>
+      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning I <span class="dot"></span> Practice Exam</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Machine Learning — Classifiers, Ensembles &amp; Model Evaluation</h1>
-    <p class="subtitle">Six testable sections built from CAI 4105 Lectures 06–11 (Chinmay Nehate, UCF): the perceptron and the margin, support vector machines and kernels, nearest neighbors and decision trees, ensembles, and the two model-evaluation lectures. Condensed notes, multiple-choice practice with instant feedback, and the lectures' worked problems.</p>
-    <div class="callout"><b>What's covered:</b> hyperplane geometry and the perceptron (L06), max-margin SVMs, slack and the kernel trick (L07), kNN and decision trees — Gini/entropy and gain (L08), bagging, random forests and boosting (L09), the bias–variance tradeoff and cross-validation (L10), and the confusion matrix, precision/recall/F1, ROC/AUC and class imbalance (L11). Each section carries the lecture's own Practice and Check problems with full solutions.</div>
-    <div class="progress-wrap">
+    <h1 class="title">Machine Learning — Practice Exam &amp; Study Guide</h1>
+    <p class="subtitle">An exam-style review for CAI 4105 Lectures 06–11 (Chinmay Nehate, UCF): answer each question for instant grading, the correct answer, and a worked explanation — with the full study guide pinned on the right. Covers the perceptron and margin, SVMs and kernels, kNN and trees, ensembles, and model evaluation.</p>
+    <div class="callout"><b>How it works:</b> pick an answer and it is graded at once — a right choice turns green, a wrong one turns red and the correct answer is marked, with an explanation below. Worked problems at the end of each part reveal a full solution. Your progress and score are saved in this browser; the study guide on the right follows whichever part you are working on.</div>
+    <div class="scorebar">
       <div class="pbar"><span id="overallBar"></span></div>
-      <div class="pmeta"><b id="overallPct">0%</b> mastered · <span id="overallCount">0 / 0</span> correct</div>
+      <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0</span> pts</div>
+      <button class="reset" id="resetBtn">Reset exam</button>
     </div>
   </div>
 </header>
 
-<nav class="nav" aria-label="Topics"><div class="nav-inner" id="tabs" role="tablist"></div></nav>
-<main id="panels"></main>
+<div class="wrap">
+  <div class="layout">
+    <main class="exam" id="exam" aria-label="Practice exam"></main>
+    <aside class="guide" id="guide" aria-label="Study guide">
+      <div class="guide-head">
+        <span class="glbl">Study Guide</span>
+        <span class="gtitle" id="gtitle">Study Guide</span>
+        <button class="guide-close" id="guideClose" type="button" aria-label="Close study guide">✕</button>
+      </div>
+      <div class="guide-nav" id="gnav" role="tablist"></div>
+      <div class="guide-body" id="gbody"></div>
+    </aside>
+  </div>
+</div>
 
-<button id="notesToggle" class="notes-toggle" type="button" aria-pressed="false" aria-label="Toggle the study notes panel">
-  <span class="nt-icon" aria-hidden="true">📖</span><span class="nt-label">Study Notes</span>
-</button>
+<div class="scrim" id="scrim"></div>
+<button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
-<footer>
-  <div class="mono">Built from CAI 4105 <em>Current Topics in Machine Learning I</em> — Lectures 06 (Perceptron &amp; Margin), 07 (SVM &amp; Kernels), 08 (kNN &amp; Trees), 09 (Ensembles), 10 (Bias–Variance &amp; Cross-Validation), 11 (Confusion Matrix, Precision/Recall, ROC/AUC).</div>
-  <div style="margin-top:8px">Click any answer to check it — options are shuffled and explanations reveal automatically. Open the Study Notes panel to split the screen. Progress is saved in this browser.</div>
+<footer class="wrap">
+  <div class="mono">Built from CAI 4105 <em>Current Topics in Machine Learning I</em> — Lectures 06–11. Exam items are length-balanced and option order is shuffled; worked problems are the lectures' own Practice and Check problems with full solutions.</div>
 </footer>
 
 <script>
-/* =========================================================
-   SECTIONS — study notes
-   ========================================================= */
+
+/* ===== DATA + helpers (unchanged, validated) ===== */
 const SECTIONS = [
 {
   id:"perceptron", short:"Perceptron & Margin", tag:"Lecture 06 · Classification II", title:"The Perceptron and the Margin",
@@ -900,218 +884,222 @@ function seededPerm(n, seed){
   return idx;
 }
 
-const tabsEl=document.getElementById("tabs");
-const panelsEl=document.getElementById("panels");
+/* =========================================================
+   RENDER — exam (left) + study guide (right)
+   ========================================================= */
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const examEl  = document.getElementById("exam");
+const gnav    = document.getElementById("gnav");
+const gbody   = document.getElementById("gbody");
+const gtitle  = document.getElementById("gtitle");
+let activePart = null;
 
+/* ---- build the exam ---- */
+let qnum = 0;
 SECTIONS.forEach((sec,si)=>{
   state[sec.id] = state[sec.id] || {};
   const hue = `var(--t${si})`;
 
-  const tab=document.createElement("button");
-  tab.className="tab"; tab.style.setProperty("--hue",hue);
-  tab.setAttribute("role","tab"); tab.id="tab-"+sec.id;
-  tab.setAttribute("aria-controls","panel-"+sec.id);
-  tab.setAttribute("aria-selected", si===0 ? "true":"false");
-  tab.innerHTML=`<span class="chip"></span>${sec.short} <span class="sc" id="sc-${sec.id}"></span>`;
-  tab.addEventListener("click",()=>selectSection(sec.id));
-  tabsEl.appendChild(tab);
+  const ph=document.createElement("div");
+  ph.className="part-head"; ph.id="part-"+sec.id; ph.style.setProperty("--hue",hue);
+  ph.innerHTML=`<div class="part-kicker">${sec.tag}</div><h2>${sec.title}</h2><p>${sec.blurb}</p>`;
+  examEl.appendChild(ph);
 
-  const panel=document.createElement("section");
-  panel.className="panel"+(si===0?" active":"");
-  panel.id="panel-"+sec.id; panel.style.setProperty("--hue",hue);
-  panel.setAttribute("role","tabpanel"); panel.setAttribute("aria-labelledby","tab-"+sec.id);
-
-  const notesHtml = sec.notes.map((n,i)=>`<div class="note"><h4><span class="n">${String(i+1).padStart(2,"0")}</span>${n.h}</h4>${n.html}</div>`).join("");
-
-  panel.innerHTML=`
-    <div class="sec-head">
-      <div class="sec-kicker">${sec.tag}</div>
-      <h2>${sec.title}</h2>
-      <p>${sec.blurb}</p>
-    </div>
-    <aside class="notes-panel" aria-label="Study notes">
-      <div class="notes-panel-head">
-        <span class="lbl">Study Notes</span>
-        <span class="np-title">${sec.title}</span>
-        <button class="notes-close" type="button" aria-label="Close study notes">Close ✕</button>
-      </div>
-      <div class="notes-panel-body">${notesHtml}</div>
-    </aside>
-    <div class="quiz-head">
-      <div class="qt">Multiple Choice · ${sec.questions.length} items</div>
-      <div style="display:flex;gap:10px;align-items:center">
-        <div class="score-badge" id="badge-${sec.id}"></div>
-        <button class="reset" data-sec="${sec.id}">Reset</button>
-      </div>
-    </div>
-    <div id="quiz-${sec.id}"></div>
-    <div class="section-done" id="done-${sec.id}"></div>
-    ${(FR[sec.id]&&FR[sec.id].length)?`
-    <div class="fr-head">
-      <div class="qt">Worked Practice · ${FR[sec.id].length} problems</div>
-      <div class="fr-sub">These are the lecture's own Practice and Check problems. Work each one out, then reveal the full solution.</div>
-    </div>
-    <div id="fr-${sec.id}"></div>`:``}
-  `;
-  panelsEl.appendChild(panel);
-
-  const quizEl=panel.querySelector("#quiz-"+sec.id);
   sec.questions.forEach((q,qi)=>{
+    qnum++;
     const perm=seededPerm(q.o.length, hashStr(sec.id+"#"+qi));
-    const card=document.createElement("div");
-    card.className="q"; card.id=`q-${sec.id}-${qi}`;
-    const opts=perm.map((oi,pos)=>`
+    const item=document.createElement("div");
+    item.className="qitem"; item.id=`q-${sec.id}-${qi}`; item.style.setProperty("--hue",hue);
+    const opts=perm.map(oi=>`
       <button class="opt" data-sec="${sec.id}" data-q="${qi}" data-o="${oi}">
-        <span class="mk">${String.fromCharCode(65+pos)}</span>
-        <span class="ot">${q.o[oi]}</span>
+        <span class="radio" aria-hidden="true"></span><span class="ot">${q.o[oi]}</span><span class="tag">Correct answer</span>
       </button>`).join("");
-    card.innerHTML=`
-      <div class="qnum">Question ${qi+1}</div>
-      <div class="qtext">${q.q}</div>
-      <div class="opts">${opts}</div>
-      <div class="explain" id="ex-${sec.id}-${qi}"></div>`;
-    quizEl.appendChild(card);
+    item.innerHTML=`
+      <div class="qbadge">${qnum}</div>
+      <div class="qbody">
+        <div class="qmeta"><span class="qpts" id="pts-${sec.id}-${qi}">1 point</span><span class="qtype">Multiple Choice</span></div>
+        <div class="qtext">${q.q}</div>
+        <div class="opts">${opts}</div>
+        <div class="explain" id="ex-${sec.id}-${qi}"></div>
+      </div>`;
+    examEl.appendChild(item);
   });
 
-  const frWrap=panel.querySelector("#fr-"+sec.id);
-  if(frWrap){
-    (FR[sec.id]||[]).forEach((f,fi)=>{
-      const c=document.createElement("div");
-      c.className="fr";
-      c.innerHTML=`
-        <div class="qnum">Problem ${fi+1}</div>
-        <div class="qtext">${f.q}</div>
-        <button class="reveal" type="button" aria-expanded="false">Show worked solution</button>
-        <div class="fr-ans">${f.a}</div>`;
-      const btn=c.querySelector(".reveal");
+  const fr=FR[sec.id]||[];
+  if(fr.length){
+    const div=document.createElement("div");
+    div.className="wp-divider"; div.textContent=`Worked Problems · ${sec.short}`;
+    examEl.appendChild(div);
+    fr.forEach((f,fi)=>{
+      const w=document.createElement("div");
+      w.className="witem"; w.style.setProperty("--hue",hue);
+      w.innerHTML=`
+        <div class="wbadge">WP${fi+1}</div>
+        <div class="wbody">
+          <div class="qmeta"><span class="qtype wp">Worked Problem</span></div>
+          <div class="qtext">${f.q}</div>
+          <button class="reveal" type="button" aria-expanded="false">Show worked solution</button>
+          <div class="wans">${f.a}</div>
+        </div>`;
+      const btn=w.querySelector(".reveal");
       btn.addEventListener("click",()=>{
-        const open=c.classList.toggle("open");
+        const open=w.classList.toggle("open");
         btn.setAttribute("aria-expanded",open?"true":"false");
         btn.textContent=open?"Hide worked solution":"Show worked solution";
       });
-      frWrap.appendChild(c);
+      examEl.appendChild(w);
     });
   }
-
-  panel.querySelector(".reset").addEventListener("click",()=>resetSection(sec.id));
 });
 
-panelsEl.addEventListener("click",(ev)=>{
+/* ---- answering ---- */
+examEl.addEventListener("click",(ev)=>{
   const btn=ev.target.closest(".opt");
   if(!btn) return;
   const sec=btn.dataset.sec, qi=+btn.dataset.q, oi=+btn.dataset.o;
   if(state[sec][qi]!==undefined) return;
   state[sec][qi]=oi; save();
   renderQuestion(sec,qi);
-  refresh(sec);
+  refreshOverall();
 });
 
 function renderQuestion(secId,qi){
   const sec=SECTIONS.find(s=>s.id===secId);
   const q=sec.questions[qi];
   const chosen=state[secId][qi];
-  const card=document.getElementById(`q-${secId}-${qi}`);
-  const btns=card.querySelectorAll(".opt");
-  btns.forEach(b=>{
+  const item=document.getElementById(`q-${secId}-${qi}`);
+  item.querySelectorAll(".opt").forEach(b=>{
     const oi=+b.dataset.o;
-    b.classList.remove("correct","wrong","dim");
+    b.classList.remove("correct","chosen-wrong","dim");
     b.disabled = chosen!==undefined;
     if(chosen!==undefined){
       if(oi===q.a) b.classList.add("correct");
-      else if(oi===chosen) b.classList.add("wrong");
+      else if(oi===chosen) b.classList.add("chosen-wrong");
       else b.classList.add("dim");
     }
   });
+  const pts=document.getElementById(`pts-${secId}-${qi}`);
   const ex=document.getElementById(`ex-${secId}-${qi}`);
   if(chosen!==undefined){
     const ok=chosen===q.a;
-    ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Not quite'}</span>${q.e}`;
+    pts.textContent=(ok?"1":"0")+" / 1 point";
+    pts.className="qpts "+(ok?"ok":"no");
+    ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Incorrect'}</span>${q.e}`;
     ex.classList.add("show");
-  } else { ex.classList.remove("show"); ex.innerHTML=""; }
+  } else {
+    pts.textContent="1 point"; pts.className="qpts";
+    ex.classList.remove("show"); ex.innerHTML="";
+  }
 }
 
-function sectionStats(secId){
-  const sec=SECTIONS.find(s=>s.id===secId);
-  let answered=0, correct=0;
-  sec.questions.forEach((q,qi)=>{ if(state[secId][qi]!==undefined){ answered++; if(state[secId][qi]===q.a) correct++; } });
-  return {answered, correct, total:sec.questions.length};
+/* ---- scoring ---- */
+function stats(){
+  let total=0, answered=0, correct=0;
+  SECTIONS.forEach(sec=>sec.questions.forEach((q,qi)=>{
+    total++;
+    const v=state[sec.id] && state[sec.id][qi];
+    if(v!==undefined){ answered++; if(v===q.a) correct++; }
+  }));
+  return {total, answered, correct};
 }
-
-function refresh(secId){
-  const st=sectionStats(secId);
-  document.getElementById("badge-"+secId).innerHTML=`Score <b>${st.correct}</b> / ${st.total}`;
-  const scEl=document.getElementById("sc-"+secId);
-  scEl.textContent = st.answered ? `${st.correct}/${st.total}` : "";
-  const done=document.getElementById("done-"+secId);
-  if(st.answered===st.total){
-    const pct=Math.round(100*st.correct/st.total);
-    let msg = pct===100 ? "Perfect — you've nailed this lecture. 🎯"
-            : pct>=80 ? "Strong grasp — review the few you missed."
-            : pct>=60 ? "Solid start — revisit the notes for the missed items."
-            : "Worth another pass — open the Study Notes and retry.";
-    done.innerHTML=`<strong>Section complete — ${st.correct}/${st.total} (${pct}%).</strong> ${msg}`;
-    done.classList.add("show");
-  } else { done.classList.remove("show"); }
-  refreshOverall();
-}
-
 function refreshOverall(){
-  let total=0, correct=0;
-  SECTIONS.forEach(sec=>{ const st=sectionStats(sec.id); total+=st.total; correct+=st.correct; });
-  const pct = total? Math.round(100*correct/total):0;
-  document.getElementById("overallBar").style.width=pct+"%";
-  document.getElementById("overallPct").textContent=pct+"%";
-  document.getElementById("overallCount").textContent=`${correct} / ${total}`;
+  const s=stats();
+  document.getElementById("overallBar").style.width=(s.total?Math.round(100*s.answered/s.total):0)+"%";
+  document.getElementById("overallPct").textContent=(s.answered?Math.round(100*s.correct/s.answered):0)+"%";
+  document.getElementById("overallCount").textContent=`${s.correct} / ${s.answered}`;
+  document.getElementById("overallPts").textContent=`${s.correct} / ${s.total}`;
 }
 
-function resetSection(secId){
-  state[secId]={}; save();
-  SECTIONS.find(s=>s.id===secId).questions.forEach((q,qi)=>renderQuestion(secId,qi));
-  refresh(secId);
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  SECTIONS.forEach(sec=>{ state[sec.id]={}; });
+  save();
+  SECTIONS.forEach(sec=>sec.questions.forEach((q,qi)=>renderQuestion(sec.id,qi)));
+  refreshOverall();
+  window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+});
+
+/* ---- study guide (right) ---- */
+SECTIONS.forEach((sec,si)=>{
+  const chip=document.createElement("button");
+  chip.className="gchip"; chip.id="gchip-"+sec.id; chip.setAttribute("role","tab");
+  chip.style.setProperty("--gh",`var(--t${si})`);
+  chip.innerHTML=`<span class="gdot"></span>${sec.short}`;
+  chip.addEventListener("click",()=>setActivePart(sec.id,true));
+  gnav.appendChild(chip);
+});
+
+function renderGuideBody(secId){
+  const si=SECTIONS.findIndex(s=>s.id===secId);
+  gbody.style.setProperty("--gh",`var(--t${si})`);
+  gbody.innerHTML=SECTIONS[si].notes.map((n,i)=>`<div class="note"><h4><span class="n">${String(i+1).padStart(2,"0")}</span>${n.h}</h4>${n.html}</div>`).join("");
+  gbody.scrollTop=0;
+}
+function setActivePart(secId, fromClick){
+  if(activePart===secId && !fromClick) return;
+  const changed = activePart!==secId;
+  activePart=secId;
+  const si=SECTIONS.findIndex(s=>s.id===secId);
+  gtitle.textContent=SECTIONS[si].title;
+  document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
+  const chip=document.getElementById("gchip-"+secId);
+  if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
+  if(changed) renderGuideBody(secId);
+  try{ store && store.setItem("ml-exam-part",secId); }catch(e){}
+  if(fromClick){
+    document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"});
+    if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false);
+  }
 }
 
-function selectSection(secId){
-  SECTIONS.forEach(sec=>{
-    const on=sec.id===secId;
-    document.getElementById("panel-"+sec.id).classList.toggle("active",on);
-    document.getElementById("tab-"+sec.id).setAttribute("aria-selected", on?"true":"false");
+/* ---- scroll-sync: guide follows the part you're reading ---- */
+let ticking=false;
+function onScroll(){
+  if(ticking) return; ticking=true;
+  requestAnimationFrame(()=>{
+    ticking=false;
+    let cur=SECTIONS[0].id;
+    for(const s of SECTIONS){
+      const el=document.getElementById("part-"+s.id);
+      if(el.getBoundingClientRect().top<=150) cur=s.id; else break;
+    }
+    if(cur!==activePart) setActivePart(cur,false);
   });
-  window.scrollTo({top:0,behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth'});
-  document.getElementById("tab-"+secId).scrollIntoView({block:"nearest",inline:"center"});
 }
+window.addEventListener("scroll",onScroll,{passive:true});
 
-SECTIONS.forEach(sec=>{ sec.questions.forEach((q,qi)=>renderQuestion(sec.id,qi)); refresh(sec.id); });
-refreshOverall();
+/* ---- mobile drawer ---- */
+const guideToggle=document.getElementById("guideToggle");
+const guideClose=document.getElementById("guideClose");
+const scrim=document.getElementById("scrim");
+function setGuideOpen(open){ document.body.classList.toggle("guide-open",open); }
+guideToggle.addEventListener("click",()=>setGuideOpen(true));
+guideClose.addEventListener("click",()=>setGuideOpen(false));
+scrim.addEventListener("click",()=>setGuideOpen(false));
+document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
-/* Study-notes split panel */
-const notesToggle=document.getElementById("notesToggle");
-const ntLabel=notesToggle.querySelector(".nt-label");
-function setNotesOpen(open){
-  document.body.classList.toggle("notes-open", open);
-  notesToggle.setAttribute("aria-pressed", open?"true":"false");
-  ntLabel.textContent = open ? "Hide Notes" : "Study Notes";
-  try{ store && store.setItem("ml-guide-notes-open", open?"1":"0"); }catch(e){}
-}
-notesToggle.addEventListener("click", ()=> setNotesOpen(!document.body.classList.contains("notes-open")));
-panelsEl.addEventListener("click", (ev)=>{ if(ev.target.closest(".notes-close")) setNotesOpen(false); });
-document.addEventListener("keydown", (ev)=>{ if(ev.key==="Escape" && document.body.classList.contains("notes-open")) setNotesOpen(false); });
-try{ if(store && store.getItem("ml-guide-notes-open")==="1") setNotesOpen(true); }catch(e){}
-
-/* Theme toggle */
+/* ---- theme ---- */
 const root=document.documentElement, tb=document.getElementById("themeBtn"),
       ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
 function applyTheme(t){
   if(t==="system"){ root.removeAttribute("data-theme"); ti.textContent="◐"; tl.textContent="Auto"; }
-  else{ root.setAttribute("data-theme",t); ti.textContent= t==="dark"?"☾":"☀"; tl.textContent= t==="dark"?"Dark":"Light"; }
-  try{ store && store.setItem("ml-guide-theme",t); }catch(e){}
+  else{ root.setAttribute("data-theme",t); ti.textContent=t==="dark"?"☾":"☀"; tl.textContent=t==="dark"?"Dark":"Light"; }
+  try{ store && store.setItem("ml-exam-theme",t); }catch(e){}
 }
 let curTheme="system";
-try{ if(store) curTheme=store.getItem("ml-guide-theme")||"system"; }catch(e){}
+try{ if(store) curTheme=store.getItem("ml-exam-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{
   curTheme = curTheme==="system" ? "light" : curTheme==="light" ? "dark" : "system";
   applyTheme(curTheme);
 });
+
+/* ---- init ---- */
+SECTIONS.forEach(sec=>sec.questions.forEach((q,qi)=>renderQuestion(sec.id,qi)));
+refreshOverall();
+let initPart=SECTIONS[0].id;
+try{ const sp=store&&store.getItem("ml-exam-part"); if(sp && SECTIONS.some(s=>s.id===sp)) initPart=sp; }catch(e){}
+setActivePart(initPart,false);
+onScroll();
 </script>
 </body>
 </html>
