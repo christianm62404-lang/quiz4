@@ -354,9 +354,6 @@ for each pass:
    ========================================================= */
 const QB = {
 perceptron:[
-  {q:"From L06 on, how are the two classes labeled?",
-   o:["+1 for the positive class, −1 for the other","1 for the positive class, 0 for the other","+1 for both, with a flag for the class","the class index, counting up from 1"],
-   a:0, e:"L06 switches to y = +1 for the positive class and y = −1 for the other; L05 had used 1 and 0."},
   {q:"A point with score <code>z</code> and label <code>y</code> is classified <b>correctly</b> exactly when…",
    o:["the score z on its own is positive","its label y on its own is positive","the product y·z is positive","the product y·z is exactly zero"],
    a:2, e:"One product settles it: correct when y·z > 0. A score of exactly 0 sits on the boundary and counts as a mistake."},
@@ -393,9 +390,6 @@ perceptron:[
   {q:"A key difference between the perceptron and logistic regression is that…",
    o:["only the perceptron needs a bias b","the perceptron gives a side, not a probability","logistic regression ignores correct points","the perceptron minimizes squared error"],
    a:1, e:"The perceptron outputs a side with no probability and learns only from mistakes; logistic regression outputs a probability and every point shapes its training."},
-  {q:"A point whose score is <b>exactly zero</b> is treated as…",
-   o:["correct, since it is on the line","a mistake, so it can be updated","undefined and skipped entirely","a support vector of the line"],
-   a:1, e:"A tie (z = 0) counts as a mistake, so the point would be updated if visited next."},
   {q:"With D features, the set of inputs scoring zero is…",
    o:["a single point in the space","a flat surface called a hyperplane","a curved bowl around the origin","a sphere of radius ‖w‖"],
    a:1, e:"With two features z=0 is a line; with D features it is a flat D−1 dimensional hyperplane."}
