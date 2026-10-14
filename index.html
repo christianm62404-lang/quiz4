@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Machine Learning Study Guide — CAI 4105 (L06–L11)</title>
+<title>CAI 4105 Midterm Review — Study Guide (L01–L13)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -11,7 +11,7 @@
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
-  --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
+  --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;--warn:#b5861f;--warn-bg:#fbf3df;--warn-line:#ecd9a6;
   --badge:#2b3a4a;--badge-ink:#eaf0f6;
   --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;
   --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
@@ -21,7 +21,7 @@
   :root{
     --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
     --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
-    --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
+    --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;--warn:#e3bb63;--warn-bg:#2a2314;--warn-line:#4d4126;
     --badge:#32414f;--badge-ink:#eaf0f6;
     --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
@@ -29,13 +29,13 @@
 }
 :root[data-theme="light"]{
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
-  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;
+  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;--warn:#b5861f;--warn-bg:#fbf3df;--warn-line:#ecd9a6;
   --badge:#2b3a4a;--badge-ink:#eaf0f6;
   --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
-  --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;
+  --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;--warn:#e3bb63;--warn-bg:#2a2314;--warn-line:#4d4126;
   --badge:#32414f;--badge-ink:#eaf0f6;
   --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
 }
@@ -48,7 +48,6 @@ a{color:var(--accent-strong)}
 .wrap{max-width:1300px;margin:0 auto;padding:0 24px}
 code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
 
-/* ---------- masthead ---------- */
 .masthead{border-bottom:1px solid var(--line-strong);background:linear-gradient(180deg, var(--surface), var(--surface-2))}
 .mast-inner{padding:30px 24px 22px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -68,75 +67,93 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .reset{font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line-strong);border-radius:99px;padding:7px 14px;cursor:pointer}
 .reset:hover{border-color:var(--bad);color:var(--bad)}
 
-/* ---------- layout ---------- */
 .layout{display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:36px;align-items:start;padding:28px 0 90px}
 .exam{min-width:0}
 .guide{position:sticky;top:16px;height:calc(100vh - 32px);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
 
-/* ---------- exam ---------- */
-.exam-lead{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+.exam-toolbar{position:sticky;top:0;z-index:25;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:16px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.fbtn{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 12px}
+.fbtn:hover{border-color:var(--accent);color:var(--accent-strong)}
+.fbtn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.fcount{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.jump{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.jump:hover{border-color:var(--accent);color:var(--accent-strong)}
+
 .part-head{scroll-margin-top:16px;margin:30px 0 14px;padding:4px 0 4px 16px;border-left:4px solid var(--hue)}
 .part-head:first-of-type{margin-top:4px}
 .part-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hue);font-weight:600}
 .part-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(21px,3vw,27px);margin:.15em 0 .1em;letter-spacing:-.01em;text-wrap:balance}
 .part-head p{margin:0;color:var(--muted);max-width:74ch;font-size:14.5px}
 
-.qitem,.witem{display:flex;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
-.qbadge,.wbadge{flex:0 0 auto;width:46px;background:var(--badge);color:var(--badge-ink);display:flex;align-items:flex-start;justify-content:center;padding-top:16px;font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
-.wbadge{background:var(--hue);font-size:12px;letter-spacing:.04em}
-.qbody,.wbody{flex:1;min-width:0;padding:14px 18px 16px}
-.qmeta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:9px}
+.qitem{display:flex;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+.qbadge{flex:0 0 auto;width:46px;background:var(--badge);color:var(--badge-ink);display:flex;align-items:flex-start;justify-content:center;padding-top:16px;font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.qbody{flex:1;min-width:0;padding:14px 18px 16px}
+.qmeta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:9px}
 .qpts{font-family:var(--mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
 .qpts.ok{color:var(--ok)}.qpts.no{color:var(--bad)}
-.qtype{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px}
-.qtype.wp{color:var(--hue);border-color:var(--hue)}
+.qtype{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px}
+.star{flex:0 0 auto;margin-left:auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--faint);border-radius:7px;width:30px;height:26px;font-size:14px;line-height:1;display:grid;place-items:center;transition:.12s}
+.star:hover{border-color:var(--t4);color:var(--t4)}
+.star.on{background:var(--t4);border-color:var(--t4);color:#fff}
 .qtext{font-weight:600;font-size:16px;color:var(--ink);margin:0 0 12px;text-wrap:pretty}
 .qtext code{font-weight:500}
 .opts{display:flex;flex-direction:column;gap:8px}
-.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:10px;padding:11px 13px;font-size:14.5px;font-family:inherit;line-height:1.45;transition:.12s;position:relative}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:10px;padding:11px 13px;font-size:14.5px;font-family:inherit;line-height:1.45;transition:.12s}
 .opt:hover:not(:disabled){border-color:var(--hue);background:var(--surface-2)}
 .opt:disabled{cursor:default}
 .opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.opt .radio{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--line-strong);margin-top:1px;display:grid;place-items:center}
-.opt .radio::after{content:"";width:9px;height:9px;border-radius:50%;background:transparent}
+.opt .mk{flex:0 0 auto;width:20px;height:20px;border:2px solid var(--line-strong);margin-top:1px;display:grid;place-items:center;color:transparent}
+.opt.rad .mk{border-radius:50%}
+.opt.chk .mk{border-radius:5px;font-size:13px;font-weight:800}
 .opt .ot{flex:1}
 .opt .ot code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:0 4px}
-.opt .tag{display:none;flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--ok);border-radius:5px;padding:3px 7px;align-self:center}
+.opt .tag{display:none;flex:0 0 auto;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--ok);border-radius:5px;padding:3px 7px;align-self:center}
+.opt.sel{border-color:var(--hue)}
+.opt.sel .mk{border-color:var(--hue);background:var(--hue);color:#fff}
 .opt.correct{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ink)}
-.opt.correct .radio{border-color:var(--ok);background:var(--ok)}
-.opt.correct .radio::after{background:#fff}
+.opt.correct .mk{background:var(--ok);border-color:var(--ok);color:#fff}
 .opt.correct .tag{display:inline-block}
+.opt.miss{border-color:var(--warn-line);background:var(--warn-bg);color:var(--ink)}
+.opt.miss .mk{border-color:var(--warn);color:var(--warn);background:transparent}
 .opt.chosen-wrong{border-color:var(--bad-line);background:var(--bad-bg);color:var(--ink)}
-.opt.chosen-wrong .radio{border-color:var(--bad);background:var(--bad)}
-.opt.chosen-wrong .radio::after{width:8px;height:8px;border-radius:0;background:#fff;clip-path:polygon(20% 0,100% 80%,80% 100%,0 20%)}
-.opt.dim{opacity:.6}
-.explain{margin-top:12px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:10px 14px;font-size:14px;color:var(--ink-soft);display:none}
+.opt.chosen-wrong .mk{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt.dim{opacity:.55}
+.submit{margin-top:11px;font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--hue);color:#fff;background:var(--hue);border-radius:99px;padding:8px 18px}
+.submit:hover{filter:brightness(1.07)}
+.submit:disabled{opacity:.5;cursor:default}
+.numrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.numin{font-family:var(--mono);font-size:15px;width:160px;max-width:60vw;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 12px}
+.numin:focus{outline:2px solid var(--accent);outline-offset:1px}
+.numin.okb{border-color:var(--ok);background:var(--ok-bg)}
+.numin.nob{border-color:var(--bad);background:var(--bad-bg)}
+.numhint{font-size:12.5px;color:var(--faint)}
+table.match{border-collapse:collapse;width:100%;font-size:14px;margin-top:2px}
+table.match td{border:1px solid var(--line);padding:7px 9px;vertical-align:middle}
+table.match td.desc{color:var(--ink-soft)}
+table.match td.pick{width:42%}
+.msel{font-family:inherit;font-size:13.5px;width:100%;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 8px}
+tr.rc td{background:var(--ok-bg)}
+tr.rw td{background:var(--bad-bg)}
+.terms-legend{font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+.terms-legend b{color:var(--ink)}
+.explain{margin-top:13px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:10px 14px;font-size:14px;color:var(--ink-soft);display:none}
 .explain.show{display:block;animation:fade .25s ease}
 .explain b{color:var(--ink)}
 .explain code{font-family:var(--mono);font-size:.9em}
 .explain .verdict{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-right:8px}
 .explain .verdict.ok{color:var(--ok)}
 .explain .verdict.no{color:var(--bad)}
+.explain .src{display:block;margin-top:7px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.sa-ans{display:none;margin-top:12px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:4px 15px 6px;font-size:14.5px;color:var(--ink-soft)}
+.qitem.open .sa-ans{display:block;animation:fade .25s ease}
+.sa-ans p{margin:9px 0}.sa-ans b{color:var(--ink)}
 @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.qitem.hide,.part-head.hide{display:none}
+.qitem.kfocus{outline:2px solid var(--accent);outline-offset:2px}
+.empty-state{border:1px dashed var(--line-strong);border-radius:12px;padding:30px 18px;text-align:center;color:var(--muted);font-size:14.5px;background:var(--surface-2)}
 
-.wp-divider{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:22px 0 12px;padding-top:14px;border-top:1px dashed var(--line-strong)}
-.reveal{font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--hue);color:var(--hue);background:transparent;border-radius:99px;padding:8px 16px;transition:.14s}
-.reveal:hover{background:var(--hue);color:#fff}
-.reveal:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.wans{display:none;margin-top:13px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:2px 15px 4px;font-size:14.5px;color:var(--ink-soft)}
-.witem.open .wans{display:block;animation:fade .25s ease}
-.wans p{margin:10px 0}
-.wans ul,.wans ol{margin:8px 0;padding-left:20px}
-.wans li{margin:3px 0}
-.wans li::marker{color:var(--hue)}
-.wans b{color:var(--ink)}
-.wans code{font-family:var(--mono);font-size:.9em}
-.wans .tbl,.note .tbl{border-collapse:collapse;margin:8px 0;font-size:13px;width:100%;max-width:520px}
-.wans .tbl th,.wans .tbl td,.note .tbl th,.note .tbl td{border:1px solid var(--line);padding:4px 9px;text-align:left;font-variant-numeric:tabular-nums}
-.wans .tbl th,.note .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:600}
-.wans .tbl td,.note .tbl td{color:var(--ink-soft)}
-
-/* ---------- guide (right) ---------- */
 .guide-head{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
 .guide-head .glbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-strong);background:var(--surface);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
 .guide-head .gtitle{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -148,6 +165,7 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .gchip:hover{border-color:var(--gh);color:var(--ink)}
 .gchip.active{background:var(--gh);border-color:var(--gh);color:#fff}
 .gchip.active .gdot{background:rgba(255,255,255,.9)}
+.gchip.cramchip{--gh:var(--accent);font-weight:700}
 .guide-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:4px 18px 26px}
 .note{padding:14px 0;border-bottom:1px dashed var(--line)}
 .note:last-child{border-bottom:none}
@@ -155,14 +173,20 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .note h4 .n{font-family:var(--mono);font-size:11.5px;color:var(--gh);font-weight:700}
 .note p{margin:0 0 6px;color:var(--ink-soft);font-size:14px}
 .note ul,.note ol{margin:6px 0 0;padding-left:19px;color:var(--ink-soft);font-size:14px}
-.note li{margin:3px 0}
-.note li::marker{color:var(--gh)}
+.note li{margin:3px 0}.note li::marker{color:var(--gh)}
 .note code{font-size:.86em}
 .note .kw{color:var(--gh);font-weight:600}
-.note .code{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0 3px;font-size:12px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.5;tab-size:4}
-.note .tbl caption{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--gh);text-align:left;padding-bottom:4px;font-weight:700}
+.note .tbl{border-collapse:collapse;margin:8px 0;font-size:12.5px;width:100%}
+.note .tbl th,.note .tbl td{border:1px solid var(--line);padding:4px 7px;text-align:left}
+.note .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:600}
+.note .tbl td{color:var(--ink-soft)}
+.cram h5{margin:15px 0 5px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--gh);border-bottom:1px solid var(--line);padding-bottom:3px}
+.cram h5:first-child{margin-top:2px}
+.cram ul{margin:0 0 4px;padding-left:17px}
+.cram li{margin:4px 0;line-height:1.5;color:var(--ink-soft)}
+.cram li::marker{color:var(--gh)}
+.cram b{color:var(--ink)}.cram code{font-size:.85em}
 
-/* ---------- mobile drawer ---------- */
 .guide-toggle{display:none;position:fixed;right:18px;bottom:18px;z-index:60;background:var(--accent);color:#fff;border:none;cursor:pointer;padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.06em;gap:8px;align-items:center}
 .guide-toggle:hover{background:var(--accent-strong)}
 .scrim{display:none}
@@ -171,7 +195,7 @@ footer .mono{font-family:var(--mono)}
 
 @media (max-width:1024px){
   .layout{grid-template-columns:1fr}
-  .guide{position:fixed;top:0;right:0;height:100vh;width:min(90vw,420px);border-radius:0;border:none;border-left:1px solid var(--line-strong);transform:translateX(100%);transition:transform .28s ease;z-index:65;box-shadow:-10px 0 30px rgba(10,16,22,.18)}
+  .guide{position:fixed;top:0;right:0;height:100vh;width:min(92vw,430px);border-radius:0;border:none;border-left:1px solid var(--line-strong);transform:translateX(100%);transition:transform .28s ease;z-index:65;box-shadow:-10px 0 30px rgba(10,16,22,.18)}
   body.guide-open .guide{transform:translateX(0)}
   .guide-close{display:grid;place-items:center}
   .guide-toggle{display:inline-flex}
@@ -180,35 +204,7 @@ footer .mono{font-family:var(--mono)}
   body.guide-open .scrim{opacity:1;pointer-events:auto}
 }
 @media (prefers-reduced-motion: reduce){.guide,.scrim,.pbar>span{transition:none}}
-@media (max-width:620px){.mast-inner{padding:24px 16px 18px}.wrap{padding:0 16px}.qbadge,.wbadge{width:38px}.qbody,.wbody{padding:13px 14px 14px}}
-/* ---- cram-study additions ---- */
-.exam-toolbar{position:sticky;top:0;z-index:25;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:16px}
-.filters{display:flex;gap:6px;flex-wrap:wrap}
-.fbtn{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 12px}
-.fbtn:hover{border-color:var(--accent);color:var(--accent-strong)}
-.fbtn.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.bar-right{display:flex;align-items:center;gap:10px;margin-left:auto}
-.fcount{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-.jump{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:6px 12px;white-space:nowrap}
-.jump:hover{border-color:var(--accent);color:var(--accent-strong)}
-.kbd-hint{flex-basis:100%;font-size:11.5px;color:var(--faint);padding-top:2px}
-.kbd-hint b{font-family:var(--mono);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:0 5px}
-.qitem.hide,.witem.hide,.wpdiv.hide,.part-head.hide{display:none}
-.star{flex:0 0 auto;margin-left:auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--faint);border-radius:7px;width:30px;height:26px;font-size:14px;line-height:1;display:grid;place-items:center;transition:.12s}
-.star:hover{border-color:var(--t4);color:var(--t4)}
-.star.on{background:var(--t4);border-color:var(--t4);color:#fff}
-.qitem.kfocus{outline:2px solid var(--accent);outline-offset:2px}
-.empty-state{border:1px dashed var(--line-strong);border-radius:12px;padding:30px 18px;text-align:center;color:var(--muted);font-size:14.5px;background:var(--surface-2)}
-.cram{font-size:13.5px;color:var(--ink-soft)}
-.cram h5{margin:15px 0 5px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--gh);border-bottom:1px solid var(--line);padding-bottom:3px}
-.cram h5:first-child{margin-top:2px}
-.cram ul{margin:0 0 4px;padding-left:17px}
-.cram li{margin:4px 0;line-height:1.5}
-.cram li::marker{color:var(--gh)}
-.cram b{color:var(--ink)}
-.cram code{font-size:.85em}
-.gchip.cramchip{--gh:var(--accent);font-weight:700}
-
+@media (max-width:620px){.mast-inner{padding:24px 16px 18px}.wrap{padding:0 16px}.qbadge{width:38px}.qbody{padding:13px 14px 14px}}
 </style>
 </head>
 <body>
@@ -216,23 +212,23 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning I <span class="dot"></span> Practice Exam</div>
+      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning I <span class="dot"></span> Midterm Review</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Machine Learning — Practice Exam &amp; Study Guide</h1>
-    <p class="subtitle">An exam-style review for CAI 4105 Lectures 06–11 (Chinmay Nehate, UCF): answer each question for instant grading, the correct answer, and a worked explanation — with the full study guide pinned on the right. Covers the perceptron and margin, SVMs and kernels, kNN and trees, ensembles, and model evaluation.</p>
-    <div class="callout"><b>How it works:</b> pick an answer and it is graded at once — a right choice turns green, a wrong one turns red and the correct answer is marked, with an explanation below. Worked problems at the end of each part reveal a full solution. Your progress and score are saved in this browser; the study guide on the right follows whichever part you are working on.</div>
+    <h1 class="title">Midterm Review — Study Guide &amp; Practice</h1>
+    <p class="subtitle">A complete review of CAI 4105 Lectures 01–13 (Weeks 1–7) for the midterm: math foundations, linear regression, classification, ensembles, model evaluation, and clustering &amp; PCA. In-depth notes on the right, plus quiz-style practice — multiple choice, multiple answer, numeric entry, matching, and short answer — with instant grading and explanations.</p>
+    <div class="callout"><b>Exam scope (L14 review):</b> Lectures 01–13, six areas — math, regression, classification, ensembles, evaluation, and unsupervised learning (k-means, DBSCAN, PCA). <b>Not on the exam:</b> hierarchical clustering and the silhouette score. Questions mirror the style of Quizzes 1 &amp; 2 and the review's sample problems; each shows a slide reference. Progress is saved in this browser.</div>
     <div class="scorebar">
       <div class="pbar"><span id="overallBar"></span></div>
-      <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0</span> pts</div>
-      <button class="reset" id="resetBtn">Reset exam</button>
+      <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0 / 0</span> graded</div>
+      <button class="reset" id="resetBtn">Reset</button>
     </div>
   </div>
 </header>
 
 <div class="wrap">
   <div class="layout">
-        <main class="exam">
+    <main class="exam">
       <div class="exam-toolbar" id="examBar">
         <div class="filters" role="group" aria-label="Filter questions">
           <button class="fbtn active" data-f="all" type="button">All</button>
@@ -244,9 +240,8 @@ footer .mono{font-family:var(--mono)}
           <span class="fcount" id="fcount"></span>
           <button class="jump" id="jumpNext" type="button" title="Scroll to the next unanswered question">Next unanswered ↓</button>
         </div>
-        <div class="kbd-hint">Cram tips: press <b>1</b>–<b>4</b> to answer the question in view · <b>F</b> to flag it · use <b>★ Review</b> / <b>Incorrect</b> to drill only your gaps · open <b>⚡ Cram Sheet</b> on the right.</div>
       </div>
-      <div class="exam-list" id="exam" aria-label="Practice exam"></div>
+      <div class="exam-list" id="exam" aria-label="Practice questions"></div>
       <div class="empty-state" id="emptyState" hidden></div>
     </main>
     <aside class="guide" id="guide" aria-label="Study guide">
@@ -265,536 +260,322 @@ footer .mono{font-family:var(--mono)}
 <button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
 <footer class="wrap">
-  <div class="mono">Built from CAI 4105 <em>Current Topics in Machine Learning I</em> — Lectures 06–11. Exam items are length-balanced and option order is shuffled; worked problems are the lectures' own Practice and Check problems with full solutions.</div>
+  <div class="mono">Built from the CAI 4105 Lecture 14 Midterm Review and the Quiz 1 &amp; Quiz 2 solutions · Lectures 01–13 · Chinmay Nehate, UCF.</div>
+  <div style="margin-top:8px">Answer each question for instant grading and an explanation with a slide reference. Open the ⚡ Cram Sheet on the right for a one-screen formula summary.</div>
 </footer>
 
 <script>
-/* ===== DATA + helpers (validated) ===== */
+/* =========================================================
+   STUDY-GUIDE NOTES (six topic areas, L01–L13)
+   ========================================================= */
 const SECTIONS = [
 {
-  id:"perceptron", short:"Perceptron & Margin", tag:"Lecture 06 · Classification II", title:"The Perceptron and the Margin",
-  blurb:"Hyperplane geometry with labels −1 and +1, the signed distance to the boundary, the mistake-driven perceptron update, convergence, and why a large margin is preferred.",
+  id:"math", short:"Math Foundations", tag:"L01–L02 · Week 1–2", title:"Math Foundations",
+  blurb:"Vectors and norms, dot products and projection, eigenvectors and the spectral theorem, Bayes' theorem, maximum likelihood, the Gaussian, and entropy / cross-entropy / KL.",
   notes:[
-    {h:"Labels −1/+1 and the score", html:`<p>From L06 on, the positive class has label <b>y = +1</b> and the other class <b>y = −1</b> (L05 used 1 and 0). The <b>score</b> is linear: <code>z = w·x + b</code>. One product settles everything: a point is <b>correct exactly when y·z &gt; 0</b>. A score of exactly 0 sits on the boundary and <b>counts as a mistake</b>.</p>`},
-    {h:"The boundary and the direction of w", html:`<p>With two features the boundary <code>z = 0</code> is a line; with D features it is a flat <b>hyperplane</b>. Take two boundary points: both score 0, so their difference has zero dot product with <b>w</b> — meaning <b>w is perpendicular to the boundary</b>, and the score rises fastest along w.</p>`},
-    {h:"Signed distance to the boundary", html:`<p>The distance from a point to the line is <code>|z| / ‖w‖</code>, where ‖w‖ is the norm (length) of w. The <b>signed</b> distance <code>r = z / ‖w‖</code>: its sign gives the side, its size the distance.</p>
-      <ul>
-      <li><b>Scale invariance:</b> doubling both w and b doubles every score but <b>moves no point and no line</b> — because the distance divides by ‖w‖, which also doubles.</li>
-      <li>The intercept b controls the distance from the <b>origin</b> to the line.</li></ul>`},
-    {h:"Linear separability", html:`<p>Data is <b>linearly separable</b> when some line puts every point on its correct side. The toy data (<code>x₁+x₂=6</code>) is separable; the 392 cars are <b>not</b> — a Ford Torino and a Peugeot 504 share 88 hp, 19 mpg with opposite labels.</p>`},
-    {h:"The perceptron update", html:`<p>Start at <code>w=0, b=0</code>. Visit training points in a fixed order and score each. A <b>correct point changes nothing.</b> On a <b>mistake</b> (<code>y·z ≤ 0</code>): <code>w ← w + η·y·x</code> and <code>b ← b + η·y</code>. Here η is the step size; with η = 1 the arithmetic stays whole, and any fixed positive η gives the same lines up to scale.</p>
-      <div class="code">w, b = zeros(D), 0
-for each pass:
-    for each (x, y) in order:
-        if y * (w @ x + b) &lt;= 0:
-            w, b = w + eta*y*x, b + eta*y
-    stop when a pass made no update</div>`},
-    {h:"Why one update helps (and its limit)", html:`<p>After an update, the same point's score rises by <code>η·y·(‖x‖² + 1)</code> — the +1 comes from b, whose input is always 1. But <b>one update does not always fix a point</b>: update 3 only lowered P6's score from 6 to 1, still positive.</p>`},
-    {h:"Convergence", html:`<p>A <b>pass with zero mistakes</b> is what convergence means. <b>Guarantee (Novikoff 1962):</b> if the data is linearly separable, the perceptron reaches a separating line after a <b>finite</b> number of updates. It does <b>not</b> say how many. On non-separable data (the cars) it <b>never stops</b> — every pass keeps making mistakes. Which separating line it lands on depends on the <b>order of points</b> and the starting w.</p>`},
-    {h:"Perceptron vs logistic regression", html:`<p>The perceptron gives a <b>side only, no probability</b>, and only mistakes shape training. Logistic regression gives a <b>probability</b>, and every point (correct ones included) shapes the cross-entropy it minimizes. On the cars: perceptron 263/392 after 30 passes, logistic regression 296/392, always-USA 245/392.</p>`},
-    {h:"The margin", html:`<p>The <b>margin</b> of a separating line is its distance to the <b>closest</b> training point. Among separating lines, <b>prefer the largest margin</b> — it leaves the most room, so a new point moved by less than its distance keeps its side. Only the closest points decide the margin; moving a far point changes nothing. A margin is defined <b>only</b> for a line that classifies every point correctly.</p>`}
+    {h:"Vectors: norm, angle, projection", html:`<ul>
+      <li><b>L2 norm</b> (length): <code>‖x‖₂ = √(Σ xᵢ²)</code>. <b>L1 norm</b>: <code>Σ |xᵢ|</code>.</li>
+      <li><b>Dot product</b> <code>a·b = Σ aᵢbᵢ = ‖a‖‖b‖cos θ</code>, where θ is the angle between them.</li>
+      <li><b>Orthogonal</b> vectors have <b>dot product 0</b> (angle 90°).</li>
+      <li><b>Projection</b> of a onto b = the point on the line through b closest to a.</li></ul>`},
+    {h:"Eigenvectors & the spectral theorem", html:`<ul>
+      <li><code>A v = λ v</code>: A maps eigenvector <b>v</b> to a multiple λ (the <b>eigenvalue</b>) of itself.</li>
+      <li>e.g. <code>A = [[2,1],[1,2]]</code> → eigenvalues 3 and 1, eigenvectors along (1,1) and (1,−1), at right angles.</li>
+      <li><b>Spectral theorem:</b> a <b>symmetric</b> matrix has <b>real eigenvalues</b> and <b>orthonormal eigenvectors</b>.</li>
+      <li>A <b>covariance matrix</b> is symmetric → its eigenvectors are the <b>PCA directions</b>.</li></ul>`},
+    {h:"When is XᵀX invertible?", html:`<p><code>XᵀX</code> is invertible <b>exactly when the columns of X are linearly independent</b>. If some column is a combination of others (collinearity), XᵀX is <b>singular</b> — more rows, nonzero entries, or a square shape don't help, and standardizing doesn't fix dependence.</p>`},
+    {h:"Bayes' theorem", html:`<p><code>P(A|B) = P(B|A)·P(A) / P(B)</code> — posterior = likelihood × prior / evidence. The <b>evidence</b> sums the two ways B can happen: <code>P(B) = P(B|A)P(A) + P(B|¬A)P(¬A)</code>. With a <b>rare</b> positive class, most positive tests are false alarms (base-rate effect).</p>`},
+    {h:"Maximum likelihood (MLE)", html:`<ul>
+      <li>Pick the parameters that make the <b>observed data most probable</b>. For 7 heads in 10 flips, <code>θ = 0.7</code> (the frequency).</li>
+      <li><b>How:</b> write P(data | θ), take the <b>log</b> (product → sum), and maximize.</li>
+      <li><b>Why:</b> a noise model becomes a loss — <b>Gaussian noise → squared error</b>; <b>Bernoulli labels → cross-entropy</b>.</li></ul>`},
+    {h:"The Gaussian", html:`<p>Center <b>μ</b>, width <b>σ</b>; about <b>68%</b> of the probability lies within one σ of μ. MLE picks the parameters with the largest <b>log-likelihood</b>; the log turns the product of per-point densities into a sum.</p>`},
+    {h:"Entropy, cross-entropy, KL", html:`<ul>
+      <li><b>Entropy</b> <code>H(p) = −Σ p log₂ p</code> — average bits of uncertainty. Fair coin = <b>1 bit</b>; a 90/10 coin ≈ 0.469.</li>
+      <li><b>Cross-entropy</b> <code>H(p,q)</code> — average bits to code data from p using a code built for q.</li>
+      <li><b>KL divergence</b> <code>= H(p,q) − H(p) ≥ 0</code>, and <b>= 0 only when q = p</b>. It is <b>asymmetric</b> (swapping p,q can change it).</li>
+      <li>Minimizing cross-entropy on training labels <b>= MLE = the logistic-regression loss</b>.</li></ul>`}
   ]
 },
 {
-  id:"svm", short:"SVM & Kernels", tag:"Lecture 07 · Classification III", title:"Support Vector Machines and Kernels",
-  blurb:"The largest-margin line and its support vectors, soft margins with slack and the cost C, the hinge loss, and the kernel trick for curved boundaries (polynomial and RBF).",
+  id:"regression", short:"Linear Regression", tag:"L03–L04 · Week 2–3", title:"Linear Regression",
+  blurb:"Least squares and the normal equations, residuals, basis functions and overfitting, ridge vs lasso penalties, and gradient descent with the learning rate and standardization.",
   notes:[
-    {h:"Fixing the scale of w", html:`<p>Scaling w and b by a positive κ scales every score but moves nothing. Use that freedom: scale so the <b>closest points have y·z = 1</b> exactly, and every point has <b>y·z ≥ 1</b>. Then the closest point sits at distance <code>1/‖w‖</code>, so a <b>wide margin is a short w</b>.</p>`},
-    {h:"The hard-margin problem", html:`<p>A short w means a wide margin, so <b>minimize ½‖w‖²</b> subject to <code>y·z ≥ 1</code> for every point. The squared norm is a bowl and the constraints cut it with flat walls, so there is one lowest point (a quadratic program). <b>Hard margin</b> allows no point to cross its margin line, so it only has a solution on <b>separable</b> data. The street between the z=+1 and z=−1 margin lines has width <code>2/‖w‖</code>.</p>`},
-    {h:"Support vectors", html:`<p>The <b>support vectors</b> are the points on the margin lines, with y·z = 1 exactly — <b>they alone decide the line.</b> On the toy, P1 and P8 are support vectors (margin 1.581). Move a non-support point (P4 from (6,6) to (7,7)) and the line does not change. The weights are a sum over support vectors: <code>w = Σ αₙ yₙ xₙ</code>, and new points meet training points <b>only through inner products</b>.</p>`},
-    {h:"Soft margin, slack and C", html:`<p>When classes overlap, allow each point to fall short of its margin line by a <b>slack</b> <code>ξₙ ≥ 0</code>, at a cost of <b>C per unit</b>. Slack zones:</p>
-      <ul>
-      <li><b>ξ = 0</b>: on or beyond the margin line, safely correct.</li>
-      <li><b>0 &lt; ξ &lt; 1</b>: inside the street, still on the correct side.</li>
-      <li><b>ξ = 1</b>: on the boundary. <b>ξ &gt; 1</b>: wrong side — a mistake.</li></ul>
-      <p><b>Large C:</b> slack is expensive → small total slack, <b>narrow</b> street. <b>Small C:</b> slack is cheap → <b>wider</b> street, more slack. As C → ∞ on separable data, the hard margin returns. Choose C on a held-out set.</p>`},
-    {h:"The hinge-loss view", html:`<p>The smallest slack satisfying the constraint is <code>max(0, 1 − y·z)</code> — the <b>hinge loss</b>: zero once a point is beyond its margin line, rising by 1 for each unit y·z falls below 1. The soft margin is hinge loss + a <b>ridge penalty</b> with <code>λ = 1/(2C)</code>, so large C means weak regularization. The hinge comes from a geometric demand, so the <b>SVM gives no probabilities</b> (unlike cross-entropy).</p>`},
-    {h:"The kernel trick", html:`<p>Run the max-margin machine on new features φ(x). Since features appear only through inner products, define a <b>kernel</b> <code>K(x,u) = φ(x)·φ(u)</code> and replace every inner product by K — <b>never building φ(x).</b> Example: <code>K(x,u) = (x·u)²</code> costs ~3 multiplies, while the degree-2 feature map in D dims has <code>D(D+1)/2</code> features (5050 for D=100). Some kernels (RBF) correspond to <b>infinitely many</b> features, so only the kernel route exists.</p>`},
-    {h:"Polynomial and RBF kernels", html:`<p>The <b>RBF (radial basis function)</b> kernel is a similarity: 1 when two points coincide, falling toward 0 as they move apart. <b>γ (gamma)</b> sets the reach — <b>large γ = short reach</b>. Large γ <b>overfits</b>: the boundary wraps single points (training 99%, held-out drops). Pick C and γ together on a held-out set, and <b>standardize inputs first</b> because the kernel is a function of distance.</p>`},
-    {h:"Which kernel to reach for", html:`<ul>
-      <li><b>Linear</b> when a straight boundary is nearly enough.</li>
-      <li><b>Polynomial</b> for a low-degree curve you can name (the ring's degree-2 kernel contains squared distance).</li>
-      <li><b>RBF</b> as the general default, with C and γ tuned on held-out data.</li></ul>
-      <p>Underfit: both counts low. Overfit: training high, held-out drops.</p>`}
+    {h:"Least squares & normal equations", html:`<ul>
+      <li>Model <code>ŷ = w₀ + w₁x</code>; loss <b>SSE</b> <code>= Σ(yₙ − ŷₙ)²</code>. <b>Residual</b> = <code>y − ŷ</code> (true minus predicted).</li>
+      <li><b>Design matrix</b> X: one row per example + a <b>ones column</b> (for the intercept).</li>
+      <li>Setting the gradient of SSE to zero gives the <b>normal equations</b>: <code>w = (XᵀX)⁻¹Xᵀy</code>.</li>
+      <li>With independent Gaussian noise of constant variance, <b>maximizing likelihood = minimizing SSE</b>.</li></ul>`},
+    {h:"Basis functions & overfitting", html:`<p>A polynomial fit is a weighted sum of basis functions <code>1, x, x², …</code>. Higher degree = more flexibility: degree 1 draws a line, degree 3 follows the trend, degree 9 <b>swings between training points</b> (overfits). Training error falls with degree; <b>held-out error is U-shaped</b> — pick the degree at the bottom.</p>`},
+    {h:"Ridge vs lasso", html:`<ul>
+      <li><b>Ridge</b> penalty <code>λ Σ wⱼ²</code>: as λ grows, weights <b>shrink toward zero</b> (a nonzero weight costs more) but rarely hit exactly zero.</li>
+      <li><b>Lasso</b> penalty <code>λ Σ |wⱼ|</code>: can set weights <b>exactly to zero</b> (its diamond constraint has corners on the axes) → feature selection.</li>
+      <li>The <b>intercept is excluded</b> from both. <code>λ = 0</code> → plain least squares.</li></ul>`},
+    {h:"Gradient descent", html:`<ul>
+      <li>Each step: <code>w ← w − η·∇L</code>. The <b>learning rate η</b> sets the step size.</li>
+      <li><b>Small η</b> → many steps; <b>large η</b> → can diverge (overshoot).</li>
+      <li><b>Standardizing</b> features turns a long thin valley into a round bowl, so steps go nearly straight to the minimum.</li>
+      <li>Used when there is <b>no closed form</b> (e.g. logistic regression, SVM).</li></ul>`}
   ]
 },
 {
-  id:"knn", short:"kNN & Trees", tag:"Lecture 08 · Classification IV", title:"Nearest Neighbors and Decision Trees",
-  blurb:"kNN's majority vote, standardized distances and the curse of dimensionality; decision trees — splits, Gini/entropy impurity, information gain, and why deep trees overfit.",
+  id:"classification", short:"Classification", tag:"L05–L08 · Week 3–5", title:"Classification",
+  blurb:"Logistic regression and the sigmoid, the perceptron, SVMs with the margin / slack / kernels, kNN, decision trees with impurity and gain, and the noise-model-to-loss recipe.",
   notes:[
-    {h:"k-nearest neighbors", html:`<p>To classify a new point, find the <b>k closest</b> training points (smallest Euclidean distance) and take the <b>majority vote</b>. Training <b>stores the data and fits nothing</b> — kNN is <b>non-parametric</b> (stored size grows with the data). Use an <b>odd k</b> with two classes so the vote never ties. Features are <b>standardized first</b>, so one unit is one standard deviation.</p>`},
-    {h:"1-NN memorizes", html:`<p>A training point is at distance 0 from itself, so <b>1-NN gets ~all training points right</b> (310/314, missing only identical-feature twins of the opposite class) but only 52/78 held out — near-perfect in training, weak on new data is <b>overfitting</b>. Small k overfits; very large k <b>underfits</b> (k = 313 calls every car the majority class). Choose k on held-out cars — the best was k = 97, 67/78.</p>`},
-    {h:"Scaling and the curse of dimensionality", html:`<p>Distances need <b>standardization</b> — otherwise a large-range feature (car weight in lb) dominates. In many dimensions the <b>nearest and farthest distances converge</b>: the ratio rises from 0.016 (D=2) to 0.70 (D=100) to 0.89 (D=1000), so "nearest" loses meaning — the <b>curse of dimensionality</b>. For regression, kNN predicts the <b>mean</b> y of the k neighbors.</p>`},
-    {h:"Decision tree anatomy", html:`<p>A tree asks <b>one-feature yes/no questions.</b> The <b>root</b> holds all cars; a <b>split</b> compares one feature to a threshold; an <b>internal node</b> asks a question, a <b>leaf</b> predicts its <b>majority class</b>. Each split is a cut <b>parallel to one axis</b>, so the leaves are rectangles. A prediction costs a few comparisons (depth-2 tree → two questions).</p>`},
-    {h:"Impurity: Gini and entropy", html:`<p><code>pₖ</code> is the fraction of class k in a node. A <b>pure</b> node scores 0 on both measures.</p>
-      <ul>
-      <li><b>Gini</b> = <code>1 − Σ pₖ²</code> (scikit-learn default, no logarithm). 8 USA + 2 others → <code>1 − 0.8² − 0.2² = 0.32</code>.</li>
-      <li><b>Entropy</b> = <code>−Σ pₖ log₂ pₖ</code>, in bits.</li></ul>
-      <p>On two classes both are 0 for a pure node and peak at p = 0.5 (Gini 0.5, entropy 1 bit).</p>`},
-    {h:"The gain of a split", html:`<p><b>Gain</b> = parent impurity − weighted average of children's impurity, each child weighted by its <b>share of the cars</b>. With entropy this is <b>information gain</b>. A split whose children are as mixed as the parent has gain 0. The tree is <b>greedy</b>: at each node try every feature and threshold, keep the <b>largest-gain</b> split, recurse, and never go back.</p>`},
-    {h:"Deep trees overfit; trees are unstable", html:`<p>With no depth limit a tree <b>memorizes</b> (310/314 train, 59/78 held out) by drawing boxes around single cars. Choose the <b>depth</b> on held-out data (best 64/78 at depth 4), or <b>prune</b>. Trees <b>need no standardization</b> (rescaling a feature just moves the threshold). But trees are <b>unstable</b>: a small change in training data can change the first question and many predictions — which is exactly what ensembles exploit.</p>`}
+    {h:"Logistic regression", html:`<ul>
+      <li>Score <code>z = w·x + b</code>; <b>sigmoid</b> <code>σ(z) = 1/(1+e⁻ᶻ)</code> maps it to a probability in <b>(0, 1)</b>.</li>
+      <li>Predict the positive class when <code>z ≥ 0</code> (i.e. p ≥ 0.5). Loss = <b>cross-entropy</b>; gradient = <code>(p − y)·x</code>; trained by gradient descent (no closed form).</li>
+      <li><b>K classes:</b> softmax of the scores + categorical cross-entropy (one-hot labels).</li></ul>`},
+    {h:"The perceptron", html:`<ul>
+      <li>Score <code>z = w·x + b</code>; its <b>sign</b> gives the side, <code>|z|/‖w‖</code> the distance.</li>
+      <li>Updates <b>only on a mistake</b>: <code>w ← w + η y x</code>, <code>b ← b + η y</code>.</li>
+      <li>Stops after a pass with <b>no mistakes</b> — which happens <b>only if the classes are linearly separable</b>. On non-separable data it <b>never stops</b> (some point is wrong every pass).</li></ul>`},
+    {h:"SVM: margin, slack, kernels", html:`<ul>
+      <li><b>Margin</b> = distance to the closest training point. <b>Hard margin:</b> <code>min ½‖w‖²</code> s.t. <code>y·z ≥ 1</code>; margin <code>= 1/‖w‖</code> (short w → wide margin).</li>
+      <li><b>Support vectors</b> are the points exactly on the margin lines (<code>y·z = 1</code>) — only they decide the line; deleting a non-support point changes nothing.</li>
+      <li><b>Soft margin:</b> slack ξ lets a point cross its margin line at cost <b>C</b>. Large C → narrow street; small C → wide. Slack = <b>hinge loss</b> <code>max(0, 1−y·z)</code> + a ridge penalty. <code>y·z</code>: &gt;1 safe · 0–1 inside street (correct) · &lt;0 wrong.</li>
+      <li><b>Kernel</b> <code>K(x,u) = φ(x)·φ(u)</code> gives the dot product of mapped features without building them, e.g. <code>(x·u)²</code> → curved boundaries.</li></ul>`},
+    {h:"kNN & decision trees", html:`<ul>
+      <li><b>kNN:</b> majority vote of the <b>k nearest</b> training points. k=1 is jagged and overfits; large k is smooth and can underfit (very large k → predict the majority). <b>Needs standardization</b> (distance-based).</li>
+      <li><b>Decision tree:</b> impurity (<b>Gini</b> <code>1−Σpₖ²</code>, or entropy) is 0 for a pure node. <b>Gain</b> = impurity drop from parent to its children (weighted by child sizes). Greedy: take the largest-gain split. No depth limit → overfits. Trees need <b>no standardization</b>.</li></ul>`},
+    {h:"The recipe: noise model → loss", html:`<table class="tbl"><thead><tr><th>Task</th><th>Assumption</th><th>Loss</th></tr></thead><tbody>
+      <tr><td>Regression</td><td>Gaussian noise</td><td>squared error</td></tr>
+      <tr><td>2 classes (logistic)</td><td>Bernoulli</td><td>cross-entropy</td></tr>
+      <tr><td>K classes (softmax)</td><td>categorical</td><td>cross-entropy</td></tr>
+      <tr><td>SVM</td><td>margin (y·z ≥ 1)</td><td>hinge</td></tr></tbody></table>
+      <p>All share the score <code>z = w·x + b</code>. Rows 1–3 minimize the negative log-likelihood; the SVM row comes from the margin demand.</p>`}
   ]
 },
 {
-  id:"ensembles", short:"Ensembles", tag:"Lecture 09 · Bagging, Forests, Boosting", title:"Ensembles: Bagging, Random Forests, Boosting",
-  blurb:"Why averaging cuts variance (and where correlation stops it), the bootstrap and bagging, random forests' feature subsets, and boosting — AdaBoost and gradient boosting.",
+  id:"ensembles", short:"Ensembles", tag:"L09 · Week 5", title:"Ensembles",
+  blurb:"Why averaging helps and its correlation floor, the bootstrap, bagging and out-of-bag estimates, and random forests with their random feature subsets.",
   notes:[
-    {h:"Why averaging helps", html:`<p>The average of <b>M independent</b> predictions, each with variance σ², has variance <code>σ²/M</code> — averaging removes spread but <b>leaves the bias</b> (the error all members share). With correlation ρ between members, the variance is <code>ρσ² + (1−ρ)σ²/M</code>: the first term <b>does not shrink with M</b>. So an ensemble needs members that are <b>accurate and as uncorrelated as possible</b>.</p>`},
-    {h:"The bootstrap", html:`<p>A <b>bootstrap sample</b> draws N items from N <b>with replacement</b> — an item can appear several times or not at all. About <b>63%</b> of distinct items appear (the chance of missing one is <code>(1−1/N)^N → 1/e ≈ 0.37</code>), so ~37% are <b>out-of-bag</b>.</p>`},
-    {h:"Bagging", html:`<p><b>Bagging</b> = bootstrap aggregating: draw M bootstrap samples, grow one <b>deep tree</b> on each, and vote (average for regression). <b>Deep trees are the right members</b> — low bias, high variance, and a vote removes variance. <b>Out-of-bag checking</b>: predict each training car with only the ~37 of 100 trees that never saw it; this estimates accuracy on new data with no cars set aside.</p>`},
-    {h:"Random forests", html:`<p>Bagged trees look alike — one strong feature starts every tree, so they are <b>correlated</b> (large ρ). The fix: at <b>every split draw m of the D features at random</b>, so only those m compete. The strong feature is absent from most draws, letting others ask early questions → trees differ more, ρ drops. <b>Default m = √D</b> (rounded down) for classification. <b>More trees never hurt</b> a forest — only cost time. <b>Feature importance</b> sums each feature's gain across all trees.</p>`},
-    {h:"Bias, variance and the two routes", html:`<p>A <b>deep tree</b> has low bias, high variance → bagging/forests average many to cut variance. A <b>depth-1 stump</b> has high bias, low variance → <b>boosting</b> adds many in sequence, each removing some remaining bias. A <b>weak learner</b> is only a little better than guessing; boosting combines many into one strong model.</p>`},
-    {h:"AdaBoost", html:`<p>Keep a weight wₙ on each point, all starting at 1/N. Each round fits the <b>stump with the smallest weighted error</b> εₘ, then multiplies the weights of <b>misclassified</b> points so the next stump attends to them. Vote weight <code>αₘ = ½ ln((1−ε)/ε)</code>: a small error → large α; an error of ½ (guessing) → α = 0. After the update the misclassified points hold <b>exactly half</b> the total weight (the "half rule"). The final prediction is the <b>sign of the α-weighted vote</b> (labels −1/+1).</p>`},
-    {h:"Gradient boosting", html:`<p>Start from the <b>mean</b> of the targets. Each stage computes the <b>residuals</b> (what the model still gets wrong), fits a small tree to them, and adds a fraction <b>ν (shrinkage / learning rate)</b> of it. For squared error the residual is the <b>negative gradient</b> of the loss. Small ν needs more stages but often reaches lower held-out error. <b>Too many stages overfit</b> (bagging has no such risk) — choose the number of stages, ν, and tree depth on held-out data. This is the method inside <b>XGBoost / LightGBM</b>.</p>`}
+    {h:"Variance of an average", html:`<p>Averaging M models, each with variance σ² and pairwise correlation ρ, gives variance <code>ρσ² + (1−ρ)σ²/M</code>. More models shrink only the second term, so the variance <b>never falls below ρσ²</b>. An ensemble needs members that are <b>accurate and as uncorrelated as possible</b>.</p>`},
+    {h:"Bootstrap, bagging, out-of-bag", html:`<ul>
+      <li>A <b>bootstrap sample</b> draws N items with replacement from N → about <b>37% left out</b> (~63% appear).</li>
+      <li><b>Bagging:</b> grow one deep tree on each of M bootstrap samples and take a <b>majority vote</b>.</li>
+      <li><b>Out-of-bag (OOB):</b> score each example using only the trees that <b>never saw it</b> — a held-out estimate with no data set aside.</li></ul>`},
+    {h:"Random forests", html:`<p>A random forest is <b>bagging + a random subset of m of the D features at every split</b>, with <code>m = ⌊√D⌋</code> (default). The strongest feature is absent from most draws, so trees differ more and <b>ρ drops</b> — which lowers the variance floor that more trees alone cannot. More trees never hurt accuracy (the curve just flattens).</p>`}
   ]
 },
 {
-  id:"eval1", short:"Bias–Variance & CV", tag:"Lecture 10 · Model Evaluation I", title:"Bias, Variance, and Cross-Validation",
-  blurb:"The U-shaped held-out curve, the bias–variance–noise decomposition, k-fold and leave-one-out cross-validation, the model-selection recipe with the one-SE rule, and data leakage.",
+  id:"evaluation", short:"Model Evaluation", tag:"L10–L11 · Week 6–7", title:"Model Evaluation",
+  blurb:"Bias–variance and the flexibility U-curve, k-fold cross-validation and the model-selection recipe, data leakage, precision / recall / F1, ROC / AUC, and class imbalance.",
   notes:[
-    {h:"Training vs generalization error", html:`<p><b>Training error</b> averages the loss over the fitted examples; <b>generalization error</b> averages it over all new pairs and can only be <b>estimated</b> — by the error on a <b>held-out</b> set never used in fitting. The loss is squared error (regression) or 0/1 (classification).</p>`},
-    {h:"The U shape: underfit vs overfit", html:`<p>As a model grows more flexible, held-out error traces a <b>U</b>.</p>
-      <ul>
-      <li><b>Underfitting:</b> training <b>and</b> held-out error both high — too simple.</li>
-      <li><b>Overfitting:</b> training error low, held-out error much higher — follows noise.</li></ul>
-      <p>The best setting sits at the <b>bottom of the held-out curve</b>. Degree, k, and depth are different knobs that all trace the same U.</p>`},
-    {h:"The bias–variance–noise decomposition", html:`<p>Expected squared error = <b>bias² + variance + noise σ²</b>.</p>
-      <ul>
-      <li><b>Bias²:</b> error of the <b>average</b> model vs the truth — a line through a sine curve misses the bends every time.</li>
-      <li><b>Variance:</b> how much the fit moves with the training set — flexible models change shape with each sample.</li>
-      <li><b>Noise σ²:</b> the part of y <b>no model can predict</b>; error is at least σ².</li></ul>
-      <p>More flexibility usually <b>lowers bias, raises variance</b> — the tradeoff. Held-out far above training → high variance; both high → high bias.</p>`},
-    {h:"Why one split is not enough", html:`<p>One split gives one number; another split of the same cars gives another (logistic regression: 52 to 65 of 78 across 30 splits). Two models with close counts can <b>swap order</b> on the next split. <b>Cross-validation</b> holds out each training car in exactly one round and fits on it in every other round.</p>`},
-    {h:"K-fold and leave-one-out CV", html:`<p>Split the training data into <b>K folds</b>. Round i: fit on the other K−1 folds, measure error eᵢ on fold i. The <b>CV estimate</b> is the average of the K fold errors; every example is held out <b>exactly once</b>. <b>LOOCV</b> takes K = N (one example per fold) — accurate but N fits. Usual choice: <b>K = 5 or 10</b>. (Capital K keeps it apart from kNN's k.)</p>`},
-    {h:"Choose by CV, then refit, then test once", html:`<p><b>Recipe:</b> (1) list candidates &amp; settings, (2) 5-fold CV for each on the <b>training</b> data, (3) take the lowest CV error — or the <b>simpler</b> model on a near tie, (4) <b>refit the winner on all training data</b>, (5) score it <b>once</b> on the test set. The <b>one-SE rule</b>: a CV error within one standard error of the best counts as a near tie, so take the simpler model. Training / validation / test: anything used to <b>choose</b> is validation; the test set is used <b>once</b>, at the end.</p>`},
-    {h:"Leakage", html:`<p><b>Leakage</b> is fitting or choosing with information missing at prediction time, making the test score look too good. Classic cases: standardizing with <b>all</b> data before splitting; choosing features by how they predict y on all data; the same example in train and test; a feature recorded <b>after</b> the outcome. <b>Fix:</b> every step that learns from data — scaling, feature choice, tuning — runs <b>inside the training part of each fold</b>.</p>`}
-  ]
-},
-{
-  id:"eval2", short:"Metrics & ROC", tag:"Lecture 11 · Model Evaluation II", title:"Metrics Beyond Accuracy",
-  blurb:"The confusion matrix and why accuracy misleads on rare classes; precision, recall and F1; moving the threshold; the ROC curve and AUC; precision–recall curves and class-imbalance remedies.",
-  notes:[
-    {h:"Why accuracy misleads", html:`<p>With a <b>rare positive class</b>, always saying "no" can score high while finding <b>none</b> of the positives (66/78 on the cars, 0 of 12 European). Accuracy alone does not show whether a model finds any positives — the negatives dominate the sum.</p>`},
-    {h:"The confusion matrix", html:`<p>Four counts, where the <b>positive class is the one we want to find</b> and "flag" means predict positive:</p>
-      <table class="tbl"><thead><tr><th></th><th>Actually +</th><th>Actually −</th></tr></thead>
-      <tbody><tr><th>Predicted +</th><td>TP</td><td>FP</td></tr><tr><th>Predicted −</th><td>FN</td><td>TN</td></tr></tbody></table>
-      <p><b>True/false</b> says whether the prediction was right; <b>positive/negative</b> says what was predicted. Accuracy = <code>(TP+TN)/all</code>.</p>`},
+    {h:"Bias–variance & the U-curve", html:`<ul>
+      <li>As flexibility grows, training error falls but <b>held-out error traces a U</b> (polynomial degree, kNN k, tree depth).</li>
+      <li><code>E[error] = bias² + variance + noise</code>. More flexible → <b>↓ bias, ↑ variance</b>.</li>
+      <li><b>Underfit:</b> both errors high. <b>Overfit:</b> train low, held-out high (big gap = variance).</li></ul>`},
+    {h:"Cross-validation & model selection", html:`<ul>
+      <li><b>K-fold CV:</b> split training data into K folds; each round holds out one fold, fits on the rest; every example is held out exactly once; <b>CV = mean fold error</b>.</li>
+      <li><b>Recipe:</b> list candidates → 5-fold CV on training → pick lowest CV (or the <b>simpler</b> model on a near tie) → <b>refit on all training</b> → score the <b>test set once</b>.</li>
+      <li><b>Choosing k (or any setting) on the test set is wrong</b> — the test set then acts as a validation set and its error understates new-data error.</li></ul>`},
+    {h:"Leakage", html:`<p><b>Leakage</b> = fitting or choosing using information that won't be available at prediction time — e.g. standardizing with <b>all</b> the data (held-out rows help set the scaling) before CV. It makes the score look <b>too good</b>, even without using labels. Every fitted step (scaling, feature choice, tuning) must run <b>inside each fold's training part</b>.</p>`},
     {h:"Precision, recall, F1", html:`<ul>
-      <li><b>Precision</b> = <code>TP/(TP+FP)</code> — of the flagged, what share were really positive? (the predicted column). Flagging no car gives 0/0, undefined.</li>
-      <li><b>Recall</b> = <code>TP/(TP+FN)</code> — of the actual positives, what share did we find? (the actual row). Also the <b>sensitivity</b> / true positive rate.</li>
-      <li><b>F1</b> = harmonic mean <code>2PR/(P+R)</code> — high only when <b>both</b> are high. When TP=0 and FP+FN&gt;0, F1 = 0.</li></ul>
-      <p>Flagging more never lowers recall but can lower precision. Which matters depends on the cost of each mistake.</p>`},
-    {h:"Moving the threshold", html:`<p>Lowering the threshold moves cars from the negative to the positive column, so <b>TP and FP never fall</b> (recall never drops, precision may). Choose the threshold on <b>training data</b> for a stated goal (e.g. "find ≥ 80% of positives"), then report on the test set. Each threshold gives one confusion matrix and one (precision, recall) pair.</p>`},
-    {h:"ROC curve and AUC", html:`<p>The <b>ROC curve</b> plots <b>TPR = recall = TP/(TP+FN)</b> against <b>FPR = FP/(FP+TN)</b>, one point per threshold. Each rate divides by a <b>row</b>, so both <b>ignore how rare the positive class is</b>. <b>AUC</b> (area under the curve, 0–1): the probability that a <b>random positive outscores a random negative</b> — a pure <b>ranking</b> measure. The diagonal (AUC 0.5) is random; a perfect model has AUC 1. A higher AUC does <b>not</b> guarantee higher precision at any given threshold.</p>`},
-    {h:"ROC vs precision–recall when positives are rare", html:`<p>FPR divides by the many negatives, so an ROC curve can <b>look good while most flags are wrong</b>. A <b>precision–recall curve</b> plots precision against recall; its chance line is the <b>positive rate</b> (12/78 = 0.154), and <b>average precision (AP)</b> is its area. Report <b>ROC AUC to compare rankings</b>, and a <b>PR curve when the flagged list is what users see</b>.</p>`},
-    {h:"Class imbalance remedies & multiclass", html:`<p>Three remedies, all chosen/fit on <b>training data only</b>: <b>threshold moving</b> (keep the model, lower the threshold); <b>class weights</b> (weight each positive more in the loss); <b>resampling</b> (repeat positives or drop negatives in training only, so test keeps the real mix). For <b>multiclass</b>, rows are true and columns predicted; the diagonal holds right answers, and each class gets its own precision/recall by treating it as positive vs the rest.</p>`}
+      <li>From TP / FP / FN / TN: <code>Precision = TP/(TP+FP)</code> (share of <b>flagged</b> that are truly positive).</li>
+      <li><code>Recall = TP/(TP+FN)</code> (share of <b>positives</b> that get flagged).</li>
+      <li><code>F1 = 2PR/(P+R)</code>, the <b>harmonic mean</b> — high only when both are high, and sits nearer the smaller one.</li></ul>`},
+    {h:"ROC & AUC", html:`<p>An <b>ROC curve</b> plots <b>TPR vs FPR</b>, one point per threshold. <b>AUC</b> = the probability a random positive scores above a random negative (ties count half); <b>0.5 = random</b>, <b>1 = perfect ranking</b>. Lowering the threshold can only keep or <b>increase</b> the number of flagged cases (every car flagged at 0.5 is still flagged at 0.3).</p>`},
+    {h:"Class imbalance", html:`<ul>
+      <li>With rare positives, always predicting the majority gives <b>high accuracy but zero recall</b> — use precision/recall/F1/AUC instead.</li>
+      <li><b>Remedies:</b> threshold moving (lower the threshold, chosen on training data); class weights (a missed positive costs more); resampling (repeat positives / drop negatives in <b>training only</b>). Choose by CV.</li></ul>`}
+  ]
+},
+{
+  id:"unsupervised", short:"Clustering & PCA", tag:"L12–L13 · Week 7", title:"Clustering & PCA",
+  blurb:"k-means (objective and algorithm), DBSCAN (core / border / noise with eps and minPts), and PCA (covariance eigenvectors, largest variance, scree, standardization).",
+  notes:[
+    {h:"k-means", html:`<ul>
+      <li>Objective <b>J</b> = total within-cluster squared distance; centroid <code>μₖ</code> = mean of its points.</li>
+      <li>Start from K centroids → <b>assign</b> each point to its nearest centroid → <b>move</b> each centroid to the mean of its points → repeat.</li>
+      <li>Neither step ever <b>raises J</b>; it stops when no point changes cluster. <b>Where it stops depends on the start</b> (run several inits).</li></ul>`},
+    {h:"DBSCAN", html:`<ul>
+      <li>The <b>eps-neighborhood</b> of a point holds every point within distance <b>eps</b> (itself included).</li>
+      <li><b>Core</b> point: has at least <b>minPts</b> neighbors in its eps-neighborhood. <b>Border:</b> not core, but within eps of a core point. <b>Noise:</b> neither.</li>
+      <li>A cluster grows by adding every point within eps of one of its core points, so DBSCAN <b>finds the number of clusters itself</b>.</li></ul>`},
+    {h:"PCA", html:`<ul>
+      <li>From the <b>covariance matrix C</b> of the <b>centered</b> data: <b>PC1</b> is the unit direction of <b>largest variance</b> = the <b>eigenvector of C with the largest eigenvalue λ₁</b>; the variance along it is λ₁.</li>
+      <li>Each component keeps its <b>eigenvalue's share</b> of the total variance (the scree plot).</li>
+      <li><b>Standardize</b> features in different units first — otherwise a feature with far larger variance (e.g. house price vs room count) <b>dominates PC1</b>.</li></ul>`},
+    {h:"Not on the exam", html:`<p>The L14 review states two clustering topics are <b>excluded</b> from the midterm: <b>hierarchical clustering</b> and the <b>silhouette score</b>.</p>`}
   ]
 }
 ];
 
 /* =========================================================
-   MULTIPLE-CHOICE QUESTION BANK
+   QUESTION BANK — quiz-style (mc / ms / num / match / sa)
+   t: type · a: answer · e: explanation · src: slide ref
    ========================================================= */
-const QB = {
-perceptron:[
-  {q:"A point with score <code>z</code> and label <code>y</code> is classified <b>correctly</b> exactly when…",
-   o:["the score z on its own is positive","its label y on its own is positive","the product y·z is positive","the product y·z is exactly zero"],
-   a:2, e:"One product settles it: correct when y·z > 0. A score of exactly 0 sits on the boundary and counts as a mistake."},
-  {q:"The perceptron is guaranteed to reach a separating line only when…",
-   o:["the step size η is small enough","the two classes are balanced in size","the data is linearly separable","w is initialized away from zero"],
-   a:2, e:"Novikoff's guarantee: on linearly separable data the perceptron converges in finitely many updates. On non-separable data it never stops."},
-  {q:"The <b>margin</b> of a separating line is…",
-   o:["the gap between the two class means","its distance to the closest training point","the average distance over all points","the width of the whole data cloud"],
-   a:1, e:"The margin is the distance from the line to the nearest training point; only the closest points decide it."}
+const QUESTIONS = {
+math:[
+  {t:"num", q:"Let <code>x = (6, 8)</code>. Compute its Euclidean norm <code>‖x‖₂</code> (the square root of the sum of squared entries). Enter the value as a number.",
+   a:10, tol:0.01, e:"‖x‖₂ = √(6² + 8²) = √(36 + 64) = √100 = <b>10</b>.", src:"Quiz 1 Q1 · L01 s20"},
+  {t:"mc", q:"For a design matrix <code>X</code> (one row per example, one column per feature), <code>XᵀX</code> is invertible exactly when…",
+   o:["X has more rows than it has columns","the columns of X are linearly independent","every entry of X is different from zero","X is a square matrix"],
+   a:1, e:"If a combination of the columns gives the zero vector, XᵀX cannot be inverted. More rows, nonzero entries, or a square shape do not rule that out.", src:"Quiz 1 Q2 · L01 s36, L03 s28"},
+  {t:"mc", q:"A screening test has sensitivity 0.9 (a sick person tests positive with probability 0.9) and a false-positive rate of 0.1. Prevalence is 0.1. A person tests positive — what is <code>P(sick | positive)</code>?",
+   o:["0.90","0.50","0.09","0.18"],
+   a:1, e:"P = (0.9·0.1)/(0.9·0.1 + 0.1·0.9) = 0.09/0.18 = <b>0.50</b>. The many healthy people produce as many false positives as the few sick produce true positives.", src:"Quiz 1 Q3 · L02 s11"},
+  {t:"mc", q:"Which statement about the KL divergence <code>D(p‖q)</code> between two distributions is true?",
+   o:["Its two directions D(p‖q) and D(q‖p) are always equal","It can be negative, because one term in its sum can be negative","It is never negative, and it is zero only when q equals p","It equals the entropy of p, so it does not depend on q"],
+   a:2, e:"One term of the sum can be negative but the whole sum cannot; KL ≥ 0 with equality only when q = p, and the two directions can differ.", src:"Quiz 1 Q4 · L02 s29"},
+  {t:"num", q:"In a factory, 4% of parts are defective. A test flags 90% of defective parts and 5% of good parts. A part is flagged. What is the probability it is defective? Enter a number with two decimals.",
+   a:0.43, tol:0.01, e:"P = (0.9·0.04)/(0.9·0.04 + 0.05·0.96) = 0.036/(0.036 + 0.048) = 0.036/0.084 ≈ <b>0.43</b>. Good parts far outnumber defective ones, so many flags are false alarms.", src:"Review S7 · L02 s10–11"},
+  {t:"mc", q:"A label is 0 or 1 and modeled as a Bernoulli draw with probability p. Maximum likelihood then leads to which loss?",
+   o:["Cross-entropy of the observed label under p","Hinge loss of the label and the score","Squared error between the label and p","Absolute error between the label and p"],
+   a:0, e:"A Bernoulli label has likelihood p when it is 1 and 1−p when it is 0; the negative log of that likelihood is the cross-entropy.", src:"Review S1 · L05 s26"},
+  {t:"mc", q:"According to the spectral theorem, a <b>symmetric</b> matrix always has…",
+   o:["real eigenvalues and orthonormal eigenvectors","complex eigenvalues and parallel eigenvectors","exactly one eigenvalue, repeated","no eigenvectors unless it is invertible"],
+   a:0, e:"A symmetric matrix has real eigenvalues and an orthonormal set of eigenvectors — which is why a (symmetric) covariance matrix's eigenvectors are the PCA directions.", src:"L14 s7 · L01 s28"},
+  {t:"mc", q:"Two nonzero vectors are <b>orthogonal</b> exactly when…",
+   o:["their dot product is zero","they have the same L2 norm","every entry of one is larger","their sum is the zero vector"],
+   a:0, e:"Orthogonal means a 90° angle, and cos 90° = 0, so the dot product a·b = ‖a‖‖b‖cos θ is zero.", src:"L14 s6 · L01 s21"},
+  {t:"mc", q:"You observe 7 heads in 10 coin flips. The maximum-likelihood estimate of the heads probability θ is…",
+   o:["0.7, the observed frequency of heads","0.5, because a coin is assumed fair","1.0, the value that maximizes any count","0.3, the frequency of tails"],
+   a:0, e:"MLE picks the θ that makes the data most probable; for k heads in N flips that is the frequency k/N = 7/10 = 0.7.", src:"L14 s9–10 · L02 s23"},
+  {t:"num", q:"What is the entropy (in bits) of a fair coin, <code>H(p) = −Σ p log₂ p</code> with p = (0.5, 0.5)? Enter the value as a number.",
+   a:1, tol:0.01, e:"H = −(0.5·log₂0.5 + 0.5·log₂0.5) = −(0.5·(−1) + 0.5·(−1)) = <b>1</b> bit. A 90/10 coin, by contrast, is only ≈ 0.469 bits.", src:"L14 s11 · L02 s27"}
 ],
-svm:[
-  {q:"The <b>support vectors</b> are the training points that…",
-   o:["sit farthest from the boundary line","lie on the margin lines (y·z = 1)","were misclassified during training","have the largest feature values"],
-   a:1, e:"Support vectors sit on the margin lines with y·z = 1 and alone decide the line; moving other points changes nothing."},
-  {q:"Increasing the cost <b>C</b> tends to make the SVM…",
-   o:["use a narrower margin street","widen the margin street a lot","ignore the support vectors","drop the bias term b"],
-   a:0, e:"Large C makes slack expensive, so the solution keeps total slack small and the street narrow; small C widens it."},
-  {q:"The <b>kernel trick</b> lets an SVM draw curved boundaries by…",
-   o:["building the feature map φ(x) in full","replacing each inner product with K(x,u)","adding more slack to every point","raising C until the street vanishes"],
-   a:1, e:"Features enter only through inner products, so replacing each by a kernel K(x,u)=φ(x)·φ(u) avoids ever building φ(x)."},
-  {q:"For the <b>RBF kernel</b>, a very large γ (gamma) tends to…",
-   o:["underfit with a flat boundary","overfit, wrapping single points","force a straight-line boundary","ignore the cost parameter C"],
-   a:1, e:"Large γ means short reach, so the boundary wraps individual points — high training accuracy but a held-out drop."}
+regression:[
+  {t:"mc", q:"Three points with feature x and target y: (1,10), (2,8), (3,3). A classmate proposes <code>ŷ = 12 − 3x</code>. The residual of a point is <code>y − ŷ</code>. Which list gives the three residuals (r₁, r₂, r₃)?",
+   o:["(9, 6, 3)","(−1, −2, 0)","(1, 2, 0)","(1, 4, 0)"],
+   a:2, e:"Predictions at x = 1,2,3 are 9, 6, 3, so residuals are 10−9=1, 8−6=2, 3−3=0 → <b>(1, 2, 0)</b>.", src:"Quiz 1 Q5 · L03 s14"},
+  {t:"mc", q:"A design matrix has three columns per city: a ones column, Celsius, and Fahrenheit (<code>F = 1.8·C + 32</code>). A classmate runs <code>w = solve(XᵀX, Xᵀy)</code>. Which statement is correct?",
+   o:["XᵀX is singular, because the Fahrenheit column is a combination of the other two","XᵀX is invertible, because the Celsius and Fahrenheit columns hold different numbers in every row","The solve fails because X has many more rows than it has columns, so there are too many equations","The solve works fine once every column is standardized to mean 0 and standard deviation 1"],
+   a:0, e:"The Fahrenheit column = 1.8·Celsius + 32·ones, so the columns are linearly dependent and XᵀX is singular. Standardizing leaves them dependent.", src:"Quiz 1 Q6 · L03 s43"},
+  {t:"mc", q:"Polynomials fitted to the same data give RMSE — deg 1: train 5.0/test 5.2; deg 2: 3.1/3.3; deg 3: 3.0/3.8; deg 6: 0.9/12.4. Which degree should you choose for new data, and why?",
+   o:["Degree 6, because its training error is the lowest","Degree 1, because the simplest model is always safest","Degree 2, because its test error is the lowest of the four","Degree 3, because it is the largest degree with test error below 4"],
+   a:2, e:"Choose by held-out error: degree 2's test RMSE 3.3 is lowest. Degree 6 has the lowest training error but test 12.4 — it overfits.", src:"Quiz 1 Q7 · L04 s19"},
+  {t:"mc", q:"Ridge regression minimizes the squared error plus <code>λ·Σwⱼ²</code>. What happens to the fitted weights as λ grows?",
+   o:["They shrink toward zero, because a nonzero weight costs more","They grow, because a larger penalty fits the training data better","They stay the same, because λ changes only the intercept","They are set to exactly zero one at a time"],
+   a:0, e:"A larger λ makes every nonzero weight cost more, pulling them toward zero. Setting weights to exactly zero is what the lasso does.", src:"Quiz 1 Q8 · L04 s23,27,31"},
+  {t:"mc", q:"Which penalty can drive some weights to <b>exactly zero</b> (performing feature selection)?",
+   o:["The lasso (L1) penalty, whose diamond region has corners on the axes","The ridge (L2) penalty, whose smooth circular region has no corners at all on the axes","Neither penalty can ever reach exactly zero no matter how large lambda is made","Both penalties reach exactly zero about equally often as the penalty grows"],
+   a:0, e:"The lasso's L1 constraint region is a diamond with corners on the axes, so the optimum often lands on an axis (a zero weight). Ridge's round region shrinks but rarely zeroes weights.", src:"L14 s15 · L04 s27–28"},
+  {t:"num", q:"Gradient descent minimizes <code>L(w) = w² + 2w</code>, starting at <code>w = 2</code> with learning rate 0.1. What is w after one step? Enter the value as a number.",
+   a:1.4, tol:0.01, e:"∇L = 2w + 2 = 2·2 + 2 = 6 at w = 2. Step: w ← 2 − 0.1·6 = 2 − 0.6 = <b>1.4</b>.", src:"Review S8 · L04 s36"},
+  {t:"mc", q:"With a learning rate η that is far too <b>large</b>, gradient descent tends to…",
+   o:["overshoot the minimum and diverge","converge in a single step every time","ignore the gradient entirely","shrink the weights toward zero like ridge"],
+   a:0, e:"A large η overshoots and the loss can grow without bound (diverge); a small η converges but needs many steps.", src:"L14 s16 · L04 s38"},
+  {t:"mc", q:"Why does <b>standardizing</b> features help gradient descent converge faster?",
+   o:["It turns a long thin valley into a round bowl, so steps head nearly straight to the minimum","It makes a non-convex loss surface become convex everywhere, so descent can never get stuck","It removes the need to pick a learning rate and lets descent finish in a single step","It sets the intercept term to zero so the fitted line passes through the origin"],
+   a:0, e:"Unequal feature scales create an elongated loss surface where steps zig-zag; standardizing makes it bowl-shaped so descent goes nearly straight down.", src:"L14 s16 · L04 s40"},
+  {t:"mc", q:"Under independent Gaussian noise of constant variance, minimizing the sum of squared errors is the same as…",
+   o:["maximizing the likelihood of the data","minimizing the L1 norm of the weights","maximizing the margin","minimizing cross-entropy"],
+   a:0, e:"The SSE is the negative log-likelihood (up to constants) of the data under Gaussian noise, so least squares = maximum likelihood here.", src:"L14 s13 · L03 s39"}
 ],
-knn:[
-  {q:"1-NN typically gets <b>~all</b> training points right because…",
-   o:["it fits a very flexible curve","each point is its own nearest neighbor","the classes are always separable","it averages over many neighbors"],
-   a:1, e:"A training point is at distance 0 from itself, so 1-NN echoes the training labels — near-perfect in training but weak on new data (overfitting)."},
-  {q:"The <b>curse of dimensionality</b> for kNN means that in many dimensions…",
-   o:["distances overflow their range","nearest and farthest points converge","every feature must be an integer","the vote is always a tie"],
-   a:1, e:"As D grows the nearest and farthest distances become almost equal, so 'nearest' carries little information."},
-  {q:"A fully grown, unlimited-depth tree usually…",
-   o:["underfits by asking too few questions","memorizes the training data (overfits)","needs every feature standardized","produces a single-leaf stump"],
-   a:1, e:"With no depth limit the tree draws boxes around single cars: near-perfect training accuracy but a held-out drop — overfitting."}
+classification:[
+  {t:"mc", q:"A logistic classifier uses <code>z = 0.9·x₁ − 1.0·x₂ + 0.9</code> (x₁ standardized horsepower, x₂ standardized mpg) and predicts USA when z ≥ 0. A car has <code>x = (1, −1)</code>. Which gives the score and prediction?",
+   o:["z = 0.8, predicted USA","z = 2.8, predicted USA","z = 0.8, predicted not USA","z = 2.8, predicted not USA"],
+   a:1, e:"z = 0.9·1 − 1.0·(−1) + 0.9 = 0.9 + 1.0 + 0.9 = 2.8 ≥ 0 → <b>USA</b>.", src:"Quiz 1 Q9 · L05 s10"},
+  {t:"mc", q:"Logistic regression turns the score z into a probability with the sigmoid <code>σ(z) = 1/(1+e⁻ᶻ)</code>. What is the exact range of the sigmoid?",
+   o:["Any real number","Between −1 and 1","Between 0 and infinity","Between 0 and 1"],
+   a:3, e:"The denominator 1+e⁻ᶻ is always greater than 1, so the output is always above 0 and below 1.", src:"Quiz 1 Q10 · L05 s13,15"},
+  {t:"mc", q:"The perceptron is run where <b>no line separates</b> the two classes, visiting points in a fixed order pass after pass. What happens?",
+   o:["It stops after the first pass, having visited every point once","It never stops on its own, because it has no built-in test for when it should stop","It never stops on its own, because some point is misclassified every pass","It settles on the max-margin line, pushed there by the mistakes"],
+   a:2, e:"The perceptron stops only after a pass with zero mistakes; without a separating line, some point is wrong in every pass, so it never stops on its own.", src:"Quiz 2 Q1 · L06 s16,25"},
+  {t:"mc", q:"A hard-margin SVM is fitted to separable data. A point with <code>y·z = 3</code> is deleted and the SVM refitted on the rest. What happens to the boundary?",
+   o:["It moves toward where the point was, with one fewer point pushing","It stays exactly the same, because only support vectors decide it","It moves and the margin grows, since a support vector was removed","It stays but the street widens, with one fewer point to keep out"],
+   a:1, e:"Support vectors have y·z = 1; a point with y·z = 3 lies outside the street and does not affect the boundary, so deleting it changes nothing.", src:"Quiz 2 Q2 · L07 s9,10,15"},
+  {t:"mc", q:"A soft-margin SVM gives a training point (label y) a score with <code>y·z = 0.4</code>. Which statement describes this point?",
+   o:["On the wrong side, inside the street, with slack between 1 and 2","On the wrong side of the boundary, a mistake, with slack 0.6","On the correct side, beyond its margin line, with slack 0","On the correct side, inside the street, with slack between 0 and 1"],
+   a:3, e:"0 < y·z < 1 means the correct side but inside the street; slack = max(0, 1−0.4) = 0.6, which is between 0 and 1.", src:"Quiz 2 Q3 · L07 s18,26,27"},
+  {t:"num", q:"A decision-tree node holds 10 training cars: 3 European and 7 not. Compute the <b>Gini impurity</b> <code>1 − Σ pₖ²</code>. Enter a number with two decimals.",
+   a:0.42, tol:0.01, e:"Gini = 1 − (0.3² + 0.7²) = 1 − (0.09 + 0.49) = 1 − 0.58 = <b>0.42</b>.", src:"Quiz 2 Q4 · L08 s27"},
+  {t:"mc", q:"Weight is converted from pounds to kilograms (×0.4536) while mpg is left alone. Three models are rebuilt: a depth-2 tree on raw features, kNN on standardized features, kNN on raw features. Which can give a different prediction?",
+   o:["Only the kNN on the raw features","Only the two kNN models","Only the tree on the raw features","All three of the rebuilt models"],
+   a:0, e:"Scaling weight changes raw distances (mpg now counts more), so raw-feature kNN can change. Standardized kNN is unchanged, and tree splits (thresholds) just rescale.", src:"Quiz 2 Q5 · L08 s19,45,52"},
+  {t:"num", q:"With <code>x = (2, 1)</code> and <code>u = (1, 3)</code>, compute the kernel <code>K(x, u) = (x·u)²</code>. Enter the value as a number.",
+   a:25, tol:0.01, e:"x·u = 2·1 + 1·3 = 5, so K = 5² = <b>25</b> — computed without ever building the three mapped features.", src:"L07 s32–34"},
+  {t:"mc", q:"A decision tree chooses each split by…",
+   o:["taking the split with the largest drop in impurity (gain)","splitting on a single feature that is chosen uniformly at random each time","always splitting on whichever feature happens to come first","keeping the total number of leaves as small as possible"],
+   a:0, e:"The greedy tree tries features/thresholds and keeps the split with the largest gain (impurity drop weighted by child sizes), then recurses.", src:"L14 s23 · L08 s29"},
+  {t:"mc", q:"Why does the <b>kernel trick</b> let an SVM draw curved boundaries cheaply?",
+   o:["A kernel returns the dot product of mapped features without ever building them","It adds extra slack variables so the decision boundary is free to bend around points","It standardizes every input feature to unit variance before the SVM is fitted","It keeps raising the cost C until the margin eventually disappears entirely"],
+   a:0, e:"The SVM uses features only through dot products, so a kernel K(x,u)=φ(x)·φ(u) supplies them directly — e.g. (x·u)² equals a dot product of three features built from two.", src:"L14 s21 · L07 s31"}
 ],
 ensembles:[
-  {q:"A random forest lowers the correlation between trees by…",
-   o:["using much shallower trees than plain bagging does","drawing a random feature subset at each split","training all of the trees strictly in sequence","dropping the bootstrap resampling step entirely"],
-   a:1, e:"Drawing m of D features at each split keeps the strongest feature out of most splits, so trees differ more and ρ drops."},
-  {q:"Boosting mainly reduces a model's…",
-   o:["variance, by averaging deep trees","bias, by adding weak learners","storage cost, by pruning leaves","noise, by cleaning the labels"],
-   a:1, e:"A stump is high-bias, low-variance; adding many in sequence removes remaining bias, the opposite end from bagging."},
-  {q:"In <b>gradient boosting</b> for regression, each new tree is fit to…",
-   o:["the original targets again","the current residuals","a bootstrap sample of cars","the out-of-bag errors"],
-   a:1, e:"Starting from the mean, each stage fits a small tree to the residuals (the negative gradient for squared error) and adds a fraction ν of it."},
-  {q:"A risk of boosting that <b>bagging does not share</b> is that…",
-   o:["more rounds eventually overfit","it cannot handle many features","it must store the whole dataset","it needs the classes balanced"],
-   a:0, e:"Every boosting stage lowers training error, so too many stages fit noise; the number of stages is chosen on held-out data. More trees never hurt a forest."}
+  {t:"mc", q:"A bagged ensemble of 100 deep trees barely improves when 400 more are added. Which change is most likely to lower the error further?",
+   o:["Add 1000 more bagged trees, since more averaging always lowers variance","Draw each bootstrap sample without replacement, so each tree sees all examples","Let each split consider every feature, so the strongest feature always wins","Let each split use a random subset of features, so more varied trees average better"],
+   a:3, e:"Variance of the average is ρσ² + (1−ρ)σ²/M; more trees shrink only the second term. A random feature subset at each split lowers ρ (the floor) — this is the random forest.", src:"Quiz 2 Q6 · L09 s7,25,26"},
+  {t:"mc", q:"A bootstrap sample of N training examples is drawn with replacement (N large). About what share of the examples is left out?",
+   o:["About 0.63","About 0.50","About 0.37","About 0.10"],
+   a:2, e:"The chance an example is missed in all N draws → 1/e ≈ 0.37, so about 37% are out-of-bag and ~63% appear.", src:"Review S3 · L09 s15"},
+  {t:"mc", q:"Averaging M models each with variance σ² and pairwise correlation ρ, the variance of the average…",
+   o:["never falls below ρσ², no matter how large M is","falls to zero as M grows, regardless of ρ","equals σ²/M only when ρ = 1","grows with M when ρ > 0"],
+   a:0, e:"Variance = ρσ² + (1−ρ)σ²/M. The first term is a floor that more models cannot lower — so members must be uncorrelated.", src:"L14 s26 · L09 s7"},
+  {t:"num", q:"A random forest uses the default <code>m = ⌊√D⌋</code> features per split. With <code>D = 16</code> features, what is m? Enter the value as a number.",
+   a:4, tol:0.01, e:"m = ⌊√16⌋ = <b>4</b>. The strongest feature is absent from most 4-of-16 draws, so trees decorrelate.", src:"L14 s28 · L09 s26"},
+  {t:"mc", q:"Bagging uses <b>deep</b> trees as its members because deep trees have…",
+   o:["low bias and high variance, and a vote removes variance","high bias and low variance, which a majority vote is able to remove","the smallest number of nodes to store in memory overall","no need for bootstrap samples once they are averaged"],
+   a:0, e:"Deep trees are low-bias, high-variance; a vote cancels variance but not bias, so deep trees are the right members to average.", src:"L14 s27 · L09 s18"}
 ],
-eval1:[
-  {q:"<b>Underfitting</b> shows up as…",
-   o:["low training and high held-out error","high training and high held-out error","low training and low held-out error","high training and low held-out error"],
-   a:1, e:"Underfitting: the model is too simple, so both training and held-out error are high. Overfitting has low training but high held-out error."},
-  {q:"Expected squared error splits into…",
-   o:["bias² plus variance plus noise","precision plus recall plus noise","training plus validation plus test","mean plus median plus mode"],
-   a:0, e:"Expected error = bias² + variance + irreducible noise σ²; the error can never fall below σ²."},
-  {q:"The <b>test set</b> should be used…",
-   o:["once, to score the chosen model","to tune each hyperparameter","in every cross-validation fold","to standardize all the features"],
-   a:0, e:"Anything used to choose a setting is a validation set; the test set is used exactly once, at the end, on the final model."},
-  {q:"Standardizing with <b>all</b> the data before splitting is a leak because…",
-   o:["it makes the features too small","the test cars shaped the mean and SD","it changes the class labels","it doubles the training size"],
-   a:1, e:"The test cars influenced the standardization statistics, so information from the test set leaked into fitting and the score looks too good."}
+evaluation:[
+  {t:"mc", q:"Two kNN classifiers on one set of cars: k=1 gives train error 0.00, held-out 0.27; k=25 gives train 0.16, held-out 0.18. How does the k=25 model compare with k=1?",
+   o:["Less bias and less variance, because its held-out error is lower","More bias and less variance, because each vote averages over more cars","Less bias and more variance, because it uses more training cars","More bias and more variance, because its training error is higher"],
+   a:1, e:"Averaging more neighbors adds bias but cuts variance; k=1 memorizes (train error 0.00) and does much worse on held-out cars — classic high variance.", src:"Quiz 2 Q7 · L10 s21, L08 s9"},
+  {t:"mc", q:"A classmate standardizes horsepower and mpg using all 392 cars, then runs 5-fold CV for kNN on the standardized cars. What is true of the CV score?",
+   o:["It can look too poor, since standardizing throws away the units kNN needs","Nothing is wrong, because scaling uses features, never labels","It can look too good, because held-out-fold cars helped set the scaling","Nothing is wrong, because five folds average out the scaling effect"],
+   a:2, e:"Using all cars to scale lets held-out cars influence the fitted scaling step — that is leakage (even without labels). Each round must scale on its training folds only.", src:"Quiz 2 Q8 · L10 s50"},
+  {t:"num", q:"European is the positive class. A classifier flags 20 cars as European, and 15 of those really are. Compute the <b>precision</b>. Enter a number with two decimals.",
+   a:0.75, tol:0.01, e:"Precision = TP/(TP+FP) = 15/20 = <b>0.75</b> (15 true positives, 5 false positives).", src:"Quiz 2 Q9 · L11 s13"},
+  {t:"mc", q:"A classifier flags a car when its score is at least a threshold t. On a fixed test set, t is lowered from 0.5 to 0.3. What happens to the number of flagged cars?",
+   o:["It stays the same or grows, since every car flagged at 0.5 is still flagged at 0.3","It stays the same or shrinks, since a lower threshold makes it harder for a car to be flagged","It always stays the same, since the scores do not change","It can move either way, since the classifier is refitted at each threshold"],
+   a:0, e:"Every score ≥ 0.5 is also ≥ 0.3, so no flag is lost and more may be gained — flagged count can only stay the same or grow.", src:"Quiz 2 Q10 · L11 s24"},
+  {t:"num", q:"A spam filter flags 50 emails, 40 of which are spam; the test set holds 80 spam in all. Compute the <b>F1</b> score <code>2PR/(P+R)</code>. Enter a number with two decimals.",
+   a:0.62, tol:0.01, e:"Precision = 40/50 = 0.8, recall = 40/80 = 0.5. F1 = 2·0.8·0.5/(0.8+0.5) = 0.8/1.3 ≈ <b>0.62</b> — nearer the smaller of the two.", src:"Review S6 · L11 s14,16"},
+  {t:"mc", q:"The AUC (area under the ROC curve) is best described as…",
+   o:["the probability a random positive scores above a random negative","the overall accuracy of the model measured at a fixed decision threshold of 0.5","the share of all the flagged cases that turn out to be truly positive","the fraction of the actual positives that the model manages to flag"],
+   a:0, e:"AUC = P(random positive outranks a random negative), ties counting half; 0.5 is random ranking and 1 is perfect. It is a ranking measure, not a single-threshold score.", src:"L14 s34 · L11 s34"},
+  {t:"ms", q:"A tree grown with no depth limit gets every training point right but does poorly on validation. Which changes are likely to help? (Select all that apply.)",
+   o:["Cap the maximum depth, chosen by CV on the training data","Use a majority vote of many trees grown on bootstrap samples","Refit the same unlimited-depth tree on the same data","Add columns of random noise as new input features","Pick the depth with the lowest error on the training set"],
+   a:[0,1], e:"The problem is overfitting (high variance). A CV-chosen depth cap limits variance, and bagging (a vote of bootstrap trees) averages it away. Refitting changes nothing; noise columns and a depth picked on training error only fit harder.", src:"Review S2 · L08 s36, L09 s18"},
+  {t:"match", q:"Match each description to the term it describes. One term matches nothing.",
+   items:["The distance from a separating line to the closest training point","A function giving the inner product of two mapped feature vectors without computing the map","The training examples one bagged tree never saw, used to score that tree","Fitting a model N times on N examples, each time holding out exactly one","The probability a random positive scores above a random negative"],
+   terms:["Bootstrap sample","Kernel","Leave-one-out cross-validation","Margin","Out-of-bag examples","ROC AUC"],
+   a:[3,1,4,2,5], e:"1 margin, 2 kernel, 3 out-of-bag examples, 4 leave-one-out cross-validation, 5 ROC AUC. <b>Bootstrap sample</b> matches nothing — it is what a tree trains on, while the out-of-bag examples are the ones it never saw.", src:"Quiz 2 Q11 · L06 s29, L07 s31, L09 s21, L10 s31, L11 s34"},
+  {t:"sa", q:"A classmate tries k = 1…25 for kNN, picks the k with the lowest <b>test-set</b> error, and reports that error as the expected error on new data. Is the reported error reliable, and how should k be chosen? (2–3 sentences.)",
+   a:`<p><b>No.</b> By choosing k with the test set, the test set acted as a <b>validation set</b>, so its error is optimistic and may <b>understate</b> the error on genuinely new data.</p><p>Choose k by <b>cross-validation on the training data</b> (or a separate validation set), refit the chosen model, and then score it <b>once</b> on an unused test set.</p>`, src:"Review S9 · L10 s43"},
+  {t:"sa", q:"A polynomial is fitted to a small training set by least squares, then again with a ridge penalty at a moderate λ. Explain, using bias and variance, how the ridge penalty can change the test error. (2–3 sentences.)",
+   a:`<p>The ridge penalty <b>shrinks the weights</b>, which adds a little <b>bias²</b> (the fit can no longer reach the least-squares solution).</p><p>But it can <b>reduce the variance</b> across training sets by more than that added bias — especially on a small, noisy training set — so the <b>expected test error falls</b>. (Too large a λ eventually over-shrinks and raises error again.)</p>`, src:"Review S10 · L10 s21"}
 ],
-eval2:[
-  {q:"On a <b>rare</b> positive class, high accuracy can hide that a model…",
-   o:["flags far too many negatives","finds none of the positives","has a very low threshold","uses too many features"],
-   a:1, e:"Always saying 'no' scores high when positives are rare yet finds none of them; the many negatives dominate accuracy."},
-  {q:"<b>Lowering</b> the decision threshold means TP and FP…",
-   o:["can never fall","can never rise","both stay fixed","always both fall"],
-   a:0, e:"Lowering the threshold moves cases from the negative to the positive column, so TP and FP never fall — recall never drops, precision may."},
-  {q:"The <b>AUC</b> can be read as the probability that…",
-   o:["a random positive outscores a random negative","the model's overall accuracy exceeds one half","precision always stays safely above the recall","a decision threshold of 0.5 is the optimal one"],
-   a:0, e:"AUC is the chance a random positive is ranked above a random negative — a pure ranking measure; 0.5 is random, 1 is perfect."}
+unsupervised:[
+  {t:"mc", q:"PCA is run on the <b>raw</b> values of two house features: price (varies by tens of thousands) and room count (a few rooms). What is PC1 most likely to be?",
+   o:["The diagonal, because PCA weights both features equally","Nearly the rooms axis, because rooms change in whole steps","A random direction, because PCA ignores the units","Nearly the price axis, because price has the largest variance"],
+   a:3, e:"PC1 follows the direction of largest variance; price spreads over tens of thousands while rooms over a few, so PC1 lies nearly on the price axis. Standardize first to prevent this.", src:"Review S4 · L13 s59"},
+  {t:"match", q:"Match each description to a method. Two methods match nothing.",
+   items:["Averages trees grown on bootstrap samples, with a random feature subset at every split","Assigns points to the nearest centroid, then moves each centroid to the mean of its points","Grows clusters from points with at least minPts neighbors within distance eps","Finds the unit direction of largest variance of the projected data","Predicts the majority label of the k closest training points"],
+   terms:["DBSCAN","k-means","kNN","Lasso","PCA","Perceptron","Random forest"],
+   a:[6,1,0,4,2], e:"1 random forest, 2 k-means, 3 DBSCAN, 4 PCA, 5 kNN. <b>Lasso</b> and the <b>perceptron</b> match nothing.", src:"Review S5 · L09 s26, L12 s6,25, L13 s33, L08 s10"},
+  {t:"mc", q:"In k-means, each iteration assigns points to the nearest centroid and then moves each centroid to the mean of its points. What is guaranteed?",
+   o:["Neither step ever raises the objective J, and the loop stops when no point changes","The objective J increases a little every round right up until it finally converges","It is guaranteed to always find the single globally best clustering of the points","The number of clusters K is discovered automatically from the data itself"],
+   a:0, e:"Both steps are non-increasing in J, so it converges; but where it lands depends on the start (run several inits). K must be chosen; DBSCAN is the method that finds the cluster count itself.", src:"L14 s36 · L12 s14"},
+  {t:"mc", q:"In DBSCAN, a <b>core point</b> is one that…",
+   o:["has at least minPts points within distance eps of it","lies within eps of a core point but is not core itself","belongs to no cluster at all","is the mean of its cluster"],
+   a:0, e:"A core point has ≥ minPts neighbors in its eps-neighborhood. A border point is within eps of a core point but not core; noise is neither.", src:"L14 s37 · L12 s25"},
+  {t:"mc", q:"In PCA, the first principal component (PC1) is…",
+   o:["the eigenvector of the covariance matrix with the largest eigenvalue","the eigenvector of the covariance matrix with the very smallest eigenvalue","the mean (centroid) of all of the centered data points","the single feature that happens to have the most missing values"],
+   a:0, e:"PC1 is the unit direction of largest variance, which is the covariance matrix's eigenvector with the largest eigenvalue λ₁; the variance along it equals λ₁.", src:"L14 s38 · L13 s33"},
+  {t:"num", q:"A PCA scree result has eigenvalues summing to 200, with the largest eigenvalue λ₁ = 180. What share of the total variance does PC1 keep? Enter a number with two decimals.",
+   a:0.9, tol:0.01, e:"Each component keeps its eigenvalue's share: 180 / 200 = <b>0.90</b> (90% of the variance along PC1).", src:"L14 s38–39 · L13 s43"},
+  {t:"mc", q:"Before running PCA on features measured in <b>different units</b>, you should…",
+   o:["standardize the features, or the largest-variance one dominates PC1","leave the features raw, because PCA already accounts for differences in units","drop every feature except the one with the largest spread","center the features but never rescale any of them"],
+   a:0, e:"PCA chases variance, so a feature with a much larger numeric spread would dominate PC1; standardizing first puts features on equal footing.", src:"L14 s38 · L13 s59"}
 ]
 };
 
 /* =========================================================
-   WORKED PRACTICE (FREE RESPONSE) — from the lectures
+   RENDER + GRADING
    ========================================================= */
-const FR = {
-perceptron:[
-  {q:"<b>Practice 1 — Sign and distance.</b> The line is <code>w = (1, 1)</code>, <code>b = −6</code>, so <code>z = x₁ + x₂ − 6</code>. Two points: P1 = (4, 4) with y = +1 and P5 = (1, 0) with y = −1. Find each score z and product y·z, whether each is classified correctly, and each point's distance from the line.",
-   a:`<p><b>P1 = (4,4):</b> z = 4 + 4 − 6 = <b>2</b>. y·z = (+1)(2) = +2 &gt; 0, so <b>correct</b>.</p>
-      <p><b>P5 = (1,0):</b> z = 1 + 0 − 6 = <b>−5</b>. y·z = (−1)(−5) = +5 &gt; 0, so <b>correct</b>.</p>
-      <p>‖w‖ = √(1² + 1²) = √2 ≈ 1.414. Distance = |z|/‖w‖.</p>
-      <ul><li>P1: 2/√2 = <b>1.414</b></li><li>P5: 5/√2 = <b>3.536</b></li></ul>
-      <p><b>Answer:</b> P1: z = 2, correct, distance 1.414. P5: z = −5, correct, distance 3.536. Both correct; P1 is closer.</p>`},
-  {q:"<b>Practice 2 — Continue the run.</b> After update 3 the weights are <code>w = (1, 4)</code>, <code>b = −1</code>, with η = 1. The next two points are P3 = (5, 6) with y = +1 and P7 = (3, 0) with y = −1. Find each score and whether it is a mistake, then the new w, b after any update and P7's new score.",
-   a:`<p><b>P3 = (5,6):</b> z = 1·5 + 4·6 − 1 = 5 + 24 − 1 = <b>28</b>. y·z = +28 &gt; 0 → <b>correct</b>, nothing changes.</p>
-      <p><b>P7 = (3,0):</b> z = 1·3 + 4·0 − 1 = <b>2</b>. y·z = (−1)(2) = −2 ≤ 0 → <b>mistake</b>.</p>
-      <p>Update with y = −1 (subtract x, lower b): w = (1,4) − (3,0) = <b>(−2, 4)</b>, b = −1 − 1 = <b>−2</b>.</p>
-      <p>New score of P7: z = (−2)(3) + 4·0 − 2 = −6 − 2 = <b>−8</b> (now correct). The drop of 10 = ‖P7‖² + 1 = 9 + 1.</p>
-      <p><b>Answer:</b> P3 correct (z = 28). P7 a mistake (z = 2): new w = (−2, 4), b = −2, new score −8.</p>`},
-  {q:"<b>Practice 3 — The margin of line B.</b> Line B is <code>w = (1, 1)</code>, <code>b = −6</code>. The scores z of the eight toy points are 2, 4, 5, 6, −5, −4, −3, −2, and every point is on its correct side. Which points are closest, what is the margin, and does moving P4 = (6, 6) to (7, 7) change it?",
-   a:`<p>Margin = smallest |z| / ‖w‖, with ‖w‖ = √2.</p>
-      <p>The smallest |z| is <b>2</b>, at P1 = (4,4) (z = 2) and P8 = (3,1) (z = −2). So the closest points are <b>P1 and P8</b>.</p>
-      <p>Margin = 2/√2 = <b>1.414</b>.</p>
-      <p>Moving P4 from (6,6) to (7,7) raises its z from 6 to 8, farther from the line. The closest points are still P1 and P8, so the margin is <b>unchanged</b> — only the closest points decide it.</p>
-      <p><b>Answer:</b> Closest P1 and P8, margin 1.414; moving P4 changes nothing.</p>`},
-  {q:"<b>Check 1 — Correct or mistake?</b> Four points share one w and b, with (y, z): A (+1, 2.5), B (−1, 0.8), C (+1, −0.3), D (−1, −4.0). Find each product y·z, which are mistakes, and — of the correct points — which is closer to the boundary (without ‖w‖).",
-   a:`<p>Products y·z: A = +2.5, B = −0.8, C = −0.3, D = +4.0.</p>
-      <p><b>Mistakes</b> (y·z ≤ 0): <b>B and C</b>. Correct: A and D.</p>
-      <p>All points share the same w, so distance ∝ |z|. Among the correct points, A has |z| = 2.5 and D has |z| = 4.0, so <b>A is closer</b> to the boundary.</p>
-      <p><b>Answer:</b> Products 2.5, −0.8, −0.3, 4.0. Mistakes B and C. A is closer.</p>`},
-  {q:"<b>Check 3 — Distances and a mistake.</b> The line is <code>3x₁ + 4x₂ − 12 = 0</code>, so w = (3, 4), b = −12. Points: A = (4, 3) y = +1, B = (0, 0) y = −1, C = (1, 1) y = +1. Find each score and y·z, each distance, which point is misclassified, and whether this line has a margin.",
-   a:`<p>‖w‖ = √(3² + 4²) = <b>5</b>.</p>
-      <p><b>A = (4,3):</b> z = 12 + 12 − 12 = +12, y·z = +12 (correct), distance 12/5 = <b>2.4</b>.</p>
-      <p><b>B = (0,0):</b> z = 0 + 0 − 12 = −12, y·z = (−1)(−12) = +12 (correct), distance 12/5 = <b>2.4</b>.</p>
-      <p><b>C = (1,1):</b> z = 3 + 4 − 12 = −5, y·z = (+1)(−5) = −5 (<b>mistake</b>), distance 5/5 = <b>1.0</b>.</p>
-      <p>A margin is defined only when <b>every</b> point is correct. C is misclassified, so this line has <b>no margin</b>.</p>
-      <p><b>Answer:</b> A and B correct at distance 2.4; C misclassified at distance 1.0; no margin.</p>`}
-],
-svm:[
-  {q:"<b>Practice 1 — Read off the solution.</b> The solver returns <code>w = (0.2, 0.6)</code>, <code>b = −2.2</code>. The products y·z for P2–P7 are 2.2, 2.4, 2.6, 2.0, 1.8, 1.6. P1 = (4, 4) has y = +1 and P8 = (3, 1) has y = −1. Find z and y·z for P1 and P8, the support vectors, and the margin.",
-   a:`<p><b>P1 = (4,4):</b> z = 0.2·4 + 0.6·4 − 2.2 = 0.8 + 2.4 − 2.2 = <b>1.0</b>. y·z = <b>1.0</b>.</p>
-      <p><b>P8 = (3,1):</b> z = 0.2·3 + 0.6·1 − 2.2 = 0.6 + 0.6 − 2.2 = <b>−1.0</b>. y·z = (−1)(−1.0) = <b>1.0</b>.</p>
-      <p>P1 and P8 have the smallest product, exactly 1, so they are the <b>support vectors</b>.</p>
-      <p>‖w‖ = √(0.2² + 0.6²) = √(0.04 + 0.36) = √0.40 ≈ 0.632. Margin = 1/‖w‖ = <b>1.581</b>.</p>
-      <p><b>Answer:</b> P1 z = 1.0, P8 z = −1.0. Support vectors P1 and P8, margin 1.581.</p>`},
-  {q:"<b>Practice 2 — Slack from scores.</b> Six points have (y, z): (+1, 2.5), (+1, 0.4), (−1, −1.8), (−1, 0.3), (+1, −0.7), (−1, −1.0). Find each y·z and slack, which have zero slack, which are misclassified, and the total slack (what C multiplies).",
-   a:`<p>Slack ξ = max(0, 1 − y·z).</p>
-      <table class="tbl"><thead><tr><th>#</th><th>y·z</th><th>ξ</th></tr></thead><tbody>
-      <tr><td>1</td><td>+2.5</td><td>0</td></tr>
-      <tr><td>2</td><td>+0.4</td><td>0.6</td></tr>
-      <tr><td>3</td><td>+1.8</td><td>0</td></tr>
-      <tr><td>4</td><td>−0.3</td><td>1.3</td></tr>
-      <tr><td>5</td><td>−0.7</td><td>1.7</td></tr>
-      <tr><td>6</td><td>+1.0</td><td>0</td></tr></tbody></table>
-      <p><b>Zero slack:</b> points 1, 3, 6 (on or beyond the margin line). <b>Misclassified</b> (ξ &gt; 1): points 4 and 5. Point 2 is inside the street but still correct.</p>
-      <p>Total slack = 0 + 0.6 + 0 + 1.3 + 1.7 + 0 = <b>3.6</b>.</p>
-      <p><b>Answer:</b> Slacks 0, 0.6, 0, 1.3, 1.7, 0. Zero slack 1, 3, 6. Mistakes 4 and 5. Total 3.6.</p>`},
-  {q:"<b>Practice 3 — The kernel trick.</b> x = (2, 1) and u = (1, 3). The kernel is the squared inner product, and the feature map lists the two squares and the cross product with a factor √2. Find K(x, u) by the kernel route, φ(x) and φ(u), and their inner product.",
-   a:`<p><b>Kernel route:</b> x·u = 2·1 + 1·3 = 5, so K = 5² = <b>25</b>.</p>
-      <p><b>Feature map</b> φ(a) = (a₁², √2·a₁a₂, a₂²):</p>
-      <ul><li>φ(x) = (2², √2·2·1, 1²) = <b>(4, 2√2, 1)</b></li>
-      <li>φ(u) = (1², √2·1·3, 3²) = <b>(1, 3√2, 9)</b></li></ul>
-      <p>φ(x)·φ(u) = 4·1 + (2√2)(3√2) + 1·9 = 4 + 6·2 + 9 = 4 + 12 + 9 = <b>25</b>. ✓ matches.</p>
-      <p><b>Answer:</b> K = 25 by both routes; φ(x) = (4, 2√2, 1), φ(u) = (1, 3√2, 9).</p>`},
-  {q:"<b>Practice 4 — Reading a gamma sweep.</b> RBF kernels on 150 training points, 50 held out. γ = 0.1: 125/150 train, 45/50 held out. γ = 5: 148 and 49. γ = 100: 149 and 41. Which γ to choose and why, which underfits/overfits, and what the training counts alone would pick.",
-   a:`<p><b>Choose γ = 5</b>: the highest held-out count, 49/50 (98%), with 148/150 (99%) in training.</p>
-      <p><b>γ = 0.1 underfits:</b> 125/150 (83%) in training and 45/50 held out — both below γ = 5, the model is too smooth.</p>
-      <p><b>γ = 100 overfits:</b> 149/150 (99%) in training but only 41/50 (82%) held out — the boundary wraps single points.</p>
-      <p>Training counts rise with γ, so they would pick <b>γ = 100</b>, the worst held-out choice.</p>
-      <p><b>Answer:</b> γ = 5. γ 0.1 underfits, γ 100 overfits; training counts would wrongly pick γ = 100.</p>`},
-  {q:"<b>Check 2 — Pick C from a sweep.</b> On the cars, three settings of C give (margin, support vectors, held out of 78): C = 0.01 → 1.68, 226, 63. C = 0.03 → 1.19, 204, 67. C = 100 → 0.89, 178, 65. Which C, what happens to the margin and support-vector count as C grows, and why training accuracy is the wrong number.",
-   a:`<p><b>Choose C = 0.03</b>: the highest held-out count, 67/78, with margin 1.19.</p>
-      <p>As C grows, the margin <b>shrinks</b> (1.68 → 1.19 → 0.89) and the number of support vectors <b>falls</b> (226 → 204 → 178) — a narrower street touches fewer points.</p>
-      <p>Training accuracy rewards fitting the training cars and keeps rising with C; it says nothing about new cars, so it is the wrong number for choosing C.</p>
-      <p><b>Answer:</b> C = 0.03 (67/78). Larger C → narrower margin, fewer support vectors. Training accuracy ignores new data.</p>`}
-],
-knn:[
-  {q:"<b>Practice 1 — Vote for a new car.</b> A new car's four nearest training cars, as (distance, label): Ford Escort 4W (0.04, USA), Subaru DL (0.06, not USA), Mazda GLC 4 (0.08, not USA), Plymouth Horizon 4 (0.09, USA). Find the kNN prediction for k = 1 and k = 3, which is right (true label not USA), and what goes wrong at k = 4.",
-   a:`<p><b>k = 1:</b> nearest is the Ford Escort (USA) → predict <b>USA</b>. (Wrong — true label is not USA.)</p>
-      <p><b>k = 3:</b> nearest three are USA, not USA, not USA → 2 to 1 for <b>not USA</b>. (Right.)</p>
-      <p><b>k = 4:</b> two USA + two not USA → a <b>tied vote</b>. An odd k avoids ties with two classes.</p>
-      <p>One car's prediction can flip with k, so k is chosen on many held-out cars at once.</p>
-      <p><b>Answer:</b> k = 1 USA (wrong); k = 3 not USA (right); k = 4 ties, so keep k odd.</p>`},
-  {q:"<b>Practice 2 — Read the k sweep.</b> kNN on the cars, cars right in training and held out: k = 1 → 310 and 52. k = 21 → 241 and 63. k = 97 → 231 and 67. k = 313 → 195 and 50. Which k to choose, which overfits/underfits, and what the training counts alone would pick.",
-   a:`<p><b>Choose k = 97</b>: the highest held-out count, 67/78 (86%).</p>
-      <p><b>k = 1 overfits:</b> 310/314 (99%) in training but only 52/78 (67%) held out — a huge gap.</p>
-      <p><b>k = 313 underfits:</b> every car is called the majority (USA), 195/314 and 50/78 — both low.</p>
-      <p>Training count is highest at k = 1, which is 15 cars worse held out, so training counts would wrongly pick <b>k = 1</b>.</p>
-      <p><b>Answer:</b> k = 97. k = 1 overfits, k = 313 underfits; training counts would pick k = 1.</p>`},
-  {q:"<b>Practice 3 — The gain of a split.</b> Ten cars, 5 USA and 5 not USA (parent Gini = 0.50). Split B asks horsepower ≤ 97: it sends 2 USA + 3 others left and 3 USA + 2 others right. Split A had gain 0.18. Find each child's Gini, the gain of B, and which split the tree prefers.",
-   a:`<p><b>Left child</b> (2 USA, 3 other): Gini = 1 − (2/5)² − (3/5)² = 1 − 0.16 − 0.36 = <b>0.48</b>.</p>
-      <p><b>Right child</b> (3 USA, 2 other): by symmetry Gini = <b>0.48</b>.</p>
-      <p>Each child holds 5 of 10 cars, so weighted child impurity = ½(0.48) + ½(0.48) = 0.48.</p>
-      <p>Gain of B = 0.50 − 0.48 = <b>0.02</b>.</p>
-      <p>Split A (gain 0.18) beats split B (gain 0.02), so the tree <b>prefers split A</b>.</p>
-      <p><b>Answer:</b> Both children 0.48. Gain of B = 0.02. The tree keeps split A.</p>`},
-  {q:"<b>Check 1 — Seven neighbors.</b> A new car's seven nearest, in order with labels: 0.10 USA, 0.15 not USA, 0.20 not USA, 0.30 USA, 0.35 USA, 0.50 not USA, 0.60 not USA. Find the kNN prediction for k = 1, 3, 5, 7, and say why k is chosen on held-out cars, not one new car.",
-   a:`<p><b>k = 1:</b> nearest is USA → <b>USA</b>.</p>
-      <p><b>k = 3:</b> USA, not, not → 1 USA, 2 other → <b>not USA</b>.</p>
-      <p><b>k = 5:</b> USA, not, not, USA, USA → 3 USA, 2 other → <b>USA</b>.</p>
-      <p><b>k = 7:</b> 3 USA, 4 other → <b>not USA</b>.</p>
-      <p>One car's prediction flips with k (USA, not, USA, not), so no single car can rank values of k — only a count over many held-out cars can.</p>
-      <p><b>Answer:</b> USA, not USA, USA, not USA for k = 1, 3, 5, 7. Choose k by the held-out count.</p>`},
-  {q:"<b>Check 2 — Which split wins?</b> A node holds 10 cars: 6 USA, 4 not USA. Split P sends (5 USA, 0 other) left and (1 USA, 4 other) right. Split Q sends (2 USA, 0 other) left and (4 USA, 4 other) right. Find the parent Gini, the gain of P and of Q, and which the tree keeps.",
-   a:`<p><b>Parent</b> (6 USA, 4 other): Gini = 1 − (6/10)² − (4/10)² = 1 − 0.36 − 0.16 = <b>0.48</b>.</p>
-      <p><b>Split P:</b> left (5,0) is pure → Gini 0. Right (1,4): 1 − (1/5)² − (4/5)² = 1 − 0.04 − 0.64 = 0.32. Weighted = (5/10)(0) + (5/10)(0.32) = 0.16. Gain = 0.48 − 0.16 = <b>0.32</b>.</p>
-      <p><b>Split Q:</b> left (2,0) pure → 0. Right (4,4): 1 − 0.5² − 0.5² = 0.50. Weighted = (2/10)(0) + (8/10)(0.50) = 0.40. Gain = 0.48 − 0.40 = <b>0.08</b>.</p>
-      <p>Gain 0.32 &gt; 0.08, so the tree keeps <b>split P</b>.</p>
-      <p><b>Answer:</b> Parent 0.48. Gain of P = 0.32, gain of Q = 0.08. Keep split P.</p>`}
-],
-ensembles:[
-  {q:"<b>Practice 1 — Variance of an average.</b> M = 25 models each predict with variance σ² = 4. Find the variance of the average when the models are independent (ρ = 0), when every pair has ρ = 0.5, and the value it approaches as M grows with ρ = 0.5.",
-   a:`<p><b>Independent (ρ = 0):</b> variance = σ²/M = 4/25 = <b>0.16</b>.</p>
-      <p><b>Correlated (ρ = 0.5):</b> variance = ρσ² + (1−ρ)σ²/M = 0.5·4 + 0.5·4/25 = 2 + 0.08 = <b>2.08</b>.</p>
-      <p><b>Floor as M → ∞:</b> the second term vanishes, leaving ρσ² = 0.5·4 = <b>2</b>.</p>
-      <p>Correlation costs a factor of 13 here (2.08 vs 0.16), so lowering ρ matters more than adding models.</p>
-      <p><b>Answer:</b> Independent 0.16, correlated 2.08, floor 2.</p>`},
-  {q:"<b>Practice 3 — Out-of-bag counts.</b> A random forest has 100 trees, each on a bootstrap sample of 314 cars. A sample holds about 63.3% of the distinct cars and leaves about 36.7% out. About how many distinct cars does one tree see, about how many trees vote on a given car out of bag, and why is that vote a fair test?",
-   a:`<p><b>Distinct cars per tree:</b> 0.633 × 314 ≈ <b>199</b>.</p>
-      <p><b>Trees voting out of bag on a given car:</b> about 36.7% of 100 ≈ <b>37</b> trees never saw it.</p>
-      <p>Those ~37 trees never trained on that car, so their vote is a prediction on <b>unseen</b> data — a fair test of the forest with no cars set aside.</p>
-      <p><b>Answer:</b> ~199 distinct cars per tree; ~37 trees vote on each car out of bag, and those trees never saw it.</p>`},
-  {q:"<b>Practice 4 — The random subset.</b> A dataset has D = 16 features, one far stronger than the rest. A random forest uses the √D default for m, every feature equally likely. Find m, the chance the strong feature is drawn at the root, and what happens in every tree if m = 16.",
-   a:`<p><b>m = √16 = 4.</b></p>
-      <p>Chance the strong feature is among the 4 drawn = 4/16 = <b>0.25</b>.</p>
-      <p>With <b>m = 16</b> every split sees all features, so the strong feature starts every tree — this is just plain <b>bagging</b>, with near-copy trees voting.</p>
-      <p>At m = 4, about three trees in four must start with a different feature, which lowers the correlation ρ.</p>
-      <p><b>Answer:</b> m = 4; chance 0.25; m = 16 reduces the forest to bagging.</p>`},
-  {q:"<b>Practice 5 — AdaBoost round 2.</b> Going into round 2, P5 and P10 have weight 0.25 each and the other eight points 0.0625 each. Stump 2 gets P3, P6, P7 wrong. Use ln(4.33) = 1.466. Find the weighted error, the misclassified multiplier and vote weight α, and P3's weight after the update (half rule).",
-   a:`<p><b>Weighted error ε:</b> the wrong points are P3, P6, P7, each weight 0.0625 → ε = 3 × 0.0625 = <b>0.1875</b>.</p>
-      <p><b>Multiplier</b> = (1−ε)/ε = 0.8125/0.1875 = <b>4.33</b>. <b>Vote weight</b> α = ½ ln(4.33) ... using the given ln: α = <b>1.466</b>.</p>
-      <p><b>Half rule:</b> after the update the three misclassified points together hold half the weight, so each holds (1/2)/3 = 0.1667. So P3 rises from 0.0625 to <b>≈ 0.167</b>.</p>
-      <p><b>Answer:</b> Error 0.1875, multiplier 4.33, α 1.466. P3 rises from 0.0625 to 0.167.</p>`},
-  {q:"<b>Practice 7 — Gradient boosting, stage 2.</b> After stage 1, F₁ = 4.5 for x = 1,2,3 and F₁ = 7.5 for x = 4,5,6. Residuals are −2.5, −1.5, −0.5 (left) and 0.5, 1.5, 2.5 (right). The best stump again splits at x = 3.5, ν = 0.5. Find the two leaf values, F₂ left and right, and the new residual of the first point (y = 2).",
-   a:`<p><b>Leaf values</b> = mean residual in each leaf: left = (−2.5 −1.5 −0.5)/3 = −1.5; right = (0.5 + 1.5 + 2.5)/3 = +1.5. So <b>−1.5 and +1.5</b>.</p>
-      <p><b>F₂</b> = F₁ + ν·(leaf): left = 4.5 + 0.5(−1.5) = <b>3.75</b>; right = 7.5 + 0.5(1.5) = <b>8.25</b>.</p>
-      <p><b>First point</b> (x = 1, y = 2): new residual = y − F₂ = 2 − 3.75 = <b>−1.75</b>.</p>
-      <p>The model moves toward the group means (3 and 9) in shrinking steps.</p>
-      <p><b>Answer:</b> Leaves −1.5 and +1.5; F₂ = 3.75 and 8.25; new residual −1.75.</p>`},
-  {q:"<b>Check 2 — One AdaBoost update.</b> Eight points have weight 0.125 each; a stump gets two wrong. Use ln 3 = 1.099. Find the weighted error and vote weight α, each misclassified weight after the multiplication, and after rescaling to sum to 1.",
-   a:`<p><b>Weighted error:</b> ε = 2 × 0.125 = <b>0.25</b>.</p>
-      <p><b>Vote weight:</b> α = ½ ln((1−ε)/ε) = ½ ln(0.75/0.25) = ½ ln 3 = ½(1.099) ... the lecture reports α = <b>1.099</b> (using the factor e^α = 3 form).</p>
-      <p><b>After multiplication:</b> each wrong weight × 3 = 0.125 × 3 = <b>0.375</b>. Total now = 2(0.375) + 6(0.125) = 0.75 + 0.75 = 1.5.</p>
-      <p><b>After rescaling</b> (÷ 1.5): each misclassified weight = 0.375/1.5 = <b>0.25</b>. Check: two share 0.5, so 0.25 each — the half rule.</p>
-      <p><b>Answer:</b> Error 0.25, α 1.099. Misclassified weights 0.375, then 0.25 after rescaling.</p>`}
-],
-eval1:[
-  {q:"<b>Practice 1 — Name the regime.</b> Three trees, scored as cars right of 314 training and 78 held out: depth 1 → 234 and 61; depth 4 → 261 and 64; no limit → 310 and 59. Give each training and held-out error as a fraction, and say which underfits, which overfits, and which is nearest the bottom of the U.",
-   a:`<p><b>Depth 1:</b> train error 80/314 = 0.255; held-out 17/78 = 0.218. Both high → <b>underfits</b>.</p>
-      <p><b>Depth 4:</b> train 53/314 = 0.169; held-out 14/78 = 0.179. Lowest held-out → <b>bottom of the U</b>.</p>
-      <p><b>No limit:</b> train 4/314 = 0.013; held-out 19/78 = 0.244. Big gap → <b>overfits</b>.</p>
-      <p><b>Answer:</b> Depth 1 underfits, no limit overfits, depth 4 sits nearest the bottom.</p>`},
-  {q:"<b>Practice 2 — Add the three terms.</b> The sine toy, noise variance σ² = 0.09. Bias² and variance: degree 1 → 0.215 and 0.013; degree 3 → 0.006 and 0.026; degree 5 → 0.000 and 0.040. Find the expected squared error at each degree, the best degree, and which term dominates at each.",
-   a:`<p>Expected error = bias² + variance + σ² (0.09).</p>
-      <ul>
-      <li><b>Degree 1:</b> 0.215 + 0.013 + 0.09 = <b>0.318</b> — bias² dominates.</li>
-      <li><b>Degree 3:</b> 0.006 + 0.026 + 0.09 = <b>0.122</b> — variance &gt; bias².</li>
-      <li><b>Degree 5:</b> 0.000 + 0.040 + 0.09 = <b>0.130</b> — variance dominates.</li></ul>
-      <p><b>Degree 3 is best</b> at 0.122.</p>
-      <p><b>Answer:</b> 0.318, 0.122, 0.130. Degree 3 best; bias² larger at degree 1, variance larger at 3 and 5.</p>`},
-  {q:"<b>Practice 3 — Bias or variance?</b> kNN, cars right of 314 and 78: (a) k = 1 → 310 and 52; (b) k = 313 → 195 and 50; and k = 97 → 231 and 67. For (a) and (b), is the main problem bias or variance, and how do both errors change on moving to k = 97?",
-   a:`<p><b>(a) k = 1:</b> train error 4/314 = 0.013, held-out 26/78 = 0.333. Big gap → <b>variance</b>.</p>
-      <p><b>(b) k = 313:</b> train 119/314 = 0.379, held-out 28/78 = 0.359. Both high → <b>bias</b>.</p>
-      <p><b>k = 97:</b> train 83/314 = 0.264, held-out 11/78 = 0.141.</p>
-      <ul><li>(a) Raising k to 97: training error <b>rises</b>, held-out error <b>falls</b>.</li>
-      <li>(b) Lowering k to 97: <b>both errors fall</b>.</li></ul>
-      <p><b>Answer:</b> (a) variance, raise k. (b) bias, lower k. k = 97 helps both.</p>`},
-  {q:"<b>Practice 4 — Leave-one-out by hand.</b> Six cars: 60, 70, 90 hp are N (not USA); 100, 150, 160 hp are U (USA). Use LOOCV with 1-NN, then 3-NN. Give the 1-NN prediction for each of the six rounds and whether it is right, then the LOOCV error of 1-NN and 3-NN and which k this prefers.",
-   a:`<p>Leave each car out and classify by its nearest remaining car(s) in hp.</p>
-      <p><b>1-NN:</b></p>
-      <ul>
-      <li>60 (N): nearest 70 (N) → N ✓</li>
-      <li>70 (N): nearest 60/90 (N) → N ✓</li>
-      <li>90 (N): nearest 100 (U) → U ✗</li>
-      <li>100 (U): nearest 90 (N) → N ✗</li>
-      <li>150 (U): nearest 160 (U) → U ✓</li>
-      <li>160 (U): nearest 150 (U) → U ✓</li></ul>
-      <p>1-NN predicts N, N, U, N, U, U → cars 90 and 100 wrong. <b>1-NN error = 2/6 = 0.333</b>.</p>
-      <p><b>3-NN:</b> only the 100-hp car is wrong (its three nearest — 90, 70, 60 — are all N). <b>3-NN error = 1/6 = 0.167</b>.</p>
-      <p><b>Answer:</b> 1-NN 0.333, 3-NN 0.167. The check prefers k = 3.</p>`},
-  {q:"<b>Practice 7 — Apply the one-SE rule.</b> Three models, same five folds, CV errors: decision tree 0.21, random forest 0.20, kNN 0.24. The SE of the best model is 0.015, and the single tree is simpler than the forest. Find the best CV error and the one-SE cutoff, which models are near ties, and which to choose.",
-   a:`<p><b>Best:</b> the forest at 0.20. <b>Cutoff</b> = 0.20 + 0.015 = <b>0.215</b>.</p>
-      <p><b>Tree:</b> 0.21 ≤ 0.215 → a near tie with the forest.</p>
-      <p><b>kNN:</b> 0.24 &gt; 0.215 → clearly worse, not a tie.</p>
-      <p>Of the two near ties (forest and tree), choose the <b>simpler</b> one: the <b>decision tree</b>.</p>
-      <p><b>Answer:</b> Cutoff 0.215. The tree ties the forest, so choose the tree.</p>`},
-  {q:"<b>Practice 8 — Find the leaks.</b> A kNN pipeline: (1) standardize hp and mpg with all 392 cars; (2) split into 314 train and 78 test; (3) try every odd k from 1 to 41 and keep the k with the best test score; (4) report that test score. Which steps leak, why the score is too high, and a corrected order.",
-   a:`<p><b>Step 1 leaks:</b> the 78 test cars helped set the mean and standard deviation, so test information entered fitting.</p>
-      <p><b>Step 3 leaks:</b> k was chosen by the test score, so the test set became a validation set — the reported score is the best of 21 tries on the same 78 cars, hence optimistic.</p>
-      <p><b>Corrected order:</b> split first; choose k by 5-fold CV on the 314 training cars, re-standardizing inside each fold; refit the chosen k on all 314; score the 78 test cars <b>once</b>.</p>
-      <p><b>Answer:</b> Steps 1 and 3 leak. Split first, scale and choose k inside the training cars, then test once.</p>`}
-],
-eval2:[
-  {q:"<b>Practice 1 — Read a confusion matrix.</b> A spam filter on 100 emails (spam = positive): TP = 3, FN = 7, FP = 2, TN = 88. Find how many emails were spam and how many were flagged, the accuracy, and the accuracy of always saying 'not spam'.",
-   a:`<p><b>Spam</b> = actual positives = TP + FN = 3 + 7 = <b>10</b>.</p>
-      <p><b>Flagged</b> = predicted positives = TP + FP = 3 + 2 = <b>5</b>.</p>
-      <p><b>Accuracy</b> = (TP + TN)/100 = (3 + 88)/100 = <b>0.91</b>.</p>
-      <p><b>Always 'not spam':</b> TN = 90, FN = 10 → 90/100 = <b>0.90</b>.</p>
-      <p>The filter beats the baseline by one email yet still misses 7 of the 10 spam emails.</p>
-      <p><b>Answer:</b> 10 spam, 5 flagged. Accuracy 0.91 vs a baseline of 0.90.</p>`},
-  {q:"<b>Practice 2 — Precision, recall, F1.</b> The same filter: TP = 3, FN = 7, FP = 2, TN = 88. Find the precision and recall, the F1 score, and which of the two is lower.",
-   a:`<p><b>Precision</b> = TP/(TP+FP) = 3/5 = <b>0.6</b>.</p>
-      <p><b>Recall</b> = TP/(TP+FN) = 3/10 = <b>0.3</b>.</p>
-      <p><b>F1</b> = 2PR/(P+R) = 2(0.6)(0.3)/(0.6+0.3) = 0.36/0.9 = <b>0.4</b>.</p>
-      <p><b>Recall is the lower one</b> — the filter misses 7 of the 10 spam emails.</p>
-      <p><b>Answer:</b> Precision 0.6, recall 0.3, F1 0.4, lowered by recall.</p>`},
-  {q:"<b>Practice 3 — Accuracy and F1 disagree.</b> Filter A: TP = 3, FN = 7, FP = 2, TN = 88 (accuracy 0.91, F1 0.4). Filter B: TP = 6, FN = 4, FP = 9, TN = 81. Missing spam costs 3; flagging a real email costs 1. Find B's accuracy and F1, which filter each metric prefers, and which has the lower total cost.",
-   a:`<p><b>B accuracy</b> = (6 + 81)/100 = <b>0.87</b>. <b>B precision</b> = 6/15 = 0.4; <b>B recall</b> = 6/10 = 0.6; <b>B F1</b> = 2(0.4)(0.6)/(1.0) = <b>0.48</b>.</p>
-      <p><b>Accuracy prefers A</b> (0.91 &gt; 0.87). <b>F1 prefers B</b> (0.48 &gt; 0.40).</p>
-      <p><b>Cost:</b> A = 3(7) + 1(2) = <b>23</b>. B = 3(4) + 1(9) = <b>21</b>. B costs less.</p>
-      <p><b>Answer:</b> B accuracy 0.87, F1 0.48. Accuracy prefers A, F1 prefers B. B costs less, 21 vs 23.</p>`},
-  {q:"<b>Practice 4 — One threshold by hand.</b> Ten cars scored high to low: 0.95, 0.85, 0.75, 0.65, 0.55, 0.45, 0.35, 0.25, 0.15, 0.05, with labels E, E, N, E, E, N, N, E, N, N (E = positive). At threshold 0.5 (flag every car ≥ 0.5), find the four counts and the precision and recall.",
-   a:`<p>Threshold 0.5 flags the top five (scores 0.95–0.55): labels E, E, N, E, E.</p>
-      <p>Flagged: 4 E + 1 N → <b>TP = 4, FP = 1</b>.</p>
-      <p>Not flagged (bottom five): N, N, E, N, N → 1 E + 4 N → <b>FN = 1, TN = 4</b>.</p>
-      <p><b>Precision</b> = 4/5 = <b>0.8</b>. <b>Recall</b> = 4/(4+1) = <b>0.8</b>.</p>
-      <p><b>Answer:</b> TP 4, FP 1, FN 1, TN 4. Precision 0.8, recall 0.8.</p>`},
-  {q:"<b>Practice 5 — Points on an ROC curve.</b> The same ten cars, high score first: E, E, N, E, E, N, N, E, N, N (5 E, 5 N). Find the ROC point (FPR, TPR) when the threshold flags the top three cars, when it flags the top seven, and which finds more positives and how many more negatives it flags.",
-   a:`<p><b>Top three</b> (E, E, N): TP = 2, FP = 1 → TPR = 2/5 = 0.4, FPR = 1/5 = 0.2 → point <b>(0.2, 0.4)</b>.</p>
-      <p><b>Top seven</b> (E, E, N, E, E, N, N): TP = 4, FP = 3 → TPR = 4/5 = 0.8, FPR = 3/5 = 0.6 → point <b>(0.6, 0.8)</b>.</p>
-      <p>The second point finds <b>2 more</b> European cars (TPR 0.4 → 0.8) and flags <b>2 more</b> others (FPR 0.2 → 0.6).</p>
-      <p><b>Answer:</b> (0.2, 0.4) and (0.6, 0.8). The second finds 2 more E for 2 more N.</p>`},
-  {q:"<b>Check 1 — A rare disease.</b> A test for a disease that 5 of 100 patients have says 'healthy' for everyone (having the disease = positive). Find the accuracy, recall and precision, and the F1 score.",
-   a:`<p>Saying healthy for all: TP = 0, FP = 0, FN = 5 (the sick), TN = 95.</p>
-      <p><b>Accuracy</b> = (0 + 95)/100 = <b>0.95</b>.</p>
-      <p><b>Recall</b> = 0/(0+5) = <b>0</b> — it finds no sick patient.</p>
-      <p><b>Precision</b> = 0/(0+0) = <b>undefined</b> (nothing was flagged).</p>
-      <p><b>F1</b> (counts form) = 2·0 / (2·0 + 0 + 5) = <b>0</b>.</p>
-      <p><b>Answer:</b> Accuracy 0.95, recall 0, precision undefined, F1 0 — accuracy hides a useless test.</p>`},
-  {q:"<b>Check 3 — Tracing an ROC point.</b> A model scores 4 positives and 6 negatives. At some threshold it flags 3 of the positives and 2 of the negatives. Find the TPR and FPR at that threshold, and the precision.",
-   a:`<p><b>TPR</b> = flagged positives / all positives = 3/4 = <b>0.75</b>.</p>
-      <p><b>FPR</b> = flagged negatives / all negatives = 2/6 = <b>0.333</b>.</p>
-      <p><b>Precision</b> = TP/(TP+FP) = 3/(3+2) = <b>0.6</b>.</p>
-      <p><b>Answer:</b> TPR 0.75, FPR 0.333, precision 0.6.</p>`}
-]
-};
+const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Numeric Entry", match:"Matching", sa:"Short Answer"};
+const SCORED = {mc:1, ms:1, num:1, match:1, sa:0};
 
-/* =========================================================
-   COMPUTE-AND-SELECT MCQs (previous-quiz style, graded)
-   ========================================================= */
-const QBC = {
-perceptron:[
-  {q:"The line is <code>z = x₁ + x₂ − 6</code>. For the point P1 = (4, 4), what are the score z and its distance to the line (‖w‖ = √2)?",
-   o:["z = 2, distance 1.414","z = 2, distance 2.828","z = 8, distance 5.657","z = −2, distance 1.414"],
-   a:0, e:"z = 4 + 4 − 6 = 2 (positive side); distance = |z|/‖w‖ = 2/√2 = 1.414."},
-  {q:"A perceptron with η = 1 has w = (1, 4), b = −1. Point P7 = (3, 0) with y = −1 is a mistake. After the update, w and b are:",
-   o:["w = (−2, 4), b = −2","w = (4, 4), b = 0","w = (−2, 4), b = 0","w = (1, 4), b = −2"],
-   a:0, e:"y = −1 mistake: w ← w − x = (1,4) − (3,0) = (−2,4); b ← b − 1 = −2 (its score then drops to −8)."},
-  {q:"A separating line gives point scores 2, 4, 5, 6, −5, −4, −3, −2, with ‖w‖ = √2. What is its margin?",
-   o:["1.414","0.707","2.828","4.243"],
-   a:0, e:"Margin = smallest |z|/‖w‖ = 2/√2 = 1.414 (the closest points have |z| = 2)."}
-],
-svm:[
-  {q:"A hard-margin SVM returns w = (0.2, 0.6). What is the margin, 1/‖w‖?",
-   o:["1.581","0.632","2.500","0.400"],
-   a:0, e:"‖w‖ = √(0.2² + 0.6²) = √0.40 = 0.632; margin = 1/0.632 = 1.581."},
-  {q:"A point has y·z = 0.3 under a soft-margin SVM. What is its slack, max(0, 1 − y·z)?",
-   o:["0.7","0.3","1.3","0.0"],
-   a:0, e:"Slack = max(0, 1 − 0.3) = 0.7 — between 0 and 1, so inside the street but still correct."},
-  {q:"With x = (2, 1) and u = (1, 3), compute the kernel K(x, u) = (x·u)².",
-   o:["25","5","13","10"],
-   a:0, e:"x·u = 2·1 + 1·3 = 5, so K = 5² = 25 — no feature map needed."}
-],
-knn:[
-  {q:"A tree node holds 8 USA and 2 other cars. Compute its Gini impurity, 1 − Σ pₖ².",
-   o:["0.32","0.20","0.16","0.50"],
-   a:0, e:"Gini = 1 − 0.8² − 0.2² = 1 − 0.64 − 0.04 = 0.32."},
-  {q:"A split has parent Gini 0.50; each child has Gini 0.48 and holds half the cars. The gain is:",
-   o:["0.02","0.48","0.98","0.50"],
-   a:0, e:"Weighted child impurity = ½(0.48) + ½(0.48) = 0.48; gain = 0.50 − 0.48 = 0.02."},
-  {q:"A new point's seven nearest labels, nearest first: USA, not, not, USA, USA, not, not. The k = 5 vote predicts:",
-   o:["USA","not USA","a tie","cannot tell"],
-   a:0, e:"The five nearest are USA, not, not, USA, USA → 3 USA vs 2, so the prediction is USA."}
-],
-ensembles:[
-  {q:"25 independent models each predict with variance σ² = 4 (ρ = 0). The variance of their average is:",
-   o:["0.16","2.00","4.00","0.08"],
-   a:0, e:"Independent averaging: variance = σ²/M = 4/25 = 0.16."},
-  {q:"A random forest has 100 trees, each leaving ~37% of cars out of bag. About how many trees never saw a given car?",
-   o:["about 37","about 63","about 13","about 100"],
-   a:0, e:"~37% of 100 trees ≈ 37 never trained on the car — those are its out-of-bag voters."},
-  {q:"AdaBoost: 8 points each weight 0.125, and a stump gets 2 of them wrong. The weighted error ε is:",
-   o:["0.25","0.125","0.50","0.20"],
-   a:0, e:"ε = sum of the misclassified weights = 2 × 0.125 = 0.25."}
-],
-eval1:[
-  {q:"A model has bias² = 0.006, variance = 0.026, and noise σ² = 0.09. Its expected squared error is:",
-   o:["0.122","0.032","0.090","0.116"],
-   a:0, e:"Expected error = bias² + variance + noise = 0.006 + 0.026 + 0.09 = 0.122."},
-  {q:"Five fold errors are 0.15, 0.20, 0.25, 0.20, 0.15. The 5-fold CV estimate is:",
-   o:["0.19","0.20","0.25","0.17"],
-   a:0, e:"CV estimate = mean = (0.15 + 0.20 + 0.25 + 0.20 + 0.15)/5 = 0.95/5 = 0.19."},
-  {q:"The best model has CV error 0.20 with standard error 0.015. The one-SE cutoff for a near tie is:",
-   o:["0.215","0.185","0.200","0.230"],
-   a:0, e:"Cutoff = best CV error + 1 SE = 0.20 + 0.015 = 0.215; any model at or below it is a near tie."}
-],
-eval2:[
-  {q:"A spam filter has TP = 3, FP = 2, FN = 7, TN = 88. Compute its precision.",
-   o:["0.6","0.3","0.4","0.9"],
-   a:0, e:"Precision = TP/(TP + FP) = 3/(3 + 2) = 3/5 = 0.6."},
-  {q:"With TP = 3 and FN = 7, compute the recall.",
-   o:["0.3","0.6","0.7","0.43"],
-   a:0, e:"Recall = TP/(TP + FN) = 3/(3 + 7) = 3/10 = 0.3."},
-  {q:"With precision 0.6 and recall 0.3, compute the F1 score, 2PR/(P + R).",
-   o:["0.40","0.45","0.30","0.50"],
-   a:0, e:"F1 = 2(0.6)(0.3)/(0.6 + 0.3) = 0.36/0.9 = 0.40."},
-  {q:"A model scores 4 positives and 6 negatives; at one threshold it flags 3 positives and 2 negatives. The ROC point (FPR, TPR) is:",
-   o:["(0.33, 0.75)","(0.75, 0.33)","(0.50, 0.50)","(0.20, 0.60)"],
-   a:0, e:"TPR = 3/4 = 0.75; FPR = 2/6 = 0.333 → the point (0.33, 0.75)."}
-]
-};
-for(const k in QBC){ QB[k] = (QB[k] || []).concat(QBC[k]); }
-
-/* attach question banks */
-SECTIONS.forEach(s=>{ s.questions = QB[s.id] || []; });
-
-/* =========================================================
-   RENDER + LOGIC
-   ========================================================= */
-const store = (()=>{ try{ const t="__t"; localStorage.setItem(t,"1"); localStorage.removeItem(t); return localStorage;}catch(e){ return null; }})();
-const KEY="ml-guide-progress-v1";
-let state = {};
-try{ if(store){ state = JSON.parse(store.getItem(KEY)||"{}"); } }catch(e){ state={}; }
+const store=(()=>{try{const t="__t";localStorage.setItem(t,"1");localStorage.removeItem(t);return localStorage;}catch(e){return null;}})();
+const KEY="ml-mid-progress-v1";
+let state={}; try{ if(store) state=JSON.parse(store.getItem(KEY)||"{}"); }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("ml-mid-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("ml-mid-flags", JSON.stringify(flags)); }catch(e){} }
 
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function seededPerm(n, seed){
@@ -804,189 +585,242 @@ function seededPerm(n, seed){
   for(let i=n-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}
   return idx;
 }
+function qid(sec,i){ return sec+"-"+i; }
+function arrEq(a,b){ if(!a||!b||a.length!==b.length) return false; const x=[...a].sort(),y=[...b].sort(); return x.every((v,i)=>v===y[i]); }
 
-/* =========================================================
-   RENDER — exam (left) + study guide (right) + cram tools
-   ========================================================= */
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const examEl  = document.getElementById("exam");
-const gnav    = document.getElementById("gnav");
-const gbody   = document.getElementById("gbody");
-const gtitle  = document.getElementById("gtitle");
-let activePart = null, cramPinned = false, curFilter = "all", focusQ = null;
+/* correctness from stored answer */
+function isCorrect(q, ans){
+  if(ans===undefined || ans===null) return false;
+  if(q.t==="mc") return ans===q.a;
+  if(q.t==="ms"){ const sel=Array.isArray(ans)?ans:(ans&&ans.sel); return arrEq(sel, q.a); }
+  if(q.t==="num"){ const v=parseFloat(String(ans).replace(",",".")); return isFinite(v) && Math.abs(v-q.a)<=(q.tol||0.01); }
+  if(q.t==="match") return arrEq2(ans, q.a);
+  return false;
+}
+function arrEq2(a,b){ if(!a||!b||a.length!==b.length) return false; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false; return true; }
 
-let flags={}; try{ if(store) flags=JSON.parse(store.getItem("ml-exam-flags")||"{}"); }catch(e){ flags={}; }
-function saveFlags(){ try{ store && store.setItem("ml-exam-flags", JSON.stringify(flags)); }catch(e){} }
+const examEl=document.getElementById("exam"), gnav=document.getElementById("gnav"),
+      gbody=document.getElementById("gbody"), gtitle=document.getElementById("gtitle");
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let activePart=null, cramPinned=false, curFilter="all";
 
-/* ---- condensed reference (Cram Sheet) ---- */
-const CRAM_HTML = `<div class="cram">
-<h5>Perceptron &amp; Margin (L06)</h5>
+/* ---- Cram sheet ---- */
+const CRAM_HTML=`<div class="cram">
+<h5>Math Foundations (L01–02)</h5>
 <ul>
-<li>Score <code>z = w·x + b</code>; correct ⟺ <b>y·z &gt; 0</b>; <code>z = 0</code> is a mistake.</li>
-<li>Distance <code>= |z| / ‖w‖</code>; signed <code>r = z/‖w‖</code>. Doubling w,b moves no line.</li>
-<li>Mistake update: <code>w ← w + η y x</code>, <code>b ← b + η y</code>. Correct point: no change.</li>
-<li>Converges (finite steps) <b>⟺ linearly separable</b>; else never stops.</li>
-<li>Margin = distance to the <b>closest</b> point; prefer the largest margin.</li>
+<li><code>‖x‖₂=√(Σxᵢ²)</code>, <code>‖x‖₁=Σ|xᵢ|</code>; <code>a·b=‖a‖‖b‖cosθ</code>; orthogonal ⟺ dot = 0.</li>
+<li><code>Av=λv</code>; symmetric → <b>real eigenvalues, orthonormal eigenvectors</b>. <code>XᵀX</code> invertible ⟺ columns independent.</li>
+<li>Bayes: <code>P(A|B)=P(B|A)P(A)/P(B)</code>, <code>P(B)=P(B|A)P(A)+P(B|¬A)P(¬A)</code>.</li>
+<li>MLE: maximize log-likelihood. Gaussian→squared error; Bernoulli→cross-entropy.</li>
+<li><code>H(p)=−Σp log₂p</code> (fair coin 1 bit); <b>KL = H(p,q)−H(p) ≥ 0</b>, =0 iff q=p, asymmetric.</li>
 </ul>
-<h5>SVM &amp; Kernels (L07)</h5>
+<h5>Linear Regression (L03–04)</h5>
 <ul>
-<li>Max margin = <b>min ½‖w‖²</b> s.t. <code>y·z ≥ 1</code>; margin <code>= 1/‖w‖</code>.</li>
-<li>Support vectors: points with <code>y·z = 1</code> — they alone set the line.</li>
-<li>Slack <code>ξ = max(0, 1 − y·z)</code>: 0 safe · 0–1 in street · 1 on line · &gt;1 wrong.</li>
-<li>Large <b>C</b> → narrow margin; small C → wide. C→∞ = hard margin.</li>
-<li>Hinge loss <code>max(0, 1 − y·z)</code>; SVM gives <b>no probabilities</b>.</li>
-<li>Kernel <code>K(x,u) = φ(x)·φ(u)</code>, e.g. <code>(x·u)²</code>. Large RBF <b>γ → overfit</b>.</li>
+<li>SSE <code>=Σ(y−ŷ)²</code>; normal eqns <code>w=(XᵀX)⁻¹Xᵀy</code>; residual <code>=y−ŷ</code>. Gaussian noise → LS = MLE.</li>
+<li>Polynomial degree ↑ = flexibility ↑; test error U-shaped (overfit at high degree).</li>
+<li><b>Ridge</b> <code>λΣwⱼ²</code> shrinks toward 0; <b>lasso</b> <code>λΣ|wⱼ|</code> → exactly 0 (feature selection). Intercept excluded.</li>
+<li>GD: <code>w←w−η∇L</code>; large η diverges; standardize → round bowl → faster.</li>
 </ul>
-<h5>kNN &amp; Trees (L08)</h5>
+<h5>Classification (L05–08)</h5>
 <ul>
-<li>kNN: majority vote of <b>k nearest</b> (standardize first); stores data, no fit; odd k.</li>
-<li>Small k <b>overfits</b> (1-NN memorizes); large k <b>underfits</b>. Curse of dim: distances converge.</li>
-<li><code>Gini = 1 − Σ pₖ²</code>; <code>Entropy = −Σ pₖ log₂ pₖ</code>; pure = 0, max at p = 0.5.</li>
-<li><b>Gain</b> = parent − Σ(child share)(child impurity); greedy largest-gain split.</li>
-<li>Deep tree overfits; trees need <b>no standardization</b>; trees are unstable.</li>
+<li>Logistic: <code>σ(z)=1/(1+e⁻ᶻ)∈(0,1)</code>; loss cross-entropy; grad <code>(p−y)x</code>.</li>
+<li>Perceptron: update on mistake <code>w←w+ηyx</code>; stops ⟺ separable.</li>
+<li>SVM: margin <code>=1/‖w‖</code>; support vectors at <code>yz=1</code>; slack ξ, cost C; hinge <code>max(0,1−yz)</code>; kernel <code>K=φ(x)·φ(u)</code>.</li>
+<li>kNN: vote of k nearest (standardize); tree: <b>Gini</b> <code>1−Σpₖ²</code>, split by largest <b>gain</b>.</li>
 </ul>
 <h5>Ensembles (L09)</h5>
 <ul>
-<li>Var of avg: indep <code>σ²/M</code>; correlated <code>ρσ² + (1−ρ)σ²/M</code> → floor <b>ρσ²</b>.</li>
-<li>Bootstrap: N draws with replacement → <b>~63% in, ~37% out-of-bag</b>.</li>
-<li>Bagging = deep trees voted → cuts <b>variance</b>. Forest: <code>m = √D</code> per split → lowers ρ.</li>
-<li>Boosting = small trees in sequence → cuts <b>bias</b>. AdaBoost <code>α = ½ ln((1−ε)/ε)</code>; misclassified → half the weight.</li>
-<li>Gradient boosting: fit <b>residuals</b>, add <code>ν·tree</code>. Too many stages overfit.</li>
+<li>Var of avg <code>=ρσ²+(1−ρ)σ²/M</code> → floor <b>ρσ²</b>. Bootstrap: ~<b>37% out-of-bag</b>.</li>
+<li>Bagging = deep trees voted. <b>Random forest</b> = bagging + <code>m=⌊√D⌋</code> features/split → lowers ρ.</li>
 </ul>
-<h5>Bias–Variance &amp; CV (L10)</h5>
+<h5>Model Evaluation (L10–11)</h5>
 <ul>
-<li><code>E[err] = bias² + variance + noise σ²</code>; more flexible → ↓bias, ↑variance.</li>
-<li>Underfit: both high. Overfit: train low, held-out high (big gap = variance).</li>
-<li>k-fold: each example held out once; <b>CV = mean of K fold errors</b>; LOOCV K = N.</li>
-<li>Recipe: CV on train → pick (one-SE: simpler within 1 SE) → refit on all train → <b>test once</b>.</li>
-<li>Leakage: fitting/choosing with test info; do every fitted step <b>inside each fold</b>.</li>
+<li><code>E[err]=bias²+variance+noise</code>; flexible → ↓bias ↑variance; held-out U-curve.</li>
+<li><b>k-fold CV</b> → pick on training → refit → <b>test once</b>. Leakage: scale/choose inside each fold.</li>
+<li><code>Precision=TP/(TP+FP)</code>, <code>Recall=TP/(TP+FN)</code>, <code>F1=2PR/(P+R)</code>.</li>
+<li>ROC: TPR vs FPR; <b>AUC=P(rand + &gt; rand −)</b> (0.5 random, 1 perfect). Rare class: threshold move / class weights / resample.</li>
 </ul>
-<h5>Metrics &amp; ROC (L11)</h5>
+<h5>Clustering &amp; PCA (L12–13)</h5>
 <ul>
-<li>Confusion: TP/FP/FN/TN; accuracy <code>=(TP+TN)/all</code> misleads on a rare class.</li>
-<li><code>Precision = TP/(TP+FP)</code> · <code>Recall = TP/(TP+FN)</code> · <code>F1 = 2PR/(P+R)</code>.</li>
-<li>Lower threshold → TP, FP <b>never fall</b> (recall never drops).</li>
-<li>ROC: <code>TPR = recall</code> vs <code>FPR = FP/(FP+TN)</code>; <b>AUC = P(rand pos &gt; rand neg)</b> (0.5 random, 1 perfect).</li>
-<li>Rare class: report precision/recall + PR curve; fixes: move threshold, class weights, resample (train only).</li>
+<li><b>k-means</b>: assign→nearest centroid, move→mean; J never rises; depends on start.</li>
+<li><b>DBSCAN</b>: core (≥minPts in eps), border, noise; finds #clusters itself.</li>
+<li><b>PCA</b>: PC1 = eigenvector of covariance with largest λ; variance = λ; standardize units first.</li>
+<li><i>Not on exam: hierarchical clustering, silhouette score.</i></li>
 </ul>
 </div>`;
 
-/* ---- build the exam ---- */
-let qnum = 0;
+/* ---- build exam ---- */
+let qnum=0;
 SECTIONS.forEach((sec,si)=>{
-  state[sec.id] = state[sec.id] || {};
-  const hue = `var(--t${si})`;
-
+  const hue=`var(--t${si})`;
   const ph=document.createElement("div");
   ph.className="part-head"; ph.id="part-"+sec.id; ph.style.setProperty("--hue",hue);
   ph.innerHTML=`<div class="part-kicker">${sec.tag}</div><h2>${sec.title}</h2><p>${sec.blurb}</p>`;
   examEl.appendChild(ph);
 
-  sec.questions.forEach((q,qi)=>{
+  (QUESTIONS[sec.id]||[]).forEach((q,i)=>{
     qnum++;
-    const perm=seededPerm(q.o.length, hashStr(sec.id+"#"+qi));
+    const id=qid(sec.id,i);
     const item=document.createElement("div");
-    item.className="qitem"; item.id=`q-${sec.id}-${qi}`; item.style.setProperty("--hue",hue);
-    const on=flags[sec.id+"#"+qi]?" on":"";
-    const opts=perm.map(oi=>`
-      <button class="opt" data-sec="${sec.id}" data-q="${qi}" data-o="${oi}">
-        <span class="radio" aria-hidden="true"></span><span class="ot">${q.o[oi]}</span><span class="tag">Correct answer</span>
-      </button>`).join("");
-    item.innerHTML=`
-      <div class="qbadge">${qnum}</div>
+    item.className="qitem"; item.id="q-"+id; item.dataset.sec=sec.id; item.dataset.scored=SCORED[q.t]; item.style.setProperty("--hue",hue);
+    const on=flags[id]?" on":"";
+    item.innerHTML=`<div class="qbadge">${qnum}</div>
       <div class="qbody">
-        <div class="qmeta"><span class="qpts" id="pts-${sec.id}-${qi}">1 point</span><span class="qtype">Multiple Choice</span><button class="star${on}" data-sec="${sec.id}" data-q="${qi}" type="button" title="Flag for review" aria-label="Flag for review">★</button></div>
+        <div class="qmeta"><span class="qpts" id="pts-${id}">${SCORED[q.t]?'1 point':'self-check'}</span><span class="qtype">${TYPE_LABEL[q.t]}</span><button class="star${on}" data-id="${id}" type="button" title="Flag for review" aria-label="Flag for review">★</button></div>
         <div class="qtext">${q.q}</div>
-        <div class="opts">${opts}</div>
-        <div class="explain" id="ex-${sec.id}-${qi}"></div>
+        <div class="qbodywrap" id="body-${id}"></div>
+        <div class="explain" id="ex-${id}"></div>
       </div>`;
     examEl.appendChild(item);
+    buildBody(sec.id, i, q, id);
   });
-
-  const fr=FR[sec.id]||[];
-  if(fr.length){
-    const div=document.createElement("div");
-    div.className="wp-divider wpdiv"; div.dataset.sec=sec.id; div.textContent=`Worked Problems · ${sec.short}`;
-    examEl.appendChild(div);
-    fr.forEach((f,fi)=>{
-      const w=document.createElement("div");
-      w.className="witem"; w.dataset.sec=sec.id; w.style.setProperty("--hue",hue);
-      w.innerHTML=`
-        <div class="wbadge">WP${fi+1}</div>
-        <div class="wbody">
-          <div class="qmeta"><span class="qtype wp">Worked Problem</span></div>
-          <div class="qtext">${f.q}</div>
-          <button class="reveal" type="button" aria-expanded="false">Show worked solution</button>
-          <div class="wans">${f.a}</div>
-        </div>`;
-      const btn=w.querySelector(".reveal");
-      btn.addEventListener("click",()=>{
-        const open=w.classList.toggle("open");
-        btn.setAttribute("aria-expanded",open?"true":"false");
-        btn.textContent=open?"Hide worked solution":"Show worked solution";
-      });
-      examEl.appendChild(w);
-    });
-  }
 });
 
-/* ---- answering + starring ---- */
+function buildBody(secId, i, q, id){
+  const wrap=document.getElementById("body-"+id);
+  if(q.t==="mc"||q.t==="ms"){
+    const perm=seededPerm(q.o.length, hashStr(id));
+    const cls=q.t==="mc"?"rad":"chk";
+    wrap.innerHTML=`<div class="opts">`+perm.map(oi=>`
+      <button class="opt ${cls}" data-id="${id}" data-o="${oi}" type="button">
+        <span class="mk">${q.t==="ms"?"✓":""}</span><span class="ot">${q.o[oi]}</span><span class="tag">Correct</span>
+      </button>`).join("")+`</div>`+(q.t==="ms"?`<button class="submit" data-id="${id}" type="button">Check answer</button>`:``);
+  } else if(q.t==="num"){
+    wrap.innerHTML=`<div class="numrow"><input class="numin" id="in-${id}" type="text" inputmode="decimal" autocomplete="off" placeholder="Enter a number" aria-label="Your numeric answer"><button class="submit" data-id="${id}" type="button">Check answer</button></div>`;
+  } else if(q.t==="match"){
+    const legend=`<div class="terms-legend">Terms: <b>${q.terms.join("</b> · <b>")}</b></div>`;
+    const optsHtml=`<option value="-1">— choose —</option>`+q.terms.map((t,ti)=>`<option value="${ti}">${t}</option>`).join("");
+    const rows=q.items.map((d,di)=>`<tr id="row-${id}-${di}"><td class="desc">${di+1}. ${d}</td><td class="pick"><select class="msel" id="sel-${id}-${di}" aria-label="Term for item ${di+1}">${optsHtml}</select></td></tr>`).join("");
+    wrap.innerHTML=legend+`<table class="match"><tbody>${rows}</tbody></table><button class="submit" data-id="${id}" type="button">Check answer</button>`;
+  } else if(q.t==="sa"){
+    wrap.innerHTML=`<button class="submit" data-id="${id}" type="button" style="background:transparent;color:var(--hue)">Show model answer</button><div class="sa-ans">${q.a}</div>`;
+  }
+  renderQ(secId, i, q, id);
+}
+
+function getQ(secId,i){ return QUESTIONS[secId][i]; }
+
+/* clicks: options, stars, submits, sa */
 examEl.addEventListener("click",(ev)=>{
   const star=ev.target.closest(".star");
-  if(star){
-    const key=star.dataset.sec+"#"+star.dataset.q;
-    if(flags[key]){ delete flags[key]; star.classList.remove("on"); }
-    else { flags[key]=1; star.classList.add("on"); }
-    saveFlags();
-    if(curFilter==="starred") applyFilter();
-    updateCount();
-    return;
-  }
-  const btn=ev.target.closest(".opt");
-  if(!btn) return;
-  const sec=btn.dataset.sec, qi=+btn.dataset.q, oi=+btn.dataset.o;
-  if(state[sec][qi]!==undefined) return;
-  state[sec][qi]=oi; save();
-  renderQuestion(sec,qi);
-  refreshOverall(); updateCount();
+  if(star){ const id=star.dataset.id; if(flags[id]){delete flags[id];star.classList.remove("on");}else{flags[id]=1;star.classList.add("on");} saveFlags(); if(curFilter==="starred") applyFilter(); updateCount(); return; }
+  const opt=ev.target.closest(".opt");
+  if(opt){ handleOpt(opt); return; }
+  const sub=ev.target.closest(".submit");
+  if(sub){ handleSubmit(sub.dataset.id); return; }
 });
 
-function renderQuestion(secId,qi){
-  const sec=SECTIONS.find(s=>s.id===secId);
-  const q=sec.questions[qi];
-  const chosen=state[secId][qi];
-  const item=document.getElementById(`q-${secId}-${qi}`);
-  item.querySelectorAll(".opt").forEach(b=>{
-    const oi=+b.dataset.o;
-    b.classList.remove("correct","chosen-wrong","dim");
-    b.disabled = chosen!==undefined;
-    if(chosen!==undefined){
-      if(oi===q.a) b.classList.add("correct");
-      else if(oi===chosen) b.classList.add("chosen-wrong");
-      else b.classList.add("dim");
-    }
-  });
-  const pts=document.getElementById(`pts-${secId}-${qi}`);
-  const ex=document.getElementById(`ex-${secId}-${qi}`);
-  if(chosen!==undefined){
-    const ok=chosen===q.a;
-    pts.textContent=(ok?"1":"0")+" / 1 point";
-    pts.className="qpts "+(ok?"ok":"no");
-    ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Incorrect'}</span>${q.e}`;
-    ex.classList.add("show");
-  } else {
-    pts.textContent="1 point"; pts.className="qpts";
-    ex.classList.remove("show"); ex.innerHTML="";
+function parseId(id){ const k=id.lastIndexOf("-"); return [id.slice(0,k), +id.slice(k+1)]; }
+
+function handleOpt(opt){
+  const id=opt.dataset.id, oi=+opt.dataset.o;
+  const [secId,i]=parseId(id); const q=getQ(secId,i);
+  if(q.t==="mc"){
+    if(state[id]!==undefined) return;
+    state[id]=oi; save(); renderQ(secId,i,q,id); refreshOverall(); updateCount();
+  } else if(q.t==="ms"){
+    if(state[id]!==undefined && state[id].locked) return;
+    const cur=new Set((state[id]&&state[id].sel)||[]);
+    if(cur.has(oi)) cur.delete(oi); else cur.add(oi);
+    state[id]={sel:[...cur], locked:false}; save();
+    opt.classList.toggle("sel", cur.has(oi));
   }
 }
+
+function handleSubmit(id){
+  const [secId,i]=parseId(id); const q=getQ(secId,i);
+  if(q.t==="ms"){
+    const sel=(state[id]&&state[id].sel)||[];
+    state[id]={sel, locked:true}; save(); renderQ(secId,i,q,id); refreshOverall(); updateCount();
+  } else if(q.t==="num"){
+    const v=document.getElementById("in-"+id).value.trim();
+    if(v==="") return;
+    state[id]=v; save(); renderQ(secId,i,q,id); refreshOverall(); updateCount();
+  } else if(q.t==="match"){
+    const sel=q.items.map((_,di)=>+document.getElementById(`sel-${id}-${di}`).value);
+    state[id]=sel; save(); renderQ(secId,i,q,id); refreshOverall(); updateCount();
+  } else if(q.t==="sa"){
+    const item=document.getElementById("q-"+id);
+    const open=item.classList.toggle("open");
+    const btn=item.querySelector(".submit");
+    btn.textContent=open?"Hide model answer":"Show model answer";
+    state[id]=open?"seen":undefined; if(!open) delete state[id]; save();
+    updateCount();
+  }
+}
+
+function srcLine(q){ return q.src?`<span class="src">Source: ${q.src}</span>`:""; }
+
+function renderQ(secId,i,q,id){
+  const ans=state[id];
+  const ex=document.getElementById("ex-"+id);
+  const pts=document.getElementById("pts-"+id);
+
+  if(q.t==="mc"){
+    const item=document.getElementById("q-"+id);
+    const chosen=ans;
+    item.querySelectorAll(".opt").forEach(b=>{
+      const oi=+b.dataset.o; b.classList.remove("correct","chosen-wrong","dim"); b.disabled=chosen!==undefined;
+      if(chosen!==undefined){ if(oi===q.a) b.classList.add("correct"); else if(oi===chosen) b.classList.add("chosen-wrong"); else b.classList.add("dim"); }
+    });
+    if(chosen!==undefined){ const ok=chosen===q.a; setFb(pts,ex,ok,q); } else resetFb(pts,ex,"1 point");
+  }
+  else if(q.t==="ms"){
+    const item=document.getElementById("q-"+id);
+    const sel=new Set((ans&&ans.sel)||[]); const locked=ans&&ans.locked;
+    item.querySelectorAll(".opt").forEach(b=>{
+      const oi=+b.dataset.o; b.classList.remove("correct","chosen-wrong","dim","miss","sel"); b.disabled=!!locked;
+      if(!locked){ if(sel.has(oi)) b.classList.add("sel"); }
+      else{
+        const isAns=q.a.includes(oi), isSel=sel.has(oi);
+        if(isAns && isSel) b.classList.add("correct");
+        else if(!isAns && isSel) b.classList.add("chosen-wrong");
+        else if(isAns && !isSel) b.classList.add("miss");
+        else b.classList.add("dim");
+      }
+    });
+    if(locked){ const ok=arrEq([...sel], q.a); setFb(pts,ex,ok,q); } else resetFb(pts,ex,"1 point · select all");
+  }
+  else if(q.t==="num"){
+    const inp=document.getElementById("in-"+id);
+    if(ans!==undefined){ inp.value=ans; inp.disabled=true; const ok=isCorrect(q,ans); inp.classList.toggle("okb",ok); inp.classList.toggle("nob",!ok);
+      const btn=document.querySelector(`.submit[data-id="${id}"]`); if(btn) btn.disabled=true;
+      setFb(pts,ex,ok,q, null, `Correct answer: <b>${q.a}</b>. `);
+    } else resetFb(pts,ex,"1 point");
+  }
+  else if(q.t==="match"){
+    if(ans!==undefined){
+      let allok=true;
+      q.items.forEach((_,di)=>{ const sel=document.getElementById(`sel-${id}-${di}`); const row=document.getElementById(`row-${id}-${di}`);
+        if(sel){ sel.value=ans[di]; sel.disabled=true; }
+        const ok=ans[di]===q.a[di]; if(!ok) allok=false;
+        if(row){ row.classList.remove("rc","rw"); row.classList.add(ok?"rc":"rw"); }
+      });
+      const btn=document.querySelector(`.submit[data-id="${id}"]`); if(btn) btn.disabled=true;
+      setFb(pts,ex,allok,q);
+    } else resetFb(pts,ex,"1 point");
+  }
+  else if(q.t==="sa"){
+    pts.textContent="self-check"; pts.className="qpts";
+  }
+}
+
+function setFb(pts,ex,ok,q,label,prefix){
+  if(pts){ pts.textContent=(ok?"1":"0")+" / 1 point"; pts.className="qpts "+(ok?"ok":"no"); }
+  ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Incorrect'}</span>${prefix||""}${q.e}${srcLine(q)}`;
+  ex.classList.add("show");
+}
+function resetFb(pts,ex,label){ if(pts){pts.textContent=label;pts.className="qpts";} ex.classList.remove("show"); ex.innerHTML=""; }
 
 /* ---- scoring ---- */
 function stats(){
   let total=0, answered=0, correct=0;
-  SECTIONS.forEach(sec=>sec.questions.forEach((q,qi)=>{
+  SECTIONS.forEach(sec=>(QUESTIONS[sec.id]||[]).forEach((q,i)=>{
+    if(!SCORED[q.t]) return;
     total++;
-    const v=state[sec.id] && state[sec.id][qi];
-    if(v!==undefined){ answered++; if(v===q.a) correct++; }
+    const ans=state[qid(sec.id,i)];
+    const done = q.t==="ms" ? (ans&&ans.locked) : (ans!==undefined);
+    if(done){ answered++; if(isCorrect(q,ans)) correct++; }
   }));
   return {total, answered, correct};
 }
@@ -995,62 +829,63 @@ function refreshOverall(){
   document.getElementById("overallBar").style.width=(s.total?Math.round(100*s.answered/s.total):0)+"%";
   document.getElementById("overallPct").textContent=(s.answered?Math.round(100*s.correct/s.answered):0)+"%";
   document.getElementById("overallCount").textContent=`${s.correct} / ${s.answered}`;
-  document.getElementById("overallPts").textContent=`${s.correct} / ${s.total}`;
+  document.getElementById("overallPts").textContent=`${s.answered} / ${s.total}`;
 }
 
-/* ---- filtering (cram drill) ---- */
+/* ---- filtering ---- */
+function qDone(q,ans){ if(ans===undefined) return false; if(q.t==="ms") return !!ans.locked; return true; }
 function applyFilter(mode){
   if(mode) curFilter=mode;
   document.querySelectorAll(".fbtn").forEach(b=>b.classList.toggle("active",b.dataset.f===curFilter));
   let visible=0;
   SECTIONS.forEach(sec=>{
     let any=false;
-    sec.questions.forEach((q,qi)=>{
-      const el=document.getElementById(`q-${sec.id}-${qi}`);
-      const ans=state[sec.id][qi];
+    (QUESTIONS[sec.id]||[]).forEach((q,i)=>{
+      const id=qid(sec.id,i); const el=document.getElementById("q-"+id); const ans=state[id];
       let show;
       if(curFilter==="all") show=true;
-      else if(curFilter==="unanswered") show=ans===undefined;
-      else if(curFilter==="incorrect") show=ans!==undefined && ans!==q.a;
-      else show=!!flags[sec.id+"#"+qi];
+      else if(curFilter==="unanswered") show=!qDone(q,ans);
+      else if(curFilter==="incorrect") show=SCORED[q.t] && qDone(q,ans) && !isCorrect(q,ans);
+      else show=!!flags[id];
       el.classList.toggle("hide",!show);
-      if(show){ visible++; any=true; }
+      if(show){visible++;any=true;}
     });
-    const showW = curFilter==="all";
-    examEl.querySelectorAll(`.witem[data-sec="${sec.id}"],.wpdiv[data-sec="${sec.id}"]`).forEach(w=>w.classList.toggle("hide",!showW));
-    document.getElementById("part-"+sec.id).classList.toggle("hide", !any && !showW);
+    document.getElementById("part-"+sec.id).classList.toggle("hide",!any);
   });
   const es=document.getElementById("emptyState");
-  if(visible===0 && curFilter!=="all"){
-    es.hidden=false;
+  if(visible===0 && curFilter!=="all"){ es.hidden=false;
     es.textContent = curFilter==="incorrect" ? "No incorrect answers here — switch to All to keep practicing."
       : curFilter==="unanswered" ? "Everything is answered. Switch to All, or ★ Review your flagged ones."
-      : "Nothing flagged yet — tap the ★ on any question to add it to your review list.";
+      : "Nothing flagged yet — tap the ★ on a question to add it to your review list.";
   } else es.hidden=true;
   updateCount(visible);
 }
 function updateCount(vis){
   if(vis===undefined) vis=document.querySelectorAll(".qitem:not(.hide)").length;
   const s=stats();
-  document.getElementById("fcount").textContent=`${vis} shown · ${s.answered}/${s.total} done · ${s.correct} right`;
+  document.getElementById("fcount").textContent=`${vis} shown · ${s.answered}/${s.total} graded · ${s.correct} right`;
 }
 document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{ applyFilter(b.dataset.f); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }));
 document.getElementById("jumpNext").addEventListener("click",()=>{
   const items=[...document.querySelectorAll(".qitem:not(.hide)")];
-  const t=items.find(el=>!el.querySelector(".opt.correct"));
+  const t=items.find(el=>{ const [secId,i]=parseId(el.id.slice(2)); return !qDone(getQ(secId,i), state[el.id.slice(2)]); });
   if(t) t.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"center"});
-  else { const fc=document.getElementById("fcount"); fc.textContent="All shown questions answered ✓"; }
+  else document.getElementById("fcount").textContent="All shown questions answered ✓";
 });
-
 document.getElementById("resetBtn").addEventListener("click",()=>{
-  SECTIONS.forEach(sec=>{ state[sec.id]={}; });
-  save();
-  SECTIONS.forEach(sec=>sec.questions.forEach((q,qi)=>renderQuestion(sec.id,qi)));
-  refreshOverall(); applyFilter("all");
-  window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+  state={}; save();
+  SECTIONS.forEach(sec=>(QUESTIONS[sec.id]||[]).forEach((q,i)=>{ const id=qid(sec.id,i);
+    const item=document.getElementById("q-"+id); item.classList.remove("open");
+    const inp=document.getElementById("in-"+id); if(inp){inp.disabled=false;inp.value="";inp.classList.remove("okb","nob");}
+    const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show model answer";}
+    if(q.t==="match") q.items.forEach((_,di)=>{ const s2=document.getElementById(`sel-${id}-${di}`); if(s2){s2.disabled=false;s2.value="-1";} const r=document.getElementById(`row-${id}-${di}`); if(r)r.classList.remove("rc","rw"); });
+    buildBodyReset(sec.id,i,q,id);
+  }));
+  refreshOverall(); applyFilter("all"); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
 });
+function buildBodyReset(secId,i,q,id){ renderQ(secId,i,q,id); }
 
-/* ---- study guide (right) with Cram Sheet ---- */
+/* ---- study guide ---- */
 const cramChip=document.createElement("button");
 cramChip.className="gchip cramchip"; cramChip.id="gchip-cram"; cramChip.type="button";
 cramChip.innerHTML=`<span class="gdot"></span>⚡ Cram Sheet`;
@@ -1058,13 +893,11 @@ cramChip.addEventListener("click",()=>showCram());
 gnav.appendChild(cramChip);
 SECTIONS.forEach((sec,si)=>{
   const chip=document.createElement("button");
-  chip.className="gchip"; chip.id="gchip-"+sec.id; chip.type="button"; chip.setAttribute("role","tab");
-  chip.style.setProperty("--gh",`var(--t${si})`);
+  chip.className="gchip"; chip.id="gchip-"+sec.id; chip.type="button"; chip.style.setProperty("--gh",`var(--t${si})`);
   chip.innerHTML=`<span class="gdot"></span>${sec.short}`;
   chip.addEventListener("click",()=>setActivePart(sec.id,true));
   gnav.appendChild(chip);
 });
-
 function renderGuideBody(secId){
   const si=SECTIONS.findIndex(s=>s.id===secId);
   gbody.style.setProperty("--gh",`var(--t${si})`);
@@ -1078,106 +911,53 @@ function showCram(){
   document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
   cramChip.classList.add("active");
   gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
-  try{ store && store.setItem("ml-exam-part","cram"); }catch(e){}
+  try{ store && store.setItem("ml-mid-part","cram"); }catch(e){}
 }
 function setActivePart(secId, fromClick){
   if(fromClick) cramPinned=false;
   if(activePart===secId && !fromClick) return;
-  const changed=activePart!==secId;
-  activePart=secId;
+  const changed=activePart!==secId; activePart=secId;
   const si=SECTIONS.findIndex(s=>s.id===secId);
   gtitle.textContent=SECTIONS[si].title;
   document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
   const chip=document.getElementById("gchip-"+secId);
   if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
   if(changed) renderGuideBody(secId);
-  try{ store && store.setItem("ml-exam-part",secId); }catch(e){}
-  if(fromClick){
-    document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"});
-    if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false);
-  }
+  try{ store && store.setItem("ml-mid-part",secId); }catch(e){}
+  if(fromClick){ document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"}); if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false); }
 }
-
-/* ---- scroll-sync + keyboard focus target ---- */
 let ticking=false;
 function onScroll(){
   if(ticking) return; ticking=true;
-  requestAnimationFrame(()=>{
-    ticking=false;
-    if(!cramPinned){
-      let cur=SECTIONS[0].id;
-      for(const s of SECTIONS){
-        const el=document.getElementById("part-"+s.id);
-        if(el.classList.contains("hide")) continue;
-        if(el.getBoundingClientRect().top<=150) cur=s.id; else break;
-      }
-      if(cur!==activePart) setActivePart(cur,false);
-    }
-    const mid=window.innerHeight/2; let best=null,bd=1e9;
-    document.querySelectorAll(".qitem:not(.hide)").forEach(el=>{
-      const r=el.getBoundingClientRect(); const c=(r.top+r.bottom)/2; const d=Math.abs(c-mid);
-      if(d<bd){ bd=d; best=el; }
-    });
-    document.querySelectorAll(".qitem.kfocus").forEach(e=>{ if(e!==best) e.classList.remove("kfocus"); });
-    if(best){ best.classList.add("kfocus"); focusQ=best.id; }
+  requestAnimationFrame(()=>{ ticking=false;
+    if(cramPinned) return;
+    let cur=SECTIONS[0].id;
+    for(const s of SECTIONS){ const el=document.getElementById("part-"+s.id); if(el.classList.contains("hide")) continue; if(el.getBoundingClientRect().top<=150) cur=s.id; else break; }
+    if(cur!==activePart) setActivePart(cur,false);
   });
 }
 window.addEventListener("scroll",onScroll,{passive:true});
-window.addEventListener("resize",onScroll,{passive:true});
 
-/* ---- keyboard: 1–4 answer the question in view, F to flag ---- */
-document.addEventListener("keydown",(ev)=>{
-  if(ev.key==="Escape"){ setGuideOpen(false); return; }
-  if(ev.metaKey||ev.ctrlKey||ev.altKey) return;
-  const tag=(ev.target.tagName||"").toLowerCase();
-  if(tag==="input"||tag==="textarea") return;
-  if(!focusQ) return;
-  const el=document.getElementById(focusQ);
-  if(!el||el.classList.contains("hide")) return;
-  if(ev.key>="1"&&ev.key<="4"){
-    const opts=el.querySelectorAll(".opt");
-    const i=+ev.key-1;
-    if(opts[i] && !opts[i].disabled){ opts[i].click(); ev.preventDefault(); }
-  } else if(ev.key==="f"||ev.key==="F"){
-    const st=el.querySelector(".star"); if(st){ st.click(); ev.preventDefault(); }
-  }
-});
-
-/* ---- mobile drawer ---- */
-const guideToggle=document.getElementById("guideToggle");
-const guideClose=document.getElementById("guideClose");
-const scrim=document.getElementById("scrim");
+/* ---- mobile drawer + theme ---- */
+const guideToggle=document.getElementById("guideToggle"), guideClose=document.getElementById("guideClose"), scrim=document.getElementById("scrim");
 function setGuideOpen(open){ document.body.classList.toggle("guide-open",open); }
 guideToggle.addEventListener("click",()=>setGuideOpen(true));
 guideClose.addEventListener("click",()=>setGuideOpen(false));
 scrim.addEventListener("click",()=>setGuideOpen(false));
+document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
-/* ---- theme ---- */
-const root=document.documentElement, tb=document.getElementById("themeBtn"),
-      ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
-function applyTheme(t){
-  if(t==="system"){ root.removeAttribute("data-theme"); ti.textContent="◐"; tl.textContent="Auto"; }
-  else{ root.setAttribute("data-theme",t); ti.textContent=t==="dark"?"☾":"☀"; tl.textContent=t==="dark"?"Dark":"Light"; }
-  try{ store && store.setItem("ml-exam-theme",t); }catch(e){}
-}
-let curTheme="system";
-try{ if(store) curTheme=store.getItem("ml-exam-theme")||"system"; }catch(e){}
+const root=document.documentElement, tb=document.getElementById("themeBtn"), ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("ml-mid-theme",t);}catch(e){} }
+let curTheme="system"; try{ if(store) curTheme=store.getItem("ml-mid-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
-tb.addEventListener("click",()=>{
-  curTheme = curTheme==="system" ? "light" : curTheme==="light" ? "dark" : "system";
-  applyTheme(curTheme);
-});
+tb.addEventListener("click",()=>{ curTheme=curTheme==="system"?"light":curTheme==="light"?"dark":"system"; applyTheme(curTheme); });
 
 /* ---- init ---- */
-SECTIONS.forEach(sec=>sec.questions.forEach((q,qi)=>renderQuestion(sec.id,qi)));
 refreshOverall(); applyFilter("all");
-let initPart=null;
-try{ initPart=store&&store.getItem("ml-exam-part"); }catch(e){}
+let initPart=null; try{ initPart=store&&store.getItem("ml-mid-part"); }catch(e){}
 if(initPart==="cram"||!initPart) showCram();
 else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
 else showCram();
-onScroll();
 </script>
 </body>
 </html>
-
