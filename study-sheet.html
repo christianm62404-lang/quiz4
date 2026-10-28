@@ -3,263 +3,259 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Neural Networks Study Sheet — CAI 4105 (L15–L17)</title>
+<title>SQL Functions Study Sheet — COP 4710 (Quiz 2)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
-  --bg:#e9edf2;--surface:#ffffff;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
-  --accent:#2f6f9f;--accent-strong:#1f5480;
-  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--t6:#2f6f9f;--t7:#6b6f2f;
+  --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#30404f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
+  --accent:#2f6f9f;--accent-strong:#1f5480;--bad:#c23b3b;--ok:#1f8a4c;
+  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;
   --shadow:0 1px 2px rgba(24,34,48,.05),0 6px 18px rgba(24,34,48,.06);
 }
 @media (prefers-color-scheme: dark){
-  :root{--bg:#0e141b;--surface:#161e28;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
-  --accent:#6aa7d4;--accent-strong:#8cbfe4;--t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--t6:#6aa7d4;--t7:#b9bd6a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.35)}
+  :root{--bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;--accent:#6aa7d4;--accent-strong:#8cbfe4;--bad:#e88686;--ok:#5cc98a;--t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.35)}
 }
-:root[data-theme="light"]{--bg:#e9edf2;--surface:#ffffff;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;--accent:#2f6f9f;--accent-strong:#1f5480;--t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--t6:#2f6f9f;--t7:#6b6f2f}
-:root[data-theme="dark"]{--bg:#0e141b;--surface:#161e28;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;--accent:#6aa7d4;--accent-strong:#8cbfe4;--t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--t6:#6aa7d4;--t7:#b9bd6a}
+:root[data-theme="light"]{--bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#30404f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;--accent:#2f6f9f;--accent-strong:#1f5480;--bad:#c23b3b;--ok:#1f8a4c;--t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59}
+:root[data-theme="dark"]{--bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;--accent:#6aa7d4;--accent-strong:#8cbfe4;--bad:#e88686;--ok:#5cc98a;--t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1240px;margin:0 auto;padding:26px 22px 60px}
-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:6px}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
-h1{font-family:var(--serif);font-weight:600;font-size:clamp(23px,4vw,33px);letter-spacing:-.01em;margin:.2em 0 .1em}
-.sub{color:var(--muted);max-width:80ch;margin:0;font-size:14.5px}
-.tools{display:flex;gap:8px;flex:0 0 auto}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:13px;line-height:1.42;-webkit-font-smoothing:antialiased}
+.bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 18px}
+.bar .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.tools{display:flex;gap:8px}
 .btn{font-family:var(--mono);font-size:12px;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:7px 13px;cursor:pointer}
 .btn:hover{border-color:var(--accent);color:var(--accent-strong)}
-.grid{columns:340px 3;column-gap:18px;margin-top:20px}
-.card{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--hue);border-radius:11px;box-shadow:var(--shadow);padding:13px 15px 12px;margin:0 0 18px}
-.card.wide{break-inside:avoid}
-.card h2{font-family:var(--serif);font-size:16.5px;font-weight:600;margin:0 0 2px;color:var(--ink)}
-.card .lec{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--hue);font-weight:700}
-.card h3{font-size:12.5px;margin:11px 0 3px;color:var(--ink);font-weight:700}
-.card ul{margin:6px 0 0;padding-left:16px}
-.card ol{margin:6px 0 0;padding-left:18px}
-.card li{margin:4px 0;color:var(--ink-soft)}
+.pages{max-width:1180px;margin:0 auto;padding:16px}
+.page{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px;margin:0 auto 20px;max-width:1040px}
+.page-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:right;margin-bottom:2px}
+.head{border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.head h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0;letter-spacing:-.01em}
+.head .sc{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.cols{columns:2;column-gap:18px}
+.card{break-inside:avoid;border:1px solid var(--line);border-left:3px solid var(--hue);border-radius:8px;background:var(--surface);padding:8px 11px;margin:0 0 12px}
+.card h2{font-size:13px;font-weight:700;margin:0 0 2px;color:var(--ink)}
+.card .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--hue);font-weight:700}
+.card h3{font-size:11.5px;margin:8px 0 2px;color:var(--ink);font-weight:700}
+.card ul{margin:4px 0 0;padding-left:15px}
+.card li{margin:2.5px 0;color:var(--ink-soft)}
 .card li::marker{color:var(--hue)}
 .card b{color:var(--ink)}
-code{font-family:var(--mono);font-size:.86em;background:color-mix(in srgb,var(--hue) 10%,transparent);border:1px solid color-mix(in srgb,var(--hue) 22%,transparent);border-radius:4px;padding:0 4px;color:var(--ink)}
-.f{font-family:var(--mono);font-size:.92em;color:var(--ink);display:block;margin:3px 0 1px;line-height:1.5}
-table.t{border-collapse:collapse;margin:7px 0 2px;font-size:11.8px;width:100%}
-table.t th,table.t td{border:1px solid var(--line);padding:3px 6px;text-align:left;vertical-align:top}
-table.t th{background:color-mix(in srgb,var(--hue) 10%,transparent);font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:600}
+.bad{color:var(--bad);font-weight:700}
+.ok{color:var(--ok);font-weight:700}
+code{font-family:var(--mono);font-size:.86em;background:color-mix(in srgb,var(--hue) 10%,transparent);border:1px solid color-mix(in srgb,var(--hue) 22%,transparent);border-radius:4px;padding:0 3px;color:var(--ink)}
+pre{font-family:var(--mono);font-size:10.6px;line-height:1.42;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:7px 9px;margin:5px 0 2px;overflow-x:auto;white-space:pre;color:var(--ink);tab-size:2}
+table.t{border-collapse:collapse;margin:5px 0 2px;font-size:10.8px;width:100%}
+table.t th,table.t td{border:1px solid var(--line);padding:2.5px 5px;text-align:left;vertical-align:top}
+table.t th{background:color-mix(in srgb,var(--hue) 10%,transparent);font-family:var(--mono);font-size:9.5px;color:var(--muted);font-weight:600}
 table.t td{color:var(--ink-soft)}
-table.t code{font-size:.92em}
-.tag{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--hue);border:1px solid color-mix(in srgb,var(--hue) 30%,transparent);border-radius:5px;padding:1px 6px;margin:2px 3px 0 0}
-.note{font-size:11.5px;color:var(--muted);margin-top:6px;font-style:italic}
-footer{margin-top:14px;color:var(--faint);font-size:12px;font-family:var(--mono)}
+table.t code{font-size:.9em}
+.footnote{font-family:var(--mono);font-size:9.5px;color:var(--faint);margin-top:6px;text-align:center}
 @media print{
-  :root{--bg:#fff;--surface:#fff;--ink:#000;--ink-soft:#1a1a1a;--muted:#333;--line:#bbb;--line-strong:#999}
-  body{font-size:9.4pt}
-  .wrap{max-width:none;padding:0}
-  .tools{display:none}
-  .grid{columns:3;column-gap:11px}
-  .card{box-shadow:none;margin-bottom:9px;padding:7px 9px}
-  h1{font-size:17pt}
-  footer{display:none}
-  @page{margin:10mm}
+  :root{--bg:#fff;--surface:#fff;--surface-2:#f3f3f3;--ink:#000;--ink-soft:#1a1a1a;--muted:#333;--line:#b4b4b4;--line-strong:#999}
+  body{font-size:8.4pt;line-height:1.32}
+  .bar{display:none}
+  .pages{max-width:none;padding:0;margin:0}
+  .page{box-shadow:none;border:none;border-radius:0;margin:0;max-width:none;padding:0}
+  .page.front{break-after:page}
+  .cols{column-gap:10px}
+  .card{margin-bottom:7px;padding:5px 8px}
+  pre{font-size:7.4pt;padding:5px 7px}
+  table.t{font-size:7.4pt}
+  .head h1{font-size:15pt}
+  .page-tag{display:none}
+  @page{margin:9mm}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
-  <div>
-    <div class="eyebrow">CAI 4105 · Machine Learning I</div>
-    <h1>Neural Networks — Study Sheet</h1>
-    <p class="sub">A one-page reference for Lectures 15–17: the multilayer perceptron and the forward pass, backpropagation by the chain rule, and training faster with mini-batch SGD, momentum, and Adam. Formulas, tables, and the step-by-step recipes for the numeric problems.</p>
-  </div>
+<div class="bar">
+  <span class="lbl">COP 4710 · Quiz 2 · prints front &amp; back on one sheet</span>
   <div class="tools">
     <button class="btn" id="themeBtn" type="button">◐ Theme</button>
     <button class="btn" id="printBtn" type="button">⎙ Print / PDF</button>
   </div>
-</header>
-
-<div class="grid">
-
-  <section class="card" style="--hue:var(--t0)">
-    <div class="lec">Lecture 15 · Part A, C</div>
-    <h2>The MLP Architecture</h2>
-    <ul>
-      <li><b>Neuron</b> = one logistic unit: pre-activation <code class="f">z = w·x + b</code>, then an activation function. (b is the <b>bias</b>.)</li>
-      <li><b>Layer</b>: <code class="f">z = W x + b</code>, where <b>W has one row per unit, one column per input</b>. Unit j = (row j of W)·x + b_j.</li>
-      <li><b>Hidden layer</b> learns features <code>h = g(W₁x + b₁)</code>; the output unit scores h. Features are "hidden" because the data never show their values; training fits <b>all</b> weights together.</li>
-      <li><b>Batch:</b> stack N examples as rows of X; one matrix product computes all units for all examples (bias added by <b>broadcasting</b>).</li>
-      <li><b>Depth</b> = layers with weights; <b>width</b> = units per layer; <b>dense / fully connected</b> = every unit to every next unit.</li>
-    </ul>
-    <h3>Counting parameters</h3>
-    <div class="f">per layer = n_in · n_out + n_out</div>
-    <div class="note">784→100→10: (784·100+100) + (100·10+10) = <b>79,510</b>. Most params in the first layer.</div>
-    <h3>Universal approximation</h3>
-    <ul>
-      <li>One wide-enough hidden layer can approximate <b>any continuous function</b> on a bounded region.</li>
-      <li>Does <b>not</b> say how many units, that training finds them, or that it generalizes — so choose size by <b>held-out accuracy</b>.</li>
-    </ul>
-  </section>
-
-  <section class="card" style="--hue:var(--t1)">
-    <div class="lec">Lecture 15 · Part B</div>
-    <h2>Activations</h2>
-    <ul><li><b>Why nonlinear?</b> Without an activation, stacked linear layers <b>collapse to one</b> linear layer — same straight boundaries as logistic regression. A nonlinearity between layers stops the collapse.</li></ul>
-    <table class="t">
-      <tr><th>Activation</th><th>Range</th><th>Max slope</th><th>Use</th></tr>
-      <tr><td>Sigmoid</td><td>0 to 1</td><td>0.25 (z=0)</td><td>2-class output</td></tr>
-      <tr><td>Tanh</td><td>−1 to 1</td><td>1</td><td>older hidden</td></tr>
-      <tr><td>ReLU <code>max(0,z)</code></td><td>0 and up</td><td>0 or 1</td><td>hidden (default)</td></tr>
-    </table>
-    <ul>
-      <li><b>ReLU:</b> slope 1 where on, 0 where off; a unit with z&lt;0 outputs 0 (is "off"). Cheap, and keeps slope 1.</li>
-      <li><b>Saturation:</b> far from 0 sigmoid/tanh flatten (slope→0), so little gradient flows — a cause of slow learning.</li>
-    </ul>
-    <h3>Which activation where</h3>
-    <span class="tag">hidden → ReLU</span><span class="tag">2-class → sigmoid</span><span class="tag">K-class → softmax</span><span class="tag">regression → identity</span>
-  </section>
-
-  <section class="card" style="--hue:var(--t2)">
-    <div class="lec">Lecture 15 · Part D</div>
-    <h2>Outputs &amp; Losses</h2>
-    <table class="t">
-      <tr><th>Task</th><th>Output unit</th><th>Loss</th></tr>
-      <tr><td>Regression</td><td>identity</td><td>squared error</td></tr>
-      <tr><td>Two classes</td><td>sigmoid</td><td>binary cross-entropy</td></tr>
-      <tr><td>K classes</td><td>softmax</td><td>cross-entropy</td></tr>
-    </table>
-    <ul>
-      <li>Each loss is the <b>negative log-likelihood</b>, so a <b>confident wrong answer costs the most</b>.</li>
-    </ul>
-    <h3>Softmax &amp; cross-entropy</h3>
-    <div class="f">p_k = e^(z_k) / Σⱼ e^(z_j)</div>
-    <div class="f">loss = − ln( p of the true class )</div>
-    <ul>
-      <li>Only the true class's probability enters the loss; others count only in the denominator.</li>
-      <li>Loss → 0 for a confident right answer, → ∞ as the true-class probability → 0.</li>
-    </ul>
-    <div class="note">z=(1,−1,2), class 3: p₃ = 7.389/10.475 = 0.705 → loss = −ln 0.705 = 0.350.</div>
-  </section>
-
-  <section class="card" style="--hue:var(--t3)">
-    <div class="lec">Lecture 16 · Part A, B</div>
-    <h2>Backpropagation</h2>
-    <ul>
-      <li><b>Chain rule:</b> <code>∂L/∂w = (∂L/∂u)(∂u/∂w)</code> — multiply the slopes along the path.</li>
-      <li><b>Backward rule:</b> each node multiplies the upstream gradient by its local gradient and passes it back.</li>
-    </ul>
-    <h3>Gate patterns (backward)</h3>
-    <table class="t">
-      <tr><th>Gate</th><th>Sends to each input</th></tr>
-      <tr><td>add</td><td>the upstream gradient, copied</td></tr>
-      <tr><td>multiply</td><td>upstream × the <i>other</i> input</td></tr>
-      <tr><td>ReLU</td><td>upstream if input&gt;0, else 0</td></tr>
-      <tr><td>used twice</td><td>the <b>sum</b> of both gradients</td></tr>
-    </table>
-    <h3>The 4-step recipe (one hidden layer)</h3>
-    <table class="t">
-      <tr><th>Quantity</th><th>Gradient</th></tr>
-      <tr><td>output error</td><td><code>δ_o = ŷ − y</code></td></tr>
-      <tr><td>output weight w₂ⱼ</td><td><code>δ_o · hⱼ</code> (bias: <code>δ_o</code>)</td></tr>
-      <tr><td>hidden error</td><td><code>δ = (W₂ᵀ δ_o) ⊙ g′(z)</code></td></tr>
-      <tr><td>hidden weight W₁[j,k]</td><td><code>δⱼ · x_k</code></td></tr>
-    </table>
-    <div class="note">g′ is the activation slope (ReLU: 1 if on, 0 if off). Every gradient has the shape of its parameter. Softmax+CE output error is also p − y.</div>
-  </section>
-
-  <section class="card" style="--hue:var(--t4)">
-    <div class="lec">Lecture 16 · Part C, D</div>
-    <h2>Gradient Check &amp; Vanishing</h2>
-    <h3>Numerical check</h3>
-    <div class="f">central diff = (L(w+ε) − L(w−ε)) / (2ε)</div>
-    <div class="f">rel. err = |g_bp − g_num| / max(|g_bp|,|g_num|)</div>
-    <ul>
-      <li>Central-difference error shrinks like <b>ε²</b> (one-sided like ε).</li>
-      <li>Correct backward pass → rel. err ≈ <b>1e-6 or less</b>; a <b>bug → 0.01 or more</b>.</li>
-      <li><b>Backprop is cheap:</b> 1 forward + 1 backward pass for <i>all</i> gradients (vs 2 forward passes <i>per weight</i>).</li>
-    </ul>
-    <h3>Training loop</h3>
-    <div class="f">forward → loss → backward → w ← w − η·grad</div>
-    <ul><li>Each step uses a <b>mini-batch</b> (avg its gradients). An <b>epoch</b> = one pass over all data = <code>⌈N/B⌉</code> steps.</li></ul>
-    <h3>Vanishing gradients</h3>
-    <ul>
-      <li>Each layer multiplies the error by the activation slope. Sigmoid slope ≤ 0.25, so through k layers it shrinks like <code>0.25^k</code> — early layers barely learn.</li>
-      <li><b>ReLU slope = 1 where on</b>, so it does not shrink the error.</li>
-    </ul>
-  </section>
-
-  <section class="card" style="--hue:var(--t5)">
-    <div class="lec">Lecture 17 · Part A, B</div>
-    <h2>SGD &amp; Mini-Batches</h2>
-    <ul>
-      <li><b>Full gradient</b> = mean of the N per-example gradients (gradient of an average = average of gradients).</li>
-      <li><b>Mini-batch gradient</b> = average over B random examples — an <b>unbiased but noisy</b> estimate. Larger B = less noise, costlier step.</li>
-      <li><b>B = 1</b> is SGD; <b>B = N</b> is full-batch. Epoch = <code>⌈N/B⌉</code> steps.</li>
-      <li><b>B ≈ 32–256 trains fastest</b> in wall-clock: cheap per image AND reasonably accurate; many cheap noisy steps beat a few exact ones.</li>
-    </ul>
-    <h3>Learning rate</h3>
-    <ul>
-      <li>Too <b>small</b> → slow; too <b>large</b> → jitter or dead ReLUs (η=2.0 killed 125/128 units → no better than chance).</li>
-      <li><b>Noisier gradients (smaller batch) need a smaller η.</b></li>
-      <li><b>Schedule:</b> start η large, lower it near the bottom. <b>Step decay</b> = ÷10 when the epoch-mean loss stalls. Judge by the <b>epoch-mean loss</b>.</li>
-    </ul>
-  </section>
-
-  <section class="card" style="--hue:var(--t6)">
-    <div class="lec">Lecture 17 · Part C, D</div>
-    <h2>Momentum &amp; Adam</h2>
-    <h3>Momentum</h3>
-    <div class="f">v ← ρ·v + g,   then   w ← w − η·v</div>
-    <ul>
-      <li>Agreeing gradients <b>add up</b>; flipping gradients <b>cancel</b> → fast along a valley, damped across it.</li>
-      <li>Steady g → velocity grows toward <code>1/(1−ρ)</code> × g, so momentum acts like a larger η (<b>ρ=0.9 → ~10×</b>).</li>
-    </ul>
-    <h3>Adam</h3>
-    <div class="f">m = avg of gradients · s = avg of squared gradients</div>
-    <div class="f">m̂ = m/(1−β₁ᵗ),  ŝ = s/(1−β₂ᵗ)  (bias correction)</div>
-    <div class="f">w ← w − η · m̂ / √ŝ</div>
-    <ul>
-      <li>Dividing by √ŝ gives <b>each weight its own step size</b>. Bias correction fixes the start at 0.</li>
-      <li>At <b>t=1</b>: m̂=g, ŝ=g², so every weight moves by exactly <b>η against the sign of g</b> (size cancels).</li>
-      <li>Defaults <b>β₁=0.9, β₂=0.999, η=0.001</b>.</li>
-    </ul>
-    <h3>Choosing</h3>
-    <ul><li><b>Adam (η=0.001)</b> = good default, little tuning. SGD + momentum 0.9 + schedule still strong. Lower η when loss stalls.</li></ul>
-  </section>
-
-  <section class="card wide" style="--hue:var(--t7)">
-    <div class="lec">How to solve · worked recipes</div>
-    <h2>Solving the Numerics</h2>
-    <h3>Forward pass (find ŷ)</h3>
-    <ol>
-      <li>Hidden pre-acts <code>z = W₁x + b₁</code> (each unit = its row · x + its bias).</li>
-      <li>Activation <code>h = ReLU(z)</code> (negatives → 0 = "off").</li>
-      <li>Output <code>z_o = w₂·h + b₂</code>.</li>
-      <li>Squash: <code>ŷ = σ(z_o) = 1/(1+e^−z_o)</code>.</li>
-    </ol>
-    <h3>Softmax loss</h3>
-    <ol><li>Exp each score, sum them.</li><li><code>p_true = e^(z_true)/sum</code>.</li><li><code>loss = −ln(p_true)</code>.</li></ol>
-    <h3>Backprop gradient</h3>
-    <ol><li>Run the forward pass first (store z, h, ŷ).</li><li><code>δ_o = ŷ − y</code>.</li><li>Output weight = <code>δ_o · h</code>; hidden error <code>δ = (W₂ᵀδ_o) ⊙ g′(z)</code>; hidden weight = <code>δ · x</code>.</li></ol>
-    <h3>Gradient check</h3>
-    <ol><li>Central diff <code>(L(w+ε) − L(w−ε))/(2ε)</code>.</li><li>Rel. err <code>|g_bp − g_num|/max(|·|)</code>; ≤1e-6 ok, ≥0.01 bug.</li></ol>
-    <h3>Momentum (per step)</h3>
-    <ol><li><code>v ← ρ·v + g</code> (update v first).</li><li><code>w ← w − η·v</code>.</li></ol>
-    <h3>Adam first step (t=1)</h3>
-    <ol><li><code>m̂ = g</code>, <code>ŝ = g²</code>.</li><li><code>w ← w − η·g/√(g²) = w − η·sign(g)</code>.</li></ol>
-    <h3>Steps &amp; time</h3>
-    <div class="f">steps/epoch = ⌈N / B⌉ · epoch time = (cost per image)·N</div>
-  </section>
-
 </div>
+<div class="pages">
 
-<footer>CAI 4105 — Current Topics in Machine Learning I · Lectures 15–17 (Neural Networks I–III) · quick reference</footer>
+<!-- ===================== FRONT ===================== -->
+<section class="page front">
+  <div class="page-tag">Front — page 1 of 2</div>
+  <div class="head"><h1>SQL Functions That Return Strings</h1><span class="sc">COP 4710 · PostgreSQL / PL/pgSQL · Quiz 2</span></div>
+  <div class="cols">
+
+    <div class="card" style="--hue:var(--t0)">
+      <div class="k">Syntax skeleton</div>
+      <h2>Creating a Function</h2>
+<pre>CREATE OR REPLACE FUNCTION f(p text)
+RETURNS text          -- the return TYPE
+AS $$                 -- body is dollar-quoted
+  SELECT 'Hi ' || p;
+$$ LANGUAGE sql;</pre>
+      <ul>
+        <li><b>OR REPLACE</b> = redefine if it exists.</li>
+        <li><b>params</b> in ( ): a name + a type.</li>
+        <li><b>RETURNS text</b> = hands back a string.</li>
+        <li><b>$$ … $$</b> = dollar-quote (use <code>'…'</code> inside with no escaping; tag as <code>$tag$…$tag$</code> to nest).</li>
+        <li><b>LANGUAGE</b> = how to run the body (<code>sql</code> or <code>plpgsql</code>).</li>
+      </ul>
+      <h3>Call it · drop it</h3>
+<pre>SELECT f('Ada');      -- 'Hi Ada'
+DROP FUNCTION f(text);</pre>
+    </div>
+
+    <div class="card" style="--hue:var(--t1)">
+      <div class="k">sql vs plpgsql</div>
+      <h2>Returning a String</h2>
+      <ul>
+        <li><b>RETURNS</b> (header) = the <i>type</i>; <b>RETURN</b> (body statement) = hands back the <i>value</i>.</li>
+        <li><b>LANGUAGE sql</b>: returns its final <code>SELECT</code> — no RETURN keyword.</li>
+        <li><b>LANGUAGE plpgsql</b>: <code>BEGIN … RETURN expr; END;</code> — must RETURN.</li>
+      </ul>
+<pre>-- plpgsql version
+CREATE FUNCTION label(n text)
+RETURNS text AS $$
+BEGIN
+  RETURN 'Name: ' || n;
+END;
+$$ LANGUAGE plpgsql;</pre>
+      <ul>
+        <li>Type <b>text</b> = any length (use this). <code>varchar(n)</code> caps length.</li>
+        <li>Return a number as text → cast <code>n::text</code>.</li>
+        <li>One string = <code>RETURNS text</code>; many rows = <code>RETURNS SETOF text / TABLE(…)</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="--hue:var(--t2)">
+      <div class="k">Inputs &amp; locals</div>
+      <h2>Parameters &amp; Variables</h2>
+      <ul>
+        <li>Use a parameter by <b>name</b>, or by position <code>$1, $2</code>. Give a <code>DEFAULT</code> if you like.</li>
+        <li>Locals go in <b>DECLARE</b>; assign with <b><code>:=</code></b> (not <code>=</code>).</li>
+        <li><code>SELECT col INTO var …</code> copies a row's columns into variables.</li>
+        <li><code>var tbl.col%TYPE</code> anchors the variable's type to a column.</li>
+      </ul>
+<pre>CREATE FUNCTION tag(id int)
+RETURNS text AS $$
+DECLARE result text;
+BEGIN
+  result := 'Record #' || id;
+  RETURN result;
+END;
+$$ LANGUAGE plpgsql;</pre>
+    </div>
+
+    <div class="card" style="--hue:var(--t3)">
+      <div class="k">read first, then build</div>
+      <h2>The Standard Pattern</h2>
+      <ol style="margin:4px 0 0;padding-left:16px">
+        <li><b>DECLARE</b> the variables you need.</li>
+        <li><b>SELECT … INTO</b> the row by its id.</li>
+        <li>Check <b>IF NOT FOUND</b> → return a message.</li>
+        <li><b>Build</b> the string (CONCAT_WS + COALESCE).</li>
+        <li><b>RETURN</b> it.</li>
+      </ol>
+      <p style="margin:6px 0 0;color:var(--muted);font-size:11px">The full worked function is on the back ▸</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== BACK ===================== -->
+<section class="page back">
+  <div class="page-tag">Back — page 2 of 2</div>
+  <div class="head"><h1>Building &amp; Querying the Info String</h1><span class="sc">concatenation · NULLs · lookups · pitfalls</span></div>
+  <div class="cols">
+
+    <div class="card" style="--hue:var(--t4)">
+      <div class="k">concatenation &amp; NULLs</div>
+      <h2>Building the String</h2>
+      <ul>
+        <li><b><code>||</code></b> joins text — but <span class="bad">any NULL operand → whole result NULL</span>. One missing column blanks the string.</li>
+        <li><b>CONCAT(…)</b> ignores NULLs; <b>CONCAT_WS(sep, …)</b> joins non-NULLs with a separator. <span class="ok">Best for info strings.</span></li>
+        <li><b>COALESCE(x,'N/A')</b> = fallback when x is NULL.</li>
+        <li><b>FORMAT('…%s…', a, b)</b> fills <code>%s</code> placeholders (<code>%I</code> identifier, <code>%L</code> literal, <code>%%</code> = %).</li>
+        <li>Cast: <code>n::text</code>, <code>to_char(d,'YYYY-MM-DD')</code>.</li>
+      </ul>
+<pre>'Ph: ' || NULL              --> NULL  (!)
+CONCAT_WS(' | ','Ada',NULL) --> 'Ada'
+'Ph: ' || COALESCE(ph,'N/A')</pre>
+      <table class="t"><tr><th>fn</th><th>does</th></tr>
+        <tr><td><code>UPPER/LOWER/INITCAP</code></td><td>case</td></tr>
+        <tr><td><code>TRIM / LENGTH</code></td><td>strip / count</td></tr>
+        <tr><td><code>SUBSTRING / REPLACE</code></td><td>slice / swap</td></tr>
+        <tr><td><code>LPAD / RPAD</code></td><td>pad to width</td></tr></table>
+    </div>
+
+    <div class="card" style="--hue:var(--t5)">
+      <div class="k">look up the info</div>
+      <h2>Querying Inside</h2>
+      <ul>
+        <li><code>SELECT col INTO var FROM t WHERE …;</code> — one row → variables (in order).</li>
+        <li>No match → var is <b>NULL</b>; test <code>IF NOT FOUND THEN …</code>. <code>INTO STRICT</code> errors unless exactly one row.</li>
+        <li><b>string_agg(expr, ', ')</b> folds many rows into one string (add <code>ORDER BY</code>).</li>
+      </ul>
+<pre>SELECT string_agg(product_name, ', ')
+  INTO items
+  FROM order_lines
+ WHERE order_id = oid;
+-- items = 'Bolt, Nut, Washer'</pre>
+    </div>
+
+    <div class="card" style="--hue:var(--t0)">
+      <div class="k">end to end · NULL-safe</div>
+      <h2>Complete Example</h2>
+<pre>CREATE OR REPLACE FUNCTION
+  get_customer_info(cid int)
+RETURNS text AS $$
+DECLARE nm text; em text; n int;
+BEGIN
+  SELECT name, email INTO nm, em
+    FROM customers WHERE id = cid;
+  IF NOT FOUND THEN
+    RETURN 'No customer #' || cid;
+  END IF;
+  SELECT count(*) INTO n
+    FROM orders WHERE customer_id = cid;
+  RETURN CONCAT_WS(' | ',
+    'Name: '   || nm,
+    'Email: '  || COALESCE(em,'N/A'),
+    'Orders: ' || n);     -- n cast by ||
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT get_customer_info(1);
+-- 'Name: Ada | Email: ada@x.com | Orders: 3'</pre>
+    </div>
+
+    <div class="card" style="--hue:var(--t2)">
+      <div class="k">don't lose points</div>
+      <h2>Pitfalls &amp; Volatility</h2>
+      <ul>
+        <li><span class="bad">||</span> with a possibly-NULL column and no COALESCE → NULL string.</li>
+        <li><span class="bad">Missing RETURN</span> on some path in plpgsql → run-time error.</li>
+        <li><span class="bad">Missing LANGUAGE</span>, or <code>sql</code> with a BEGIN/END body.</li>
+        <li><span class="bad">Return-type mismatch</span> → cast with <code>::text</code>.</li>
+        <li><span class="bad">SELECT INTO many rows</span> → only first kept (or STRICT errors).</li>
+      </ul>
+      <h3>Volatility</h3>
+      <table class="t"><tr><th>label</th><th>when</th></tr>
+        <tr><td><code>IMMUTABLE</code></td><td>pure formatter, no tables</td></tr>
+        <tr><td><code>STABLE</code></td><td>reads tables, info lookup</td></tr>
+        <tr><td><code>VOLATILE</code></td><td>default; may change data</td></tr></table>
+    </div>
+
+  </div>
+  <div class="footnote">COP 4710 Database Systems · Quiz 2 — create a function that returns strings of info · quick reference (front &amp; back)</div>
+</section>
+
 </div>
 
 <script>
 const store=(()=>{try{localStorage.setItem("__t","1");localStorage.removeItem("__t");return localStorage;}catch(e){return null;}})();
 const root=document.documentElement, tbtn=document.getElementById("themeBtn");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");tbtn.textContent="◐ Auto";} else {root.setAttribute("data-theme",t);tbtn.textContent=(t==="dark"?"☾ Dark":"☀ Light");} try{store&&store.setItem("ml-nn-sheet-theme",t);}catch(e){} }
-let cur="system"; try{ if(store) cur=store.getItem("ml-nn-sheet-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");tbtn.textContent="◐ Auto";} else {root.setAttribute("data-theme",t);tbtn.textContent=(t==="dark"?"☾ Dark":"☀ Light");} try{store&&store.setItem("sql-sheet-theme",t);}catch(e){} }
+let cur="system"; try{ if(store) cur=store.getItem("sql-sheet-theme")||"system"; }catch(e){}
 applyTheme(cur);
 tbtn.addEventListener("click",()=>{ cur = cur==="system"?"light":cur==="light"?"dark":"system"; applyTheme(cur); });
 document.getElementById("printBtn").addEventListener("click",()=>window.print());

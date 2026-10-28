@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CAI 4105 Neural Networks — Study Guide (L15–L17)</title>
+<title>COP 4710 — SQL Functions Study Guide (Quiz 2)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -47,6 +47,10 @@ a{color:var(--accent-strong)}
 ::selection{background:var(--accent-soft)}
 .wrap{max-width:1300px;margin:0 auto;padding:0 24px}
 code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
+.codeblk{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:9px 0 4px;font-size:12.5px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.55;tab-size:2}
+.qtext .codeblk{font-weight:400;margin:8px 0 2px}
+.explain .codeblk,.sa-ans .codeblk{margin:7px 0}
+.kw{color:var(--hue);font-weight:600}
 
 .masthead{border-bottom:1px solid var(--line-strong);background:linear-gradient(180deg, var(--surface), var(--surface-2))}
 .mast-inner{padding:30px 24px 22px}
@@ -123,20 +127,15 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .submit{margin-top:11px;font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--hue);color:#fff;background:var(--hue);border-radius:99px;padding:8px 18px}
 .submit:hover{filter:brightness(1.07)}
 .submit:disabled{opacity:.5;cursor:default}
-.numrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.numin{font-family:var(--mono);font-size:15px;width:160px;max-width:60vw;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 12px}
-.numin:focus{outline:2px solid var(--accent);outline-offset:1px}
-.numin.okb{border-color:var(--ok);background:var(--ok-bg)}
-.numin.nob{border-color:var(--bad);background:var(--bad-bg)}
 table.match{border-collapse:collapse;width:100%;font-size:14px;margin-top:2px}
 table.match td{border:1px solid var(--line);padding:7px 9px;vertical-align:middle}
 table.match td.desc{color:var(--ink-soft)}
-table.match td.pick{width:44%}
+table.match td.pick{width:40%}
 .msel{font-family:inherit;font-size:13.5px;width:100%;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 8px}
 tr.rc td{background:var(--ok-bg)}
 tr.rw td{background:var(--bad-bg)}
 .terms-legend{font-size:12.5px;color:var(--muted);margin:2px 0 8px}
-.terms-legend b{color:var(--ink)}
+.terms-legend b{color:var(--ink);font-family:var(--mono)}
 .explain{margin-top:13px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:10px 14px;font-size:14px;color:var(--ink-soft);display:none}
 .explain.show{display:block;animation:fade .25s ease}
 .explain b{color:var(--ink)}
@@ -175,17 +174,19 @@ tr.rw td{background:var(--bad-bg)}
 .note li{margin:3px 0}.note li::marker{color:var(--gh)}
 .note code{font-size:.86em}
 .note .kw{color:var(--gh);font-weight:600}
-.note .code{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0 3px;font-size:12px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.5;tab-size:4}
-.note .tbl{border-collapse:collapse;margin:8px 0;font-size:12.5px;width:100%}
+.note .codeblk{font-size:11.8px;margin:8px 0 3px}
+.note .tbl{border-collapse:collapse;margin:8px 0;font-size:12px;width:100%}
 .note .tbl th,.note .tbl td{border:1px solid var(--line);padding:4px 7px;text-align:left}
 .note .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:600}
 .note .tbl td{color:var(--ink-soft)}
+.note .tbl code{font-size:.92em}
 .cram h5{margin:15px 0 5px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--gh);border-bottom:1px solid var(--line);padding-bottom:3px}
 .cram h5:first-child{margin-top:2px}
 .cram ul{margin:0 0 4px;padding-left:17px}
 .cram li{margin:4px 0;line-height:1.5;color:var(--ink-soft)}
 .cram li::marker{color:var(--gh)}
 .cram b{color:var(--ink)}.cram code{font-size:.85em}
+.cram .codeblk{font-size:11.5px;margin:7px 0 4px}
 
 .guide-toggle{display:none;position:fixed;right:18px;bottom:18px;z-index:60;background:var(--accent);color:#fff;border:none;cursor:pointer;padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.06em;gap:8px;align-items:center}
 .guide-toggle:hover{background:var(--accent-strong)}
@@ -195,7 +196,7 @@ footer .mono{font-family:var(--mono)}
 
 @media (max-width:1024px){
   .layout{grid-template-columns:1fr}
-  .guide{position:fixed;top:0;right:0;height:100vh;width:min(92vw,430px);border-radius:0;border:none;border-left:1px solid var(--line-strong);transform:translateX(100%);transition:transform .28s ease;z-index:65;box-shadow:-10px 0 30px rgba(10,16,22,.18)}
+  .guide{position:fixed;top:0;right:0;height:100vh;width:min(94vw,440px);border-radius:0;border:none;border-left:1px solid var(--line-strong);transform:translateX(100%);transition:transform .28s ease;z-index:65;box-shadow:-10px 0 30px rgba(10,16,22,.18)}
   body.guide-open .guide{transform:translateX(0)}
   .guide-close{display:grid;place-items:center}
   .guide-toggle{display:inline-flex}
@@ -212,12 +213,12 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning I <span class="dot"></span> Neural Networks</div>
+      <div class="eyebrow"><span class="dot"></span> COP 4710 · Database Systems <span class="dot"></span> Quiz 2</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Neural Networks — Study Guide (L15–L17)</h1>
-    <p class="subtitle">A complete study guide for CAI 4105 Lectures 15–17: the multilayer perceptron and the forward pass, backpropagation by the chain rule, and training faster with mini-batch SGD, momentum, and Adam. In-depth notes on the right, plus practice in the lectures' own style — multiple choice, multiple answer, numeric entry, matching, and short answer — with instant grading, explanations, and slide references.</p>
-    <div class="callout"><b>What's covered:</b> neurons, layers and the matrix form; ReLU / sigmoid / tanh and why activations must bend; MLP depth, width and parameter counting; output units &amp; losses; the chain rule on computational graphs; backprop gate rules and the output error; gradient checking and vanishing gradients; mini-batches, epochs and the learning rate; schedules, momentum and Adam. Worked numeric problems come straight from the lectures' Practice and Check questions. Progress is saved in this browser.</div>
+    <h1 class="title">SQL Functions That Return Strings of Info</h1>
+    <p class="subtitle">A focused study guide for Quiz 2: writing PostgreSQL functions (<code>CREATE FUNCTION</code>) that build and return a string of information. Covers the syntax, returning text, parameters and variables, string-building (concatenation, <code>CONCAT_WS</code>, <code>FORMAT</code>, <code>COALESCE</code>), querying inside a function, and complete worked examples — with notes on the right and quiz-style practice (multiple choice, multiple answer, matching, and short answer) that grades instantly.</p>
+    <div class="callout"><b>The goal:</b> be able to write a function like <code>get_customer_info(id)</code> that looks up a row and returns a single readable string such as <code>'Name: Ada Lovelace | Email: ada@x.com | Orders: 3'</code>. Examples use PostgreSQL / PL/pgSQL. Progress is saved in this browser.</div>
     <div class="scorebar">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0 / 0</span> graded</div>
@@ -260,287 +261,350 @@ footer .mono{font-family:var(--mono)}
 <button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
 <footer class="wrap">
-  <div class="mono">Built from CAI 4105 Lectures 15–17 — Neural Networks I (the Multilayer Perceptron), II (Backpropagation), III (Training Faster with SGD) · Chinmay Nehate, UCF.</div>
-  <div style="margin-top:8px">Answer each question for instant grading and an explanation with a slide reference. Open the ⚡ Cram Sheet on the right for a one-screen summary.</div>
+  <div class="mono">COP 4710 — Database Systems · Quiz 2: create a function that returns strings of info · PostgreSQL / PL/pgSQL.</div>
+  <div style="margin-top:8px">Answer each question for instant grading and an explanation. Open the ⚡ Cram Sheet on the right for a one-screen summary.</div>
 </footer>
 
 <script>
 /* =========================================================
-   STUDY-GUIDE NOTES — Neural Networks (L15–L17)
+   STUDY-GUIDE NOTES — SQL functions that return strings
    ========================================================= */
 const SECTIONS = [
 {
-  id:"mlp", short:"MLP Architecture", tag:"L15 · Parts A, C", title:"The Multilayer Perceptron",
-  blurb:"From one neuron to a layer, the matrix form of a layer, stacking hidden layers into an MLP, depth and width, counting parameters, and what universal approximation does and does not promise.",
+  id:"create", short:"Creating a Function", tag:"Syntax basics", title:"Creating a Function",
+  blurb:"The CREATE FUNCTION skeleton: parameters, the RETURNS type, dollar-quoting the body, choosing a language, and how to call and drop a function.",
   notes:[
-    {h:"A neuron and a layer", html:`<ul>
-      <li>One <b>neuron</b> = logistic regression: weight the inputs, add the <b>bias</b> b, get the <b>pre-activation</b> <code>z = w·x + b</code>, pass it through an <b>activation function</b>.</li>
-      <li>A <b>layer</b> is a set of units reading the same inputs; unit j has its own weights and bias <code>b_j</code>. Weight <code>w_jk</code> connects input k to unit j.</li>
-      <li>Matrix form: <code>z = W x + b</code>, where <b>W has one row per unit and one column per input</b>.</li></ul>`},
-    {h:"ReLU and hidden layers", html:`<ul>
-      <li><b>ReLU</b> <code>= max(0, z)</code> acts on each entry; a unit with negative pre-activation outputs 0 and is <b>off</b> for that example.</li>
-      <li>A <b>hidden layer</b> turns input x into learned features <code>h = g(W₁x + b₁)</code>; the <b>output unit</b> is logistic/softmax/identity on h. The features are "hidden" because the data never show their values.</li>
-      <li>Training fits <b>all</b> weights together, so the hidden features are learned from the data.</li></ul>`},
-    {h:"A batch of examples", html:`<p>Stack N examples as the <b>rows</b> of a matrix X (one example per row). One matrix product <code>Z = X Wᵀ</code> (plus the bias row, added by <b>broadcasting</b>) computes every unit for every example at once. Row i of the result is that example's output.</p>`},
-    {h:"Depth, width, dense", html:`<ul>
-      <li><b>Depth D</b> = the number of layers with weights; <b>width</b> = units in a layer. The tiny network has depth 2, width 2.</li>
-      <li>An <b>MLP</b> is <b>fully connected (dense)</b>: every unit connects to every unit in the next layer.</li>
-      <li>We choose the architecture; training changes only the weights. A weight near zero effectively drops its connection.</li></ul>`},
-    {h:"Counting parameters", html:`<p>Each layer has <b>one weight per connection and one bias per unit</b>: layer with <code>n_in</code> inputs and <code>n_out</code> units → <code>n_in·n_out + n_out</code> parameters. Example (784→100→10): <code>(784·100+100) + (100·10+10) = 79,510</code>. Most parameters sit in the first layer.</p>`},
-    {h:"Universal approximation", html:`<ul>
-      <li>One hidden layer of <b>enough</b> units (with a linear output) can approximate <b>any continuous function</b> on a closed bounded region as closely as we like.</li>
-      <li>It does <b>not</b> say how many units are needed, that training will find the weights, or that the fit generalizes.</li>
-      <li>A network wide enough to fit anything can fit the <b>noise</b> too, so size is chosen by <b>held-out accuracy</b> (e.g. on the arcs: 2 units underfit, 16 overfit, 4 fit best).</li></ul>`}
+    {h:"Anatomy of CREATE FUNCTION", html:`<p>A function has a <b>header</b> (name, parameters, return type), a <b>body</b> (the code), and a <b>language</b>.</p>
+      <div class="codeblk">CREATE OR REPLACE FUNCTION greet(name text)
+RETURNS text
+AS $$
+  SELECT 'Hello, ' || name || '!';
+$$ LANGUAGE sql;</div>
+      <ul>
+      <li><b>CREATE OR REPLACE</b> — create it, or redefine it if it already exists.</li>
+      <li><b>Parameters</b> go in parentheses: <code>name text</code> (a name and a type).</li>
+      <li><b>RETURNS text</b> — the function hands back a <b>string</b>.</li>
+      <li>The <b>body</b> sits between the <code>$$ ... $$</code> markers.</li>
+      <li><b>LANGUAGE</b> names how to run the body (<code>sql</code> or <code>plpgsql</code>).</li></ul>`},
+    {h:"Dollar-quoting the body ($$)", html:`<p>The body is passed to the server as a <b>string</b>. Wrapping it in <code>$$ ... $$</code> (dollar quotes) lets you use single quotes <code>'...'</code> inside without escaping them. You may tag the quotes to nest them: <code>$func$ ... $func$</code>.</p>
+      <p>Without dollar quotes you would have to double every inner quote — tedious and error-prone.</p>`},
+    {h:"LANGUAGE sql vs plpgsql", html:`<ul>
+      <li><b>LANGUAGE sql</b> — the body is one (or a few) plain SQL statements; the function returns the result of the <b>last</b> query. No variables or control flow.</li>
+      <li><b>LANGUAGE plpgsql</b> — a procedural language: you can <b>DECLARE</b> variables, use <b>IF</b> / <b>LOOP</b>, run queries, and must <b>RETURN</b> a value. Use this when you build up a string step by step.</li></ul>`},
+    {h:"Calling and dropping", html:`<p>Call a function inside a <code>SELECT</code>:</p>
+      <div class="codeblk">SELECT greet('Ada');      -- returns 'Hello, Ada!'</div>
+      <p>Remove it by name <b>and argument types</b> (overloads share a name):</p>
+      <div class="codeblk">DROP FUNCTION greet(text);
+DROP FUNCTION IF EXISTS greet(text);</div>`}
   ]
 },
 {
-  id:"activations", short:"Activations & Outputs", tag:"L15 · Parts B, D", title:"Activations, Outputs & Losses",
-  blurb:"Why each hidden unit needs a nonlinear activation, the sigmoid / tanh / ReLU and their slopes, which activation goes where, and the output unit and loss for each task (regression, two classes, K classes).",
+  id:"returning", short:"Returning a String", tag:"RETURNS text", title:"Returning a String",
+  blurb:"Declaring a text return type, the difference between RETURNS and RETURN, the plpgsql vs sql ways to hand back a value, and one string vs a set of rows.",
   notes:[
-    {h:"Why the activation must bend", html:`<p>Remove the activation and a stack of linear layers <b>collapses to one</b> linear layer (one W, one b) — it draws the same straight boundaries as logistic regression, however deep. A <b>nonlinear</b> activation between layers stops this collapse, which is why hidden units have one.</p>`},
-    {h:"Sigmoid, tanh, ReLU", html:`<table class="tbl"><thead><tr><th>Activation</th><th>Range</th><th>Max slope</th><th>Typical use</th></tr></thead><tbody>
-      <tr><td>Sigmoid</td><td>0 to 1</td><td>0.25 (at z=0)</td><td>output for two classes</td></tr>
-      <tr><td>Tanh</td><td>−1 to 1</td><td>1</td><td>hidden units (older nets)</td></tr>
-      <tr><td>ReLU</td><td>0 and up</td><td>1</td><td>hidden units (default)</td></tr></tbody></table>
-      <p>Far from 0 the sigmoid and tanh flatten (slope → 0): a unit there is <b>saturated</b>. ReLU keeps slope <b>1</b> wherever a unit is on (slope 0 where off; at z=0 it is set to 0) and costs one comparison.</p>`},
-    {h:"Which activation where", html:`<ul>
-      <li><b>Hidden layers:</b> ReLU (the usual default).</li>
-      <li><b>Output, two classes:</b> sigmoid → a probability.</li>
-      <li><b>Output, many classes:</b> softmax.</li>
-      <li><b>Output, regression:</b> identity (leave the score as is).</li></ul>`},
-    {h:"Output unit and loss per task", html:`<table class="tbl"><thead><tr><th>Task</th><th>Output unit</th><th>Loss</th></tr></thead><tbody>
-      <tr><td>Regression</td><td>identity</td><td>squared error</td></tr>
-      <tr><td>Two classes</td><td>sigmoid</td><td>binary cross-entropy</td></tr>
-      <tr><td>K classes</td><td>softmax</td><td>cross-entropy</td></tr></tbody></table>
-      <p>These are the same pairs as linear and logistic regression; a network keeps them and adds hidden layers underneath. Each classification loss is the <b>negative log-likelihood</b>, so a <b>confident wrong answer costs the most</b>.</p>`},
-    {h:"Softmax and cross-entropy", html:`<p>The output layer computes one score <code>z_k</code> per class; <b>softmax</b> <code>p_k = e^{z_k} / Σ_j e^{z_j}</code> turns them into probabilities that sum to 1. The loss of one example is <code>−ln(p of the true class)</code> — near 0 for a confident right answer, and it grows without bound as that probability → 0. The other classes still count through the softmax denominator.</p>`}
+    {h:"RETURNS vs RETURN", html:`<ul>
+      <li><b>RETURNS</b> is in the <b>header</b> — it declares the <b>type</b> the function gives back (e.g. <code>RETURNS text</code>).</li>
+      <li><b>RETURN</b> is a <b>statement in the body</b> (plpgsql) — it actually <b>hands back a value</b> and ends the function.</li></ul>
+      <div class="codeblk">CREATE FUNCTION label(n text)
+RETURNS text AS $$        -- header: returns text
+BEGIN
+  RETURN 'Name: ' || n;   -- statement: return a value
+END;
+$$ LANGUAGE plpgsql;</div>`},
+    {h:"The sql-language shortcut", html:`<p>A <code>LANGUAGE sql</code> function has <b>no RETURN keyword</b>; it simply returns the result of its final <code>SELECT</code>:</p>
+      <div class="codeblk">CREATE FUNCTION label(n text)
+RETURNS text AS $$
+  SELECT 'Name: ' || n;
+$$ LANGUAGE sql;</div>
+      <p>Both versions of <code>label</code> behave the same when called.</p>`},
+    {h:"String return types", html:`<ul>
+      <li><b>text</b> — variable-length string, no length limit. The usual choice.</li>
+      <li><b>varchar(n)</b> — up to n characters. <b>char(n)</b> — fixed length, blank-padded.</li></ul>
+      <p>The value you RETURN must match the declared type (or be <b>cast</b> to it, e.g. <code>42::text</code>). Returning a number from a <code>RETURNS text</code> function needs a cast.</p>`},
+    {h:"One string vs many rows", html:`<ul>
+      <li><b>RETURNS text</b> — one single string value (what Quiz 2 asks for).</li>
+      <li><b>RETURNS SETOF text</b> or <b>RETURNS TABLE(...)</b> — many rows; you <code>RETURN NEXT</code> / <code>RETURN QUERY</code>. Not needed to return one info string.</li></ul>`}
   ]
 },
 {
-  id:"backprop", short:"Backpropagation", tag:"L16 · Parts A, B", title:"Backpropagation",
-  blurb:"The chain rule on a computational graph, local gradients and the backward rule, the add / multiply / ReLU gate patterns, the output error, and carrying the error back through the layers of a network.",
+  id:"params", short:"Parameters & Variables", tag:"Inputs & locals", title:"Parameters & Variables",
+  blurb:"Passing inputs by name or position, declaring local variables, assigning to them, pulling a query result into a variable with SELECT ... INTO, and anchoring a type with %TYPE.",
   notes:[
-    {h:"The chain rule & computational graph", html:`<ul>
-      <li><b>Chain rule:</b> if w changes u and u changes L, then <code>∂L/∂w = (∂L/∂u)(∂u/∂w)</code> — multiply the slopes.</li>
-      <li>A <b>computational graph</b> breaks a formula into simple operations (nodes); the <b>forward pass</b> computes values left→right.</li>
-      <li>Each node knows its <b>local gradient</b> (slope of its output in each input). <b>Backward rule:</b> multiply the upstream gradient by each local gradient and pass it left. Repeating this = backpropagation.</li></ul>`},
-    {h:"The three gate patterns", html:`<ul>
-      <li><b>Add</b> gate: copies the upstream gradient to <b>every</b> input.</li>
-      <li><b>Multiply</b> gate: sends each input the upstream gradient <b>times the other input</b>.</li>
-      <li><b>ReLU</b> gate: passes the upstream gradient where its input was <b>positive</b>, sends <b>0</b> where it was negative.</li>
-      <li>A value used <b>twice</b> receives the <b>sum</b> of its two gradients.</li></ul>`},
-    {h:"The output error", html:`<p>For a sigmoid + binary cross-entropy (or softmax + cross-entropy) output, the slope of the loss in the output pre-activation simplifies to <b>prediction minus label</b>: <code>δ_o = ŷ − y</code> (and <code>p − y</code> for softmax, y one-hot). This is the <b>output error</b> — the cleanest possible form.</p>`},
-    {h:"Back through the layers", html:`<ul>
-      <li><b>Output weights:</b> each gets <code>δ_o · h_j</code> (multiply-gate rule); the bias gets <code>δ_o</code>.</li>
-      <li><b>Hidden error:</b> <code>δ = (W₂ᵀ δ_o) ⊙ g'(z)</code> — map the error back through the weights, then multiply entry-by-entry by the activation slope (ReLU slope is 1 where on, 0 where off).</li>
-      <li><b>Hidden weights:</b> <code>δ</code> times the layer input (the outer product <code>δ xᵀ</code>, same shape as W).</li>
-      <li><b>Shape check:</b> every gradient has the shape of what it is the gradient of.</li></ul>`},
-    {h:"A batch", html:`<p>With N examples as rows, stack each <code>δ_l / N</code> into <code>E_l</code> (the 1/N averages the loss over the batch). For softmax + cross-entropy the batch output error is <code>P − Y</code>. One matrix product per layer sums the outer products of all examples.</p>`}
+    {h:"Using parameters", html:`<p>Refer to a parameter by its <b>name</b> inside the body, or by position as <code>$1, $2, ...</code>:</p>
+      <div class="codeblk">CREATE FUNCTION full_name(first text, last text)
+RETURNS text AS $$
+  SELECT last || ', ' || first;   -- or:  $2 || ', ' || $1
+$$ LANGUAGE sql;
+
+SELECT full_name('Ada', 'Lovelace');  -- 'Lovelace, Ada'</div>
+      <p>Parameters can have a <b>DEFAULT</b>: <code>sep text DEFAULT ' | '</code>.</p>`},
+    {h:"DECLARE and assignment", html:`<p>In plpgsql, local variables are listed in a <b>DECLARE</b> block and assigned with <code>:=</code>:</p>
+      <div class="codeblk">CREATE FUNCTION tag(id int)
+RETURNS text AS $$
+DECLARE
+  result text;
+BEGIN
+  result := 'Record #' || id;   -- assign with :=
+  RETURN result;
+END;
+$$ LANGUAGE plpgsql;</div>
+      <p><code>:=</code> is the assignment operator; <code>=</code> is comparison (plpgsql accepts <code>=</code> for assignment too, but <code>:=</code> is the clear, standard choice).</p>`},
+    {h:"SELECT ... INTO", html:`<p>Pull column values from a query straight into variables:</p>
+      <div class="codeblk">DECLARE nm text; em text;
+BEGIN
+  SELECT name, email
+    INTO nm, em
+    FROM customers
+   WHERE id = cid;
+  RETURN nm || ' <' || em || '>';
+END;</div>
+      <p>The query should return <b>one row</b>; the variables take that row's columns in order.</p>`},
+    {h:"%TYPE and matching the column", html:`<p>Anchor a variable's type to a column so it always matches the table:</p>
+      <div class="codeblk">DECLARE nm customers.name%TYPE;</div>
+      <p>If the column's type changes later, the variable follows automatically.</p>`}
   ]
 },
 {
-  id:"checking", short:"Checking & Vanishing", tag:"L16 · Parts C, D", title:"Gradient Checking & Vanishing Gradients",
-  blurb:"Numerical derivatives and the gradient check with relative error, why backpropagation is cheap, the training loop with mini-batches and epochs, and why deep sigmoid networks learn slowly.",
+  id:"strings", short:"Building the String", tag:"Concatenation & NULLs", title:"Building the Info String",
+  blurb:"The concatenation operator and its NULL trap, CONCAT and CONCAT_WS, FORMAT with placeholders, COALESCE for NULLs, casting, and the common string functions.",
   notes:[
-    {h:"Numerical derivatives", html:`<ul>
-      <li><b>One-sided:</b> <code>(L(w+ε) − L(w))/ε</code>; error shrinks like ε.</li>
-      <li><b>Central difference:</b> <code>(L(w+ε) − L(w−ε))/(2ε)</code>; error shrinks like <b>ε²</b> (much more accurate). Needs no backward pass.</li></ul>`},
-    {h:"The gradient check", html:`<p>Compare the backprop gradient <code>g_bp</code> with the central difference <code>g_num</code> via the <b>relative error</b> <code>|g_bp − g_num| / max(|g_bp|, |g_num|)</code>. In double precision a correct backward pass gives ≈ <b>1e-6 or smaller</b>; a <b>bug usually gives 0.01 or more</b>.</p>`},
-    {h:"Why backprop is cheap", html:`<p>Central differences need two forward passes <b>per weight</b> (203,540 passes for the clothing net). Backprop needs <b>one forward + one backward</b> pass total, and the backward pass costs about as much as the forward. Cost grows with the number of weights (differences grow with its square).</p>`},
-    {h:"The training loop", html:`<ul>
-      <li>Each step: forward pass → loss → backward pass → update <code>w ← w − η·gradient</code>.</li>
-      <li>On large data each step uses a <b>mini-batch</b> (e.g. 64 images) and averages their gradients.</li>
-      <li>An <b>epoch</b> = one pass over all training examples (938 steps for 60,000 in batches of 64).</li></ul>`},
-    {h:"Vanishing gradients", html:`<p>Backprop multiplies the error by the activation slope at each layer. A <b>sigmoid slope is at most 0.25</b>, so through k sigmoid layers the error can shrink like <code>0.25^k</code> — the first layers then barely learn. <b>ReLU</b> has slope 1 wherever a unit is on, so its factors do not shrink the error. (Measured: a 6-hidden-layer sigmoid net's layer-1 gradient was ~15,000× smaller than layer 7's.)</p>`}
+    {h:"Concatenation with || (and its NULL trap)", html:`<p>The <code>||</code> operator joins strings:</p>
+      <div class="codeblk">'Name: ' || 'Ada'        -->  'Name: Ada'</div>
+      <p><b>Gotcha:</b> if <b>any</b> operand is <code>NULL</code>, the whole result is <code>NULL</code>:</p>
+      <div class="codeblk">'Phone: ' || NULL        -->  NULL   (!)</div>
+      <p>So a single missing column can wipe out the entire info string. Guard it (see COALESCE / CONCAT_WS below).</p>`},
+    {h:"CONCAT and CONCAT_WS", html:`<ul>
+      <li><b>CONCAT(a, b, ...)</b> — joins its arguments and <b>ignores NULLs</b> (treats them as empty).</li>
+      <li><b>CONCAT_WS(sep, a, b, ...)</b> — "with separator": joins non-NULL arguments using <code>sep</code> between them.</li></ul>
+      <div class="codeblk">CONCAT('Ada', NULL, 'Lovelace')        --> 'AdaLovelace'
+CONCAT_WS(' | ', 'Ada', NULL, 'x@x')   --> 'Ada | x@x'</div>
+      <p><code>CONCAT_WS</code> is ideal for an info string: it skips missing fields and puts a clean separator between the rest.</p>`},
+    {h:"FORMAT with placeholders", html:`<p><code>FORMAT()</code> builds a string from a template, like printf:</p>
+      <div class="codeblk">FORMAT('Name: %s, Age: %s', nm, age)</div>
+      <ul>
+      <li><b>%s</b> — insert the argument as text (NULL becomes <code>&lt;NULL&gt;</code>).</li>
+      <li><b>%I</b> — as a quoted <b>identifier</b>; <b>%L</b> — as a quoted <b>literal</b> (useful for dynamic SQL).</li>
+      <li><b>%%</b> — a literal percent sign.</li></ul>`},
+    {h:"COALESCE for missing values", html:`<p><code>COALESCE(x, fallback)</code> returns the first non-NULL argument — use it so a NULL column does not blank the string:</p>
+      <div class="codeblk">'Phone: ' || COALESCE(phone, 'N/A')</div>`},
+    {h:"Casting and string functions", html:`<p>Cast non-text values with <code>::text</code> or <code>to_char()</code>:</p>
+      <div class="codeblk">total::text,  to_char(created, 'YYYY-MM-DD')</div>
+      <table class="tbl"><thead><tr><th>Function</th><th>Does</th></tr></thead><tbody>
+      <tr><td><code>UPPER / LOWER / INITCAP</code></td><td>change case</td></tr>
+      <tr><td><code>TRIM(s)</code></td><td>strip leading/trailing spaces</td></tr>
+      <tr><td><code>LENGTH(s)</code></td><td>number of characters</td></tr>
+      <tr><td><code>SUBSTRING(s FROM a FOR n)</code></td><td>slice out part</td></tr>
+      <tr><td><code>REPLACE(s, a, b)</code></td><td>swap text</td></tr>
+      <tr><td><code>LPAD / RPAD(s, n, c)</code></td><td>pad to width n</td></tr></tbody></table>`}
   ]
 },
 {
-  id:"sgd", short:"SGD & Mini-Batches", tag:"L17 · Parts A, B", title:"Stochastic Gradient Descent",
-  blurb:"The full gradient as an average, mini-batch gradients and their noise, batch size / iteration / epoch, why batches of 32–256 train fastest, and setting the learning rate (with schedules) when gradients are noisy.",
+  id:"querying", short:"Querying Inside", tag:"Look up the info", title:"Querying Inside the Function",
+  blurb:"Reading a row into variables, handling the no-row case with FOUND, combining many rows into one string with string_agg, and looping to assemble a string.",
   notes:[
-    {h:"The full gradient is an average", html:`<p>The training loss averages over all N examples, so its exact gradient is the <b>mean of the N per-example gradients</b> (the gradient of an average is the average of the gradients). Using all N each step is <b>full-batch</b> gradient descent.</p>`},
-    {h:"Mini-batch gradients & noise", html:`<ul>
-      <li>A <b>mini-batch gradient</b> averages B randomly drawn per-example gradients in place of all N. On average it equals the full gradient (<b>unbiased</b>), but a single one differs by random <b>gradient noise</b>.</li>
-      <li>A <b>larger B</b> averages more examples → less noise, but each step costs more.</li></ul>`},
-    {h:"Batch, iteration, epoch", html:`<ul>
-      <li><b>Batch size B</b>: B=1 is SGD, B=N is full-batch.</li>
-      <li><b>Iteration (step):</b> one weight update from one mini-batch.</li>
-      <li><b>Epoch:</b> one pass over all N examples in fresh random order = ⌈N/B⌉ steps.</li></ul>`},
-    {h:"Why batches of 32–256", html:`<p>Hardware multiplies a block of numbers at once, so up to ~256 a larger batch spreads each step's fixed cost over more images (cost per image: 122µs at B=1, 7.6 at B=32, 3.1 at B=256). Above ~256 the per-image cost flattens. <b>In wall-clock time, many cheap noisy steps beat a few exact ones</b> — B=32/256 reached ~0.88 test accuracy while full-batch reached ~0.72.</p>`},
-    {h:"Learning rate & schedules", html:`<ul>
-      <li>Too <b>small</b> η → slow; too <b>large</b> η → jitter or dead ReLUs (at η=2.0, 125/128 units went off and the net did no better than chance).</li>
-      <li><b>Noisier gradients (smaller batch) need a smaller η.</b></li>
-      <li>A <b>learning-rate schedule</b> starts η large and lowers it so jitter shrinks near the bottom; <b>step decay</b> divides η by a factor (e.g. ÷10 after epoch 5). Judge progress by the <b>epoch-mean loss</b>.</li></ul>`}
+    {h:"Look up a row into variables", html:`<p>Most info functions take an id, read the matching row, and format it:</p>
+      <div class="codeblk">SELECT name, city INTO nm, ct
+  FROM customers WHERE id = cid;</div>
+      <p>The variables now hold that customer's values, ready to concatenate.</p>`},
+    {h:"Handle the no-row case", html:`<p>If no row matches, the INTO variables are left <b>NULL</b>. Check the <code>FOUND</code> flag:</p>
+      <div class="codeblk">SELECT name INTO nm FROM customers WHERE id = cid;
+IF NOT FOUND THEN
+  RETURN 'No customer #' || cid;
+END IF;</div>
+      <p>Adding <b>INTO STRICT</b> instead raises an error if the row count is not exactly one.</p>`},
+    {h:"Combine many rows: string_agg", html:`<p>To fold <b>many rows</b> into one string, use the aggregate <code>string_agg(expr, sep)</code>:</p>
+      <div class="codeblk">SELECT string_agg(product_name, ', ' ORDER BY product_name)
+  INTO items
+  FROM order_lines
+ WHERE order_id = oid;
+-- items = 'Bolt, Nut, Washer'</div>`},
+    {h:"Loop to build a string", html:`<p>You can also iterate rows and append to a result:</p>
+      <div class="codeblk">result := '';
+FOR r IN SELECT name FROM customers ORDER BY name LOOP
+  result := result || r.name || E'\\n';   -- E'\\n' = newline
+END LOOP;
+RETURN result;</div>
+      <p>For a simple list, <code>string_agg</code> is shorter; a loop gives more control over formatting.</p>`}
   ]
 },
 {
-  id:"optimizers", short:"Momentum & Adam", tag:"L17 · Parts C, D", title:"Momentum & Adam",
-  blurb:"Momentum's velocity and its long-run step 1/(1−ρ), Adam's two running averages with bias correction and per-weight step sizes, and how to choose an optimizer.",
+  id:"examples", short:"Examples & Pitfalls", tag:"Put it together", title:"Worked Examples & Pitfalls",
+  blurb:"A complete info function end to end, the most common mistakes (the NULL trap, missing RETURN/LANGUAGE, wrong return type), and function volatility.",
   notes:[
-    {h:"Momentum", html:`<ul>
-      <li>Keep a <b>velocity</b> v and step along it: <code>v ← ρ·v + g</code>, then <code>w ← w − η·v</code>.</li>
-      <li>Gradients that <b>agree</b> from step to step add up; gradients that <b>flip sign</b> cancel — so momentum speeds up along a narrow valley and damps the zigzag across it.</li>
-      <li>When g stays steady, the velocity grows toward <code>1/(1−ρ)</code> times g, so momentum acts like a <b>larger learning rate</b> (ρ=0.9 → ~10×).</li></ul>`},
-    {h:"Adam", html:`<ul>
-      <li>Two running averages: <b>m</b> of the gradients (like velocity) and <b>s</b> of the <b>squared</b> gradients.</li>
-      <li><b>Bias correction:</b> m and s start at 0, so early values are too small; dividing by <code>1−β₁^t</code> and <code>1−β₂^t</code> fixes it.</li>
-      <li>Step: <code>w ← w − η·m̂/√ŝ</code> (entry-by-entry; ε only avoids divide-by-zero). Dividing by √ŝ gives <b>each weight its own step size</b>.</li>
-      <li>Defaults <b>β₁=0.9, β₂=0.999, η=0.001</b> work for many networks.</li></ul>`},
-    {h:"Choosing an optimizer", html:`<ul>
-      <li><b>Adam (η=0.001)</b> is a good first choice — trains well with little tuning (its accuracy held across a 100× range of η).</li>
-      <li><b>SGD + momentum 0.9</b> with a tuned η and a schedule is still widely used and can beat Adam on some tasks (e.g. CIFAR-10).</li>
-      <li>Whichever you pick: watch the epoch-mean loss and <b>lower η when it stalls</b>. Starting points: batch 32–256, η ≈ 0.001 (Adam) / 0.01 (momentum) / 0.1 (plain SGD).</li></ul>`}
+    {h:"A complete info function", html:`<p>Looks up a customer, counts their orders, and returns one tidy string — NULL-safe:</p>
+      <div class="codeblk">CREATE OR REPLACE FUNCTION get_customer_info(cid int)
+RETURNS text AS $$
+DECLARE
+  nm   text;
+  em   text;
+  n    int;
+BEGIN
+  SELECT name, email INTO nm, em
+    FROM customers WHERE id = cid;
+  IF NOT FOUND THEN
+    RETURN 'No customer #' || cid;
+  END IF;
+  SELECT count(*) INTO n
+    FROM orders WHERE customer_id = cid;
+  RETURN CONCAT_WS(' | ',
+           'Name: '   || nm,
+           'Email: '  || COALESCE(em, 'N/A'),
+           'Orders: ' || n);
+END;
+$$ LANGUAGE plpgsql;</div>
+      <div class="codeblk">SELECT get_customer_info(1);
+-- 'Name: Ada Lovelace | Email: ada@x.com | Orders: 3'</div>`},
+    {h:"Common pitfalls", html:`<ul>
+      <li><b>The NULL trap:</b> <code>'x: ' || col</code> is NULL when <code>col</code> is NULL — wrap columns in <code>COALESCE</code> or use <code>CONCAT_WS</code>.</li>
+      <li><b>Missing RETURN:</b> a plpgsql function that falls off the end without returning raises an error — always RETURN.</li>
+      <li><b>Missing/last LANGUAGE:</b> forgetting <code>LANGUAGE plpgsql</code> (or using <code>sql</code> with a BEGIN/END body) fails.</li>
+      <li><b>Return-type mismatch:</b> returning a number where <code>RETURNS text</code> — cast with <code>::text</code>.</li>
+      <li><b>SELECT INTO many rows:</b> only the first row is kept (or an error with <code>STRICT</code>) — filter to one row.</li></ul>`},
+    {h:"Function volatility", html:`<ul>
+      <li><b>IMMUTABLE</b> — same inputs always give the same result and it touches no tables (e.g. a pure string-formatter).</li>
+      <li><b>STABLE</b> — reads the database but does not change it within one statement (an info lookup is STABLE).</li>
+      <li><b>VOLATILE</b> (the default) — may change data or give different results.</li></ul>
+      <p>Marking volatility correctly lets the planner optimize, but the function still works if you omit it.</p>`}
   ]
 }
 ];
 
 /* =========================================================
-   QUESTION BANK — lecture-style (mc / ms / num / match / sa)
+   QUESTION BANK — (mc / ms / match / sa)
    ========================================================= */
 const QUESTIONS = {
-mlp:[
-  {t:"num", q:"An MLP reads 784 pixels, has one hidden layer of 100 ReLU units, and an output layer of 10 units. Every unit has a bias. How many parameters in total? Enter the value as a number.",
-   a:79510, tol:0.5, e:"Layer 1: 784·100 + 100 = 78,500. Layer 2: 100·10 + 10 = 1,010. Total = <b>79,510</b> (most parameters are in the first layer).", src:"L15 Practice 5 · s34–35"},
-  {t:"mc", q:"In a layer written as <code>z = W x + b</code>, the weight matrix W has…",
-   o:["one row per unit and one column per input","one row per input and one column per unit","one row and one column per bias term","as many rows as there are training examples"],
-   a:0, e:"Row j of W holds the weights into unit j, so row j · x + b_j is the pre-activation z_j. W is (units × inputs).", src:"L15 s8"},
-  {t:"mc", q:"The hidden layer of an MLP computes features that are called <b>hidden</b> because…",
-   o:["the data never show their values; they are learned","they are kept secret from the output layer by design","they are hidden from the gradient during training","they use a different activation than every other layer"],
-   a:0, e:"The training data give only inputs and labels, never the hidden unit values; the network learns those features from the data.", src:"L15 s10"},
-  {t:"num", q:"The tiny network has W₁ = [[2, −1], [1, 1]], b₁ = (1, −1), ReLU hidden units, w₂ = (2, −1), b₂ = 0, sigmoid output. For input x = (0, 3), compute the output ŷ to 3 decimals. (σ(z) = 1/(1+e^−z).)",
-   a:0.119, tol:0.002, e:"Hidden z = (2·0−1·3+1, 1·0+1·3−1) = (−2, 2); ReLU → h = (0, 2). z_o = 2·0 + (−1)·2 + 0 = −2. ŷ = σ(−2) = <b>0.119</b> (hidden unit 1 is off).", src:"L15 Practice 1 · s15–16"},
-  {t:"mc", q:"In an MLP, <b>depth</b> counts the number of…",
-   o:["layers that have weights","units in the widest layer","training examples per batch","inputs to the first layer"],
-   a:0, e:"Depth D counts the layers with weights; width counts units in a layer. The tiny network has depth 2 and width 2.", src:"L15 s32"},
-  {t:"mc", q:"\"Fully connected\" (or <b>dense</b>) layers mean that…",
-   o:["every unit connects to every unit in the next layer","every weight in the network shares one common value","the layer connects only to the input, not deeper layers","each unit connects to exactly one unit in the next layer"],
-   a:0, e:"In a dense MLP every unit in a layer feeds every unit of the next layer — one weight per connection.", src:"L15 s32"},
-  {t:"mc", q:"Which statement about the <b>universal approximation theorem</b> is correct?",
-   o:["One hidden layer of enough units can approximate any continuous function on a bounded region","It guarantees that gradient-descent training will always manage to find those approximating weights","It promises that the fitted network will go on to generalize well to brand-new data","It fixes in advance the exact number of hidden units that a given function will need"],
-   a:0, e:"The theorem is about what a wide-enough one-hidden-layer network CAN represent; it says nothing about how many units, whether training finds them, or generalization.", src:"L15 s43"},
-  {t:"sa", q:"On the arcs, an MLP with 4 hidden units reaches held-out accuracy 0.94, while one with 16 units reaches 1.00 on training but only 0.90 held out. Which network should you keep, and what regime is the 16-unit one in? (1–2 sentences.)",
-   a:`<p><b>Keep the 4-unit network</b> — it has the highest <b>held-out</b> accuracy (0.94).</p><p>The 16-unit network gets every training point right (1.00) but only 0.90 held out, a large gap, so it is <b>overfitting</b>; a network wide enough to fit anything can also fit the noise. (The 2-unit network, low on both, underfits.)</p>`, src:"L15 Practice 6 · s39–41"}
+create:[
+  {t:"mc", q:"Which clause in <code>CREATE FUNCTION greet(name text) RETURNS text ...</code> declares that the function hands back a <b>string</b>?",
+   o:["RETURNS text","name text","CREATE FUNCTION","LANGUAGE sql"],
+   a:0, e:"<code>RETURNS text</code> in the header declares the return type as text (a string). <code>name text</code> is a parameter, not the return type.", src:"Creating a Function"},
+  {t:"mc", q:"What is the purpose of the <code>$$ ... $$</code> markers around a function body?",
+   o:["They dollar-quote the body so single quotes inside need no escaping","They mark the body as money/currency formatting for the output","They tell PostgreSQL to run the body exactly twice in a row","They convert every string inside the body to uppercase text"],
+   a:0, e:"The body is passed as a string; dollar-quoting lets you use <code>'...'</code> literals inside without doubling them. You can tag them like <code>$func$...$func$</code> to nest.", src:"Creating a Function"},
+  {t:"mc", q:"When would you choose <code>LANGUAGE plpgsql</code> over <code>LANGUAGE sql</code>?",
+   o:["When you need variables, IF/LOOP, and an explicit RETURN to build the value","When the function body is only a single simple one-line SELECT statement, nothing more","Whenever the function returns a text value rather than a plain number value","Only when the function must never read from any database table at all"],
+   a:0, e:"plpgsql is procedural — DECLARE variables, control flow, and RETURN. A plain one-query function can use the simpler <code>LANGUAGE sql</code>.", src:"Creating a Function"},
+  {t:"mc", q:"How do you <b>call</b> a function <code>greet(text)</code> that returns text?",
+   o:["<code>SELECT greet('Ada');</code>","<code>CALL greet('Ada') RETURNS text;</code>","<code>RUN FUNCTION greet('Ada');</code>","<code>EXEC greet = 'Ada';</code>"],
+   a:0, e:"A function that returns a value is invoked inside a query: <code>SELECT greet('Ada');</code>. (CALL is for procedures, not value-returning functions.)", src:"Creating a Function"},
+  {t:"mc", q:"What does <b>CREATE OR REPLACE</b> FUNCTION add over plain CREATE FUNCTION?",
+   o:["It redefines the function if one with that signature already exists","It creates and stores a backup copy of the old function before making any change","It makes the function run noticeably faster by caching all of its results","It allows the function to be created without declaring any return type"],
+   a:0, e:"<code>OR REPLACE</code> lets you re-run the definition to update the body without first dropping the function.", src:"Creating a Function"},
+  {t:"match", q:"Match each part of a CREATE FUNCTION statement to its role. One term is not a real clause.",
+   items:["Declares the type the function returns","Wraps the body so inner quotes need no escaping","Names how the body is executed (sql or plpgsql)","Lets you redefine an existing function"],
+   terms:["RETURNS text","$$ ... $$","LANGUAGE","CREATE OR REPLACE","RETURN NEXT"],
+   a:[0,1,2,3], e:"RETURNS = return type; <code>$$...$$</code> = dollar-quoting; LANGUAGE = how the body runs; CREATE OR REPLACE = redefine. <code>RETURN NEXT</code> is for set-returning functions, not a header clause.", src:"Creating a Function"}
 ],
-activations:[
-  {t:"mc", q:"Why must each hidden unit use a <b>nonlinear</b> activation?",
-   o:["Without one, a stack of linear layers collapses into a single linear layer","Without one, the gradients of the loss become impossible to compute at all during training","A nonlinear activation is what makes the network train in far fewer epochs than before","A nonlinear activation on the hidden units is what lets the final output be a probability"],
-   a:0, e:"Multiplying linear layers gives one weight matrix and one bias, so the whole stack draws the same straight boundaries as logistic regression. A nonlinearity between layers stops this collapse.", src:"L15 s21"},
-  {t:"num", q:"A hidden unit has pre-activation z = −2. What is its ReLU output? Enter the value as a number.",
-   a:0, tol:0.001, e:"ReLU(z) = max(0, z) = max(0, −2) = <b>0</b>. The unit is off for this example.", src:"L15 Practice 3 · s27–28"},
-  {t:"num", q:"What is the largest slope of the sigmoid activation (reached at z = 0)? Enter the value as a number.",
-   a:0.25, tol:0.001, e:"The sigmoid's slope σ(z)(1−σ(z)) is largest at z = 0, where σ = 0.5, giving 0.5·0.5 = <b>0.25</b>.", src:"L15 s23–25"},
-  {t:"mc", q:"Which lists the output ranges of sigmoid, tanh, and ReLU, in that order?",
-   o:["0 to 1; −1 to 1; 0 and up","−1 to 1; 0 to 1; any real number","0 to 1; 0 and up; −1 to 1","any real number; 0 to 1; −1 to 1"],
-   a:0, e:"Sigmoid: 0–1. Tanh: −1 to 1. ReLU: 0 and up (0 for negative input, z for positive).", src:"L15 s25"},
-  {t:"num", q:"An output layer gives three class scores z = (1, −1, 2) and the true class is class 3. Compute the cross-entropy loss −ln(p of the true class) to 3 decimals.",
-   a:0.350, tol:0.003, e:"e¹=2.718, e⁻¹=0.368, e²=7.389, sum=10.475. p₃ = 7.389/10.475 = 0.705. Loss = −ln(0.705) = <b>0.350</b>.", src:"L15 Practice 7 · s53–54"},
-  {t:"num", q:"A test image's true class is Shirt, but the MLP gives it Shirt probability 0.015. Compute the cross-entropy loss −ln(0.015) to 3 decimals.",
-   a:4.200, tol:0.01, e:"Loss = −ln(0.015) = <b>4.200</b> — a confident wrong answer costs far more than an unsure right one (the earlier shirt, p=0.546, had loss 0.605).", src:"L15 Practice 8 · s55–56"},
-  {t:"match", q:"Match each task to its output unit and loss. One pairing matches no task.",
-   items:["Predict the price of a house in dollars","Decide whether an email is spam","Name which of 10 clothing classes an image shows"],
-   terms:["Identity output, squared error","Sigmoid output, binary cross-entropy","Softmax output, cross-entropy","ReLU output, hinge loss"],
-   a:[0,1,2], e:"House price is regression → identity + squared error. Spam is two classes → sigmoid + binary cross-entropy. Clothing is 10 classes → softmax + cross-entropy. ReLU output + hinge loss fits none of these.", src:"L15 Check 3 · s49,60"},
-  {t:"mc", q:"A sigmoid or tanh unit whose pre-activation is far from 0 is <b>saturated</b>, meaning…",
-   o:["its slope is near 0, so little gradient flows back through it","its output is exactly 0, so it is off for that example","it has grown far larger than the other units in the layer","it has reached the maximum number of training updates"],
-   a:0, e:"Far from 0 the sigmoid and tanh flatten, so their slope → 0 and almost no gradient passes back — a cause of slow learning in deep sigmoid nets.", src:"L15 s25"}
+returning:[
+  {t:"mc", q:"What is the difference between <b>RETURNS</b> and <b>RETURN</b>?",
+   o:["RETURNS (header) declares the type; RETURN (body statement) hands back a value","They are simply two different spellings of the very same keyword and are interchangeable","RETURN is in the header declaring the type; RETURNS is a statement inside the body","RETURNS always gives back text, while RETURN can only ever give back numbers"],
+   a:0, e:"<code>RETURNS text</code> is in the header and declares the type; <code>RETURN expr;</code> is a statement in a plpgsql body that actually returns the value.", src:"Returning a String"},
+  {t:"mc", q:"In a <code>LANGUAGE sql</code> function, how is the string handed back?",
+   o:["It is the result of the function's final SELECT statement","By writing RETURN at the end of the body like in plpgsql","It must be stored in a variable named result first","The function cannot return a value in LANGUAGE sql"],
+   a:0, e:"An SQL-language function returns the result of its last query — no RETURN keyword is used.", src:"Returning a String"},
+  {t:"mc", q:"Your function is declared <code>RETURNS text</code> but you want to return the integer <code>count(*)</code> result <code>n</code>. What do you do?",
+   o:["Cast it to text, e.g. RETURN n::text, or concatenate it into a string","Nothing — PostgreSQL always auto-converts integers to text on return","Change the header to RETURNS int and keep returning the string","Wrap the whole function body in a second pair of dollar quotes"],
+   a:0, e:"The returned value must match the declared type. Cast the integer with <code>n::text</code> (concatenating it with <code>||</code> also casts it).", src:"Returning a String"},
+  {t:"mc", q:"Which return type is the usual choice for an arbitrary-length info string?",
+   o:["text","char(1)","boolean","integer"],
+   a:0, e:"<code>text</code> is variable-length with no limit — the standard choice. <code>varchar(n)</code> works too but caps the length.", src:"Returning a String"},
+  {t:"sa", q:"Write a one-statement function <code>shout(msg text)</code> that returns the message in uppercase with three exclamation marks, e.g. <code>shout('hi')</code> → <code>'HI!!!'</code>.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION shout(msg text)
+RETURNS text AS $$
+  SELECT UPPER(msg) || '!!!';
+$$ LANGUAGE sql;</div><p>One SELECT, so <code>LANGUAGE sql</code> is simplest. <code>UPPER(msg)</code> upper-cases it and <code>|| '!!!'</code> appends the marks. A plpgsql version with <code>BEGIN RETURN UPPER(msg) || '!!!'; END;</code> is equally correct.</p>`, src:"Returning a String"}
 ],
-backprop:[
-  {t:"num", q:"A graph computes f = (a + b)·c with an add node q = a + b and a multiply node f = q·c. For a = 1, b = 3, c = −2, compute the forward value f. Enter the value as a number.",
-   a:-8, tol:0.001, e:"q = a + b = 4, f = q·c = 4·(−2) = <b>−8</b>.", src:"L16 Practice 1 · s16–17"},
-  {t:"mc", q:"In the backward pass, an <b>add</b> gate…",
-   o:["copies the upstream gradient to every one of its inputs","sends each input the upstream gradient times the other input","passes the gradient only where its input was positive","splits the upstream gradient in half between its inputs"],
-   a:0, e:"The add node's local gradient is 1 for each input, so it copies the upstream gradient unchanged to all inputs.", src:"L16 s14–15"},
-  {t:"mc", q:"In the backward pass, a <b>multiply</b> gate f = a·b sends…",
-   o:["each input the upstream gradient times the other input","both inputs the upstream gradient unchanged","the gradient only to the larger of the two inputs","each input the upstream gradient times itself"],
-   a:0, e:"∂f/∂a = b and ∂f/∂b = a, so input a gets upstream·b and input b gets upstream·a — each input times the other.", src:"L16 s14–15"},
-  {t:"mc", q:"In the backward pass, a <b>ReLU</b> gate h = max(0, z)…",
-   o:["passes the upstream gradient where z was positive and sends 0 where z was negative","passes exactly half of the upstream gradient straight through to its single input at all times","squares the upstream gradient and then passes that squared value on to its input","adds the upstream gradient onto the stored forward-pass value of z before passing it"],
-   a:0, e:"ReLU's slope is 1 where its input was positive and 0 where it was negative, so it gates the upstream gradient through or blocks it.", src:"L16 s14–15"},
-  {t:"num", q:"For a sigmoid output with binary cross-entropy, the output error is δ_o = ŷ − y. With ŷ = 0.5 and label y = 1, compute δ_o. Enter the value as a number.",
-   a:-0.5, tol:0.001, e:"δ_o = ŷ − y = 0.5 − 1 = <b>−0.5</b>. (A negative gradient means the step will raise the weights that increase ŷ toward 1.)", src:"L16 s22,26"},
-  {t:"num", q:"A neuron computes t = w·u + b and p = σ(t), with w = 2, u = 1, b = −2. The sigmoid slope is σ(t)(1−σ(t)). Compute ∂p/∂u. Enter the value as a number.",
-   a:0.5, tol:0.001, e:"t = 2·1 − 2 = 0, so p = σ(0) = 0.5 and the slope is 0.5·0.5 = 0.25. ∂p/∂u = slope · w = 0.25·2 = <b>0.5</b>.", src:"L16 Practice 2 · s18–19"},
-  {t:"mc", q:"For a <b>softmax output with cross-entropy</b>, the output error of one example is…",
-   o:["p − y, the predicted probabilities minus the one-hot label","y − p, the one-hot label minus the predicted probabilities, and then squared","the softmax of the one-hot label vector y taken on its own","always exactly the zero vector, at every step of training"],
-   a:0, e:"Like the sigmoid/BCE case, the softmax + cross-entropy output error is simply prediction minus label: p − y, with y one-hot.", src:"L16 s34,57"},
-  {t:"mc", q:"When a single value is used by <b>two</b> downstream nodes, its gradient is…",
-   o:["the sum of the gradients coming back from both uses","the gradient coming back from whichever one of the two uses is larger","the product of the two gradients that come back","halved and then sent back just once"],
-   a:0, e:"A change in a value moves both of its uses, so by the multivariable chain rule its gradient is the sum of the two incoming gradients.", src:"L16 s15"},
-  {t:"num", q:"A tiny net: z = w₁x + b₁, h = ReLU(z), z_o = w₂h + b₂, ŷ = σ(z_o), with x = 3, w₁ = 1, b₁ = −1, w₂ = 0.5, b₂ = −1, label y = 0. Compute the gradient of w₂. Enter the value as a number.",
-   a:1, tol:0.001, e:"Forward: z = 1·3−1 = 2, h = 2, z_o = 0.5·2−1 = 0, ŷ = σ(0) = 0.5. δ_o = ŷ − y = 0.5. Grad w₂ = δ_o·h = 0.5·2 = <b>1</b>.", src:"L16 Check 1 · s58,65"}
+params:[
+  {t:"mc", q:"Inside a function body, how can you refer to the first parameter?",
+   o:["By its declared name, or positionally as $1","Only as %1, the first percent slot","As param[0], since parameters are zero-indexed","As INPUT(1), the built-in parameter accessor"],
+   a:0, e:"Use the parameter's name, or the positional form <code>$1, $2, ...</code>. Both refer to the same argument.", src:"Parameters & Variables"},
+  {t:"mc", q:"Which operator assigns a value to a variable in PL/pgSQL?",
+   o:[":=","==","-&gt;","&lt;&lt;"],
+   a:0, e:"<code>:=</code> is the assignment operator, e.g. <code>result := 'hi';</code>. (plpgsql also tolerates <code>=</code> for assignment, but <code>:=</code> is the clear standard.)", src:"Parameters & Variables"},
+  {t:"mc", q:"What does <code>SELECT name, email INTO nm, em FROM customers WHERE id = cid;</code> do?",
+   o:["Stores that row's name and email into the variables nm and em","Inserts the variables nm and em as a new customers row","Renames the columns name and email to nm and em permanently","Returns the row directly to the caller without using variables"],
+   a:0, e:"<code>SELECT ... INTO</code> copies the query's columns into the listed variables (in order) for use later in the body.", src:"Parameters & Variables"},
+  {t:"mc", q:"What is the purpose of the <b>DECLARE</b> section of a plpgsql function?",
+   o:["To list the local variables (name and type) the body will use","To declare which tables the function is allowed to read","To announce the function's name to other functions","To set the function's return type instead of RETURNS"],
+   a:0, e:"<code>DECLARE</code> lists local variables and their types before the <code>BEGIN ... END</code> body.", src:"Parameters & Variables"},
+  {t:"mc", q:"What does declaring <code>nm customers.name%TYPE;</code> accomplish?",
+   o:["nm takes whatever data type the customers.name column has","nm is forced to be exactly text no matter the column","nm becomes a copy of the whole customers table","nm is declared as a parameter rather than a variable"],
+   a:0, e:"<code>%TYPE</code> anchors the variable's type to a column, so it always matches (and follows any later change to the column's type).", src:"Parameters & Variables"}
 ],
-checking:[
-  {t:"num", q:"For the tiny network, the loss at w = 2.01 is 0.688160 and at w = 1.99 is 0.698160. Compute the central-difference derivative with ε = 0.01. Enter the value as a number.",
-   a:-0.5, tol:0.001, e:"Central difference = (L(w+ε) − L(w−ε))/(2ε) = (0.688160 − 0.698160)/(2·0.01) = −0.01/0.02 = <b>−0.5</b>.", src:"L16 Practice 6 · s42–43"},
-  {t:"num", q:"A student's backward pass returns −1.0 for a weight whose true (central-difference) gradient is −0.5. Compute the relative error |g_bp − g_num| / max(|g_bp|, |g_num|). Enter the value as a number.",
-   a:0.5, tol:0.001, e:"|−1.0 − (−0.5)| / max(1.0, 0.5) = 0.5 / 1.0 = <b>0.5</b> — far above 1e-6, so the code has a bug.", src:"L16 Practice 6 · s41–43"},
-  {t:"mc", q:"In double precision, a gradient check's <b>relative error</b> typically signals a correct backward pass when it is about…",
-   o:["1e-6 or smaller, while a bug usually gives 0.01 or more","0.1 or smaller, while a bug typically gives something around 0.05 instead","exactly 0 for every single weight, otherwise the backward pass is wrong","1.0 for both, the very same value for correct code and for buggy code"],
-   a:0, e:"A correct NumPy backward pass gives relative errors near 1e-6 or less; 0.01 or more usually means a bug.", src:"L16 s41"},
-  {t:"mc", q:"Backpropagation is far cheaper than numerical differences because it needs…",
-   o:["one forward pass and one backward pass for all gradients","two separate forward passes for each and every individual weight","one forward pass per layer of the network and no backward pass at all","a separate copy of the network to be trained from scratch for each weight"],
-   a:0, e:"Central differences cost two forward passes per weight (203,540 for the clothing net); backprop gets every gradient from one forward + one backward pass, the backward costing about as much as the forward.", src:"L16 s44"},
-  {t:"num", q:"Training uses 60,000 images in mini-batches of 64, with the last batch holding whatever is left. How many steps are in one epoch? Enter the value as a number.",
-   a:938, tol:0.5, e:"60,000 / 64 = 937.5, rounded up (the last batch is short) = <b>938</b> steps per epoch.", src:"L16 s47"},
-  {t:"mc", q:"Why do <b>deep sigmoid</b> networks often learn slowly in their early layers?",
-   o:["Each sigmoid layer multiplies the error by a slope of at most 0.25, so it shrinks like 0.25^k","The sigmoid function has no derivative anywhere, so no gradient can ever pass back through it","Sigmoid outputs are always negative numbers, and that is what cancels out the gradient","The sigmoid activation makes the forward pass itself diverge as depth increases"],
-   a:0, e:"The backward error is multiplied by the activation slope each layer; a sigmoid slope ≤ 0.25 means through k layers the error can shrink like 0.25^k, so early layers barely learn — the vanishing-gradient problem.", src:"L16 s55–56"},
-  {t:"mc", q:"ReLU avoids the vanishing-gradient factor of deep sigmoid nets because…",
-   o:["its slope is 1 wherever a unit is on, so it does not shrink the error","its slope is always strictly above 1, so it actually grows the error at every layer","it skips the backward pass entirely, so no multiplying factor is ever applied","it averages the error evenly over all of the layers of the network"],
-   a:0, e:"ReLU's slope is exactly 1 where a unit is on (0 where off), so the error is not multiplied down layer after layer.", src:"L16 s55–56"},
-  {t:"sa", q:"A gradient check gives relative error ≈ 1e-9 for every output-layer weight but ≈ 0.4 for every hidden-layer weight. Where is the bug most likely, and why? (1–2 sentences.)",
-   a:`<p>The <b>hidden-layer part of the backward pass</b> holds the bug.</p><p>The output-layer gradients pass the check, so the output error and output-weight gradients are right; the error only breaks once it is carried further back — in the product with W₂ᵀ, the ReLU slope, or the hidden outer product.</p>`, src:"L16 Check 2 · s59,66"}
+strings:[
+  {t:"mc", q:"What is the result of <code>'Phone: ' || NULL</code> in PostgreSQL?",
+   o:["NULL — any NULL operand makes the whole || result NULL","'Phone: ' — the NULL is treated as an empty string","'Phone: NULL' — the word NULL is appended as text","An error, because || cannot be used with NULL at all"],
+   a:0, e:"With <code>||</code>, if any operand is NULL the entire result is NULL — a single missing column can blank your whole info string. Guard with COALESCE or use CONCAT_WS.", src:"Building the String"},
+  {t:"mc", q:"How does <code>CONCAT_WS(' | ', 'Ada', NULL, 'x@x')</code> behave?",
+   o:["Joins the non-NULL arguments with ' | ' → 'Ada | x@x'","Returns NULL because one argument is NULL","Puts ' | ' before every argument → ' | Ada | x@x'","Joins all arguments including the word NULL as text"],
+   a:0, e:"<code>CONCAT_WS</code> (\"with separator\") skips NULL arguments and places the separator only between the remaining values.", src:"Building the String"},
+  {t:"mc", q:"You want <code>'Phone: ' || phone</code> to show <code>'Phone: N/A'</code> when phone is NULL. What do you use?",
+   o:["COALESCE(phone, 'N/A')","IFNULL(phone) = 'N/A'","phone DEFAULT 'N/A'","NULLIF(phone, 'N/A')"],
+   a:0, e:"<code>COALESCE(phone, 'N/A')</code> returns the first non-NULL argument, so a NULL phone becomes 'N/A'. (NULLIF does the opposite — returns NULL when the two match.)", src:"Building the String"},
+  {t:"mc", q:"What does <code>FORMAT('Name: %s, Age: %s', nm, age)</code> produce?",
+   o:["A string with nm and age substituted for the two %s placeholders","An error at run time, because FORMAT only ever accepts a single argument","The literal template text 'Name: %s, Age: %s' returned completely unchanged","A number formatted and rounded to exactly two decimal places"],
+   a:0, e:"<code>FORMAT</code> fills <code>%s</code> placeholders with the arguments in order (as text). <code>%I</code> quotes an identifier and <code>%L</code> a literal.", src:"Building the String"},
+  {t:"mc", q:"To include an integer <code>total</code> in a text string, you can write…",
+   o:["total::text (cast), or just concatenate it with ||","total.toText(), the built-in conversion method","text(total, 0), passing the decimal places","Nothing works — integers cannot appear in a string"],
+   a:0, e:"Cast with <code>total::text</code>, or rely on <code>||</code>, which casts the number to text automatically when concatenating.", src:"Building the String"},
+  {t:"ms", q:"Which expressions safely join <code>first</code> and <code>last</code> even if one of them is NULL (no NULL result)? (Select all that apply.)",
+   o:["CONCAT(first, ' ', last)","CONCAT_WS(' ', first, last)","first || ' ' || last","COALESCE(first,'') || ' ' || COALESCE(last,'')"],
+   a:[0,1,3], e:"CONCAT and CONCAT_WS ignore NULLs, and wrapping each operand in COALESCE removes the NULL before <code>||</code>. Plain <code>first || ' ' || last</code> is NULL if either side is NULL.", src:"Building the String"},
+  {t:"match", q:"Match each string tool to what it does. One term is a distractor.",
+   items:["Joins text, but returns NULL if any piece is NULL","Joins non-NULL pieces using a separator","Replaces a NULL value with a fallback","Fills %s placeholders in a template"],
+   terms:["|| (concatenation)","CONCAT_WS(sep, ...)","COALESCE(x, default)","FORMAT(tmpl, ...)","UPPER(s)"],
+   a:[0,1,2,3], e:"<code>||</code> is NULL-sensitive; <code>CONCAT_WS</code> joins with a separator and skips NULLs; <code>COALESCE</code> supplies a fallback; <code>FORMAT</code> fills placeholders. <code>UPPER</code> just changes case.", src:"Building the String"}
 ],
-sgd:[
-  {t:"mc", q:"The exact (full-batch) gradient of the training loss equals…",
-   o:["the average of the per-example gradients over all N examples","the gradient of the single hardest example","the sum of the per-example gradients, left un-averaged","the gradient of the first mini-batch of each epoch"],
-   a:0, e:"The loss is an average over the N examples, and the gradient of an average is the average of the gradients.", src:"L17 s6"},
-  {t:"mc", q:"A <b>mini-batch</b> gradient (B examples drawn at random) is…",
-   o:["an unbiased but noisy estimate of the full gradient","always exactly equal to the full-batch gradient, with no noise at all","biased toward whichever examples were seen most recently","the full-batch gradient divided through by the batch size"],
-   a:0, e:"Every example is equally likely, so on average the mini-batch gradient equals the full gradient (unbiased); a single one differs by random gradient noise.", src:"L17 s7"},
-  {t:"mc", q:"Comparing batch size B = 1 and B = N:",
-   o:["B = 1 is stochastic gradient descent; B = N is full-batch gradient descent","B = 1 is full-batch gradient descent; B = N is stochastic gradient descent instead","both of them are called full-batch, and they differ only in their speed","neither one is ever used in practice; only a batch size of B = N/2 is"],
-   a:0, e:"B = 1 (one example per step) is SGD; B = N (all examples per step) is full-batch gradient descent; mini-batch sits between.", src:"L17 s8"},
-  {t:"num", q:"A training set has 60,000 images and uses mini-batches of 32. How many steps are in one epoch? Enter the value as a number.",
-   a:1875, tol:0.5, e:"60,000 / 32 = <b>1,875</b> steps (it divides evenly).", src:"L17 Practice 1 · s9–10"},
-  {t:"num", q:"With 60,000 images and batch size 256, 234 full batches hold 59,904 images. How many images are in the short last batch? Enter the value as a number.",
-   a:96, tol:0.5, e:"60,000 − 234·256 = 60,000 − 59,904 = <b>96</b> images in the last batch (235 steps total).", src:"L17 Practice 1 · s9–10"},
-  {t:"num", q:"With batch size B = 1 on 60,000 images, how many steps are in 10 epochs? Enter the value as a number.",
-   a:600000, tol:0.5, e:"B = 1 means one step per image, 60,000 steps per epoch × 10 = <b>600,000</b> steps.", src:"L17 Practice 1 · s9–10"},
-  {t:"num", q:"At batch size 32, one step costs 7.6 microseconds per image. One epoch reads all 60,000 images once. How many seconds does one epoch take? Enter the value to 3 decimals.",
-   a:0.456, tol:0.002, e:"7.6 µs × 60,000 = 456,000 µs = <b>0.456</b> seconds.", src:"L17 Practice 4 · s22–23"},
-  {t:"mc", q:"Why do batch sizes of about 32 to 256 train fastest in wall-clock time?",
-   o:["Many cheap, slightly noisy steps make more progress than a few exact, expensive ones","A single exact step computed on all of the data always beats many cheaper noisy ones","Tiny batches of just 1 image are fastest, because each individual step is the cheapest","Only the full batch is able to use the processor hardware efficiently at all"],
-   a:0, e:"Hardware processes a block at once, so mid-size batches are cheap per image AND reasonably accurate; in a fixed time they reach higher accuracy than full-batch's few exact steps.", src:"L17 s19–21"},
-  {t:"mc", q:"When gradients are <b>noisier</b> (from a smaller batch), the learning rate should usually be…",
-   o:["smaller, so the noise averages out over many steps","larger, to overpower the noise in one step","left unchanged, since noise does not affect η","set to zero until the noise disappears"],
-   a:0, e:"A large η on noisy gradients keeps the weights jittering near the bottom; a smaller η lets the noise average over many steps. (B=1 failed at η=0.1 but trained at η=0.01.)", src:"L17 s26"}
+querying:[
+  {t:"mc", q:"After <code>SELECT name INTO nm FROM customers WHERE id = cid;</code> finds <b>no matching row</b>, what is <code>nm</code>?",
+   o:["NULL — the variable is left unset when no row matches","An empty string '' is assigned to the variable automatically","The id value cid is used as a fallback for the variable","It immediately raises an error and the whole function stops running"],
+   a:0, e:"A plain <code>SELECT INTO</code> with no match leaves the variable NULL (no error). Check the <code>FOUND</code> flag, or use <code>INTO STRICT</code> to force an error.", src:"Querying Inside"},
+  {t:"mc", q:"Which flag tells you whether the previous <code>SELECT ... INTO</code> returned a row?",
+   o:["FOUND","ROW_COUNT()","HAS_DATA","EXISTS"],
+   a:0, e:"<code>IF NOT FOUND THEN ... END IF;</code> checks whether the last INTO (or other query) affected/returned a row.", src:"Querying Inside"},
+  {t:"mc", q:"Which function folds <b>many rows</b> into one comma-separated string?",
+   o:["string_agg(expr, ', ')","count(expr)","array_length(expr)","substring(expr, ', ')"],
+   a:0, e:"<code>string_agg(expr, sep)</code> is an aggregate that concatenates a value across rows with the separator — e.g. <code>'Bolt, Nut, Washer'</code>.", src:"Querying Inside"},
+  {t:"mc", q:"What does adding <b>STRICT</b> to <code>SELECT ... INTO STRICT nm ...</code> do?",
+   o:["Raises an error unless exactly one row is returned","Makes the comparison case-sensitive","Forbids the variable from ever being NULL afterward","Limits the query to the strictly first column only"],
+   a:0, e:"<code>INTO STRICT</code> requires exactly one row — zero or many rows raises an exception, which is useful for a lookup that must match a single record.", src:"Querying Inside"},
+  {t:"sa", q:"Using <code>string_agg</code>, write a function <code>order_items(oid int)</code> that returns the product names on an order as one comma-separated string from table <code>order_lines(order_id, product_name)</code>.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION order_items(oid int)
+RETURNS text AS $$
+  SELECT string_agg(product_name, ', ' ORDER BY product_name)
+    FROM order_lines
+   WHERE order_id = oid;
+$$ LANGUAGE sql;</div><p><code>string_agg</code> concatenates <code>product_name</code> across the matching rows with <code>', '</code> between them. The optional <code>ORDER BY</code> makes the order deterministic. A no-match order returns NULL — wrap in <code>COALESCE(..., 'none')</code> if you want a word instead.</p>`, src:"Querying Inside"}
 ],
-optimizers:[
-  {t:"num", q:"Momentum with ρ = 0.5 and η = 0.1 starts at w = 1, v = 0. The gradients at steps 1, 2, 3 are 2, 2, −2. Compute the weight w after step 3 (two decimals).",
-   a:0.55, tol:0.01, e:"Step 1: v=0.5·0+2=2, w=1−0.1·2=0.8. Step 2: v=0.5·2+2=3, w=0.8−0.3=0.5. Step 3: v=0.5·3−2=−0.5, w=0.5−0.1·(−0.5)=<b>0.55</b> — the stored velocity softens the reversal.", src:"L17 Practice 6 · s39–40"},
-  {t:"mc", q:"Momentum speeds up training in a narrow valley because…",
-   o:["gradients that agree across steps add up, while gradients that flip sign cancel","it automatically increases the global learning rate by a little on every single step","it completely removes the random noise from each mini-batch gradient estimate","it gives every weight in the network its own separate and different step size"],
-   a:0, e:"Along the valley the gradient stays steady and the velocity builds; across the valley it flips sign and cancels, so momentum moves fast along and damps the zigzag.", src:"L17 s36–38"},
-  {t:"num", q:"When the gradient g stays steady, momentum's velocity grows toward 1/(1−ρ) times g. With ρ = 0.9, what is that multiple? Enter the value as a number.",
-   a:10, tol:0.01, e:"1/(1−0.9) = 1/0.1 = <b>10</b>, so ρ=0.9 acts like a 10× larger learning rate while the gradient stays steady.", src:"L17 s37,45–46"},
-  {t:"num", q:"Adam's first step (t = 1): w = 0.5, g = 4, η = 0.001, β₁ = 0.9, β₂ = 0.999, ε ignored. After bias correction m̂ = g and ŝ = g², so the step is η·m̂/√ŝ. Compute the new weight w (three decimals).",
-   a:0.499, tol:0.001, e:"m̂ = 4, ŝ = 16, step = η·m̂/√ŝ = 0.001·4/4 = 0.001. w = 0.5 − 0.001 = <b>0.499</b> — at t=1 every weight moves by η against the sign of its gradient.", src:"L17 Practice 8 · s52–53"},
-  {t:"mc", q:"Adam keeps two running averages. They are averages of…",
-   o:["the recent gradients (m) and the recent squared gradients (s)","the recent weight values (m) and the recent per-step loss values (s)","the forward-pass outputs (m) and the backward-pass gradients (s)","the current learning rate (m) and the current mini-batch size (s)"],
-   a:0, e:"m averages the gradients (like momentum's velocity); s averages the squared gradients, so √s measures how large each weight's gradient has been.", src:"L17 s49"},
-  {t:"mc", q:"Dividing Adam's step by √ŝ (entry by entry) achieves what?",
-   o:["each weight gets its own step size, set by the recent size of its gradient","every single weight in the network gets the exact same fixed step size as the rest","the learning rate η is removed entirely from the weight update rule","the raw gradients are turned into probabilities that sum to one"],
-   a:0, e:"Scaling each weight's step by 1/√ŝ gives weights with large recent gradients smaller steps and vice versa — a per-weight step size.", src:"L17 s48–50"},
-  {t:"mc", q:"Adam uses <b>bias correction</b> because…",
-   o:["m and s start at 0, so their early values are too small","the raw gradients themselves are biased toward the very first output class","the chosen learning rate is always far too large at the start of training","the network weights start at random, biased starting values"],
-   a:0, e:"m and s are initialized to 0, so early averages underestimate; dividing by (1−β₁^t) and (1−β₂^t) rescales them back (at t=1 it recovers g and g²).", src:"L17 s50–51"},
-  {t:"ms", q:"Which statements about Adam are true? (Select all that apply.)",
-   o:["It keeps a running average of the squared gradients","It gives each weight its own step size","Its common default learning rate is 0.001","It uses one shared step size for every weight, like plain SGD","It needs no learning rate at all"],
-   a:[0,1,2], e:"Adam tracks squared gradients (s), uses them to give each weight its own step size, and defaults to η = 0.001. It does NOT share one step size (that's plain SGD) and it still needs a learning rate.", src:"L17 s48–50,56"},
-  {t:"mc", q:"A reasonable <b>first choice</b> of optimizer, needing little tuning of the learning rate, is…",
-   o:["Adam with η = 0.001","plain SGD with η = 1.0","full-batch gradient descent with η = 0.001","momentum with ρ = 0.0"],
-   a:0, e:"Adam with η = 0.001 trains well across a wide range of η. SGD with momentum and a tuned schedule is still strong and can win on some tasks, but needs more tuning.", src:"L17 s56–57"}
+examples:[
+  {t:"mc", q:"A function has <code>'Email: ' || email</code> and some customers have a NULL email, blanking the whole string. The best fix is…",
+   o:["Use COALESCE(email, 'N/A') (or CONCAT_WS) so a NULL does not void the result","Delete every customer row that happens to have a NULL value in the email column","Change the email column definition so that it is never again allowed to store a NULL","Wrap the whole function body inside a second, nested pair of dollar quotes"],
+   a:0, e:"The NULL-propagation of <code>||</code> is the cause; <code>COALESCE(email,'N/A')</code> or <code>CONCAT_WS</code> keeps the rest of the string intact.", src:"Examples & Pitfalls"},
+  {t:"mc", q:"A PL/pgSQL function sometimes reaches <code>END;</code> without hitting a RETURN. What happens?",
+   o:["It raises an error: control reached end of function without RETURN","It silently returns an empty string back to the caller by default","It silently returns the value of whichever local variable was assigned last","It loops back to BEGIN and quietly runs the whole body one more time"],
+   a:0, e:"A plpgsql function declared to return a value must RETURN on every path, or it errors at run time. Make sure every branch returns.", src:"Examples & Pitfalls"},
+  {t:"mc", q:"An <b>info lookup</b> function reads tables but changes nothing. Which volatility label fits best?",
+   o:["STABLE","VOLATILE","IMMUTABLE","DETERMINISTIC"],
+   a:0, e:"<code>STABLE</code> = reads the database but does not modify it within a statement. <code>IMMUTABLE</code> is for pure functions that touch no tables; <code>VOLATILE</code> is the default.", src:"Examples & Pitfalls"},
+  {t:"ms", q:"Which are genuine mistakes that would break or spoil a string-returning function? (Select all that apply.)",
+   o:["Concatenating a possibly-NULL column with || and no COALESCE","Leaving a plpgsql path with no RETURN statement","Returning an integer from a RETURNS text function with no cast","Using CONCAT_WS to join the fields with a separator"],
+   a:[0,1,2], e:"The NULL trap, a missing RETURN, and a return-type mismatch all break or spoil the result. <code>CONCAT_WS</code> is good practice, not a mistake.", src:"Examples & Pitfalls"},
+  {t:"sa", q:"Write a NULL-safe PL/pgSQL function <code>get_customer_info(cid int)</code> that returns <code>'Name: ... | City: ...'</code> for the matching row in <code>customers(id, name, city)</code>, or <code>'No customer #cid'</code> if none exists.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION get_customer_info(cid int)
+RETURNS text AS $$
+DECLARE
+  nm text;
+  ct text;
+BEGIN
+  SELECT name, city INTO nm, ct
+    FROM customers WHERE id = cid;
+  IF NOT FOUND THEN
+    RETURN 'No customer #' || cid;
+  END IF;
+  RETURN CONCAT_WS(' | ',
+           'Name: ' || nm,
+           'City: ' || COALESCE(ct, 'N/A'));
+END;
+$$ LANGUAGE plpgsql;</div><p>Steps: declare variables → <code>SELECT ... INTO</code> → handle <code>NOT FOUND</code> → build the string with <code>CONCAT_WS</code> and <code>COALESCE</code> (so a NULL city shows 'N/A' instead of voiding the string) → <code>RETURN</code>.</p>`, src:"Examples & Pitfalls"}
 ]
 };
 
@@ -551,11 +615,11 @@ const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Numeric Ent
 const SCORED = {mc:1, ms:1, num:1, match:1, sa:0};
 
 const store=(()=>{try{const t="__t";localStorage.setItem(t,"1");localStorage.removeItem(t);return localStorage;}catch(e){return null;}})();
-const KEY="ml-nn-progress-v1";
+const KEY="sql-fn-progress-v1";
 let state={}; try{ if(store) state=JSON.parse(store.getItem(KEY)||"{}"); }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
-let flags={}; try{ if(store) flags=JSON.parse(store.getItem("ml-nn-flags")||"{}"); }catch(e){ flags={}; }
-function saveFlags(){ try{ store && store.setItem("ml-nn-flags", JSON.stringify(flags)); }catch(e){} }
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("sql-fn-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("sql-fn-flags", JSON.stringify(flags)); }catch(e){} }
 
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function seededPerm(n, seed){
@@ -584,46 +648,46 @@ const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let activePart=null, cramPinned=false, curFilter="all";
 
 const CRAM_HTML=`<div class="cram">
-<h5>MLP Architecture (L15)</h5>
+<h5>Creating a Function</h5>
+<div class="codeblk">CREATE OR REPLACE FUNCTION f(p text)
+RETURNS text AS $$
+  SELECT 'Hi ' || p;
+$$ LANGUAGE sql;</div>
 <ul>
-<li>Neuron: <code>z = w·x + b</code> → activation. Layer: <code>z = Wx + b</code>, <b>W is units × inputs</b>.</li>
-<li>ReLU <code>max(0,z)</code>; unit "off" when z&lt;0. Hidden layer learns features h; output on h.</li>
-<li><b>Depth</b> = layers with weights; <b>width</b> = units. Dense = every unit to every next unit.</li>
-<li>Params per layer <code>= n_in·n_out + n_out</code>. 784→100→10 = <b>79,510</b>.</li>
-<li>Universal approx: one wide hidden layer fits any continuous function — but not how many units, training, or generalization. Pick size by held-out accuracy.</li>
+<li><b>RETURNS text</b> = returns a string. Body between <code>$$ ... $$</code> (dollar-quoting).</li>
+<li><b>LANGUAGE sql</b> = one query; <b>plpgsql</b> = variables, IF/LOOP, RETURN.</li>
+<li>Call with <code>SELECT f('x');</code>. Drop with <code>DROP FUNCTION f(text);</code>.</li>
 </ul>
-<h5>Activations &amp; Outputs (L15)</h5>
+<h5>Returning a String</h5>
 <ul>
-<li>No nonlinearity → layers collapse to one linear layer (logistic regression).</li>
-<li>Sigmoid 0–1 (max slope <b>0.25</b>); tanh −1..1 (slope 1); ReLU 0+ (slope 0/1). Far from 0 → <b>saturated</b>.</li>
-<li>Hidden = ReLU; 2-class = sigmoid+BCE; K-class = softmax+CE; regression = identity+squared error.</li>
-<li>Softmax <code>p_k=e^{z_k}/Σe^{z_j}</code>; loss <code>−ln(p_true)</code>; confident wrong costs most.</li>
+<li><b>RETURNS</b> (header, the type) vs <b>RETURN</b> (body statement, the value).</li>
+<li>sql-language: returns its final SELECT; plpgsql: <code>RETURN expr;</code>.</li>
+<li>Number into text → cast <code>n::text</code>. Type: <b>text</b> (any length).</li>
 </ul>
-<h5>Backpropagation (L16)</h5>
+<h5>Parameters &amp; Variables</h5>
 <ul>
-<li>Chain rule: <code>∂L/∂w = (∂L/∂u)(∂u/∂w)</code>. Backward = upstream × local gradient.</li>
-<li>Gates: <b>add</b> copies; <b>multiply</b> swaps (×other input); <b>ReLU</b> passes if input&gt;0 else 0; a value used twice <b>sums</b> gradients.</li>
-<li>Output error <code>δ_o = ŷ − y</code> (softmax: <code>p − y</code>). Output weight grad <code>δ_o·h</code>.</li>
-<li>Hidden error <code>δ = (W₂ᵀδ_o) ⊙ g'(z)</code>; weight grad <code>= δ·input</code>; every grad has the shape of its parameter.</li>
+<li>Use a param by name or <code>$1, $2</code>. Assign with <code>:=</code>.</li>
+<li><code>DECLARE nm text;</code> ... <code>SELECT col INTO nm FROM ...;</code></li>
+<li><code>nm table.col%TYPE</code> anchors the type to a column.</li>
 </ul>
-<h5>Checking &amp; Vanishing (L16)</h5>
+<h5>Building the String</h5>
 <ul>
-<li>Central diff <code>(L(w+ε)−L(w−ε))/2ε</code> (error ~ε²). Rel err <code>|g_bp−g_num|/max(|·|)</code>: ≤1e-6 ok, ≥0.01 bug.</li>
-<li>Backprop = 1 forward + 1 backward (cheap) vs 2 forward passes per weight.</li>
-<li>Epoch = ⌈N/B⌉ steps (938 for 60k/64).</li>
-<li>Deep sigmoid: error shrinks like <code>0.25^k</code> → first layers barely learn; <b>ReLU slope 1</b> avoids it.</li>
+<li><b>|| NULL trap:</b> any NULL operand → whole result NULL.</li>
+<li><b>CONCAT</b> ignores NULLs; <b>CONCAT_WS(sep, ...)</b> joins non-NULLs with a separator.</li>
+<li><b>COALESCE(x, 'N/A')</b> = fallback for NULL. <b>FORMAT('...%s...', a)</b> = placeholders.</li>
+<li>Cast: <code>n::text</code>, <code>to_char(d,'YYYY-MM-DD')</code>. UPPER/LOWER/TRIM/LENGTH.</li>
 </ul>
-<h5>SGD &amp; Mini-Batches (L17)</h5>
+<h5>Querying Inside</h5>
 <ul>
-<li>Full gradient = mean of per-example gradients. Mini-batch = <b>unbiased, noisy</b> estimate.</li>
-<li>B=1 SGD, B=N full-batch; epoch = ⌈N/B⌉ steps. <b>B≈32–256 trains fastest</b> (hardware + accuracy).</li>
-<li>Smaller batch (noisier) → smaller η. Schedule: start large, <b>÷10 when loss stalls</b>.</li>
+<li><code>SELECT col INTO var FROM t WHERE ...;</code> — one row into variables.</li>
+<li>No match → var is NULL; check <code>IF NOT FOUND THEN ...</code>; <code>INTO STRICT</code> errors unless exactly one row.</li>
+<li><b>string_agg(expr, ', ')</b> folds many rows into one string.</li>
 </ul>
-<h5>Momentum &amp; Adam (L17)</h5>
+<h5>Examples &amp; Pitfalls</h5>
 <ul>
-<li>Momentum <code>v ← ρv + g</code>, <code>w ← w − ηv</code>; agreeing grads add, flips cancel; long-run <code>×1/(1−ρ)</code> (ρ=0.9→10).</li>
-<li>Adam: m (grads) &amp; s (squared grads), bias-corrected; <code>w ← w − η·m̂/√ŝ</code> → <b>per-weight step</b>. Defaults β₁=0.9, β₂=0.999, η=0.001.</li>
-<li>Adam η=0.001 = good default; SGD+momentum 0.9 + schedule still strong. Lower η when loss stalls.</li>
+<li>Pitfalls: <code>||</code> NULL trap, missing RETURN, missing LANGUAGE, return-type mismatch.</li>
+<li>Volatility: info lookup = <b>STABLE</b>; pure formatter = IMMUTABLE; default = VOLATILE.</li>
+<li>Pattern: declare → SELECT INTO → NOT FOUND → CONCAT_WS + COALESCE → RETURN.</li>
 </ul>
 </div>`;
 
@@ -726,7 +790,7 @@ function handleSubmit(id){
   }
 }
 
-function srcLine(q){ return q.src?`<span class="src">Source: ${q.src}</span>`:""; }
+function srcLine(q){ return q.src?`<span class="src">Topic: ${q.src}</span>`:""; }
 
 function renderQ(secId,i,q,id){
   const ans=state[id];
@@ -881,12 +945,12 @@ function renderGuideBody(secId){
 }
 function showCram(){
   cramPinned=true; activePart=null;
-  gtitle.textContent="Cram Sheet — Neural Networks";
+  gtitle.textContent="Cram Sheet — SQL Functions";
   gbody.style.setProperty("--gh","var(--accent)");
   document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
   cramChip.classList.add("active");
   gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
-  try{ store && store.setItem("ml-nn-part","cram"); }catch(e){}
+  try{ store && store.setItem("sql-fn-part","cram"); }catch(e){}
 }
 function setActivePart(secId, fromClick){
   if(fromClick) cramPinned=false;
@@ -898,7 +962,7 @@ function setActivePart(secId, fromClick){
   const chip=document.getElementById("gchip-"+secId);
   if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
   if(changed) renderGuideBody(secId);
-  try{ store && store.setItem("ml-nn-part",secId); }catch(e){}
+  try{ store && store.setItem("sql-fn-part",secId); }catch(e){}
   if(fromClick){ document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"}); if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false); }
 }
 let ticking=false;
@@ -922,14 +986,14 @@ scrim.addEventListener("click",()=>setGuideOpen(false));
 document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
 const root=document.documentElement, tb=document.getElementById("themeBtn"), ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("ml-nn-theme",t);}catch(e){} }
-let curTheme="system"; try{ if(store) curTheme=store.getItem("ml-nn-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("sql-fn-theme",t);}catch(e){} }
+let curTheme="system"; try{ if(store) curTheme=store.getItem("sql-fn-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{ curTheme=curTheme==="system"?"light":curTheme==="light"?"dark":"system"; applyTheme(curTheme); });
 
 /* ---- init ---- */
 refreshOverall(); applyFilter("all");
-let initPart=null; try{ initPart=store&&store.getItem("ml-nn-part"); }catch(e){}
+let initPart=null; try{ initPart=store&&store.getItem("sql-fn-part"); }catch(e){}
 if(initPart==="cram"||!initPart) showCram();
 else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
 else showCram();
