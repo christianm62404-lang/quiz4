@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SQL Functions Study Sheet — COP 4710 (Quiz 2)</title>
+<title>Writing SQL Functions — Study Sheet (COP 4710 Quiz 2)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -20,32 +20,36 @@
 :root[data-theme="light"]{--bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#30404f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;--accent:#2f6f9f;--accent-strong:#1f5480;--bad:#c23b3b;--ok:#1f8a4c;--t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59}
 :root[data-theme="dark"]{--bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;--accent:#6aa7d4;--accent-strong:#8cbfe4;--bad:#e88686;--ok:#5cc98a;--t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:13px;line-height:1.42;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:13px;line-height:1.4;-webkit-font-smoothing:antialiased}
 .bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 18px}
-.bar .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.bar .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
 .tools{display:flex;gap:8px}
 .btn{font-family:var(--mono);font-size:12px;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:7px 13px;cursor:pointer}
 .btn:hover{border-color:var(--accent);color:var(--accent-strong)}
 .pages{max-width:1180px;margin:0 auto;padding:16px}
-.page{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px;margin:0 auto 20px;max-width:1040px}
+.page{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:15px 17px;margin:0 auto 20px;max-width:1060px}
 .page-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:right;margin-bottom:2px}
 .head{border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-.head h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0;letter-spacing:-.01em}
+.head h1{font-family:var(--serif);font-size:20px;font-weight:600;margin:0;letter-spacing:-.01em}
 .head .sc{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
-.cols{columns:2;column-gap:18px}
-.card{break-inside:avoid;border:1px solid var(--line);border-left:3px solid var(--hue);border-radius:8px;background:var(--surface);padding:8px 11px;margin:0 0 12px}
+.cols{columns:2;column-gap:16px}
+.cols.three{columns:2}
+.card{break-inside:avoid;border:1px solid var(--line);border-left:3px solid var(--hue);border-radius:8px;background:var(--surface);padding:8px 11px;margin:0 0 11px}
 .card h2{font-size:13px;font-weight:700;margin:0 0 2px;color:var(--ink)}
 .card .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--hue);font-weight:700}
 .card h3{font-size:11.5px;margin:8px 0 2px;color:var(--ink);font-weight:700}
-.card ul{margin:4px 0 0;padding-left:15px}
+.card ul,.card ol{margin:4px 0 0;padding-left:15px}
 .card li{margin:2.5px 0;color:var(--ink-soft)}
 .card li::marker{color:var(--hue)}
 .card b{color:var(--ink)}
+.card p{margin:4px 0 0;color:var(--ink-soft)}
 .bad{color:var(--bad);font-weight:700}
 .ok{color:var(--ok);font-weight:700}
+.pill{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.04em;padding:1px 6px;border-radius:99px;color:#fff;background:var(--hue);vertical-align:middle}
 code{font-family:var(--mono);font-size:.86em;background:color-mix(in srgb,var(--hue) 10%,transparent);border:1px solid color-mix(in srgb,var(--hue) 22%,transparent);border-radius:4px;padding:0 3px;color:var(--ink)}
-pre{font-family:var(--mono);font-size:10.6px;line-height:1.42;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:7px 9px;margin:5px 0 2px;overflow-x:auto;white-space:pre;color:var(--ink);tab-size:2}
-table.t{border-collapse:collapse;margin:5px 0 2px;font-size:10.8px;width:100%}
+pre{font-family:var(--mono);font-size:10.4px;line-height:1.4;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:7px 9px;margin:5px 0 2px;overflow-x:auto;white-space:pre;color:var(--ink);tab-size:2}
+pre .c{color:var(--muted)}
+table.t{border-collapse:collapse;margin:5px 0 2px;font-size:10.6px;width:100%}
 table.t th,table.t td{border:1px solid var(--line);padding:2.5px 5px;text-align:left;vertical-align:top}
 table.t th{background:color-mix(in srgb,var(--hue) 10%,transparent);font-family:var(--mono);font-size:9.5px;color:var(--muted);font-weight:600}
 table.t td{color:var(--ink-soft)}
@@ -53,27 +57,27 @@ table.t code{font-size:.9em}
 .footnote{font-family:var(--mono);font-size:9.5px;color:var(--faint);margin-top:6px;text-align:center}
 @media print{
   :root{--bg:#fff;--surface:#fff;--surface-2:#f3f3f3;--ink:#000;--ink-soft:#1a1a1a;--muted:#333;--line:#b4b4b4;--line-strong:#999}
-  body{font-size:8.4pt;line-height:1.32}
+  body{font-size:8.3pt;line-height:1.3}
   .bar{display:none}
   .pages{max-width:none;padding:0;margin:0}
   .page{box-shadow:none;border:none;border-radius:0;margin:0;max-width:none;padding:0}
   .page.front{break-after:page}
-  .cols{column-gap:10px}
-  .card{margin-bottom:7px;padding:5px 8px}
-  pre{font-size:7.4pt;padding:5px 7px}
-  table.t{font-size:7.4pt}
-  .head h1{font-size:15pt}
+  .cols{column-gap:9px}
+  .card{margin-bottom:6px;padding:5px 8px}
+  pre{font-size:7.1pt;padding:4px 6px;line-height:1.32}
+  table.t{font-size:7.1pt}
+  .head h1{font-size:14pt}
   .page-tag{display:none}
-  @page{margin:9mm}
+  @page{margin:8mm}
 }
 </style>
 </head>
 <body>
 <div class="bar">
-  <span class="lbl">COP 4710 · Quiz 2 · prints front &amp; back on one sheet</span>
+  <span class="lbl">COP 4710 · Quiz 2 · code-writing · prints front &amp; back on one sheet</span>
   <div class="tools">
     <button class="btn" id="themeBtn" type="button">◐ Theme</button>
-    <button class="btn" id="printBtn" type="button">⎙ Print / PDF</button>
+    <button class="btn" id="printBtn" type="button">⎙ Print / Save PDF</button>
   </div>
 </div>
 <div class="pages">
@@ -81,81 +85,109 @@ table.t code{font-size:.9em}
 <!-- ===================== FRONT ===================== -->
 <section class="page front">
   <div class="page-tag">Front — page 1 of 2</div>
-  <div class="head"><h1>SQL Functions That Return Strings</h1><span class="sc">COP 4710 · PostgreSQL / PL/pgSQL · Quiz 2</span></div>
+  <div class="head"><h1>Writing SQL Functions — Types, Formatting &amp; Edge Cases</h1><span class="sc">COP 4710 · PostgreSQL / PL-pgSQL · Quiz 2</span></div>
   <div class="cols">
 
     <div class="card" style="--hue:var(--t0)">
-      <div class="k">Syntax skeleton</div>
-      <h2>Creating a Function</h2>
-<pre>CREATE OR REPLACE FUNCTION f(p text)
-RETURNS text          -- the return TYPE
-AS $$                 -- body is dollar-quoted
-  SELECT 'Hi ' || p;
-$$ LANGUAGE sql;</pre>
-      <ul>
-        <li><b>OR REPLACE</b> = redefine if it exists.</li>
-        <li><b>params</b> in ( ): a name + a type.</li>
-        <li><b>RETURNS text</b> = hands back a string.</li>
-        <li><b>$$ … $$</b> = dollar-quote (use <code>'…'</code> inside with no escaping; tag as <code>$tag$…$tag$</code> to nest).</li>
-        <li><b>LANGUAGE</b> = how to run the body (<code>sql</code> or <code>plpgsql</code>).</li>
-      </ul>
-      <h3>Call it · drop it</h3>
-<pre>SELECT f('Ada');      -- 'Hi Ada'
-DROP FUNCTION f(text);</pre>
-    </div>
-
-    <div class="card" style="--hue:var(--t1)">
-      <div class="k">sql vs plpgsql</div>
-      <h2>Returning a String</h2>
-      <ul>
-        <li><b>RETURNS</b> (header) = the <i>type</i>; <b>RETURN</b> (body statement) = hands back the <i>value</i>.</li>
-        <li><b>LANGUAGE sql</b>: returns its final <code>SELECT</code> — no RETURN keyword.</li>
-        <li><b>LANGUAGE plpgsql</b>: <code>BEGIN … RETURN expr; END;</code> — must RETURN.</li>
-      </ul>
-<pre>-- plpgsql version
-CREATE FUNCTION label(n text)
-RETURNS text AS $$
+      <div class="k">memorize this</div>
+      <h2>The Skeleton</h2>
+<pre>CREATE OR REPLACE FUNCTION f(arg VARCHAR(50))
+RETURNS DECIMAL(5,2) AS $$      <span class="c">-- return TYPE</span>
+DECLARE
+  d_id INT;  hi NUMERIC;  lo NUMERIC;
 BEGIN
-  RETURN 'Name: ' || n;
+  <span class="c">-- look up, compute, decide</span>
+  RETURN value;                <span class="c">-- every path!</span>
 END;
 $$ LANGUAGE plpgsql;</pre>
       <ul>
-        <li>Type <b>text</b> = any length (use this). <code>varchar(n)</code> caps length.</li>
-        <li>Return a number as text → cast <code>n::text</code>.</li>
-        <li>One string = <code>RETURNS text</code>; many rows = <code>RETURNS SETOF text / TABLE(…)</code>.</li>
+        <li>Header = name, <b>params (name + type)</b>, <code>RETURNS</code> type.</li>
+        <li>Body between <b><code>$$ … $$</code></b>; logic (IF/DECLARE/RETURN) needs <b>LANGUAGE plpgsql</b>.</li>
+        <li><b>OR REPLACE</b> redefines; <code>DROP FUNCTION f(varchar);</code> removes.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="--hue:var(--t1)">
+      <div class="k">variable types &amp; formatting</div>
+      <h2>Types &amp; Formatting</h2>
+      <table class="t"><tr><th>type</th><th>holds / use</th></tr>
+        <tr><td><code>VARCHAR(n)</code></td><td>text ≤ n chars (names)</td></tr>
+        <tr><td><code>INT</code></td><td>whole number (ids, counts)</td></tr>
+        <tr><td><code>DECIMAL(p,s)</code></td><td>p digits, s after point (money, %)</td></tr>
+        <tr><td><code>NUMERIC</code></td><td>exact number for math locals</td></tr>
+        <tr><td><code>BOOLEAN</code></td><td>TRUE / FALSE / NULL</td></tr></table>
+      <ul>
+        <li><b>DECIMAL(5,2)</b> = 5 digits, 2 after the point → max <b>999.99</b>. DECIMAL(10,2) → 99,999,999.99.</li>
+        <li>Fit the scale with <b><code>ROUND(x, 2)</code></b> before returning.</li>
+        <li>Match the <b>argument type to the spec exactly</b> (e.g. <code>dept_name VARCHAR(50)</code>).</li>
+        <li>Casts: <code>x::numeric</code>, <code>x::int</code>, <code>x::text</code>; dates <code>to_char(d,'YYYY-MM-DD')</code>.</li>
       </ul>
     </div>
 
     <div class="card" style="--hue:var(--t2)">
-      <div class="k">Inputs &amp; locals</div>
-      <h2>Parameters &amp; Variables</h2>
+      <div class="k">read the data</div>
+      <h2>SELECT INTO &amp; Aggregates</h2>
+<pre>SELECT id INTO d_id
+  FROM departments WHERE name = dept_name;
+
+SELECT MAX(salary), MIN(salary) INTO hi, lo
+  FROM employees WHERE department_id = d_id;</pre>
+      <p>Over an <b>empty set</b>:</p>
+      <table class="t"><tr><th>aggregate</th><th>empty →</th></tr>
+        <tr><td><code>COUNT(*)</code></td><td><b>0</b> (never NULL)</td></tr>
+        <tr><td><code>MAX / MIN / AVG / SUM</code></td><td><b>NULL</b></td></tr></table>
       <ul>
-        <li>Use a parameter by <b>name</b>, or by position <code>$1, $2</code>. Give a <code>DEFAULT</code> if you like.</li>
-        <li>Locals go in <b>DECLARE</b>; assign with <b><code>:=</code></b> (not <code>=</code>).</li>
-        <li><code>SELECT col INTO var …</code> copies a row's columns into variables.</li>
-        <li><code>var tbl.col%TYPE</code> anchors the variable's type to a column.</li>
+        <li>Capture several columns / aggregates into several vars, left to right.</li>
+        <li>An aggregate query always returns <b>one row</b>, so <code>FOUND</code> is TRUE even when empty — detect empty with <b><code>IS NULL</code></b>.</li>
       </ul>
-<pre>CREATE FUNCTION tag(id int)
-RETURNS text AS $$
-DECLARE result text;
-BEGIN
-  result := 'Record #' || id;
-  RETURN result;
-END;
-$$ LANGUAGE plpgsql;</pre>
     </div>
 
     <div class="card" style="--hue:var(--t3)">
-      <div class="k">read first, then build</div>
-      <h2>The Standard Pattern</h2>
-      <ol style="margin:4px 0 0;padding-left:16px">
-        <li><b>DECLARE</b> the variables you need.</li>
-        <li><b>SELECT … INTO</b> the row by its id.</li>
-        <li>Check <b>IF NOT FOUND</b> → return a message.</li>
-        <li><b>Build</b> the string (CONCAT_WS + COALESCE).</li>
-        <li><b>RETURN</b> it.</li>
-      </ol>
-      <p style="margin:6px 0 0;color:var(--muted);font-size:11px">The full worked function is on the back ▸</p>
+      <div class="k">the exam skill</div>
+      <h2>Edge Cases: NULL vs Sentinel</h2>
+<pre>SELECT id INTO d_id
+  FROM departments WHERE name = dept_name;
+IF NOT FOUND THEN RETURN NULL; END IF; <span class="c">-- missing</span>
+
+SELECT MAX(salary), MIN(salary) INTO hi, lo
+  FROM employees WHERE department_id = d_id;
+IF lo IS NULL THEN RETURN -1.00; END IF;<span class="c">-- empty</span></pre>
+      <ul>
+        <li><b>Does it exist?</b> plain lookup + <code>IF NOT FOUND</code> → <b>NULL</b>.</li>
+        <li><b>Is it empty?</b> aggregate <code>IS NULL</code> → <b>sentinel</b> (e.g. −1.00).</li>
+        <li><b>Order:</b> existence first, then emptiness, then compute. (Else a missing parent wrongly hits −1.00.)</li>
+        <li>Match the sentinel format: <code>-1.00</code>, not <code>-1</code>, for a <code>DECIMAL(_,2)</code> return.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="--hue:var(--t4)">
+      <div class="k">compute &amp; round</div>
+      <h2>Formulas &amp; the INT Trap</h2>
+      <ul>
+        <li><b>% of the lower one:</b> <code>(MAX − MIN) / MIN * 100</code>.</li>
+        <li><b>A as % of B:</b> <code>A / B * 100</code>.</li>
+        <li><span class="bad">Integer-division trap:</span> INT/INT truncates (<code>30/100 = 0</code>). Force numeric: <code>* 100.0</code> or <code>::numeric</code>.</li>
+        <li>Guard <code>IF lo = 0</code> if the lower value could be 0 (divide-by-zero).</li>
+      </ul>
+<pre>RETURN ROUND((hi - lo) / lo * 100, 2);
+<span class="c">-- INT columns? -></span>
+RETURN ROUND((hi - lo) * 100.0 / lo, 2);</pre>
+    </div>
+
+    <div class="card" style="--hue:var(--t5)">
+      <div class="k">every problem uses this</div>
+      <h2>Assumed Schema</h2>
+<pre>departments(id INT PK,
+            name VARCHAR(50))
+
+employees(id INT PK,
+          first_name VARCHAR(50),
+          last_name  VARCHAR(50),
+          title      VARCHAR(50),
+          salary     DECIMAL(10,2),
+          department_id INT -> departments.id,
+          manager_id    INT -> employees.id)</pre>
+      <p>Attack order: <b>header</b> (types) → <b>DECLARE</b> → <b>exists?</b> (NULL) → <b>read + empty?</b> (sentinel) → <b>compute + ROUND</b> → <b>RETURN</b>.</p>
     </div>
 
   </div>
@@ -164,89 +196,132 @@ $$ LANGUAGE plpgsql;</pre>
 <!-- ===================== BACK ===================== -->
 <section class="page back">
   <div class="page-tag">Back — page 2 of 2</div>
-  <div class="head"><h1>Building &amp; Querying the Info String</h1><span class="sc">concatenation · NULLs · lookups · pitfalls</span></div>
+  <div class="head"><h1>Worked Problems — One per Return Type</h1><span class="sc">DECIMAL · INT · VARCHAR · BOOLEAN · pitfalls</span></div>
   <div class="cols">
 
-    <div class="card" style="--hue:var(--t4)">
-      <div class="k">concatenation &amp; NULLs</div>
-      <h2>Building the String</h2>
-      <ul>
-        <li><b><code>||</code></b> joins text — but <span class="bad">any NULL operand → whole result NULL</span>. One missing column blanks the string.</li>
-        <li><b>CONCAT(…)</b> ignores NULLs; <b>CONCAT_WS(sep, …)</b> joins non-NULLs with a separator. <span class="ok">Best for info strings.</span></li>
-        <li><b>COALESCE(x,'N/A')</b> = fallback when x is NULL.</li>
-        <li><b>FORMAT('…%s…', a, b)</b> fills <code>%s</code> placeholders (<code>%I</code> identifier, <code>%L</code> literal, <code>%%</code> = %).</li>
-        <li>Cast: <code>n::text</code>, <code>to_char(d,'YYYY-MM-DD')</code>.</li>
-      </ul>
-<pre>'Ph: ' || NULL              --> NULL  (!)
-CONCAT_WS(' | ','Ada',NULL) --> 'Ada'
-'Ph: ' || COALESCE(ph,'N/A')</pre>
-      <table class="t"><tr><th>fn</th><th>does</th></tr>
-        <tr><td><code>UPPER/LOWER/INITCAP</code></td><td>case</td></tr>
-        <tr><td><code>TRIM / LENGTH</code></td><td>strip / count</td></tr>
-        <tr><td><code>SUBSTRING / REPLACE</code></td><td>slice / swap</td></tr>
-        <tr><td><code>LPAD / RPAD</code></td><td>pad to width</td></tr></table>
-    </div>
-
-    <div class="card" style="--hue:var(--t5)">
-      <div class="k">look up the info</div>
-      <h2>Querying Inside</h2>
-      <ul>
-        <li><code>SELECT col INTO var FROM t WHERE …;</code> — one row → variables (in order).</li>
-        <li>No match → var is <b>NULL</b>; test <code>IF NOT FOUND THEN …</code>. <code>INTO STRICT</code> errors unless exactly one row.</li>
-        <li><b>string_agg(expr, ', ')</b> folds many rows into one string (add <code>ORDER BY</code>).</li>
-      </ul>
-<pre>SELECT string_agg(product_name, ', ')
-  INTO items
-  FROM order_lines
- WHERE order_id = oid;
--- items = 'Bolt, Nut, Washer'</pre>
-    </div>
-
     <div class="card" style="--hue:var(--t0)">
-      <div class="k">end to end · NULL-safe</div>
-      <h2>Complete Example</h2>
-<pre>CREATE OR REPLACE FUNCTION
-  get_customer_info(cid int)
-RETURNS text AS $$
-DECLARE nm text; em text; n int;
+      <div class="k">DECIMAL(5,2) · the model problem</div>
+      <h2>Salary % Spread <span class="pill">%</span></h2>
+      <p><i>% diff (of the lower) between MAX and MIN salary; NULL if dept missing; −1.00 if no employees.</i></p>
+<pre>CREATE OR REPLACE FUNCTION sal_spread(
+       dept_name VARCHAR(50))
+RETURNS DECIMAL(5,2) AS $$
+DECLARE d_id INT; hi NUMERIC; lo NUMERIC;
 BEGIN
-  SELECT name, email INTO nm, em
-    FROM customers WHERE id = cid;
-  IF NOT FOUND THEN
-    RETURN 'No customer #' || cid;
-  END IF;
-  SELECT count(*) INTO n
-    FROM orders WHERE customer_id = cid;
-  RETURN CONCAT_WS(' | ',
-    'Name: '   || nm,
-    'Email: '  || COALESCE(em,'N/A'),
-    'Orders: ' || n);     -- n cast by ||
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
+  IF NOT FOUND THEN RETURN NULL; END IF;
+  SELECT MAX(salary), MIN(salary) INTO hi, lo
+    FROM employees WHERE department_id = d_id;
+  IF lo IS NULL THEN RETURN -1.00; END IF;
+  RETURN ROUND((hi - lo) / lo * 100, 2);
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;</pre>
+    </div>
 
-SELECT get_customer_info(1);
--- 'Name: Ada | Email: ada@x.com | Orders: 3'</pre>
+    <div class="card" style="--hue:var(--t1)">
+      <div class="k">INT · count</div>
+      <h2>Head Count <span class="pill">INT</span></h2>
+      <p><i>Number of employees; NULL if dept missing. (Empty → 0 automatically.)</i></p>
+<pre>CREATE OR REPLACE FUNCTION headcount(
+       dept_name VARCHAR(50))
+RETURNS INT AS $$
+DECLARE d_id INT; n INT;
+BEGIN
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
+  IF NOT FOUND THEN RETURN NULL; END IF;
+  SELECT COUNT(*) INTO n
+    FROM employees WHERE department_id = d_id;
+  RETURN n;   <span class="c">-- COUNT is 0, not NULL</span>
+END;
+$$ LANGUAGE plpgsql;</pre>
+      <p><b>Why no empty check:</b> <code>COUNT(*)</code> is 0 for an empty dept, so 0 is already correct.</p>
     </div>
 
     <div class="card" style="--hue:var(--t2)">
+      <div class="k">DECIMAL(10,2) · average</div>
+      <h2>Average Salary <span class="pill">AVG</span></h2>
+      <p><i>Avg salary rounded to 2 dp; NULL if dept missing; −1.00 if no employees.</i></p>
+<pre>CREATE OR REPLACE FUNCTION avg_salary(
+       dept_name VARCHAR(50))
+RETURNS DECIMAL(10,2) AS $$
+DECLARE d_id INT; a NUMERIC;
+BEGIN
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
+  IF NOT FOUND THEN RETURN NULL; END IF;
+  SELECT AVG(salary) INTO a
+    FROM employees WHERE department_id = d_id;
+  IF a IS NULL THEN RETURN -1.00; END IF;
+  RETURN ROUND(a, 2);
+END;
+$$ LANGUAGE plpgsql;</pre>
+    </div>
+
+    <div class="card" style="--hue:var(--t3)">
+      <div class="k">VARCHAR · string info</div>
+      <h2>Employee Card <span class="pill">TEXT</span></h2>
+      <p><i>'Last, First — Title ($salary)'; 'No employee #id' if none.</i></p>
+<pre>CREATE OR REPLACE FUNCTION emp_card(emp_id INT)
+RETURNS VARCHAR(120) AS $$
+DECLARE ln VARCHAR(50); fn VARCHAR(50);
+        ti VARCHAR(50); sal DECIMAL(10,2);
+BEGIN
+  SELECT last_name, first_name, title, salary
+    INTO ln, fn, ti, sal
+    FROM employees WHERE id = emp_id;
+  IF NOT FOUND THEN
+    RETURN 'No employee #' || emp_id;
+  END IF;
+  RETURN ln || ', ' || fn || ' — '
+      || COALESCE(ti,'N/A')
+      || ' ($' || sal::text || ')';
+END;
+$$ LANGUAGE plpgsql;</pre>
+      <p><b>||</b> casts numbers, but any NULL → NULL; shield with <b>COALESCE</b>.</p>
+    </div>
+
+    <div class="card" style="--hue:var(--t4)">
+      <div class="k">BOOLEAN</div>
+      <h2>Earns Above <span class="pill">BOOL</span></h2>
+      <p><i>TRUE if salary &gt; threshold, FALSE otherwise, NULL if employee missing.</i></p>
+<pre>CREATE OR REPLACE FUNCTION earns_above(
+       emp_id INT, threshold DECIMAL(10,2))
+RETURNS BOOLEAN AS $$
+DECLARE sal DECIMAL(10,2);
+BEGIN
+  SELECT salary INTO sal
+    FROM employees WHERE id = emp_id;
+  IF NOT FOUND THEN RETURN NULL; END IF;
+  RETURN sal > threshold;  <span class="c">-- already bool</span>
+END;
+$$ LANGUAGE plpgsql;</pre>
+      <p>A comparison is itself a BOOLEAN, so return it directly.</p>
+    </div>
+
+    <div class="card" style="--hue:var(--t5)">
       <div class="k">don't lose points</div>
-      <h2>Pitfalls &amp; Volatility</h2>
+      <h2>Pitfalls &amp; Final Check</h2>
       <ul>
-        <li><span class="bad">||</span> with a possibly-NULL column and no COALESCE → NULL string.</li>
-        <li><span class="bad">Missing RETURN</span> on some path in plpgsql → run-time error.</li>
-        <li><span class="bad">Missing LANGUAGE</span>, or <code>sql</code> with a BEGIN/END body.</li>
-        <li><span class="bad">Return-type mismatch</span> → cast with <code>::text</code>.</li>
-        <li><span class="bad">SELECT INTO many rows</span> → only first kept (or STRICT errors).</li>
+        <li><span class="bad">FOUND to detect empty</span> — use <code>IS NULL</code> on the aggregate.</li>
+        <li><span class="bad">Emptiness before existence</span> — missing dept wrongly returns −1.00.</li>
+        <li><span class="bad">Integer division</span> → cast <code>::numeric</code> / <code>*100.0</code>.</li>
+        <li><span class="bad">Forgot ROUND</span> → overflow / too many decimals.</li>
+        <li><span class="bad">No RETURN on a path</span> → run-time error.</li>
+        <li><span class="bad">Type mismatch</span> → cast to the declared return type.</li>
       </ul>
-      <h3>Volatility</h3>
-      <table class="t"><tr><th>label</th><th>when</th></tr>
-        <tr><td><code>IMMUTABLE</code></td><td>pure formatter, no tables</td></tr>
-        <tr><td><code>STABLE</code></td><td>reads tables, info lookup</td></tr>
-        <tr><td><code>VOLATILE</code></td><td>default; may change data</td></tr></table>
+      <h3>Before you submit ✔</h3>
+      <ul>
+        <li>Arg + <code>RETURNS</code> types exact.</li>
+        <li>Missing → NULL · empty → sentinel (right format).</li>
+        <li>ROUND to scale · no INT division.</li>
+        <li>Body in <code>$$…$$</code> · ends <code>LANGUAGE plpgsql;</code></li>
+      </ul>
     </div>
 
   </div>
-  <div class="footnote">COP 4710 Database Systems · Quiz 2 — create a function that returns strings of info · quick reference (front &amp; back)</div>
+  <div class="footnote">COP 4710 Database Systems · Quiz 2 — writing SQL functions that return info · quick reference (front &amp; back)</div>
 </section>
 
 </div>

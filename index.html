@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COP 4710 — SQL Functions Study Guide (Quiz 2)</title>
+<title>COP 4710 — Writing SQL Functions (Quiz 2 Code Practice)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -63,6 +63,7 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .theme-btn:hover{border-color:var(--accent);color:var(--accent-strong)}
 .callout{margin-top:18px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14.5px;color:var(--ink-soft)}
 .callout b{color:var(--ink)}
+.callout .codeblk{margin-top:8px}
 .scorebar{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .pbar{flex:1 1 320px;min-width:220px;height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
 .pbar > span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-strong));transition:width .5s ease}
@@ -98,6 +99,7 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .qpts{font-family:var(--mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
 .qpts.ok{color:var(--ok)}.qpts.no{color:var(--bad)}
 .qtype{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px}
+.qtype.code{color:var(--accent-strong);border-color:var(--accent)}
 .star{flex:0 0 auto;margin-left:auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--faint);border-radius:7px;width:30px;height:26px;font-size:14px;line-height:1;display:grid;place-items:center;transition:.12s}
 .star:hover{border-color:var(--t4);color:var(--t4)}
 .star.on{background:var(--t4);border-color:var(--t4);color:#fff}
@@ -144,9 +146,10 @@ tr.rw td{background:var(--bad-bg)}
 .explain .verdict.ok{color:var(--ok)}
 .explain .verdict.no{color:var(--bad)}
 .explain .src{display:block;margin-top:7px;font-family:var(--mono);font-size:11px;color:var(--faint)}
-.sa-ans{display:none;margin-top:12px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:4px 15px 6px;font-size:14.5px;color:var(--ink-soft)}
+.sa-ans{display:none;margin-top:12px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:4px 15px 8px;font-size:14.5px;color:var(--ink-soft)}
 .qitem.open .sa-ans{display:block;animation:fade .25s ease}
 .sa-ans p{margin:9px 0}.sa-ans b{color:var(--ink)}
+.sa-note{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-bottom:6px}
 @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .qitem.hide,.part-head.hide{display:none}
 .qitem.kfocus{outline:2px solid var(--accent);outline-offset:2px}
@@ -213,12 +216,19 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> COP 4710 · Database Systems <span class="dot"></span> Quiz 2</div>
+      <div class="eyebrow"><span class="dot"></span> COP 4710 · Database Systems <span class="dot"></span> Quiz 2 · Code Practice</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">SQL Functions That Return Strings of Info</h1>
-    <p class="subtitle">A focused study guide for Quiz 2: writing PostgreSQL functions (<code>CREATE FUNCTION</code>) that build and return a string of information. Covers the syntax, returning text, parameters and variables, string-building (concatenation, <code>CONCAT_WS</code>, <code>FORMAT</code>, <code>COALESCE</code>), querying inside a function, and complete worked examples — with notes on the right and quiz-style practice (multiple choice, multiple answer, matching, and short answer) that grades instantly.</p>
-    <div class="callout"><b>The goal:</b> be able to write a function like <code>get_customer_info(id)</code> that looks up a row and returns a single readable string such as <code>'Name: Ada Lovelace | Email: ada@x.com | Orders: 3'</code>. Examples use PostgreSQL / PL/pgSQL. Progress is saved in this browser.</div>
+    <h1 class="title">Writing SQL Functions That Return Info</h1>
+    <p class="subtitle">The quiz is <b>entirely code-writing</b>. Each problem asks you to <code>CREATE</code> a function with a given <b>argument type</b> and <b>return type</b>, compute a value, format it to the required precision, and handle the edge cases exactly. This guide drills that: declaring the right variables and types, reading data with aggregates, returning NULL vs a sentinel like <code>-1.00</code>, and rounding to the return type — with full worked solutions (PostgreSQL / PL-pgSQL).</p>
+    <div class="callout"><b>Model problem:</b> a function taking <code>dept_name VARCHAR(50)</code> that returns the % difference between MAX and MIN salary (of the lower one), <code>RETURNS DECIMAL(5,2)</code> — <b>NULL</b> if the department does not exist, <b>−1.00</b> if it has no employees.
+      <div class="callout"><b>Assumed schema (used in every problem):</b>
+      <div class="codeblk">departments(id INT PK, name VARCHAR(50))
+employees(id INT PK, first_name VARCHAR(50), last_name VARCHAR(50),
+          title VARCHAR(50), salary DECIMAL(10,2),
+          department_id INT  -> departments.id,
+          manager_id    INT  -> employees.id)</div></div>
+      Progress is saved in this browser. The ⚡ Cram Sheet on the right has the template and formulas.</div>
     <div class="scorebar">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0 / 0</span> graded</div>
@@ -261,365 +271,449 @@ footer .mono{font-family:var(--mono)}
 <button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
 <footer class="wrap">
-  <div class="mono">COP 4710 — Database Systems · Quiz 2: create a function that returns strings of info · PostgreSQL / PL/pgSQL.</div>
-  <div style="margin-top:8px">Answer each question for instant grading and an explanation. Open the ⚡ Cram Sheet on the right for a one-screen summary.</div>
+  <div class="mono">COP 4710 — Database Systems · Quiz 2: create a function that returns info · PostgreSQL / PL-pgSQL · code-writing practice.</div>
+  <div style="margin-top:8px">Write out each function, then reveal the model solution to compare. The ⚡ Cram Sheet has the template, types, and formulas.</div>
 </footer>
 
 <script>
 /* =========================================================
-   STUDY-GUIDE NOTES — SQL functions that return strings
+   STUDY-GUIDE NOTES — writing SQL functions (code practice)
    ========================================================= */
 const SECTIONS = [
 {
-  id:"create", short:"Creating a Function", tag:"Syntax basics", title:"Creating a Function",
-  blurb:"The CREATE FUNCTION skeleton: parameters, the RETURNS type, dollar-quoting the body, choosing a language, and how to call and drop a function.",
+  id:"template", short:"Template & Types", tag:"Skeleton · data types", title:"Function Template & Types",
+  blurb:"The exact skeleton to write every time, how to match the argument type to the spec, and how to read a return type like DECIMAL(5,2) — plus declaring local variables that can hold the math.",
   notes:[
-    {h:"Anatomy of CREATE FUNCTION", html:`<p>A function has a <b>header</b> (name, parameters, return type), a <b>body</b> (the code), and a <b>language</b>.</p>
-      <div class="codeblk">CREATE OR REPLACE FUNCTION greet(name text)
-RETURNS text
-AS $$
-  SELECT 'Hello, ' || name || '!';
-$$ LANGUAGE sql;</div>
-      <ul>
-      <li><b>CREATE OR REPLACE</b> — create it, or redefine it if it already exists.</li>
-      <li><b>Parameters</b> go in parentheses: <code>name text</code> (a name and a type).</li>
-      <li><b>RETURNS text</b> — the function hands back a <b>string</b>.</li>
-      <li>The <b>body</b> sits between the <code>$$ ... $$</code> markers.</li>
-      <li><b>LANGUAGE</b> names how to run the body (<code>sql</code> or <code>plpgsql</code>).</li></ul>`},
-    {h:"Dollar-quoting the body ($$)", html:`<p>The body is passed to the server as a <b>string</b>. Wrapping it in <code>$$ ... $$</code> (dollar quotes) lets you use single quotes <code>'...'</code> inside without escaping them. You may tag the quotes to nest them: <code>$func$ ... $func$</code>.</p>
-      <p>Without dollar quotes you would have to double every inner quote — tedious and error-prone.</p>`},
-    {h:"LANGUAGE sql vs plpgsql", html:`<ul>
-      <li><b>LANGUAGE sql</b> — the body is one (or a few) plain SQL statements; the function returns the result of the <b>last</b> query. No variables or control flow.</li>
-      <li><b>LANGUAGE plpgsql</b> — a procedural language: you can <b>DECLARE</b> variables, use <b>IF</b> / <b>LOOP</b>, run queries, and must <b>RETURN</b> a value. Use this when you build up a string step by step.</li></ul>`},
-    {h:"Calling and dropping", html:`<p>Call a function inside a <code>SELECT</code>:</p>
-      <div class="codeblk">SELECT greet('Ada');      -- returns 'Hello, Ada!'</div>
-      <p>Remove it by name <b>and argument types</b> (overloads share a name):</p>
-      <div class="codeblk">DROP FUNCTION greet(text);
-DROP FUNCTION IF EXISTS greet(text);</div>`}
-  ]
-},
-{
-  id:"returning", short:"Returning a String", tag:"RETURNS text", title:"Returning a String",
-  blurb:"Declaring a text return type, the difference between RETURNS and RETURN, the plpgsql vs sql ways to hand back a value, and one string vs a set of rows.",
-  notes:[
-    {h:"RETURNS vs RETURN", html:`<ul>
-      <li><b>RETURNS</b> is in the <b>header</b> — it declares the <b>type</b> the function gives back (e.g. <code>RETURNS text</code>).</li>
-      <li><b>RETURN</b> is a <b>statement in the body</b> (plpgsql) — it actually <b>hands back a value</b> and ends the function.</li></ul>
-      <div class="codeblk">CREATE FUNCTION label(n text)
-RETURNS text AS $$        -- header: returns text
-BEGIN
-  RETURN 'Name: ' || n;   -- statement: return a value
-END;
-$$ LANGUAGE plpgsql;</div>`},
-    {h:"The sql-language shortcut", html:`<p>A <code>LANGUAGE sql</code> function has <b>no RETURN keyword</b>; it simply returns the result of its final <code>SELECT</code>:</p>
-      <div class="codeblk">CREATE FUNCTION label(n text)
-RETURNS text AS $$
-  SELECT 'Name: ' || n;
-$$ LANGUAGE sql;</div>
-      <p>Both versions of <code>label</code> behave the same when called.</p>`},
-    {h:"String return types", html:`<ul>
-      <li><b>text</b> — variable-length string, no length limit. The usual choice.</li>
-      <li><b>varchar(n)</b> — up to n characters. <b>char(n)</b> — fixed length, blank-padded.</li></ul>
-      <p>The value you RETURN must match the declared type (or be <b>cast</b> to it, e.g. <code>42::text</code>). Returning a number from a <code>RETURNS text</code> function needs a cast.</p>`},
-    {h:"One string vs many rows", html:`<ul>
-      <li><b>RETURNS text</b> — one single string value (what Quiz 2 asks for).</li>
-      <li><b>RETURNS SETOF text</b> or <b>RETURNS TABLE(...)</b> — many rows; you <code>RETURN NEXT</code> / <code>RETURN QUERY</code>. Not needed to return one info string.</li></ul>`}
-  ]
-},
-{
-  id:"params", short:"Parameters & Variables", tag:"Inputs & locals", title:"Parameters & Variables",
-  blurb:"Passing inputs by name or position, declaring local variables, assigning to them, pulling a query result into a variable with SELECT ... INTO, and anchoring a type with %TYPE.",
-  notes:[
-    {h:"Using parameters", html:`<p>Refer to a parameter by its <b>name</b> inside the body, or by position as <code>$1, $2, ...</code>:</p>
-      <div class="codeblk">CREATE FUNCTION full_name(first text, last text)
-RETURNS text AS $$
-  SELECT last || ', ' || first;   -- or:  $2 || ', ' || $1
-$$ LANGUAGE sql;
-
-SELECT full_name('Ada', 'Lovelace');  -- 'Lovelace, Ada'</div>
-      <p>Parameters can have a <b>DEFAULT</b>: <code>sep text DEFAULT ' | '</code>.</p>`},
-    {h:"DECLARE and assignment", html:`<p>In plpgsql, local variables are listed in a <b>DECLARE</b> block and assigned with <code>:=</code>:</p>
-      <div class="codeblk">CREATE FUNCTION tag(id int)
-RETURNS text AS $$
+    {h:"The skeleton (memorize this)", html:`<div class="codeblk">CREATE OR REPLACE FUNCTION fname(arg1 TYPE, arg2 TYPE)
+RETURNS RET_TYPE AS $$
 DECLARE
-  result text;
+  v1 TYPE;          -- local variables
+  v2 TYPE;
 BEGIN
-  result := 'Record #' || id;   -- assign with :=
-  RETURN result;
+  -- look things up, compute, decide
+  RETURN value;     -- must RETURN on every path
 END;
 $$ LANGUAGE plpgsql;</div>
-      <p><code>:=</code> is the assignment operator; <code>=</code> is comparison (plpgsql accepts <code>=</code> for assignment too, but <code>:=</code> is the clear, standard choice).</p>`},
-    {h:"SELECT ... INTO", html:`<p>Pull column values from a query straight into variables:</p>
-      <div class="codeblk">DECLARE nm text; em text;
-BEGIN
-  SELECT name, email
-    INTO nm, em
-    FROM customers
-   WHERE id = cid;
-  RETURN nm || ' <' || em || '>';
-END;</div>
-      <p>The query should return <b>one row</b>; the variables take that row's columns in order.</p>`},
-    {h:"%TYPE and matching the column", html:`<p>Anchor a variable's type to a column so it always matches the table:</p>
-      <div class="codeblk">DECLARE nm customers.name%TYPE;</div>
-      <p>If the column's type changes later, the variable follows automatically.</p>`}
+      <p>Header = name, <b>parameters (name + type)</b>, <code>RETURNS</code> type. Body between <code>$$ ... $$</code>. Procedural logic needs <b>LANGUAGE plpgsql</b>.</p>`},
+    {h:"Match the argument type", html:`<p>If the problem says the argument is <code>dept_name VARCHAR(50)</code>, write it <b>exactly</b> that way. Common types:</p>
+      <table class="tbl"><thead><tr><th>Type</th><th>Holds</th></tr></thead><tbody>
+      <tr><td><code>VARCHAR(n)</code></td><td>text up to n chars (names)</td></tr>
+      <tr><td><code>INT</code></td><td>whole number (ids, counts)</td></tr>
+      <tr><td><code>DECIMAL(p,s)</code> / <code>NUMERIC(p,s)</code></td><td>exact number, p digits, s after the point</td></tr>
+      <tr><td><code>BOOLEAN</code></td><td>TRUE / FALSE / NULL</td></tr>
+      <tr><td><code>TEXT</code></td><td>text, any length</td></tr></tbody></table>`},
+    {h:"Read the return type: DECIMAL(5,2)", html:`<ul>
+      <li><code>DECIMAL(5,2)</code> = <b>5 total digits, 2 after the decimal point</b> → max value <b>999.99</b> (3 digits before, 2 after). A percentage fits easily.</li>
+      <li>Return a value <b>rounded to the scale</b>: <code>ROUND(x, 2)</code> for scale 2.</li>
+      <li>A value that needs more than <code>p−s</code> digits before the point <b>overflows</b> (error) — pick a type big enough.</li></ul>`},
+    {h:"Declare locals that hold the math", html:`<ul>
+      <li>Use a <b>DECLARE</b> block to hold intermediate values (an id, a MAX, a MIN, a count).</li>
+      <li>For arithmetic, declare numeric locals as <code>NUMERIC</code> / <code>DECIMAL</code> so division is exact (see the integer-division trap in <i>Computing & Formatting</i>).</li>
+      <li>Assign with <code>:=</code>; or fill from a query with <code>SELECT ... INTO</code>.</li></ul>`}
   ]
 },
 {
-  id:"strings", short:"Building the String", tag:"Concatenation & NULLs", title:"Building the Info String",
-  blurb:"The concatenation operator and its NULL trap, CONCAT and CONCAT_WS, FORMAT with placeholders, COALESCE for NULLs, casting, and the common string functions.",
+  id:"lookup", short:"Reading Data", tag:"SELECT INTO · aggregates", title:"Reading Data: SELECT INTO & Aggregates",
+  blurb:"Pulling one row or an aggregate into variables, the aggregate functions you will need (MAX, MIN, AVG, SUM, COUNT), and — crucially — what each returns over an empty set.",
   notes:[
-    {h:"Concatenation with || (and its NULL trap)", html:`<p>The <code>||</code> operator joins strings:</p>
-      <div class="codeblk">'Name: ' || 'Ada'        -->  'Name: Ada'</div>
-      <p><b>Gotcha:</b> if <b>any</b> operand is <code>NULL</code>, the whole result is <code>NULL</code>:</p>
-      <div class="codeblk">'Phone: ' || NULL        -->  NULL   (!)</div>
-      <p>So a single missing column can wipe out the entire info string. Guard it (see COALESCE / CONCAT_WS below).</p>`},
-    {h:"CONCAT and CONCAT_WS", html:`<ul>
-      <li><b>CONCAT(a, b, ...)</b> — joins its arguments and <b>ignores NULLs</b> (treats them as empty).</li>
-      <li><b>CONCAT_WS(sep, a, b, ...)</b> — "with separator": joins non-NULL arguments using <code>sep</code> between them.</li></ul>
-      <div class="codeblk">CONCAT('Ada', NULL, 'Lovelace')        --> 'AdaLovelace'
-CONCAT_WS(' | ', 'Ada', NULL, 'x@x')   --> 'Ada | x@x'</div>
-      <p><code>CONCAT_WS</code> is ideal for an info string: it skips missing fields and puts a clean separator between the rest.</p>`},
-    {h:"FORMAT with placeholders", html:`<p><code>FORMAT()</code> builds a string from a template, like printf:</p>
-      <div class="codeblk">FORMAT('Name: %s, Age: %s', nm, age)</div>
-      <ul>
-      <li><b>%s</b> — insert the argument as text (NULL becomes <code>&lt;NULL&gt;</code>).</li>
-      <li><b>%I</b> — as a quoted <b>identifier</b>; <b>%L</b> — as a quoted <b>literal</b> (useful for dynamic SQL).</li>
-      <li><b>%%</b> — a literal percent sign.</li></ul>`},
-    {h:"COALESCE for missing values", html:`<p><code>COALESCE(x, fallback)</code> returns the first non-NULL argument — use it so a NULL column does not blank the string:</p>
-      <div class="codeblk">'Phone: ' || COALESCE(phone, 'N/A')</div>`},
-    {h:"Casting and string functions", html:`<p>Cast non-text values with <code>::text</code> or <code>to_char()</code>:</p>
-      <div class="codeblk">total::text,  to_char(created, 'YYYY-MM-DD')</div>
-      <table class="tbl"><thead><tr><th>Function</th><th>Does</th></tr></thead><tbody>
-      <tr><td><code>UPPER / LOWER / INITCAP</code></td><td>change case</td></tr>
-      <tr><td><code>TRIM(s)</code></td><td>strip leading/trailing spaces</td></tr>
-      <tr><td><code>LENGTH(s)</code></td><td>number of characters</td></tr>
-      <tr><td><code>SUBSTRING(s FROM a FOR n)</code></td><td>slice out part</td></tr>
-      <tr><td><code>REPLACE(s, a, b)</code></td><td>swap text</td></tr>
-      <tr><td><code>LPAD / RPAD(s, n, c)</code></td><td>pad to width n</td></tr></tbody></table>`}
+    {h:"SELECT ... INTO", html:`<p>Run a query and store its columns into variables (left to right):</p>
+      <div class="codeblk">SELECT id INTO d_id
+  FROM departments
+ WHERE name = dept_name;</div>
+      <p>You can capture several columns / aggregates at once:</p>
+      <div class="codeblk">SELECT MAX(salary), MIN(salary) INTO hi, lo
+  FROM employees
+ WHERE department_id = d_id;</div>`},
+    {h:"The aggregates", html:`<table class="tbl"><thead><tr><th>Aggregate</th><th>Returns</th></tr></thead><tbody>
+      <tr><td><code>MAX(x) / MIN(x)</code></td><td>largest / smallest value</td></tr>
+      <tr><td><code>AVG(x)</code></td><td>mean</td></tr>
+      <tr><td><code>SUM(x)</code></td><td>total</td></tr>
+      <tr><td><code>COUNT(*)</code></td><td>number of rows</td></tr></tbody></table>`},
+    {h:"Over an EMPTY set — the key difference", html:`<ul>
+      <li><code>COUNT(*)</code> over zero rows = <b>0</b> (never NULL).</li>
+      <li><code>MAX</code>, <code>MIN</code>, <code>AVG</code>, <code>SUM</code> over zero rows = <b>NULL</b>.</li></ul>
+      <p>So after <code>SELECT MAX(salary) INTO hi ...</code> on a department with no employees, <code>hi</code> is <b>NULL</b> — that is how you detect "no employees".</p>`},
+    {h:"FOUND does NOT detect an empty aggregate", html:`<p>An aggregate query <b>always returns exactly one row</b> (a single NULL when empty), so <code>FOUND</code> is <b>TRUE</b> even with no employees. Use <code>FOUND</code> only to test whether a <b>plain row lookup</b> matched; use <code>IS NULL</code> on the aggregate to test "no rows".</p>`}
   ]
 },
 {
-  id:"querying", short:"Querying Inside", tag:"Look up the info", title:"Querying Inside the Function",
-  blurb:"Reading a row into variables, handling the no-row case with FOUND, combining many rows into one string with string_agg, and looping to assemble a string.",
+  id:"edge", short:"Edge Cases", tag:"NULL · NOT FOUND · sentinels", title:"Edge Cases: NULL, NOT FOUND & Sentinels",
+  blurb:"The heart of these problems: telling 'the thing does not exist' apart from 'it exists but is empty', returning the right value (NULL vs a sentinel like −1.00), and ordering the checks with IF / ELSIF.",
   notes:[
-    {h:"Look up a row into variables", html:`<p>Most info functions take an id, read the matching row, and format it:</p>
-      <div class="codeblk">SELECT name, city INTO nm, ct
-  FROM customers WHERE id = cid;</div>
-      <p>The variables now hold that customer's values, ready to concatenate.</p>`},
-    {h:"Handle the no-row case", html:`<p>If no row matches, the INTO variables are left <b>NULL</b>. Check the <code>FOUND</code> flag:</p>
-      <div class="codeblk">SELECT name INTO nm FROM customers WHERE id = cid;
+    {h:'"Does it exist?" → look it up, check NOT FOUND', html:`<p>A plain lookup that matches no row leaves the INTO variable NULL and sets <code>FOUND = FALSE</code>:</p>
+      <div class="codeblk">SELECT id INTO d_id FROM departments WHERE name = dept_name;
 IF NOT FOUND THEN
-  RETURN 'No customer #' || cid;
+  RETURN NULL;        -- department does not exist
+END IF;</div>`},
+    {h:'"Is it empty?" → aggregate IS NULL', html:`<p>After an aggregate, the department exists (we already checked) but may have no employees — detect that with <code>IS NULL</code>, not FOUND:</p>
+      <div class="codeblk">SELECT MAX(salary), MIN(salary) INTO hi, lo
+  FROM employees WHERE department_id = d_id;
+IF lo IS NULL THEN
+  RETURN -1.00;       -- exists, but no employees
+END IF;</div>`},
+    {h:"Order the checks correctly", html:`<ol>
+      <li><b>Existence first</b> → return NULL if the parent (department) is missing.</li>
+      <li><b>Emptiness next</b> → return the sentinel (−1.00) if there are no child rows.</li>
+      <li><b>Compute</b> the real answer last.</li></ol>
+      <p>If you check emptiness first, a non-existent department would wrongly return −1.00.</p>`},
+    {h:"NULL vs a sentinel value", html:`<ul>
+      <li><b>NULL</b> = "no answer / not applicable" — e.g. the department does not exist.</li>
+      <li><b>Sentinel</b> (a real value the caller agrees means something special, like <code>-1.00</code> or <code>-1</code>) = "exists but empty / no data".</li>
+      <li>The spec tells you which to return for which case — match it exactly, including the format (<code>-1.00</code>, not <code>-1</code>, for a DECIMAL(_,2) return).</li></ul>`},
+    {h:"IF / ELSIF / ELSE", html:`<div class="codeblk">IF cond1 THEN
+  RETURN a;
+ELSIF cond2 THEN       -- note the spelling: ELSIF
+  RETURN b;
+ELSE
+  RETURN c;
 END IF;</div>
-      <p>Adding <b>INTO STRICT</b> instead raises an error if the row count is not exactly one.</p>`},
-    {h:"Combine many rows: string_agg", html:`<p>To fold <b>many rows</b> into one string, use the aggregate <code>string_agg(expr, sep)</code>:</p>
-      <div class="codeblk">SELECT string_agg(product_name, ', ' ORDER BY product_name)
-  INTO items
-  FROM order_lines
- WHERE order_id = oid;
--- items = 'Bolt, Nut, Washer'</div>`},
-    {h:"Loop to build a string", html:`<p>You can also iterate rows and append to a result:</p>
-      <div class="codeblk">result := '';
-FOR r IN SELECT name FROM customers ORDER BY name LOOP
-  result := result || r.name || E'\\n';   -- E'\\n' = newline
-END LOOP;
-RETURN result;</div>
-      <p>For a simple list, <code>string_agg</code> is shorter; a loop gives more control over formatting.</p>`}
+      <p>Each branch can <code>RETURN</code>. Make sure <b>every path</b> returns a value, or add a final RETURN.</p>`}
   ]
 },
 {
-  id:"examples", short:"Examples & Pitfalls", tag:"Put it together", title:"Worked Examples & Pitfalls",
-  blurb:"A complete info function end to end, the most common mistakes (the NULL trap, missing RETURN/LANGUAGE, wrong return type), and function volatility.",
+  id:"compute", short:"Computing & Formatting", tag:"ROUND · % · casts", title:"Computing & Formatting the Result",
+  blurb:"The percentage / ratio formulas, rounding to the return type's scale with ROUND, the integer-division trap and how to cast around it, and formatting string results.",
   notes:[
-    {h:"A complete info function", html:`<p>Looks up a customer, counts their orders, and returns one tidy string — NULL-safe:</p>
-      <div class="codeblk">CREATE OR REPLACE FUNCTION get_customer_info(cid int)
-RETURNS text AS $$
-DECLARE
-  nm   text;
-  em   text;
-  n    int;
-BEGIN
-  SELECT name, email INTO nm, em
-    FROM customers WHERE id = cid;
-  IF NOT FOUND THEN
-    RETURN 'No customer #' || cid;
-  END IF;
-  SELECT count(*) INTO n
-    FROM orders WHERE customer_id = cid;
-  RETURN CONCAT_WS(' | ',
-           'Name: '   || nm,
-           'Email: '  || COALESCE(em, 'N/A'),
-           'Orders: ' || n);
-END;
-$$ LANGUAGE plpgsql;</div>
-      <div class="codeblk">SELECT get_customer_info(1);
--- 'Name: Ada Lovelace | Email: ada@x.com | Orders: 3'</div>`},
-    {h:"Common pitfalls", html:`<ul>
-      <li><b>The NULL trap:</b> <code>'x: ' || col</code> is NULL when <code>col</code> is NULL — wrap columns in <code>COALESCE</code> or use <code>CONCAT_WS</code>.</li>
-      <li><b>Missing RETURN:</b> a plpgsql function that falls off the end without returning raises an error — always RETURN.</li>
-      <li><b>Missing/last LANGUAGE:</b> forgetting <code>LANGUAGE plpgsql</code> (or using <code>sql</code> with a BEGIN/END body) fails.</li>
-      <li><b>Return-type mismatch:</b> returning a number where <code>RETURNS text</code> — cast with <code>::text</code>.</li>
-      <li><b>SELECT INTO many rows:</b> only the first row is kept (or an error with <code>STRICT</code>) — filter to one row.</li></ul>`},
-    {h:"Function volatility", html:`<ul>
-      <li><b>IMMUTABLE</b> — same inputs always give the same result and it touches no tables (e.g. a pure string-formatter).</li>
-      <li><b>STABLE</b> — reads the database but does not change it within one statement (an info lookup is STABLE).</li>
-      <li><b>VOLATILE</b> (the default) — may change data or give different results.</li></ul>
-      <p>Marking volatility correctly lets the planner optimize, but the function still works if you omit it.</p>`}
+    {h:'Percent difference "of the lower one"', html:`<p>"The difference between MAX and MIN as a % of the lower one":</p>
+      <div class="codeblk">(MAX - MIN) / MIN * 100</div>
+      <p>e.g. MAX = 120000, MIN = 100000 → (20000 / 100000) * 100 = <b>20.00</b>. A plain ratio "A as a % of B" is <code>A / B * 100</code>.</p>`},
+    {h:"Round to the return scale", html:`<p>Fit the value to <code>DECIMAL(p,s)</code> by rounding to <b>s</b> decimals:</p>
+      <div class="codeblk">RETURN ROUND((hi - lo) / lo * 100, 2);   -- scale 2</div>
+      <p><code>ROUND(x, 2)</code> gives two decimals, matching <code>DECIMAL(5,2)</code>.</p>`},
+    {h:"The integer-division trap", html:`<p>If the operands are <b>integers</b>, <code>/</code> does <b>integer division</b> and truncates — <code>(130-100)/100</code> is <code>0</code>, not <code>0.3</code>. Fix by making one side numeric:</p>
+      <div class="codeblk">(hi - lo) * 100.0 / lo          -- 100.0 forces numeric
+(hi - lo)::numeric / lo * 100   -- or cast with ::numeric</div>
+      <p>If <code>salary</code> is <code>DECIMAL</code> (as in our schema) the math is already exact — but cast whenever the columns or variables are <code>INT</code>.</p>`},
+    {h:"Casting values", html:`<ul>
+      <li><code>x::numeric</code>, <code>x::text</code>, <code>x::int</code> — cast between types.</li>
+      <li><code>n::text</code> turns a number into text for a string result (or just use <code>||</code>, which casts).</li>
+      <li><code>to_char(value,'FM999990.00')</code> / <code>to_char(d,'YYYY-MM-DD')</code> for controlled number / date formatting.</li></ul>`},
+    {h:"Formatting a string result", html:`<p>When the return is text, build it NULL-safely:</p>
+      <div class="codeblk">RETURN CONCAT_WS(' | ',
+  'Name: '   || last_name || ', ' || first_name,
+  'Salary: ' || COALESCE(salary::text, 'N/A'));</div>
+      <p><code>CONCAT_WS</code> skips NULLs; <code>COALESCE</code> gives a fallback; <code>||</code> is NULL-sensitive (any NULL → NULL).</p>`}
+  ]
+},
+{
+  id:"problems", short:"Worked Problems", tag:"Write the function", title:"Worked Problems (different return types)",
+  blurb:"Full code-writing problems like the quiz — a % (DECIMAL), a count (INT), an average (DECIMAL), a string (VARCHAR), and a boolean — each with the argument type, return type, formatting, and exact edge-case returns, plus a complete model solution.",
+  notes:[
+    {h:"How to attack any problem", html:`<ol>
+      <li>Write the <b>header</b> with the exact arg type and <code>RETURNS</code> type.</li>
+      <li><b>DECLARE</b> the variables you'll need (an id, aggregates, a result).</li>
+      <li><b>Check existence</b> (lookup + <code>NOT FOUND</code> → NULL).</li>
+      <li><b>Read</b> the data (aggregate / count) and <b>check emptiness</b> (IS NULL → sentinel).</li>
+      <li><b>Compute &amp; ROUND</b> to the return scale, then <b>RETURN</b>.</li></ol>
+      <p>Reveal each problem's model solution in the practice list on the left. Keep this recipe open as you write.</p>`},
+    {h:"Return-value checklist", html:`<ul>
+      <li>Argument type matches the spec (e.g. <code>VARCHAR(50)</code>)? ✔</li>
+      <li><code>RETURNS</code> type matches (e.g. <code>DECIMAL(5,2)</code>)? ✔</li>
+      <li>Parent missing → <b>NULL</b>; no child rows → <b>sentinel</b> in the right format? ✔</li>
+      <li>Used <code>NOT FOUND</code> for existence, <code>IS NULL</code> for empty aggregate? ✔</li>
+      <li><code>ROUND</code>ed to the scale; no integer division? ✔</li>
+      <li>Every path <code>RETURN</code>s; ends with <code>LANGUAGE plpgsql;</code>? ✔</li></ul>`}
+  ]
+},
+{
+  id:"pitfalls", short:"Pitfalls & Checklist", tag:"Don't lose points", title:"Pitfalls & Final Checklist",
+  blurb:"The mistakes that cost points on a code quiz — wrong NULL/empty detection, integer division, forgetting ROUND, missing RETURN or LANGUAGE, type mismatches — and the order to double-check before you submit.",
+  notes:[
+    {h:"Top pitfalls", html:`<ul>
+      <li><b>Using FOUND to detect an empty department.</b> An aggregate always returns a row → FOUND is TRUE. Use <code>IS NULL</code> on the aggregate.</li>
+      <li><b>Checking emptiness before existence.</b> A missing department would wrongly hit the −1.00 branch. Existence (NULL) first.</li>
+      <li><b>Integer division.</b> <code>(a-b)/b</code> with INT truncates to 0 — cast with <code>::numeric</code> or multiply by <code>100.0</code>.</li>
+      <li><b>Forgetting ROUND.</b> The value may not fit / may show too many decimals for <code>DECIMAL(p,s)</code>.</li>
+      <li><b>Wrong sentinel format.</b> Return <code>-1.00</code> (not <code>-1</code>) when the type is <code>DECIMAL(_,2)</code> and the spec says −1.00.</li>
+      <li><b>Missing RETURN / LANGUAGE / mismatched types.</b> Every path returns; end with <code>LANGUAGE plpgsql;</code>; cast to the declared return type.</li></ul>`},
+    {h:"Divide-by-zero (if MIN could be 0)", html:`<p>If the lower value could be <b>0</b>, <code>/ lo</code> errors. Guard it if the spec allows a zero salary:</p>
+      <div class="codeblk">IF lo = 0 THEN RETURN NULL; END IF;   -- or a stated sentinel</div>
+      <p>For salaries this usually can't happen, but mention/guard it if asked.</p>`},
+    {h:"Final submit checklist", html:`<ol>
+      <li>Header: name, arg types, <code>RETURNS</code> type — all exact.</li>
+      <li>Existence → NULL. Emptiness → sentinel (right format). Else compute.</li>
+      <li>No integer division; <code>ROUND</code> to the scale.</li>
+      <li>Every branch RETURNs; body in <code>$$ ... $$</code>; <code>LANGUAGE plpgsql;</code> at the end.</li></ol>`}
   ]
 }
 ];
 
 /* =========================================================
-   QUESTION BANK — (mc / ms / match / sa)
+   QUESTION BANK — code-writing practice (sa / mc / ms / match)
    ========================================================= */
 const QUESTIONS = {
-create:[
-  {t:"mc", q:"Which clause in <code>CREATE FUNCTION greet(name text) RETURNS text ...</code> declares that the function hands back a <b>string</b>?",
-   o:["RETURNS text","name text","CREATE FUNCTION","LANGUAGE sql"],
-   a:0, e:"<code>RETURNS text</code> in the header declares the return type as text (a string). <code>name text</code> is a parameter, not the return type.", src:"Creating a Function"},
-  {t:"mc", q:"What is the purpose of the <code>$$ ... $$</code> markers around a function body?",
-   o:["They dollar-quote the body so single quotes inside need no escaping","They mark the body as money/currency formatting for the output","They tell PostgreSQL to run the body exactly twice in a row","They convert every string inside the body to uppercase text"],
-   a:0, e:"The body is passed as a string; dollar-quoting lets you use <code>'...'</code> literals inside without doubling them. You can tag them like <code>$func$...$func$</code> to nest.", src:"Creating a Function"},
-  {t:"mc", q:"When would you choose <code>LANGUAGE plpgsql</code> over <code>LANGUAGE sql</code>?",
-   o:["When you need variables, IF/LOOP, and an explicit RETURN to build the value","When the function body is only a single simple one-line SELECT statement, nothing more","Whenever the function returns a text value rather than a plain number value","Only when the function must never read from any database table at all"],
-   a:0, e:"plpgsql is procedural — DECLARE variables, control flow, and RETURN. A plain one-query function can use the simpler <code>LANGUAGE sql</code>.", src:"Creating a Function"},
-  {t:"mc", q:"How do you <b>call</b> a function <code>greet(text)</code> that returns text?",
-   o:["<code>SELECT greet('Ada');</code>","<code>CALL greet('Ada') RETURNS text;</code>","<code>RUN FUNCTION greet('Ada');</code>","<code>EXEC greet = 'Ada';</code>"],
-   a:0, e:"A function that returns a value is invoked inside a query: <code>SELECT greet('Ada');</code>. (CALL is for procedures, not value-returning functions.)", src:"Creating a Function"},
-  {t:"mc", q:"What does <b>CREATE OR REPLACE</b> FUNCTION add over plain CREATE FUNCTION?",
-   o:["It redefines the function if one with that signature already exists","It creates and stores a backup copy of the old function before making any change","It makes the function run noticeably faster by caching all of its results","It allows the function to be created without declaring any return type"],
-   a:0, e:"<code>OR REPLACE</code> lets you re-run the definition to update the body without first dropping the function.", src:"Creating a Function"},
-  {t:"match", q:"Match each part of a CREATE FUNCTION statement to its role. One term is not a real clause.",
-   items:["Declares the type the function returns","Wraps the body so inner quotes need no escaping","Names how the body is executed (sql or plpgsql)","Lets you redefine an existing function"],
-   terms:["RETURNS text","$$ ... $$","LANGUAGE","CREATE OR REPLACE","RETURN NEXT"],
-   a:[0,1,2,3], e:"RETURNS = return type; <code>$$...$$</code> = dollar-quoting; LANGUAGE = how the body runs; CREATE OR REPLACE = redefine. <code>RETURN NEXT</code> is for set-returning functions, not a header clause.", src:"Creating a Function"}
+template:[
+  {t:"mc", q:"A return type is declared <code>RETURNS DECIMAL(5,2)</code>. What is the largest value it can hold?",
+   o:["999.99","99999.99","55.22","9999.99"],
+   a:0, e:"<code>DECIMAL(5,2)</code> = 5 total digits with 2 after the point, so 3 digits before → max <b>999.99</b>. Round results to 2 decimals and make sure they fit.", src:"Template & Types"},
+  {t:"mc", q:"The spec says the argument is <code>dept_name VARCHAR(50)</code>. In your CREATE FUNCTION header you should write…",
+   o:["the parameter exactly as dept_name VARCHAR(50)","just dept_name, letting the type be inferred","dept_name TEXT, since text length never matters","VARCHAR(50), with no parameter name at all"],
+   a:0, e:"Match the given name and type exactly: <code>CREATE FUNCTION f(dept_name VARCHAR(50)) ...</code>. The name is how you refer to it in the body.", src:"Template & Types"},
+  {t:"mc", q:"Which language must the function use to declare variables and use IF / RETURN logic?",
+   o:["LANGUAGE plpgsql","LANGUAGE sql","LANGUAGE python","LANGUAGE internal"],
+   a:0, e:"Procedural logic (DECLARE, IF, loops, explicit RETURN) needs <b>LANGUAGE plpgsql</b>. <code>LANGUAGE sql</code> is only for a single query with no control flow.", src:"Template & Types"},
+  {t:"mc", q:"To hold a MAX salary you looked up before dividing, the cleanest local declaration is…",
+   o:["hi NUMERIC; (or DECIMAL) so the arithmetic is exact","hi TEXT; and convert it back to a number later","hi BOOLEAN; since it is compared in an IF","no variable at all; you cannot store a MAX"],
+   a:0, e:"Declare numeric locals as <code>NUMERIC</code>/<code>DECIMAL</code> so later division is exact (avoids the integer-division trap). <code>SELECT MAX(salary) INTO hi</code> fills it.", src:"Template & Types"},
+  {t:"match", q:"Match each SQL data type to what it is used for in these functions.",
+   items:["A department or person name argument","An id, a count, or a headcount","An exact money or percentage value","A true / false flag result"],
+   terms:["VARCHAR(50)","INT","DECIMAL(p,s)","BOOLEAN","BYTEA"],
+   a:[0,1,2,3], e:"Names → VARCHAR(n); ids/counts → INT; money/percent → DECIMAL(p,s); yes/no → BOOLEAN. BYTEA (raw bytes) is a distractor here.", src:"Template & Types"}
 ],
-returning:[
-  {t:"mc", q:"What is the difference between <b>RETURNS</b> and <b>RETURN</b>?",
-   o:["RETURNS (header) declares the type; RETURN (body statement) hands back a value","They are simply two different spellings of the very same keyword and are interchangeable","RETURN is in the header declaring the type; RETURNS is a statement inside the body","RETURNS always gives back text, while RETURN can only ever give back numbers"],
-   a:0, e:"<code>RETURNS text</code> is in the header and declares the type; <code>RETURN expr;</code> is a statement in a plpgsql body that actually returns the value.", src:"Returning a String"},
-  {t:"mc", q:"In a <code>LANGUAGE sql</code> function, how is the string handed back?",
-   o:["It is the result of the function's final SELECT statement","By writing RETURN at the end of the body like in plpgsql","It must be stored in a variable named result first","The function cannot return a value in LANGUAGE sql"],
-   a:0, e:"An SQL-language function returns the result of its last query — no RETURN keyword is used.", src:"Returning a String"},
-  {t:"mc", q:"Your function is declared <code>RETURNS text</code> but you want to return the integer <code>count(*)</code> result <code>n</code>. What do you do?",
-   o:["Cast it to text, e.g. RETURN n::text, or concatenate it into a string","Nothing — PostgreSQL always auto-converts integers to text on return","Change the header to RETURNS int and keep returning the string","Wrap the whole function body in a second pair of dollar quotes"],
-   a:0, e:"The returned value must match the declared type. Cast the integer with <code>n::text</code> (concatenating it with <code>||</code> also casts it).", src:"Returning a String"},
-  {t:"mc", q:"Which return type is the usual choice for an arbitrary-length info string?",
-   o:["text","char(1)","boolean","integer"],
-   a:0, e:"<code>text</code> is variable-length with no limit — the standard choice. <code>varchar(n)</code> works too but caps the length.", src:"Returning a String"},
-  {t:"sa", q:"Write a one-statement function <code>shout(msg text)</code> that returns the message in uppercase with three exclamation marks, e.g. <code>shout('hi')</code> → <code>'HI!!!'</code>.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION shout(msg text)
-RETURNS text AS $$
-  SELECT UPPER(msg) || '!!!';
-$$ LANGUAGE sql;</div><p>One SELECT, so <code>LANGUAGE sql</code> is simplest. <code>UPPER(msg)</code> upper-cases it and <code>|| '!!!'</code> appends the marks. A plpgsql version with <code>BEGIN RETURN UPPER(msg) || '!!!'; END;</code> is equally correct.</p>`, src:"Returning a String"}
+lookup:[
+  {t:"mc", q:"What does <code>SELECT MAX(salary), MIN(salary) INTO hi, lo FROM employees WHERE department_id = d_id;</code> do?",
+   o:["Stores the department's max salary in hi and its min in lo","Returns two separate result rows, one for hi and one for lo","Inserts hi and lo as new rows into the employees table","Only works correctly if you run it twice, once per variable"],
+   a:0, e:"One query can load several aggregates into several variables in order: hi gets MAX, lo gets MIN.", src:"Reading Data"},
+  {t:"mc", q:"A department exists but has <b>no employees</b>. After <code>SELECT MAX(salary) INTO hi FROM employees WHERE department_id = d_id;</code>, what is <code>hi</code>?",
+   o:["NULL — MAX over zero rows is NULL","0 — aggregates default to zero when empty","an error is raised and the function stops","the previous value hi happened to hold"],
+   a:0, e:"MAX/MIN/AVG/SUM over an empty set return <b>NULL</b>. That NULL is exactly how you detect 'no employees'.", src:"Reading Data"},
+  {t:"mc", q:"Over a department with <b>no employees</b>, what does <code>SELECT COUNT(*) INTO n FROM employees WHERE department_id = d_id;</code> put in <code>n</code>?",
+   o:["0 — COUNT over zero rows is zero, never NULL","NULL, like the other aggregates","an error, because there is nothing to count","the number of departments instead"],
+   a:0, e:"Unlike MAX/MIN/AVG/SUM, <code>COUNT(*)</code> returns <b>0</b> for an empty set. So a count-based function often needs no separate empty check.", src:"Reading Data"},
+  {t:"mc", q:"After an aggregate query on an empty department, is the <code>FOUND</code> flag TRUE or FALSE?",
+   o:["TRUE — an aggregate always returns exactly one (NULL) row","FALSE — with no employee rows the FOUND flag is set false","It is simply left unchanged from the previous statement","It raises an error instead of setting the FOUND flag"],
+   a:0, e:"An aggregate query always returns one row (a NULL when empty), so <code>FOUND</code> is TRUE. Detect empty with <code>IS NULL</code> on the aggregate, not FOUND.", src:"Reading Data"},
+  {t:"ms", q:"Which aggregates return <b>NULL</b> (not 0) when run over a set with no rows? (Select all that apply.)",
+   o:["MAX(x)","MIN(x)","AVG(x)","SUM(x)","COUNT(*)"],
+   a:[0,1,2,3], e:"MAX, MIN, AVG, and SUM all return NULL over an empty set. Only <code>COUNT(*)</code> returns 0.", src:"Reading Data"}
 ],
-params:[
-  {t:"mc", q:"Inside a function body, how can you refer to the first parameter?",
-   o:["By its declared name, or positionally as $1","Only as %1, the first percent slot","As param[0], since parameters are zero-indexed","As INPUT(1), the built-in parameter accessor"],
-   a:0, e:"Use the parameter's name, or the positional form <code>$1, $2, ...</code>. Both refer to the same argument.", src:"Parameters & Variables"},
-  {t:"mc", q:"Which operator assigns a value to a variable in PL/pgSQL?",
-   o:[":=","==","-&gt;","&lt;&lt;"],
-   a:0, e:"<code>:=</code> is the assignment operator, e.g. <code>result := 'hi';</code>. (plpgsql also tolerates <code>=</code> for assignment, but <code>:=</code> is the clear standard.)", src:"Parameters & Variables"},
-  {t:"mc", q:"What does <code>SELECT name, email INTO nm, em FROM customers WHERE id = cid;</code> do?",
-   o:["Stores that row's name and email into the variables nm and em","Inserts the variables nm and em as a new customers row","Renames the columns name and email to nm and em permanently","Returns the row directly to the caller without using variables"],
-   a:0, e:"<code>SELECT ... INTO</code> copies the query's columns into the listed variables (in order) for use later in the body.", src:"Parameters & Variables"},
-  {t:"mc", q:"What is the purpose of the <b>DECLARE</b> section of a plpgsql function?",
-   o:["To list the local variables (name and type) the body will use","To declare which tables the function is allowed to read","To announce the function's name to other functions","To set the function's return type instead of RETURNS"],
-   a:0, e:"<code>DECLARE</code> lists local variables and their types before the <code>BEGIN ... END</code> body.", src:"Parameters & Variables"},
-  {t:"mc", q:"What does declaring <code>nm customers.name%TYPE;</code> accomplish?",
-   o:["nm takes whatever data type the customers.name column has","nm is forced to be exactly text no matter the column","nm becomes a copy of the whole customers table","nm is declared as a parameter rather than a variable"],
-   a:0, e:"<code>%TYPE</code> anchors the variable's type to a column, so it always matches (and follows any later change to the column's type).", src:"Parameters & Variables"}
-],
-strings:[
-  {t:"mc", q:"What is the result of <code>'Phone: ' || NULL</code> in PostgreSQL?",
-   o:["NULL — any NULL operand makes the whole || result NULL","'Phone: ' — the NULL is treated as an empty string","'Phone: NULL' — the word NULL is appended as text","An error, because || cannot be used with NULL at all"],
-   a:0, e:"With <code>||</code>, if any operand is NULL the entire result is NULL — a single missing column can blank your whole info string. Guard with COALESCE or use CONCAT_WS.", src:"Building the String"},
-  {t:"mc", q:"How does <code>CONCAT_WS(' | ', 'Ada', NULL, 'x@x')</code> behave?",
-   o:["Joins the non-NULL arguments with ' | ' → 'Ada | x@x'","Returns NULL because one argument is NULL","Puts ' | ' before every argument → ' | Ada | x@x'","Joins all arguments including the word NULL as text"],
-   a:0, e:"<code>CONCAT_WS</code> (\"with separator\") skips NULL arguments and places the separator only between the remaining values.", src:"Building the String"},
-  {t:"mc", q:"You want <code>'Phone: ' || phone</code> to show <code>'Phone: N/A'</code> when phone is NULL. What do you use?",
-   o:["COALESCE(phone, 'N/A')","IFNULL(phone) = 'N/A'","phone DEFAULT 'N/A'","NULLIF(phone, 'N/A')"],
-   a:0, e:"<code>COALESCE(phone, 'N/A')</code> returns the first non-NULL argument, so a NULL phone becomes 'N/A'. (NULLIF does the opposite — returns NULL when the two match.)", src:"Building the String"},
-  {t:"mc", q:"What does <code>FORMAT('Name: %s, Age: %s', nm, age)</code> produce?",
-   o:["A string with nm and age substituted for the two %s placeholders","An error at run time, because FORMAT only ever accepts a single argument","The literal template text 'Name: %s, Age: %s' returned completely unchanged","A number formatted and rounded to exactly two decimal places"],
-   a:0, e:"<code>FORMAT</code> fills <code>%s</code> placeholders with the arguments in order (as text). <code>%I</code> quotes an identifier and <code>%L</code> a literal.", src:"Building the String"},
-  {t:"mc", q:"To include an integer <code>total</code> in a text string, you can write…",
-   o:["total::text (cast), or just concatenate it with ||","total.toText(), the built-in conversion method","text(total, 0), passing the decimal places","Nothing works — integers cannot appear in a string"],
-   a:0, e:"Cast with <code>total::text</code>, or rely on <code>||</code>, which casts the number to text automatically when concatenating.", src:"Building the String"},
-  {t:"ms", q:"Which expressions safely join <code>first</code> and <code>last</code> even if one of them is NULL (no NULL result)? (Select all that apply.)",
-   o:["CONCAT(first, ' ', last)","CONCAT_WS(' ', first, last)","first || ' ' || last","COALESCE(first,'') || ' ' || COALESCE(last,'')"],
-   a:[0,1,3], e:"CONCAT and CONCAT_WS ignore NULLs, and wrapping each operand in COALESCE removes the NULL before <code>||</code>. Plain <code>first || ' ' || last</code> is NULL if either side is NULL.", src:"Building the String"},
-  {t:"match", q:"Match each string tool to what it does. One term is a distractor.",
-   items:["Joins text, but returns NULL if any piece is NULL","Joins non-NULL pieces using a separator","Replaces a NULL value with a fallback","Fills %s placeholders in a template"],
-   terms:["|| (concatenation)","CONCAT_WS(sep, ...)","COALESCE(x, default)","FORMAT(tmpl, ...)","UPPER(s)"],
-   a:[0,1,2,3], e:"<code>||</code> is NULL-sensitive; <code>CONCAT_WS</code> joins with a separator and skips NULLs; <code>COALESCE</code> supplies a fallback; <code>FORMAT</code> fills placeholders. <code>UPPER</code> just changes case.", src:"Building the String"}
-],
-querying:[
-  {t:"mc", q:"After <code>SELECT name INTO nm FROM customers WHERE id = cid;</code> finds <b>no matching row</b>, what is <code>nm</code>?",
-   o:["NULL — the variable is left unset when no row matches","An empty string '' is assigned to the variable automatically","The id value cid is used as a fallback for the variable","It immediately raises an error and the whole function stops running"],
-   a:0, e:"A plain <code>SELECT INTO</code> with no match leaves the variable NULL (no error). Check the <code>FOUND</code> flag, or use <code>INTO STRICT</code> to force an error.", src:"Querying Inside"},
-  {t:"mc", q:"Which flag tells you whether the previous <code>SELECT ... INTO</code> returned a row?",
-   o:["FOUND","ROW_COUNT()","HAS_DATA","EXISTS"],
-   a:0, e:"<code>IF NOT FOUND THEN ... END IF;</code> checks whether the last INTO (or other query) affected/returned a row.", src:"Querying Inside"},
-  {t:"mc", q:"Which function folds <b>many rows</b> into one comma-separated string?",
-   o:["string_agg(expr, ', ')","count(expr)","array_length(expr)","substring(expr, ', ')"],
-   a:0, e:"<code>string_agg(expr, sep)</code> is an aggregate that concatenates a value across rows with the separator — e.g. <code>'Bolt, Nut, Washer'</code>.", src:"Querying Inside"},
-  {t:"mc", q:"What does adding <b>STRICT</b> to <code>SELECT ... INTO STRICT nm ...</code> do?",
-   o:["Raises an error unless exactly one row is returned","Makes the comparison case-sensitive","Forbids the variable from ever being NULL afterward","Limits the query to the strictly first column only"],
-   a:0, e:"<code>INTO STRICT</code> requires exactly one row — zero or many rows raises an exception, which is useful for a lookup that must match a single record.", src:"Querying Inside"},
-  {t:"sa", q:"Using <code>string_agg</code>, write a function <code>order_items(oid int)</code> that returns the product names on an order as one comma-separated string from table <code>order_lines(order_id, product_name)</code>.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION order_items(oid int)
-RETURNS text AS $$
-  SELECT string_agg(product_name, ', ' ORDER BY product_name)
-    FROM order_lines
-   WHERE order_id = oid;
-$$ LANGUAGE sql;</div><p><code>string_agg</code> concatenates <code>product_name</code> across the matching rows with <code>', '</code> between them. The optional <code>ORDER BY</code> makes the order deterministic. A no-match order returns NULL — wrap in <code>COALESCE(..., 'none')</code> if you want a word instead.</p>`, src:"Querying Inside"}
-],
-examples:[
-  {t:"mc", q:"A function has <code>'Email: ' || email</code> and some customers have a NULL email, blanking the whole string. The best fix is…",
-   o:["Use COALESCE(email, 'N/A') (or CONCAT_WS) so a NULL does not void the result","Delete every customer row that happens to have a NULL value in the email column","Change the email column definition so that it is never again allowed to store a NULL","Wrap the whole function body inside a second, nested pair of dollar quotes"],
-   a:0, e:"The NULL-propagation of <code>||</code> is the cause; <code>COALESCE(email,'N/A')</code> or <code>CONCAT_WS</code> keeps the rest of the string intact.", src:"Examples & Pitfalls"},
-  {t:"mc", q:"A PL/pgSQL function sometimes reaches <code>END;</code> without hitting a RETURN. What happens?",
-   o:["It raises an error: control reached end of function without RETURN","It silently returns an empty string back to the caller by default","It silently returns the value of whichever local variable was assigned last","It loops back to BEGIN and quietly runs the whole body one more time"],
-   a:0, e:"A plpgsql function declared to return a value must RETURN on every path, or it errors at run time. Make sure every branch returns.", src:"Examples & Pitfalls"},
-  {t:"mc", q:"An <b>info lookup</b> function reads tables but changes nothing. Which volatility label fits best?",
-   o:["STABLE","VOLATILE","IMMUTABLE","DETERMINISTIC"],
-   a:0, e:"<code>STABLE</code> = reads the database but does not modify it within a statement. <code>IMMUTABLE</code> is for pure functions that touch no tables; <code>VOLATILE</code> is the default.", src:"Examples & Pitfalls"},
-  {t:"ms", q:"Which are genuine mistakes that would break or spoil a string-returning function? (Select all that apply.)",
-   o:["Concatenating a possibly-NULL column with || and no COALESCE","Leaving a plpgsql path with no RETURN statement","Returning an integer from a RETURNS text function with no cast","Using CONCAT_WS to join the fields with a separator"],
-   a:[0,1,2], e:"The NULL trap, a missing RETURN, and a return-type mismatch all break or spoil the result. <code>CONCAT_WS</code> is good practice, not a mistake.", src:"Examples & Pitfalls"},
-  {t:"sa", q:"Write a NULL-safe PL/pgSQL function <code>get_customer_info(cid int)</code> that returns <code>'Name: ... | City: ...'</code> for the matching row in <code>customers(id, name, city)</code>, or <code>'No customer #cid'</code> if none exists.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION get_customer_info(cid int)
-RETURNS text AS $$
+edge:[
+  {t:"mc", q:"How do you detect that the <b>department does not exist</b> (so you can RETURN NULL)?",
+   o:["Look it up and test IF NOT FOUND after the SELECT INTO","Test whether MAX(salary) IS NULL after aggregating","Count the departments and check if it equals zero overall","Assume it exists; the aggregate will return NULL anyway"],
+   a:0, e:"Do a plain lookup <code>SELECT id INTO d_id FROM departments WHERE name = dept_name;</code> then <code>IF NOT FOUND THEN RETURN NULL;</code>. (An aggregate can't tell you the parent is missing.)", src:"Edge Cases"},
+  {t:"mc", q:"Why must you check that the department <b>exists</b> before checking whether it is <b>empty</b>?",
+   o:["Otherwise a missing department would wrongly return the −1.00 sentinel","Because the IS NULL test only works after a NOT FOUND check has run","Because the aggregate query would otherwise delete the department row","There is really no reason; either order gives the exact same result"],
+   a:0, e:"If you checked emptiness first, a non-existent department (whose aggregate is also NULL) would hit the −1.00 branch instead of returning NULL. Existence first, then emptiness.", src:"Edge Cases"},
+  {t:"mc", q:"The return type is <code>DECIMAL(5,2)</code> and the spec says return −1.00 when a department has no employees. You should write…",
+   o:["RETURN -1.00;","RETURN -1;","RETURN '−1.00';","RETURN NULL;"],
+   a:0, e:"Return the sentinel in the required format, <code>-1.00</code>, as a numeric literal (not a string, and not NULL — NULL is for the 'does not exist' case).", src:"Edge Cases"},
+  {t:"mc", q:"What is the correct keyword for a chained condition in PL/pgSQL (between IF and ELSE)?",
+   o:["ELSIF","ELSEIF","ELIF","ELSE IF"],
+   a:0, e:"PL/pgSQL spells it <code>ELSIF</code> (one word, no second E). Each branch can RETURN.", src:"Edge Cases"},
+  {t:"match", q:"Match each situation to what the model problem returns.",
+   items:["The department name matches no row","The department exists but has zero employees","The department has employees"],
+   terms:["RETURN NULL","RETURN -1.00","RETURN the computed % (rounded)","RETURN 0"],
+   a:[0,1,2], e:"No such department → NULL; exists but empty → −1.00 sentinel; otherwise → the computed, rounded percentage. (RETURN 0 is a distractor.)", src:"Edge Cases"},
+  {t:"sa", q:"<b>Edge-logic skeleton.</b> Without the final formula, write the header, DECLARE, and the two edge-case checks for: <code>sal_spread(dept_name VARCHAR(50)) RETURNS DECIMAL(5,2)</code> — NULL if the department does not exist, −1.00 if it has no employees.",
+   a:`<div class="sa-note">The structure is the hard part — the formula just slots in at the end.</div><div class="codeblk">CREATE OR REPLACE FUNCTION sal_spread(dept_name VARCHAR(50))
+RETURNS DECIMAL(5,2) AS $$
 DECLARE
-  nm text;
-  ct text;
+  d_id INT;
+  hi   NUMERIC;
+  lo   NUMERIC;
 BEGIN
-  SELECT name, city INTO nm, ct
-    FROM customers WHERE id = cid;
+  -- 1) department exists?
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
   IF NOT FOUND THEN
-    RETURN 'No customer #' || cid;
+    RETURN NULL;
   END IF;
-  RETURN CONCAT_WS(' | ',
-           'Name: ' || nm,
-           'City: ' || COALESCE(ct, 'N/A'));
+
+  -- 2) any employees?
+  SELECT MAX(salary), MIN(salary) INTO hi, lo
+    FROM employees WHERE department_id = d_id;
+  IF lo IS NULL THEN
+    RETURN -1.00;
+  END IF;
+
+  -- 3) ... compute and RETURN here ...
 END;
-$$ LANGUAGE plpgsql;</div><p>Steps: declare variables → <code>SELECT ... INTO</code> → handle <code>NOT FOUND</code> → build the string with <code>CONCAT_WS</code> and <code>COALESCE</code> (so a NULL city shows 'N/A' instead of voiding the string) → <code>RETURN</code>.</p>`, src:"Examples & Pitfalls"}
+$$ LANGUAGE plpgsql;</div><p><b>NOT FOUND</b> after the plain lookup handles "does not exist" → NULL. <b>lo IS NULL</b> after the aggregate handles "no employees" → −1.00. The order (existence, then emptiness) matters.</p>`, src:"Edge Cases"}
+],
+compute:[
+  {t:"mc", q:"\"The difference between MAX and MIN as a % of the <b>lower</b> one\" is computed as…",
+   o:["(MAX − MIN) / MIN * 100","(MAX − MIN) / MAX * 100","(MAX + MIN) / 2 * 100","MAX / MIN * 100"],
+   a:0, e:"Percent of the lower value = difference divided by the <b>lower</b> (MIN), times 100: <code>(MAX − MIN) / MIN * 100</code>.", src:"Computing & Formatting"},
+  {t:"mc", q:"Your columns are <code>INT</code>. Why does <code>(hi - lo) / lo * 100</code> often come out as <b>0</b>?",
+   o:["Integer division truncates the fraction before multiplying by 100","Because lo is always much larger than the quantity hi − lo","The × 100 runs before the division because of operator order","NULL values in the column silently turn the whole result into zero"],
+   a:0, e:"With integer operands, <code>/</code> truncates (e.g. 30/100 = 0) <i>before</i> the ×100. Cast to numeric or multiply by <code>100.0</code> first.", src:"Computing & Formatting"},
+  {t:"mc", q:"Which expression avoids the integer-division trap?",
+   o:["(hi - lo) * 100.0 / lo","(hi - lo) / lo * 100","((hi - lo) / lo) * 100","(hi - lo) / (lo * 100)"],
+   a:0, e:"Multiplying by <code>100.0</code> (a numeric literal) forces numeric arithmetic, so no truncation. <code>(hi - lo)::numeric / lo * 100</code> works too.", src:"Computing & Formatting"},
+  {t:"mc", q:"To return a value as <code>DECIMAL(5,2)</code>, you fit it to 2 decimals with…",
+   o:["ROUND(x, 2)","TRUNCATE(x)","FORMAT(x, 2)","x::int"],
+   a:0, e:"<code>ROUND(x, 2)</code> rounds to the scale 2 that <code>DECIMAL(5,2)</code> expects. <code>x::int</code> would drop the decimals entirely.", src:"Computing & Formatting"},
+  {t:"mc", q:"To put the integer <code>n</code> into a returned text string, you can write…",
+   o:["n::text, or just concatenate it with ||","n.toString() as a method call","str(n) using a built-in function","nothing works — numbers can't go in text"],
+   a:0, e:"Cast with <code>n::text</code>, or rely on <code>||</code> which casts the number to text when concatenating.", src:"Computing & Formatting"},
+  {t:"sa", q:"Finish the model problem: complete <code>sal_spread</code> so it returns the % difference between MAX and MIN salary of the lower one, as <code>DECIMAL(5,2)</code>, NULL if the department does not exist, −1.00 if it has no employees.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION sal_spread(dept_name VARCHAR(50))
+RETURNS DECIMAL(5,2) AS $$
+DECLARE
+  d_id INT;
+  hi   NUMERIC;
+  lo   NUMERIC;
+BEGIN
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
+  IF NOT FOUND THEN
+    RETURN NULL;                       -- no such department
+  END IF;
+
+  SELECT MAX(salary), MIN(salary) INTO hi, lo
+    FROM employees WHERE department_id = d_id;
+  IF lo IS NULL THEN
+    RETURN -1.00;                      -- exists, but no employees
+  END IF;
+
+  RETURN ROUND((hi - lo) / lo * 100, 2);  -- % of the lower one
+END;
+$$ LANGUAGE plpgsql;</div><p>Formula <code>(hi − lo) / lo * 100</code>; <code>ROUND(..., 2)</code> fits <code>DECIMAL(5,2)</code>. <code>salary</code> is DECIMAL so no integer-division cast is needed (if it were INT, use <code>(hi-lo)*100.0/lo</code>).</p>`, src:"Computing & Formatting"}
+],
+problems:[
+  {t:"sa", q:"<b>INT return / count.</b> Write <code>dept_headcount(dept_name VARCHAR(50)) RETURNS INT</code> that returns the number of employees in the department, or <b>NULL</b> if the department does not exist.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION dept_headcount(dept_name VARCHAR(50))
+RETURNS INT AS $$
+DECLARE
+  d_id INT;
+  n    INT;
+BEGIN
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
+  IF NOT FOUND THEN
+    RETURN NULL;
+  END IF;
+
+  SELECT COUNT(*) INTO n
+    FROM employees WHERE department_id = d_id;
+  RETURN n;          -- COUNT(*) is 0 when empty, so no extra check
+END;
+$$ LANGUAGE plpgsql;</div><p>Because <code>COUNT(*)</code> returns <b>0</b> (not NULL) for an empty department, no separate "no employees" branch is needed — an empty department correctly returns 0.</p>`, src:"Worked Problems"},
+  {t:"sa", q:"<b>DECIMAL return / average.</b> Write <code>avg_salary(dept_name VARCHAR(50)) RETURNS DECIMAL(10,2)</code>: the average salary rounded to 2 decimals, <b>NULL</b> if the department does not exist, <b>−1.00</b> if it has no employees.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION avg_salary(dept_name VARCHAR(50))
+RETURNS DECIMAL(10,2) AS $$
+DECLARE
+  d_id INT;
+  a    NUMERIC;
+BEGIN
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
+  IF NOT FOUND THEN
+    RETURN NULL;
+  END IF;
+
+  SELECT AVG(salary) INTO a
+    FROM employees WHERE department_id = d_id;
+  IF a IS NULL THEN
+    RETURN -1.00;
+  END IF;
+
+  RETURN ROUND(a, 2);
+END;
+$$ LANGUAGE plpgsql;</div><p>Same existence/emptiness pattern. <code>AVG</code> is NULL over an empty set → the −1.00 branch. <code>ROUND(a, 2)</code> matches the scale. (<code>DECIMAL(10,2)</code> holds up to 99,999,999.99.)</p>`, src:"Worked Problems"},
+  {t:"sa", q:"<b>VARCHAR return / string.</b> Write <code>employee_card(emp_id INT) RETURNS VARCHAR(120)</code> returning <code>'Last, First — Title ($salary)'</code>, or <code>'No employee #<id>'</code> if no such employee. Use COALESCE so a missing title still works.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION employee_card(emp_id INT)
+RETURNS VARCHAR(120) AS $$
+DECLARE
+  ln  VARCHAR(50);
+  fn  VARCHAR(50);
+  ti  VARCHAR(50);
+  sal DECIMAL(10,2);
+BEGIN
+  SELECT last_name, first_name, title, salary
+    INTO ln, fn, ti, sal
+    FROM employees WHERE id = emp_id;
+  IF NOT FOUND THEN
+    RETURN 'No employee #' || emp_id;
+  END IF;
+
+  RETURN ln || ', ' || fn
+      || ' — ' || COALESCE(ti, 'N/A')
+      || ' ($' || sal::text || ')';
+END;
+$$ LANGUAGE plpgsql;</div><p>A plain lookup, so <code>NOT FOUND</code> handles the missing case. <code>COALESCE(ti,'N/A')</code> protects the one column that might be NULL; <code>sal::text</code> casts the number into the string; <code>|| emp_id</code> casts the id automatically.</p>`, src:"Worked Problems"},
+  {t:"sa", q:"<b>BOOLEAN return.</b> Write <code>earns_above(emp_id INT, threshold DECIMAL(10,2)) RETURNS BOOLEAN</code>: TRUE if the employee's salary is greater than the threshold, FALSE otherwise, and <b>NULL</b> if the employee does not exist.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION earns_above(emp_id INT,
+                                     threshold DECIMAL(10,2))
+RETURNS BOOLEAN AS $$
+DECLARE
+  sal DECIMAL(10,2);
+BEGIN
+  SELECT salary INTO sal
+    FROM employees WHERE id = emp_id;
+  IF NOT FOUND THEN
+    RETURN NULL;
+  END IF;
+
+  RETURN sal > threshold;   -- a comparison is already BOOLEAN
+END;
+$$ LANGUAGE plpgsql;</div><p>Two parameters, the second itself <code>DECIMAL(10,2)</code>. A comparison <code>sal > threshold</code> evaluates to a BOOLEAN, so you can return it directly. Missing employee → NULL.</p>`, src:"Worked Problems"},
+  {t:"sa", q:"<b>DECIMAL return / ratio of total.</b> Write <code>payroll_share(dept_name VARCHAR(50)) RETURNS DECIMAL(5,2)</code>: the department's total salary as a % of the whole company's payroll, rounded to 2 dp; <b>NULL</b> if the department does not exist; <b>−1.00</b> if it has no employees.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION payroll_share(dept_name VARCHAR(50))
+RETURNS DECIMAL(5,2) AS $$
+DECLARE
+  d_id      INT;
+  dept_sum  NUMERIC;
+  total_sum NUMERIC;
+BEGIN
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
+  IF NOT FOUND THEN
+    RETURN NULL;
+  END IF;
+
+  SELECT SUM(salary) INTO dept_sum
+    FROM employees WHERE department_id = d_id;
+  IF dept_sum IS NULL THEN
+    RETURN -1.00;                 -- no employees in this department
+  END IF;
+
+  SELECT SUM(salary) INTO total_sum FROM employees;  -- whole company
+  RETURN ROUND(dept_sum / total_sum * 100, 2);
+END;
+$$ LANGUAGE plpgsql;</div><p><code>SUM</code> is NULL for an empty department → −1.00. The company total comes from a second aggregate over all employees; <code>ROUND(..., 2)</code> fits <code>DECIMAL(5,2)</code>. (If salaries were INT, cast: <code>dept_sum::numeric / total_sum * 100</code>.)</p>`, src:"Worked Problems"}
+],
+pitfalls:[
+  {t:"ms", q:"Which of these are real mistakes that would make a salary-% function wrong or error? (Select all that apply.)",
+   o:["Using IF NOT FOUND to detect a department with no employees","Dividing two INT columns without a numeric cast","Returning the computed value without ROUND to the scale","Checking existence before checking emptiness"],
+   a:[0,1,2], e:"FOUND can't detect an empty aggregate (use IS NULL); integer division truncates; and skipping ROUND can overflow or mis-format. Checking existence first is <b>correct</b>, not a mistake.", src:"Pitfalls & Checklist"},
+  {t:"mc", q:"A PL/pgSQL function can reach <code>END;</code> on some branch without a RETURN. What happens?",
+   o:["A run-time error: control reached end of function without RETURN","It silently returns NULL on that branch instead of erroring","It quietly returns whichever local variable was assigned last","It simply restarts the body again from the BEGIN keyword"],
+   a:0, e:"Every path must RETURN or you get a run-time error. Make sure each IF branch returns, or add a final RETURN.", src:"Pitfalls & Checklist"},
+  {t:"mc", q:"If the <b>lower</b> salary could be 0, the expression <code>(hi - lo) / lo</code> will…",
+   o:["raise a division-by-zero error unless you guard lo = 0 first","quietly return a value of 0 without raising any error at all","automatically and safely return NULL with no further handling","always round the result up to the nearest whole percent"],
+   a:0, e:"Dividing by zero errors. If a zero lower value is possible, guard it (e.g. <code>IF lo = 0 THEN RETURN NULL;</code> or a stated sentinel) before dividing.", src:"Pitfalls & Checklist"},
+  {t:"ms", q:"Before submitting a code answer, which should you verify? (Select all that apply.)",
+   o:["Argument and RETURNS types match the spec exactly","Missing parent → NULL, no child rows → the right-format sentinel","Body is dollar-quoted and ends with LANGUAGE plpgsql;","Every branch returns a value of the declared type"],
+   a:[0,1,2,3], e:"All four are part of the checklist: correct types, correct edge returns, proper body/LANGUAGE, and a RETURN on every path.", src:"Pitfalls & Checklist"},
+  {t:"sa", q:"<b>Putting it together.</b> Write <code>salary_range(dept_name VARCHAR(50)) RETURNS DECIMAL(10,2)</code>: the MAX minus MIN salary in the department; <b>NULL</b> if the department does not exist; <b>−1.00</b> if it has no employees.",
+   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION salary_range(dept_name VARCHAR(50))
+RETURNS DECIMAL(10,2) AS $$
+DECLARE
+  d_id INT;
+  hi   NUMERIC;
+  lo   NUMERIC;
+BEGIN
+  SELECT id INTO d_id
+    FROM departments WHERE name = dept_name;
+  IF NOT FOUND THEN
+    RETURN NULL;
+  END IF;
+
+  SELECT MAX(salary), MIN(salary) INTO hi, lo
+    FROM employees WHERE department_id = d_id;
+  IF hi IS NULL THEN
+    RETURN -1.00;
+  END IF;
+
+  RETURN ROUND(hi - lo, 2);
+END;
+$$ LANGUAGE plpgsql;</div><p>Same pattern as the model problem, but the result is a plain difference instead of a percentage — a good sanity check that you have the existence/emptiness structure memorized. <code>ROUND(hi - lo, 2)</code> fits the scale.</p>`, src:"Pitfalls & Checklist"}
 ]
 };
 
 /* =========================================================
    RENDER + GRADING
    ========================================================= */
-const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Numeric Entry", match:"Matching", sa:"Short Answer"};
+const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Numeric Entry", match:"Matching", sa:"Write the Function"};
 const SCORED = {mc:1, ms:1, num:1, match:1, sa:0};
 
 const store=(()=>{try{const t="__t";localStorage.setItem(t,"1");localStorage.removeItem(t);return localStorage;}catch(e){return null;}})();
-const KEY="sql-fn-progress-v1";
+const KEY="sql-code-progress-v1";
 let state={}; try{ if(store) state=JSON.parse(store.getItem(KEY)||"{}"); }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
-let flags={}; try{ if(store) flags=JSON.parse(store.getItem("sql-fn-flags")||"{}"); }catch(e){ flags={}; }
-function saveFlags(){ try{ store && store.setItem("sql-fn-flags", JSON.stringify(flags)); }catch(e){} }
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("sql-code-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("sql-code-flags", JSON.stringify(flags)); }catch(e){} }
 
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function seededPerm(n, seed){
@@ -648,46 +742,42 @@ const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let activePart=null, cramPinned=false, curFilter="all";
 
 const CRAM_HTML=`<div class="cram">
-<h5>Creating a Function</h5>
-<div class="codeblk">CREATE OR REPLACE FUNCTION f(p text)
-RETURNS text AS $$
-  SELECT 'Hi ' || p;
-$$ LANGUAGE sql;</div>
+<h5>The Skeleton</h5>
+<div class="codeblk">CREATE OR REPLACE FUNCTION f(a VARCHAR(50))
+RETURNS DECIMAL(5,2) AS $$
+DECLARE d_id INT; hi NUMERIC; lo NUMERIC;
+BEGIN
+  SELECT id INTO d_id
+    FROM departments WHERE name = a;
+  IF NOT FOUND THEN RETURN NULL; END IF;   -- missing
+  SELECT MAX(salary), MIN(salary) INTO hi, lo
+    FROM employees WHERE department_id = d_id;
+  IF lo IS NULL THEN RETURN -1.00; END IF; -- empty
+  RETURN ROUND((hi - lo) / lo * 100, 2);
+END; $$ LANGUAGE plpgsql;</div>
+<h5>Types &amp; Formatting</h5>
 <ul>
-<li><b>RETURNS text</b> = returns a string. Body between <code>$$ ... $$</code> (dollar-quoting).</li>
-<li><b>LANGUAGE sql</b> = one query; <b>plpgsql</b> = variables, IF/LOOP, RETURN.</li>
-<li>Call with <code>SELECT f('x');</code>. Drop with <code>DROP FUNCTION f(text);</code>.</li>
+<li><b>DECIMAL(5,2)</b> = 5 digits, 2 after point → max <b>999.99</b>. Fit with <code>ROUND(x, 2)</code>.</li>
+<li>Match arg type to spec (<code>VARCHAR(50)</code>, <code>INT</code>, <code>DECIMAL(10,2)</code>, <code>BOOLEAN</code>).</li>
+<li>Numeric locals = <code>NUMERIC</code>/<code>DECIMAL</code>. Cast: <code>x::text</code>, <code>x::numeric</code>.</li>
 </ul>
-<h5>Returning a String</h5>
+<h5>Edge Cases</h5>
 <ul>
-<li><b>RETURNS</b> (header, the type) vs <b>RETURN</b> (body statement, the value).</li>
-<li>sql-language: returns its final SELECT; plpgsql: <code>RETURN expr;</code>.</li>
-<li>Number into text → cast <code>n::text</code>. Type: <b>text</b> (any length).</li>
+<li>Parent missing → <b>NULL</b>: plain lookup + <code>IF NOT FOUND</code>.</li>
+<li>No child rows → <b>sentinel</b> (−1.00): aggregate <code>IS NULL</code> (not FOUND!).</li>
+<li>Order: <b>existence first</b>, then emptiness, then compute.</li>
+<li><code>COUNT(*)</code>=0 on empty; <b>MAX/MIN/AVG/SUM = NULL</b> on empty.</li>
 </ul>
-<h5>Parameters &amp; Variables</h5>
+<h5>Computing</h5>
 <ul>
-<li>Use a param by name or <code>$1, $2</code>. Assign with <code>:=</code>.</li>
-<li><code>DECLARE nm text;</code> ... <code>SELECT col INTO nm FROM ...;</code></li>
-<li><code>nm table.col%TYPE</code> anchors the type to a column.</li>
+<li>% of the lower one: <code>(MAX − MIN) / MIN * 100</code>. A of B %: <code>A / B * 100</code>.</li>
+<li><b>Integer-division trap:</b> INT/INT truncates → <code>*100.0</code> or <code>::numeric</code>.</li>
+<li>Guard <code>lo = 0</code> (divide-by-zero) if a zero lower value is possible.</li>
 </ul>
-<h5>Building the String</h5>
+<h5>Before you submit</h5>
 <ul>
-<li><b>|| NULL trap:</b> any NULL operand → whole result NULL.</li>
-<li><b>CONCAT</b> ignores NULLs; <b>CONCAT_WS(sep, ...)</b> joins non-NULLs with a separator.</li>
-<li><b>COALESCE(x, 'N/A')</b> = fallback for NULL. <b>FORMAT('...%s...', a)</b> = placeholders.</li>
-<li>Cast: <code>n::text</code>, <code>to_char(d,'YYYY-MM-DD')</code>. UPPER/LOWER/TRIM/LENGTH.</li>
-</ul>
-<h5>Querying Inside</h5>
-<ul>
-<li><code>SELECT col INTO var FROM t WHERE ...;</code> — one row into variables.</li>
-<li>No match → var is NULL; check <code>IF NOT FOUND THEN ...</code>; <code>INTO STRICT</code> errors unless exactly one row.</li>
-<li><b>string_agg(expr, ', ')</b> folds many rows into one string.</li>
-</ul>
-<h5>Examples &amp; Pitfalls</h5>
-<ul>
-<li>Pitfalls: <code>||</code> NULL trap, missing RETURN, missing LANGUAGE, return-type mismatch.</li>
-<li>Volatility: info lookup = <b>STABLE</b>; pure formatter = IMMUTABLE; default = VOLATILE.</li>
-<li>Pattern: declare → SELECT INTO → NOT FOUND → CONCAT_WS + COALESCE → RETURN.</li>
+<li>Arg + RETURNS types exact · NULL vs sentinel (right format) · ROUND to scale.</li>
+<li>Every path RETURNs · body in <code>$$ ... $$</code> · ends <code>LANGUAGE plpgsql;</code></li>
 </ul>
 </div>`;
 
@@ -706,9 +796,10 @@ SECTIONS.forEach((sec,si)=>{
     const item=document.createElement("div");
     item.className="qitem"; item.id="q-"+id; item.dataset.sec=sec.id; item.dataset.scored=SCORED[q.t]; item.style.setProperty("--hue",hue);
     const on=flags[id]?" on":"";
+    const typeCls = q.t==="sa" ? "qtype code" : "qtype";
     item.innerHTML=`<div class="qbadge">${qnum}</div>
       <div class="qbody">
-        <div class="qmeta"><span class="qpts" id="pts-${id}">${SCORED[q.t]?'1 point':'self-check'}</span><span class="qtype">${TYPE_LABEL[q.t]}</span><button class="star${on}" data-id="${id}" type="button" title="Flag for review" aria-label="Flag for review">★</button></div>
+        <div class="qmeta"><span class="qpts" id="pts-${id}">${SCORED[q.t]?'1 point':'self-check'}</span><span class="${typeCls}">${TYPE_LABEL[q.t]}</span><button class="star${on}" data-id="${id}" type="button" title="Flag for review" aria-label="Flag for review">★</button></div>
         <div class="qtext">${q.q}</div>
         <div class="qbodywrap" id="body-${id}"></div>
         <div class="explain" id="ex-${id}"></div>
@@ -730,12 +821,12 @@ function buildBody(secId, i, q, id){
   } else if(q.t==="num"){
     wrap.innerHTML=`<div class="numrow"><input class="numin" id="in-${id}" type="text" inputmode="decimal" autocomplete="off" placeholder="Enter a number" aria-label="Your numeric answer"><button class="submit" data-id="${id}" type="button">Check answer</button></div>`;
   } else if(q.t==="match"){
-    const legend=`<div class="terms-legend">Terms: <b>${q.terms.join("</b> · <b>")}</b></div>`;
+    const legend=`<div class="terms-legend">Options: <b>${q.terms.join("</b> · <b>")}</b></div>`;
     const optsHtml=`<option value="-1">— choose —</option>`+q.terms.map((t,ti)=>`<option value="${ti}">${t}</option>`).join("");
-    const rows=q.items.map((d,di)=>`<tr id="row-${id}-${di}"><td class="desc">${di+1}. ${d}</td><td class="pick"><select class="msel" id="sel-${id}-${di}" aria-label="Term for item ${di+1}">${optsHtml}</select></td></tr>`).join("");
+    const rows=q.items.map((d,di)=>`<tr id="row-${id}-${di}"><td class="desc">${di+1}. ${d}</td><td class="pick"><select class="msel" id="sel-${id}-${di}" aria-label="Choice for item ${di+1}">${optsHtml}</select></td></tr>`).join("");
     wrap.innerHTML=legend+`<table class="match"><tbody>${rows}</tbody></table><button class="submit" data-id="${id}" type="button">Check answer</button>`;
   } else if(q.t==="sa"){
-    wrap.innerHTML=`<button class="submit" data-id="${id}" type="button" style="background:transparent;color:var(--hue)">Show model answer</button><div class="sa-ans">${q.a}</div>`;
+    wrap.innerHTML=`<button class="submit" data-id="${id}" type="button" style="background:transparent;color:var(--hue)">Show model solution</button><div class="sa-ans">${q.a}</div>`;
   }
   renderQ(secId, i, q, id);
 }
@@ -784,7 +875,7 @@ function handleSubmit(id){
     const item=document.getElementById("q-"+id);
     const open=item.classList.toggle("open");
     const btn=item.querySelector(".submit");
-    btn.textContent=open?"Hide model answer":"Show model answer";
+    btn.textContent=open?"Hide model solution":"Show model solution";
     if(open) state[id]="seen"; else delete state[id]; save();
     updateCount();
   }
@@ -917,7 +1008,7 @@ document.getElementById("resetBtn").addEventListener("click",()=>{
   SECTIONS.forEach(sec=>(QUESTIONS[sec.id]||[]).forEach((q,i)=>{ const id=qid(sec.id,i);
     const item=document.getElementById("q-"+id); item.classList.remove("open");
     const inp=document.getElementById("in-"+id); if(inp){inp.disabled=false;inp.value="";inp.classList.remove("okb","nob");}
-    const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show model answer";}
+    const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show model solution";}
     if(q.t==="match") q.items.forEach((_,di)=>{ const s2=document.getElementById(`sel-${id}-${di}`); if(s2){s2.disabled=false;s2.value="-1";} const r=document.getElementById(`row-${id}-${di}`); if(r)r.classList.remove("rc","rw"); });
     renderQ(sec.id,i,q,id);
   }));
@@ -945,12 +1036,12 @@ function renderGuideBody(secId){
 }
 function showCram(){
   cramPinned=true; activePart=null;
-  gtitle.textContent="Cram Sheet — SQL Functions";
+  gtitle.textContent="Cram Sheet — SQL Function Pattern";
   gbody.style.setProperty("--gh","var(--accent)");
   document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
   cramChip.classList.add("active");
   gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
-  try{ store && store.setItem("sql-fn-part","cram"); }catch(e){}
+  try{ store && store.setItem("sql-code-part","cram"); }catch(e){}
 }
 function setActivePart(secId, fromClick){
   if(fromClick) cramPinned=false;
@@ -962,7 +1053,7 @@ function setActivePart(secId, fromClick){
   const chip=document.getElementById("gchip-"+secId);
   if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
   if(changed) renderGuideBody(secId);
-  try{ store && store.setItem("sql-fn-part",secId); }catch(e){}
+  try{ store && store.setItem("sql-code-part",secId); }catch(e){}
   if(fromClick){ document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"}); if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false); }
 }
 let ticking=false;
@@ -986,14 +1077,14 @@ scrim.addEventListener("click",()=>setGuideOpen(false));
 document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
 const root=document.documentElement, tb=document.getElementById("themeBtn"), ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("sql-fn-theme",t);}catch(e){} }
-let curTheme="system"; try{ if(store) curTheme=store.getItem("sql-fn-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("sql-code-theme",t);}catch(e){} }
+let curTheme="system"; try{ if(store) curTheme=store.getItem("sql-code-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{ curTheme=curTheme==="system"?"light":curTheme==="light"?"dark":"system"; applyTheme(curTheme); });
 
 /* ---- init ---- */
 refreshOverall(); applyFilter("all");
-let initPart=null; try{ initPart=store&&store.getItem("sql-fn-part"); }catch(e){}
+let initPart=null; try{ initPart=store&&store.getItem("sql-code-part"); }catch(e){}
 if(initPart==="cram"||!initPart) showCram();
 else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
 else showCram();
