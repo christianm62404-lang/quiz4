@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CAI 4105 Midterm Review — Study Guide (L01–L13)</title>
+<title>CAI 4105 Neural Networks — Study Guide (L15–L17)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -128,11 +128,10 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .numin:focus{outline:2px solid var(--accent);outline-offset:1px}
 .numin.okb{border-color:var(--ok);background:var(--ok-bg)}
 .numin.nob{border-color:var(--bad);background:var(--bad-bg)}
-.numhint{font-size:12.5px;color:var(--faint)}
 table.match{border-collapse:collapse;width:100%;font-size:14px;margin-top:2px}
 table.match td{border:1px solid var(--line);padding:7px 9px;vertical-align:middle}
 table.match td.desc{color:var(--ink-soft)}
-table.match td.pick{width:42%}
+table.match td.pick{width:44%}
 .msel{font-family:inherit;font-size:13.5px;width:100%;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 8px}
 tr.rc td{background:var(--ok-bg)}
 tr.rw td{background:var(--bad-bg)}
@@ -176,6 +175,7 @@ tr.rw td{background:var(--bad-bg)}
 .note li{margin:3px 0}.note li::marker{color:var(--gh)}
 .note code{font-size:.86em}
 .note .kw{color:var(--gh);font-weight:600}
+.note .code{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0 3px;font-size:12px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.5;tab-size:4}
 .note .tbl{border-collapse:collapse;margin:8px 0;font-size:12.5px;width:100%}
 .note .tbl th,.note .tbl td{border:1px solid var(--line);padding:4px 7px;text-align:left}
 .note .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:600}
@@ -212,12 +212,12 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning I <span class="dot"></span> Midterm Review</div>
+      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning I <span class="dot"></span> Neural Networks</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Midterm Review — Study Guide &amp; Practice</h1>
-    <p class="subtitle">A complete review of CAI 4105 Lectures 01–13 (Weeks 1–7) for the midterm: math foundations, linear regression, classification, ensembles, model evaluation, and clustering &amp; PCA. In-depth notes on the right, plus quiz-style practice — multiple choice, multiple answer, numeric entry, matching, and short answer — with instant grading and explanations.</p>
-    <div class="callout"><b>Exam scope (L14 review):</b> Lectures 01–13, six areas — math, regression, classification, ensembles, evaluation, and unsupervised learning (k-means, DBSCAN, PCA). <b>Not on the exam:</b> hierarchical clustering and the silhouette score. Questions mirror the style of Quizzes 1 &amp; 2 and the review's sample problems; each shows a slide reference. Progress is saved in this browser.</div>
+    <h1 class="title">Neural Networks — Study Guide (L15–L17)</h1>
+    <p class="subtitle">A complete study guide for CAI 4105 Lectures 15–17: the multilayer perceptron and the forward pass, backpropagation by the chain rule, and training faster with mini-batch SGD, momentum, and Adam. In-depth notes on the right, plus practice in the lectures' own style — multiple choice, multiple answer, numeric entry, matching, and short answer — with instant grading, explanations, and slide references.</p>
+    <div class="callout"><b>What's covered:</b> neurons, layers and the matrix form; ReLU / sigmoid / tanh and why activations must bend; MLP depth, width and parameter counting; output units &amp; losses; the chain rule on computational graphs; backprop gate rules and the output error; gradient checking and vanishing gradients; mini-batches, epochs and the learning rate; schedules, momentum and Adam. Worked numeric problems come straight from the lectures' Practice and Check questions. Progress is saved in this browser.</div>
     <div class="scorebar">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0 / 0</span> graded</div>
@@ -260,307 +260,287 @@ footer .mono{font-family:var(--mono)}
 <button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
 <footer class="wrap">
-  <div class="mono">Built from the CAI 4105 Lecture 14 Midterm Review and the Quiz 1 &amp; Quiz 2 solutions · Lectures 01–13 · Chinmay Nehate, UCF.</div>
-  <div style="margin-top:8px">Answer each question for instant grading and an explanation with a slide reference. Open the ⚡ Cram Sheet on the right for a one-screen formula summary.</div>
+  <div class="mono">Built from CAI 4105 Lectures 15–17 — Neural Networks I (the Multilayer Perceptron), II (Backpropagation), III (Training Faster with SGD) · Chinmay Nehate, UCF.</div>
+  <div style="margin-top:8px">Answer each question for instant grading and an explanation with a slide reference. Open the ⚡ Cram Sheet on the right for a one-screen summary.</div>
 </footer>
 
 <script>
 /* =========================================================
-   STUDY-GUIDE NOTES (six topic areas, L01–L13)
+   STUDY-GUIDE NOTES — Neural Networks (L15–L17)
    ========================================================= */
 const SECTIONS = [
 {
-  id:"math", short:"Math Foundations", tag:"L01–L02 · Week 1–2", title:"Math Foundations",
-  blurb:"Vectors and norms, dot products and projection, eigenvectors and the spectral theorem, Bayes' theorem, maximum likelihood, the Gaussian, and entropy / cross-entropy / KL.",
+  id:"mlp", short:"MLP Architecture", tag:"L15 · Parts A, C", title:"The Multilayer Perceptron",
+  blurb:"From one neuron to a layer, the matrix form of a layer, stacking hidden layers into an MLP, depth and width, counting parameters, and what universal approximation does and does not promise.",
   notes:[
-    {h:"Vectors: norm, angle, projection", html:`<ul>
-      <li><b>L2 norm</b> (length): <code>‖x‖₂ = √(Σ xᵢ²)</code>. <b>L1 norm</b>: <code>Σ |xᵢ|</code>.</li>
-      <li><b>Dot product</b> <code>a·b = Σ aᵢbᵢ = ‖a‖‖b‖cos θ</code>, where θ is the angle between them.</li>
-      <li><b>Orthogonal</b> vectors have <b>dot product 0</b> (angle 90°).</li>
-      <li><b>Projection</b> of a onto b = the point on the line through b closest to a.</li></ul>`},
-    {h:"Eigenvectors & the spectral theorem", html:`<ul>
-      <li><code>A v = λ v</code>: A maps eigenvector <b>v</b> to a multiple λ (the <b>eigenvalue</b>) of itself.</li>
-      <li>e.g. <code>A = [[2,1],[1,2]]</code> → eigenvalues 3 and 1, eigenvectors along (1,1) and (1,−1), at right angles.</li>
-      <li><b>Spectral theorem:</b> a <b>symmetric</b> matrix has <b>real eigenvalues</b> and <b>orthonormal eigenvectors</b>.</li>
-      <li>A <b>covariance matrix</b> is symmetric → its eigenvectors are the <b>PCA directions</b>.</li></ul>`},
-    {h:"When is XᵀX invertible?", html:`<p><code>XᵀX</code> is invertible <b>exactly when the columns of X are linearly independent</b>. If some column is a combination of others (collinearity), XᵀX is <b>singular</b> — more rows, nonzero entries, or a square shape don't help, and standardizing doesn't fix dependence.</p>`},
-    {h:"Bayes' theorem", html:`<p><code>P(A|B) = P(B|A)·P(A) / P(B)</code> — posterior = likelihood × prior / evidence. The <b>evidence</b> sums the two ways B can happen: <code>P(B) = P(B|A)P(A) + P(B|¬A)P(¬A)</code>. With a <b>rare</b> positive class, most positive tests are false alarms (base-rate effect).</p>`},
-    {h:"Maximum likelihood (MLE)", html:`<ul>
-      <li>Pick the parameters that make the <b>observed data most probable</b>. For 7 heads in 10 flips, <code>θ = 0.7</code> (the frequency).</li>
-      <li><b>How:</b> write P(data | θ), take the <b>log</b> (product → sum), and maximize.</li>
-      <li><b>Why:</b> a noise model becomes a loss — <b>Gaussian noise → squared error</b>; <b>Bernoulli labels → cross-entropy</b>.</li></ul>`},
-    {h:"The Gaussian", html:`<p>Center <b>μ</b>, width <b>σ</b>; about <b>68%</b> of the probability lies within one σ of μ. MLE picks the parameters with the largest <b>log-likelihood</b>; the log turns the product of per-point densities into a sum.</p>`},
-    {h:"Entropy, cross-entropy, KL", html:`<ul>
-      <li><b>Entropy</b> <code>H(p) = −Σ p log₂ p</code> — average bits of uncertainty. Fair coin = <b>1 bit</b>; a 90/10 coin ≈ 0.469.</li>
-      <li><b>Cross-entropy</b> <code>H(p,q)</code> — average bits to code data from p using a code built for q.</li>
-      <li><b>KL divergence</b> <code>= H(p,q) − H(p) ≥ 0</code>, and <b>= 0 only when q = p</b>. It is <b>asymmetric</b> (swapping p,q can change it).</li>
-      <li>Minimizing cross-entropy on training labels <b>= MLE = the logistic-regression loss</b>.</li></ul>`}
+    {h:"A neuron and a layer", html:`<ul>
+      <li>One <b>neuron</b> = logistic regression: weight the inputs, add the <b>bias</b> b, get the <b>pre-activation</b> <code>z = w·x + b</code>, pass it through an <b>activation function</b>.</li>
+      <li>A <b>layer</b> is a set of units reading the same inputs; unit j has its own weights and bias <code>b_j</code>. Weight <code>w_jk</code> connects input k to unit j.</li>
+      <li>Matrix form: <code>z = W x + b</code>, where <b>W has one row per unit and one column per input</b>.</li></ul>`},
+    {h:"ReLU and hidden layers", html:`<ul>
+      <li><b>ReLU</b> <code>= max(0, z)</code> acts on each entry; a unit with negative pre-activation outputs 0 and is <b>off</b> for that example.</li>
+      <li>A <b>hidden layer</b> turns input x into learned features <code>h = g(W₁x + b₁)</code>; the <b>output unit</b> is logistic/softmax/identity on h. The features are "hidden" because the data never show their values.</li>
+      <li>Training fits <b>all</b> weights together, so the hidden features are learned from the data.</li></ul>`},
+    {h:"A batch of examples", html:`<p>Stack N examples as the <b>rows</b> of a matrix X (one example per row). One matrix product <code>Z = X Wᵀ</code> (plus the bias row, added by <b>broadcasting</b>) computes every unit for every example at once. Row i of the result is that example's output.</p>`},
+    {h:"Depth, width, dense", html:`<ul>
+      <li><b>Depth D</b> = the number of layers with weights; <b>width</b> = units in a layer. The tiny network has depth 2, width 2.</li>
+      <li>An <b>MLP</b> is <b>fully connected (dense)</b>: every unit connects to every unit in the next layer.</li>
+      <li>We choose the architecture; training changes only the weights. A weight near zero effectively drops its connection.</li></ul>`},
+    {h:"Counting parameters", html:`<p>Each layer has <b>one weight per connection and one bias per unit</b>: layer with <code>n_in</code> inputs and <code>n_out</code> units → <code>n_in·n_out + n_out</code> parameters. Example (784→100→10): <code>(784·100+100) + (100·10+10) = 79,510</code>. Most parameters sit in the first layer.</p>`},
+    {h:"Universal approximation", html:`<ul>
+      <li>One hidden layer of <b>enough</b> units (with a linear output) can approximate <b>any continuous function</b> on a closed bounded region as closely as we like.</li>
+      <li>It does <b>not</b> say how many units are needed, that training will find the weights, or that the fit generalizes.</li>
+      <li>A network wide enough to fit anything can fit the <b>noise</b> too, so size is chosen by <b>held-out accuracy</b> (e.g. on the arcs: 2 units underfit, 16 overfit, 4 fit best).</li></ul>`}
   ]
 },
 {
-  id:"regression", short:"Linear Regression", tag:"L03–L04 · Week 2–3", title:"Linear Regression",
-  blurb:"Least squares and the normal equations, residuals, basis functions and overfitting, ridge vs lasso penalties, and gradient descent with the learning rate and standardization.",
+  id:"activations", short:"Activations & Outputs", tag:"L15 · Parts B, D", title:"Activations, Outputs & Losses",
+  blurb:"Why each hidden unit needs a nonlinear activation, the sigmoid / tanh / ReLU and their slopes, which activation goes where, and the output unit and loss for each task (regression, two classes, K classes).",
   notes:[
-    {h:"Least squares & normal equations", html:`<ul>
-      <li>Model <code>ŷ = w₀ + w₁x</code>; loss <b>SSE</b> <code>= Σ(yₙ − ŷₙ)²</code>. <b>Residual</b> = <code>y − ŷ</code> (true minus predicted).</li>
-      <li><b>Design matrix</b> X: one row per example + a <b>ones column</b> (for the intercept).</li>
-      <li>Setting the gradient of SSE to zero gives the <b>normal equations</b>: <code>w = (XᵀX)⁻¹Xᵀy</code>.</li>
-      <li>With independent Gaussian noise of constant variance, <b>maximizing likelihood = minimizing SSE</b>.</li></ul>`},
-    {h:"Basis functions & overfitting", html:`<p>A polynomial fit is a weighted sum of basis functions <code>1, x, x², …</code>. Higher degree = more flexibility: degree 1 draws a line, degree 3 follows the trend, degree 9 <b>swings between training points</b> (overfits). Training error falls with degree; <b>held-out error is U-shaped</b> — pick the degree at the bottom.</p>`},
-    {h:"Ridge vs lasso", html:`<ul>
-      <li><b>Ridge</b> penalty <code>λ Σ wⱼ²</code>: as λ grows, weights <b>shrink toward zero</b> (a nonzero weight costs more) but rarely hit exactly zero.</li>
-      <li><b>Lasso</b> penalty <code>λ Σ |wⱼ|</code>: can set weights <b>exactly to zero</b> (its diamond constraint has corners on the axes) → feature selection.</li>
-      <li>The <b>intercept is excluded</b> from both. <code>λ = 0</code> → plain least squares.</li></ul>`},
-    {h:"Gradient descent", html:`<ul>
-      <li>Each step: <code>w ← w − η·∇L</code>. The <b>learning rate η</b> sets the step size.</li>
-      <li><b>Small η</b> → many steps; <b>large η</b> → can diverge (overshoot).</li>
-      <li><b>Standardizing</b> features turns a long thin valley into a round bowl, so steps go nearly straight to the minimum.</li>
-      <li>Used when there is <b>no closed form</b> (e.g. logistic regression, SVM).</li></ul>`}
+    {h:"Why the activation must bend", html:`<p>Remove the activation and a stack of linear layers <b>collapses to one</b> linear layer (one W, one b) — it draws the same straight boundaries as logistic regression, however deep. A <b>nonlinear</b> activation between layers stops this collapse, which is why hidden units have one.</p>`},
+    {h:"Sigmoid, tanh, ReLU", html:`<table class="tbl"><thead><tr><th>Activation</th><th>Range</th><th>Max slope</th><th>Typical use</th></tr></thead><tbody>
+      <tr><td>Sigmoid</td><td>0 to 1</td><td>0.25 (at z=0)</td><td>output for two classes</td></tr>
+      <tr><td>Tanh</td><td>−1 to 1</td><td>1</td><td>hidden units (older nets)</td></tr>
+      <tr><td>ReLU</td><td>0 and up</td><td>1</td><td>hidden units (default)</td></tr></tbody></table>
+      <p>Far from 0 the sigmoid and tanh flatten (slope → 0): a unit there is <b>saturated</b>. ReLU keeps slope <b>1</b> wherever a unit is on (slope 0 where off; at z=0 it is set to 0) and costs one comparison.</p>`},
+    {h:"Which activation where", html:`<ul>
+      <li><b>Hidden layers:</b> ReLU (the usual default).</li>
+      <li><b>Output, two classes:</b> sigmoid → a probability.</li>
+      <li><b>Output, many classes:</b> softmax.</li>
+      <li><b>Output, regression:</b> identity (leave the score as is).</li></ul>`},
+    {h:"Output unit and loss per task", html:`<table class="tbl"><thead><tr><th>Task</th><th>Output unit</th><th>Loss</th></tr></thead><tbody>
+      <tr><td>Regression</td><td>identity</td><td>squared error</td></tr>
+      <tr><td>Two classes</td><td>sigmoid</td><td>binary cross-entropy</td></tr>
+      <tr><td>K classes</td><td>softmax</td><td>cross-entropy</td></tr></tbody></table>
+      <p>These are the same pairs as linear and logistic regression; a network keeps them and adds hidden layers underneath. Each classification loss is the <b>negative log-likelihood</b>, so a <b>confident wrong answer costs the most</b>.</p>`},
+    {h:"Softmax and cross-entropy", html:`<p>The output layer computes one score <code>z_k</code> per class; <b>softmax</b> <code>p_k = e^{z_k} / Σ_j e^{z_j}</code> turns them into probabilities that sum to 1. The loss of one example is <code>−ln(p of the true class)</code> — near 0 for a confident right answer, and it grows without bound as that probability → 0. The other classes still count through the softmax denominator.</p>`}
   ]
 },
 {
-  id:"classification", short:"Classification", tag:"L05–L08 · Week 3–5", title:"Classification",
-  blurb:"Logistic regression and the sigmoid, the perceptron, SVMs with the margin / slack / kernels, kNN, decision trees with impurity and gain, and the noise-model-to-loss recipe.",
+  id:"backprop", short:"Backpropagation", tag:"L16 · Parts A, B", title:"Backpropagation",
+  blurb:"The chain rule on a computational graph, local gradients and the backward rule, the add / multiply / ReLU gate patterns, the output error, and carrying the error back through the layers of a network.",
   notes:[
-    {h:"Logistic regression", html:`<ul>
-      <li>Score <code>z = w·x + b</code>; <b>sigmoid</b> <code>σ(z) = 1/(1+e⁻ᶻ)</code> maps it to a probability in <b>(0, 1)</b>.</li>
-      <li>Predict the positive class when <code>z ≥ 0</code> (i.e. p ≥ 0.5). Loss = <b>cross-entropy</b>; gradient = <code>(p − y)·x</code>; trained by gradient descent (no closed form).</li>
-      <li><b>K classes:</b> softmax of the scores + categorical cross-entropy (one-hot labels).</li></ul>`},
-    {h:"The perceptron", html:`<ul>
-      <li>Score <code>z = w·x + b</code>; its <b>sign</b> gives the side, <code>|z|/‖w‖</code> the distance.</li>
-      <li>Updates <b>only on a mistake</b>: <code>w ← w + η y x</code>, <code>b ← b + η y</code>.</li>
-      <li>Stops after a pass with <b>no mistakes</b> — which happens <b>only if the classes are linearly separable</b>. On non-separable data it <b>never stops</b> (some point is wrong every pass).</li></ul>`},
-    {h:"SVM: margin, slack, kernels", html:`<ul>
-      <li><b>Margin</b> = distance to the closest training point. <b>Hard margin:</b> <code>min ½‖w‖²</code> s.t. <code>y·z ≥ 1</code>; margin <code>= 1/‖w‖</code> (short w → wide margin).</li>
-      <li><b>Support vectors</b> are the points exactly on the margin lines (<code>y·z = 1</code>) — only they decide the line; deleting a non-support point changes nothing.</li>
-      <li><b>Soft margin:</b> slack ξ lets a point cross its margin line at cost <b>C</b>. Large C → narrow street; small C → wide. Slack = <b>hinge loss</b> <code>max(0, 1−y·z)</code> + a ridge penalty. <code>y·z</code>: &gt;1 safe · 0–1 inside street (correct) · &lt;0 wrong.</li>
-      <li><b>Kernel</b> <code>K(x,u) = φ(x)·φ(u)</code> gives the dot product of mapped features without building them, e.g. <code>(x·u)²</code> → curved boundaries.</li></ul>`},
-    {h:"kNN & decision trees", html:`<ul>
-      <li><b>kNN:</b> majority vote of the <b>k nearest</b> training points. k=1 is jagged and overfits; large k is smooth and can underfit (very large k → predict the majority). <b>Needs standardization</b> (distance-based).</li>
-      <li><b>Decision tree:</b> impurity (<b>Gini</b> <code>1−Σpₖ²</code>, or entropy) is 0 for a pure node. <b>Gain</b> = impurity drop from parent to its children (weighted by child sizes). Greedy: take the largest-gain split. No depth limit → overfits. Trees need <b>no standardization</b>.</li></ul>`},
-    {h:"The recipe: noise model → loss", html:`<table class="tbl"><thead><tr><th>Task</th><th>Assumption</th><th>Loss</th></tr></thead><tbody>
-      <tr><td>Regression</td><td>Gaussian noise</td><td>squared error</td></tr>
-      <tr><td>2 classes (logistic)</td><td>Bernoulli</td><td>cross-entropy</td></tr>
-      <tr><td>K classes (softmax)</td><td>categorical</td><td>cross-entropy</td></tr>
-      <tr><td>SVM</td><td>margin (y·z ≥ 1)</td><td>hinge</td></tr></tbody></table>
-      <p>All share the score <code>z = w·x + b</code>. Rows 1–3 minimize the negative log-likelihood; the SVM row comes from the margin demand.</p>`}
+    {h:"The chain rule & computational graph", html:`<ul>
+      <li><b>Chain rule:</b> if w changes u and u changes L, then <code>∂L/∂w = (∂L/∂u)(∂u/∂w)</code> — multiply the slopes.</li>
+      <li>A <b>computational graph</b> breaks a formula into simple operations (nodes); the <b>forward pass</b> computes values left→right.</li>
+      <li>Each node knows its <b>local gradient</b> (slope of its output in each input). <b>Backward rule:</b> multiply the upstream gradient by each local gradient and pass it left. Repeating this = backpropagation.</li></ul>`},
+    {h:"The three gate patterns", html:`<ul>
+      <li><b>Add</b> gate: copies the upstream gradient to <b>every</b> input.</li>
+      <li><b>Multiply</b> gate: sends each input the upstream gradient <b>times the other input</b>.</li>
+      <li><b>ReLU</b> gate: passes the upstream gradient where its input was <b>positive</b>, sends <b>0</b> where it was negative.</li>
+      <li>A value used <b>twice</b> receives the <b>sum</b> of its two gradients.</li></ul>`},
+    {h:"The output error", html:`<p>For a sigmoid + binary cross-entropy (or softmax + cross-entropy) output, the slope of the loss in the output pre-activation simplifies to <b>prediction minus label</b>: <code>δ_o = ŷ − y</code> (and <code>p − y</code> for softmax, y one-hot). This is the <b>output error</b> — the cleanest possible form.</p>`},
+    {h:"Back through the layers", html:`<ul>
+      <li><b>Output weights:</b> each gets <code>δ_o · h_j</code> (multiply-gate rule); the bias gets <code>δ_o</code>.</li>
+      <li><b>Hidden error:</b> <code>δ = (W₂ᵀ δ_o) ⊙ g'(z)</code> — map the error back through the weights, then multiply entry-by-entry by the activation slope (ReLU slope is 1 where on, 0 where off).</li>
+      <li><b>Hidden weights:</b> <code>δ</code> times the layer input (the outer product <code>δ xᵀ</code>, same shape as W).</li>
+      <li><b>Shape check:</b> every gradient has the shape of what it is the gradient of.</li></ul>`},
+    {h:"A batch", html:`<p>With N examples as rows, stack each <code>δ_l / N</code> into <code>E_l</code> (the 1/N averages the loss over the batch). For softmax + cross-entropy the batch output error is <code>P − Y</code>. One matrix product per layer sums the outer products of all examples.</p>`}
   ]
 },
 {
-  id:"ensembles", short:"Ensembles", tag:"L09 · Week 5", title:"Ensembles",
-  blurb:"Why averaging helps and its correlation floor, the bootstrap, bagging and out-of-bag estimates, and random forests with their random feature subsets.",
+  id:"checking", short:"Checking & Vanishing", tag:"L16 · Parts C, D", title:"Gradient Checking & Vanishing Gradients",
+  blurb:"Numerical derivatives and the gradient check with relative error, why backpropagation is cheap, the training loop with mini-batches and epochs, and why deep sigmoid networks learn slowly.",
   notes:[
-    {h:"Variance of an average", html:`<p>Averaging M models, each with variance σ² and pairwise correlation ρ, gives variance <code>ρσ² + (1−ρ)σ²/M</code>. More models shrink only the second term, so the variance <b>never falls below ρσ²</b>. An ensemble needs members that are <b>accurate and as uncorrelated as possible</b>.</p>`},
-    {h:"Bootstrap, bagging, out-of-bag", html:`<ul>
-      <li>A <b>bootstrap sample</b> draws N items with replacement from N → about <b>37% left out</b> (~63% appear).</li>
-      <li><b>Bagging:</b> grow one deep tree on each of M bootstrap samples and take a <b>majority vote</b>.</li>
-      <li><b>Out-of-bag (OOB):</b> score each example using only the trees that <b>never saw it</b> — a held-out estimate with no data set aside.</li></ul>`},
-    {h:"Random forests", html:`<p>A random forest is <b>bagging + a random subset of m of the D features at every split</b>, with <code>m = ⌊√D⌋</code> (default). The strongest feature is absent from most draws, so trees differ more and <b>ρ drops</b> — which lowers the variance floor that more trees alone cannot. More trees never hurt accuracy (the curve just flattens).</p>`}
+    {h:"Numerical derivatives", html:`<ul>
+      <li><b>One-sided:</b> <code>(L(w+ε) − L(w))/ε</code>; error shrinks like ε.</li>
+      <li><b>Central difference:</b> <code>(L(w+ε) − L(w−ε))/(2ε)</code>; error shrinks like <b>ε²</b> (much more accurate). Needs no backward pass.</li></ul>`},
+    {h:"The gradient check", html:`<p>Compare the backprop gradient <code>g_bp</code> with the central difference <code>g_num</code> via the <b>relative error</b> <code>|g_bp − g_num| / max(|g_bp|, |g_num|)</code>. In double precision a correct backward pass gives ≈ <b>1e-6 or smaller</b>; a <b>bug usually gives 0.01 or more</b>.</p>`},
+    {h:"Why backprop is cheap", html:`<p>Central differences need two forward passes <b>per weight</b> (203,540 passes for the clothing net). Backprop needs <b>one forward + one backward</b> pass total, and the backward pass costs about as much as the forward. Cost grows with the number of weights (differences grow with its square).</p>`},
+    {h:"The training loop", html:`<ul>
+      <li>Each step: forward pass → loss → backward pass → update <code>w ← w − η·gradient</code>.</li>
+      <li>On large data each step uses a <b>mini-batch</b> (e.g. 64 images) and averages their gradients.</li>
+      <li>An <b>epoch</b> = one pass over all training examples (938 steps for 60,000 in batches of 64).</li></ul>`},
+    {h:"Vanishing gradients", html:`<p>Backprop multiplies the error by the activation slope at each layer. A <b>sigmoid slope is at most 0.25</b>, so through k sigmoid layers the error can shrink like <code>0.25^k</code> — the first layers then barely learn. <b>ReLU</b> has slope 1 wherever a unit is on, so its factors do not shrink the error. (Measured: a 6-hidden-layer sigmoid net's layer-1 gradient was ~15,000× smaller than layer 7's.)</p>`}
   ]
 },
 {
-  id:"evaluation", short:"Model Evaluation", tag:"L10–L11 · Week 6–7", title:"Model Evaluation",
-  blurb:"Bias–variance and the flexibility U-curve, k-fold cross-validation and the model-selection recipe, data leakage, precision / recall / F1, ROC / AUC, and class imbalance.",
+  id:"sgd", short:"SGD & Mini-Batches", tag:"L17 · Parts A, B", title:"Stochastic Gradient Descent",
+  blurb:"The full gradient as an average, mini-batch gradients and their noise, batch size / iteration / epoch, why batches of 32–256 train fastest, and setting the learning rate (with schedules) when gradients are noisy.",
   notes:[
-    {h:"Bias–variance & the U-curve", html:`<ul>
-      <li>As flexibility grows, training error falls but <b>held-out error traces a U</b> (polynomial degree, kNN k, tree depth).</li>
-      <li><code>E[error] = bias² + variance + noise</code>. More flexible → <b>↓ bias, ↑ variance</b>.</li>
-      <li><b>Underfit:</b> both errors high. <b>Overfit:</b> train low, held-out high (big gap = variance).</li></ul>`},
-    {h:"Cross-validation & model selection", html:`<ul>
-      <li><b>K-fold CV:</b> split training data into K folds; each round holds out one fold, fits on the rest; every example is held out exactly once; <b>CV = mean fold error</b>.</li>
-      <li><b>Recipe:</b> list candidates → 5-fold CV on training → pick lowest CV (or the <b>simpler</b> model on a near tie) → <b>refit on all training</b> → score the <b>test set once</b>.</li>
-      <li><b>Choosing k (or any setting) on the test set is wrong</b> — the test set then acts as a validation set and its error understates new-data error.</li></ul>`},
-    {h:"Leakage", html:`<p><b>Leakage</b> = fitting or choosing using information that won't be available at prediction time — e.g. standardizing with <b>all</b> the data (held-out rows help set the scaling) before CV. It makes the score look <b>too good</b>, even without using labels. Every fitted step (scaling, feature choice, tuning) must run <b>inside each fold's training part</b>.</p>`},
-    {h:"Precision, recall, F1", html:`<ul>
-      <li>From TP / FP / FN / TN: <code>Precision = TP/(TP+FP)</code> (share of <b>flagged</b> that are truly positive).</li>
-      <li><code>Recall = TP/(TP+FN)</code> (share of <b>positives</b> that get flagged).</li>
-      <li><code>F1 = 2PR/(P+R)</code>, the <b>harmonic mean</b> — high only when both are high, and sits nearer the smaller one.</li></ul>`},
-    {h:"ROC & AUC", html:`<p>An <b>ROC curve</b> plots <b>TPR vs FPR</b>, one point per threshold. <b>AUC</b> = the probability a random positive scores above a random negative (ties count half); <b>0.5 = random</b>, <b>1 = perfect ranking</b>. Lowering the threshold can only keep or <b>increase</b> the number of flagged cases (every car flagged at 0.5 is still flagged at 0.3).</p>`},
-    {h:"Class imbalance", html:`<ul>
-      <li>With rare positives, always predicting the majority gives <b>high accuracy but zero recall</b> — use precision/recall/F1/AUC instead.</li>
-      <li><b>Remedies:</b> threshold moving (lower the threshold, chosen on training data); class weights (a missed positive costs more); resampling (repeat positives / drop negatives in <b>training only</b>). Choose by CV.</li></ul>`}
+    {h:"The full gradient is an average", html:`<p>The training loss averages over all N examples, so its exact gradient is the <b>mean of the N per-example gradients</b> (the gradient of an average is the average of the gradients). Using all N each step is <b>full-batch</b> gradient descent.</p>`},
+    {h:"Mini-batch gradients & noise", html:`<ul>
+      <li>A <b>mini-batch gradient</b> averages B randomly drawn per-example gradients in place of all N. On average it equals the full gradient (<b>unbiased</b>), but a single one differs by random <b>gradient noise</b>.</li>
+      <li>A <b>larger B</b> averages more examples → less noise, but each step costs more.</li></ul>`},
+    {h:"Batch, iteration, epoch", html:`<ul>
+      <li><b>Batch size B</b>: B=1 is SGD, B=N is full-batch.</li>
+      <li><b>Iteration (step):</b> one weight update from one mini-batch.</li>
+      <li><b>Epoch:</b> one pass over all N examples in fresh random order = ⌈N/B⌉ steps.</li></ul>`},
+    {h:"Why batches of 32–256", html:`<p>Hardware multiplies a block of numbers at once, so up to ~256 a larger batch spreads each step's fixed cost over more images (cost per image: 122µs at B=1, 7.6 at B=32, 3.1 at B=256). Above ~256 the per-image cost flattens. <b>In wall-clock time, many cheap noisy steps beat a few exact ones</b> — B=32/256 reached ~0.88 test accuracy while full-batch reached ~0.72.</p>`},
+    {h:"Learning rate & schedules", html:`<ul>
+      <li>Too <b>small</b> η → slow; too <b>large</b> η → jitter or dead ReLUs (at η=2.0, 125/128 units went off and the net did no better than chance).</li>
+      <li><b>Noisier gradients (smaller batch) need a smaller η.</b></li>
+      <li>A <b>learning-rate schedule</b> starts η large and lowers it so jitter shrinks near the bottom; <b>step decay</b> divides η by a factor (e.g. ÷10 after epoch 5). Judge progress by the <b>epoch-mean loss</b>.</li></ul>`}
   ]
 },
 {
-  id:"unsupervised", short:"Clustering & PCA", tag:"L12–L13 · Week 7", title:"Clustering & PCA",
-  blurb:"k-means (objective and algorithm), DBSCAN (core / border / noise with eps and minPts), and PCA (covariance eigenvectors, largest variance, scree, standardization).",
+  id:"optimizers", short:"Momentum & Adam", tag:"L17 · Parts C, D", title:"Momentum & Adam",
+  blurb:"Momentum's velocity and its long-run step 1/(1−ρ), Adam's two running averages with bias correction and per-weight step sizes, and how to choose an optimizer.",
   notes:[
-    {h:"k-means", html:`<ul>
-      <li>Objective <b>J</b> = total within-cluster squared distance; centroid <code>μₖ</code> = mean of its points.</li>
-      <li>Start from K centroids → <b>assign</b> each point to its nearest centroid → <b>move</b> each centroid to the mean of its points → repeat.</li>
-      <li>Neither step ever <b>raises J</b>; it stops when no point changes cluster. <b>Where it stops depends on the start</b> (run several inits).</li></ul>`},
-    {h:"DBSCAN", html:`<ul>
-      <li>The <b>eps-neighborhood</b> of a point holds every point within distance <b>eps</b> (itself included).</li>
-      <li><b>Core</b> point: has at least <b>minPts</b> neighbors in its eps-neighborhood. <b>Border:</b> not core, but within eps of a core point. <b>Noise:</b> neither.</li>
-      <li>A cluster grows by adding every point within eps of one of its core points, so DBSCAN <b>finds the number of clusters itself</b>.</li></ul>`},
-    {h:"PCA", html:`<ul>
-      <li>From the <b>covariance matrix C</b> of the <b>centered</b> data: <b>PC1</b> is the unit direction of <b>largest variance</b> = the <b>eigenvector of C with the largest eigenvalue λ₁</b>; the variance along it is λ₁.</li>
-      <li>Each component keeps its <b>eigenvalue's share</b> of the total variance (the scree plot).</li>
-      <li><b>Standardize</b> features in different units first — otherwise a feature with far larger variance (e.g. house price vs room count) <b>dominates PC1</b>.</li></ul>`},
-    {h:"Not on the exam", html:`<p>The L14 review states two clustering topics are <b>excluded</b> from the midterm: <b>hierarchical clustering</b> and the <b>silhouette score</b>.</p>`}
+    {h:"Momentum", html:`<ul>
+      <li>Keep a <b>velocity</b> v and step along it: <code>v ← ρ·v + g</code>, then <code>w ← w − η·v</code>.</li>
+      <li>Gradients that <b>agree</b> from step to step add up; gradients that <b>flip sign</b> cancel — so momentum speeds up along a narrow valley and damps the zigzag across it.</li>
+      <li>When g stays steady, the velocity grows toward <code>1/(1−ρ)</code> times g, so momentum acts like a <b>larger learning rate</b> (ρ=0.9 → ~10×).</li></ul>`},
+    {h:"Adam", html:`<ul>
+      <li>Two running averages: <b>m</b> of the gradients (like velocity) and <b>s</b> of the <b>squared</b> gradients.</li>
+      <li><b>Bias correction:</b> m and s start at 0, so early values are too small; dividing by <code>1−β₁^t</code> and <code>1−β₂^t</code> fixes it.</li>
+      <li>Step: <code>w ← w − η·m̂/√ŝ</code> (entry-by-entry; ε only avoids divide-by-zero). Dividing by √ŝ gives <b>each weight its own step size</b>.</li>
+      <li>Defaults <b>β₁=0.9, β₂=0.999, η=0.001</b> work for many networks.</li></ul>`},
+    {h:"Choosing an optimizer", html:`<ul>
+      <li><b>Adam (η=0.001)</b> is a good first choice — trains well with little tuning (its accuracy held across a 100× range of η).</li>
+      <li><b>SGD + momentum 0.9</b> with a tuned η and a schedule is still widely used and can beat Adam on some tasks (e.g. CIFAR-10).</li>
+      <li>Whichever you pick: watch the epoch-mean loss and <b>lower η when it stalls</b>. Starting points: batch 32–256, η ≈ 0.001 (Adam) / 0.01 (momentum) / 0.1 (plain SGD).</li></ul>`}
   ]
 }
 ];
 
 /* =========================================================
-   QUESTION BANK — quiz-style (mc / ms / num / match / sa)
-   t: type · a: answer · e: explanation · src: slide ref
+   QUESTION BANK — lecture-style (mc / ms / num / match / sa)
    ========================================================= */
 const QUESTIONS = {
-math:[
-  {t:"num", q:"Let <code>x = (6, 8)</code>. Compute its Euclidean norm <code>‖x‖₂</code> (the square root of the sum of squared entries). Enter the value as a number.",
-   a:10, tol:0.01, e:"‖x‖₂ = √(6² + 8²) = √(36 + 64) = √100 = <b>10</b>.", src:"Quiz 1 Q1 · L01 s20"},
-  {t:"mc", q:"For a design matrix <code>X</code> (one row per example, one column per feature), <code>XᵀX</code> is invertible exactly when…",
-   o:["X has more rows than it has columns","the columns of X are linearly independent","every entry of X is different from zero","X is a square matrix"],
-   a:1, e:"If a combination of the columns gives the zero vector, XᵀX cannot be inverted. More rows, nonzero entries, or a square shape do not rule that out.", src:"Quiz 1 Q2 · L01 s36, L03 s28"},
-  {t:"mc", q:"A screening test has sensitivity 0.9 (a sick person tests positive with probability 0.9) and a false-positive rate of 0.1. Prevalence is 0.1. A person tests positive — what is <code>P(sick | positive)</code>?",
-   o:["0.90","0.50","0.09","0.18"],
-   a:1, e:"P = (0.9·0.1)/(0.9·0.1 + 0.1·0.9) = 0.09/0.18 = <b>0.50</b>. The many healthy people produce as many false positives as the few sick produce true positives.", src:"Quiz 1 Q3 · L02 s11"},
-  {t:"mc", q:"Which statement about the KL divergence <code>D(p‖q)</code> between two distributions is true?",
-   o:["Its two directions D(p‖q) and D(q‖p) are always equal","It can be negative, because one term in its sum can be negative","It is never negative, and it is zero only when q equals p","It equals the entropy of p, so it does not depend on q"],
-   a:2, e:"One term of the sum can be negative but the whole sum cannot; KL ≥ 0 with equality only when q = p, and the two directions can differ.", src:"Quiz 1 Q4 · L02 s29"},
-  {t:"num", q:"In a factory, 4% of parts are defective. A test flags 90% of defective parts and 5% of good parts. A part is flagged. What is the probability it is defective? Enter a number with two decimals.",
-   a:0.43, tol:0.01, e:"P = (0.9·0.04)/(0.9·0.04 + 0.05·0.96) = 0.036/(0.036 + 0.048) = 0.036/0.084 ≈ <b>0.43</b>. Good parts far outnumber defective ones, so many flags are false alarms.", src:"Review S7 · L02 s10–11"},
-  {t:"mc", q:"A label is 0 or 1 and modeled as a Bernoulli draw with probability p. Maximum likelihood then leads to which loss?",
-   o:["Cross-entropy of the observed label under p","Hinge loss of the label and the score","Squared error between the label and p","Absolute error between the label and p"],
-   a:0, e:"A Bernoulli label has likelihood p when it is 1 and 1−p when it is 0; the negative log of that likelihood is the cross-entropy.", src:"Review S1 · L05 s26"},
-  {t:"mc", q:"According to the spectral theorem, a <b>symmetric</b> matrix always has…",
-   o:["real eigenvalues and orthonormal eigenvectors","complex eigenvalues and parallel eigenvectors","exactly one eigenvalue, repeated","no eigenvectors unless it is invertible"],
-   a:0, e:"A symmetric matrix has real eigenvalues and an orthonormal set of eigenvectors — which is why a (symmetric) covariance matrix's eigenvectors are the PCA directions.", src:"L14 s7 · L01 s28"},
-  {t:"mc", q:"Two nonzero vectors are <b>orthogonal</b> exactly when…",
-   o:["their dot product is zero","they have the same L2 norm","every entry of one is larger","their sum is the zero vector"],
-   a:0, e:"Orthogonal means a 90° angle, and cos 90° = 0, so the dot product a·b = ‖a‖‖b‖cos θ is zero.", src:"L14 s6 · L01 s21"},
-  {t:"mc", q:"You observe 7 heads in 10 coin flips. The maximum-likelihood estimate of the heads probability θ is…",
-   o:["0.7, the observed frequency of heads","0.5, because a coin is assumed fair","1.0, the value that maximizes any count","0.3, the frequency of tails"],
-   a:0, e:"MLE picks the θ that makes the data most probable; for k heads in N flips that is the frequency k/N = 7/10 = 0.7.", src:"L14 s9–10 · L02 s23"},
-  {t:"num", q:"What is the entropy (in bits) of a fair coin, <code>H(p) = −Σ p log₂ p</code> with p = (0.5, 0.5)? Enter the value as a number.",
-   a:1, tol:0.01, e:"H = −(0.5·log₂0.5 + 0.5·log₂0.5) = −(0.5·(−1) + 0.5·(−1)) = <b>1</b> bit. A 90/10 coin, by contrast, is only ≈ 0.469 bits.", src:"L14 s11 · L02 s27"}
+mlp:[
+  {t:"num", q:"An MLP reads 784 pixels, has one hidden layer of 100 ReLU units, and an output layer of 10 units. Every unit has a bias. How many parameters in total? Enter the value as a number.",
+   a:79510, tol:0.5, e:"Layer 1: 784·100 + 100 = 78,500. Layer 2: 100·10 + 10 = 1,010. Total = <b>79,510</b> (most parameters are in the first layer).", src:"L15 Practice 5 · s34–35"},
+  {t:"mc", q:"In a layer written as <code>z = W x + b</code>, the weight matrix W has…",
+   o:["one row per unit and one column per input","one row per input and one column per unit","one row and one column per bias term","as many rows as there are training examples"],
+   a:0, e:"Row j of W holds the weights into unit j, so row j · x + b_j is the pre-activation z_j. W is (units × inputs).", src:"L15 s8"},
+  {t:"mc", q:"The hidden layer of an MLP computes features that are called <b>hidden</b> because…",
+   o:["the data never show their values; they are learned","they are kept secret from the output layer by design","they are hidden from the gradient during training","they use a different activation than every other layer"],
+   a:0, e:"The training data give only inputs and labels, never the hidden unit values; the network learns those features from the data.", src:"L15 s10"},
+  {t:"num", q:"The tiny network has W₁ = [[2, −1], [1, 1]], b₁ = (1, −1), ReLU hidden units, w₂ = (2, −1), b₂ = 0, sigmoid output. For input x = (0, 3), compute the output ŷ to 3 decimals. (σ(z) = 1/(1+e^−z).)",
+   a:0.119, tol:0.002, e:"Hidden z = (2·0−1·3+1, 1·0+1·3−1) = (−2, 2); ReLU → h = (0, 2). z_o = 2·0 + (−1)·2 + 0 = −2. ŷ = σ(−2) = <b>0.119</b> (hidden unit 1 is off).", src:"L15 Practice 1 · s15–16"},
+  {t:"mc", q:"In an MLP, <b>depth</b> counts the number of…",
+   o:["layers that have weights","units in the widest layer","training examples per batch","inputs to the first layer"],
+   a:0, e:"Depth D counts the layers with weights; width counts units in a layer. The tiny network has depth 2 and width 2.", src:"L15 s32"},
+  {t:"mc", q:"\"Fully connected\" (or <b>dense</b>) layers mean that…",
+   o:["every unit connects to every unit in the next layer","every weight in the network shares one common value","the layer connects only to the input, not deeper layers","each unit connects to exactly one unit in the next layer"],
+   a:0, e:"In a dense MLP every unit in a layer feeds every unit of the next layer — one weight per connection.", src:"L15 s32"},
+  {t:"mc", q:"Which statement about the <b>universal approximation theorem</b> is correct?",
+   o:["One hidden layer of enough units can approximate any continuous function on a bounded region","It guarantees that gradient-descent training will always manage to find those approximating weights","It promises that the fitted network will go on to generalize well to brand-new data","It fixes in advance the exact number of hidden units that a given function will need"],
+   a:0, e:"The theorem is about what a wide-enough one-hidden-layer network CAN represent; it says nothing about how many units, whether training finds them, or generalization.", src:"L15 s43"},
+  {t:"sa", q:"On the arcs, an MLP with 4 hidden units reaches held-out accuracy 0.94, while one with 16 units reaches 1.00 on training but only 0.90 held out. Which network should you keep, and what regime is the 16-unit one in? (1–2 sentences.)",
+   a:`<p><b>Keep the 4-unit network</b> — it has the highest <b>held-out</b> accuracy (0.94).</p><p>The 16-unit network gets every training point right (1.00) but only 0.90 held out, a large gap, so it is <b>overfitting</b>; a network wide enough to fit anything can also fit the noise. (The 2-unit network, low on both, underfits.)</p>`, src:"L15 Practice 6 · s39–41"}
 ],
-regression:[
-  {t:"mc", q:"Three points with feature x and target y: (1,10), (2,8), (3,3). A classmate proposes <code>ŷ = 12 − 3x</code>. The residual of a point is <code>y − ŷ</code>. Which list gives the three residuals (r₁, r₂, r₃)?",
-   o:["(9, 6, 3)","(−1, −2, 0)","(1, 2, 0)","(1, 4, 0)"],
-   a:2, e:"Predictions at x = 1,2,3 are 9, 6, 3, so residuals are 10−9=1, 8−6=2, 3−3=0 → <b>(1, 2, 0)</b>.", src:"Quiz 1 Q5 · L03 s14"},
-  {t:"mc", q:"A design matrix has three columns per city: a ones column, Celsius, and Fahrenheit (<code>F = 1.8·C + 32</code>). A classmate runs <code>w = solve(XᵀX, Xᵀy)</code>. Which statement is correct?",
-   o:["XᵀX is singular, because the Fahrenheit column is a combination of the other two","XᵀX is invertible, because the Celsius and Fahrenheit columns hold different numbers in every row","The solve fails because X has many more rows than it has columns, so there are too many equations","The solve works fine once every column is standardized to mean 0 and standard deviation 1"],
-   a:0, e:"The Fahrenheit column = 1.8·Celsius + 32·ones, so the columns are linearly dependent and XᵀX is singular. Standardizing leaves them dependent.", src:"Quiz 1 Q6 · L03 s43"},
-  {t:"mc", q:"Polynomials fitted to the same data give RMSE — deg 1: train 5.0/test 5.2; deg 2: 3.1/3.3; deg 3: 3.0/3.8; deg 6: 0.9/12.4. Which degree should you choose for new data, and why?",
-   o:["Degree 6, because its training error is the lowest","Degree 1, because the simplest model is always safest","Degree 2, because its test error is the lowest of the four","Degree 3, because it is the largest degree with test error below 4"],
-   a:2, e:"Choose by held-out error: degree 2's test RMSE 3.3 is lowest. Degree 6 has the lowest training error but test 12.4 — it overfits.", src:"Quiz 1 Q7 · L04 s19"},
-  {t:"mc", q:"Ridge regression minimizes the squared error plus <code>λ·Σwⱼ²</code>. What happens to the fitted weights as λ grows?",
-   o:["They shrink toward zero, because a nonzero weight costs more","They grow, because a larger penalty fits the training data better","They stay the same, because λ changes only the intercept","They are set to exactly zero one at a time"],
-   a:0, e:"A larger λ makes every nonzero weight cost more, pulling them toward zero. Setting weights to exactly zero is what the lasso does.", src:"Quiz 1 Q8 · L04 s23,27,31"},
-  {t:"mc", q:"Which penalty can drive some weights to <b>exactly zero</b> (performing feature selection)?",
-   o:["The lasso (L1) penalty, whose diamond region has corners on the axes","The ridge (L2) penalty, whose smooth circular region has no corners at all on the axes","Neither penalty can ever reach exactly zero no matter how large lambda is made","Both penalties reach exactly zero about equally often as the penalty grows"],
-   a:0, e:"The lasso's L1 constraint region is a diamond with corners on the axes, so the optimum often lands on an axis (a zero weight). Ridge's round region shrinks but rarely zeroes weights.", src:"L14 s15 · L04 s27–28"},
-  {t:"num", q:"Gradient descent minimizes <code>L(w) = w² + 2w</code>, starting at <code>w = 2</code> with learning rate 0.1. What is w after one step? Enter the value as a number.",
-   a:1.4, tol:0.01, e:"∇L = 2w + 2 = 2·2 + 2 = 6 at w = 2. Step: w ← 2 − 0.1·6 = 2 − 0.6 = <b>1.4</b>.", src:"Review S8 · L04 s36"},
-  {t:"mc", q:"With a learning rate η that is far too <b>large</b>, gradient descent tends to…",
-   o:["overshoot the minimum and diverge","converge in a single step every time","ignore the gradient entirely","shrink the weights toward zero like ridge"],
-   a:0, e:"A large η overshoots and the loss can grow without bound (diverge); a small η converges but needs many steps.", src:"L14 s16 · L04 s38"},
-  {t:"mc", q:"Why does <b>standardizing</b> features help gradient descent converge faster?",
-   o:["It turns a long thin valley into a round bowl, so steps head nearly straight to the minimum","It makes a non-convex loss surface become convex everywhere, so descent can never get stuck","It removes the need to pick a learning rate and lets descent finish in a single step","It sets the intercept term to zero so the fitted line passes through the origin"],
-   a:0, e:"Unequal feature scales create an elongated loss surface where steps zig-zag; standardizing makes it bowl-shaped so descent goes nearly straight down.", src:"L14 s16 · L04 s40"},
-  {t:"mc", q:"Under independent Gaussian noise of constant variance, minimizing the sum of squared errors is the same as…",
-   o:["maximizing the likelihood of the data","minimizing the L1 norm of the weights","maximizing the margin","minimizing cross-entropy"],
-   a:0, e:"The SSE is the negative log-likelihood (up to constants) of the data under Gaussian noise, so least squares = maximum likelihood here.", src:"L14 s13 · L03 s39"}
+activations:[
+  {t:"mc", q:"Why must each hidden unit use a <b>nonlinear</b> activation?",
+   o:["Without one, a stack of linear layers collapses into a single linear layer","Without one, the gradients of the loss become impossible to compute at all during training","A nonlinear activation is what makes the network train in far fewer epochs than before","A nonlinear activation on the hidden units is what lets the final output be a probability"],
+   a:0, e:"Multiplying linear layers gives one weight matrix and one bias, so the whole stack draws the same straight boundaries as logistic regression. A nonlinearity between layers stops this collapse.", src:"L15 s21"},
+  {t:"num", q:"A hidden unit has pre-activation z = −2. What is its ReLU output? Enter the value as a number.",
+   a:0, tol:0.001, e:"ReLU(z) = max(0, z) = max(0, −2) = <b>0</b>. The unit is off for this example.", src:"L15 Practice 3 · s27–28"},
+  {t:"num", q:"What is the largest slope of the sigmoid activation (reached at z = 0)? Enter the value as a number.",
+   a:0.25, tol:0.001, e:"The sigmoid's slope σ(z)(1−σ(z)) is largest at z = 0, where σ = 0.5, giving 0.5·0.5 = <b>0.25</b>.", src:"L15 s23–25"},
+  {t:"mc", q:"Which lists the output ranges of sigmoid, tanh, and ReLU, in that order?",
+   o:["0 to 1; −1 to 1; 0 and up","−1 to 1; 0 to 1; any real number","0 to 1; 0 and up; −1 to 1","any real number; 0 to 1; −1 to 1"],
+   a:0, e:"Sigmoid: 0–1. Tanh: −1 to 1. ReLU: 0 and up (0 for negative input, z for positive).", src:"L15 s25"},
+  {t:"num", q:"An output layer gives three class scores z = (1, −1, 2) and the true class is class 3. Compute the cross-entropy loss −ln(p of the true class) to 3 decimals.",
+   a:0.350, tol:0.003, e:"e¹=2.718, e⁻¹=0.368, e²=7.389, sum=10.475. p₃ = 7.389/10.475 = 0.705. Loss = −ln(0.705) = <b>0.350</b>.", src:"L15 Practice 7 · s53–54"},
+  {t:"num", q:"A test image's true class is Shirt, but the MLP gives it Shirt probability 0.015. Compute the cross-entropy loss −ln(0.015) to 3 decimals.",
+   a:4.200, tol:0.01, e:"Loss = −ln(0.015) = <b>4.200</b> — a confident wrong answer costs far more than an unsure right one (the earlier shirt, p=0.546, had loss 0.605).", src:"L15 Practice 8 · s55–56"},
+  {t:"match", q:"Match each task to its output unit and loss. One pairing matches no task.",
+   items:["Predict the price of a house in dollars","Decide whether an email is spam","Name which of 10 clothing classes an image shows"],
+   terms:["Identity output, squared error","Sigmoid output, binary cross-entropy","Softmax output, cross-entropy","ReLU output, hinge loss"],
+   a:[0,1,2], e:"House price is regression → identity + squared error. Spam is two classes → sigmoid + binary cross-entropy. Clothing is 10 classes → softmax + cross-entropy. ReLU output + hinge loss fits none of these.", src:"L15 Check 3 · s49,60"},
+  {t:"mc", q:"A sigmoid or tanh unit whose pre-activation is far from 0 is <b>saturated</b>, meaning…",
+   o:["its slope is near 0, so little gradient flows back through it","its output is exactly 0, so it is off for that example","it has grown far larger than the other units in the layer","it has reached the maximum number of training updates"],
+   a:0, e:"Far from 0 the sigmoid and tanh flatten, so their slope → 0 and almost no gradient passes back — a cause of slow learning in deep sigmoid nets.", src:"L15 s25"}
 ],
-classification:[
-  {t:"mc", q:"A logistic classifier uses <code>z = 0.9·x₁ − 1.0·x₂ + 0.9</code> (x₁ standardized horsepower, x₂ standardized mpg) and predicts USA when z ≥ 0. A car has <code>x = (1, −1)</code>. Which gives the score and prediction?",
-   o:["z = 0.8, predicted USA","z = 2.8, predicted USA","z = 0.8, predicted not USA","z = 2.8, predicted not USA"],
-   a:1, e:"z = 0.9·1 − 1.0·(−1) + 0.9 = 0.9 + 1.0 + 0.9 = 2.8 ≥ 0 → <b>USA</b>.", src:"Quiz 1 Q9 · L05 s10"},
-  {t:"mc", q:"Logistic regression turns the score z into a probability with the sigmoid <code>σ(z) = 1/(1+e⁻ᶻ)</code>. What is the exact range of the sigmoid?",
-   o:["Any real number","Between −1 and 1","Between 0 and infinity","Between 0 and 1"],
-   a:3, e:"The denominator 1+e⁻ᶻ is always greater than 1, so the output is always above 0 and below 1.", src:"Quiz 1 Q10 · L05 s13,15"},
-  {t:"mc", q:"The perceptron is run where <b>no line separates</b> the two classes, visiting points in a fixed order pass after pass. What happens?",
-   o:["It stops after the first pass, having visited every point once","It never stops on its own, because it has no built-in test for when it should stop","It never stops on its own, because some point is misclassified every pass","It settles on the max-margin line, pushed there by the mistakes"],
-   a:2, e:"The perceptron stops only after a pass with zero mistakes; without a separating line, some point is wrong in every pass, so it never stops on its own.", src:"Quiz 2 Q1 · L06 s16,25"},
-  {t:"mc", q:"A hard-margin SVM is fitted to separable data. A point with <code>y·z = 3</code> is deleted and the SVM refitted on the rest. What happens to the boundary?",
-   o:["It moves toward where the point was, with one fewer point pushing","It stays exactly the same, because only support vectors decide it","It moves and the margin grows, since a support vector was removed","It stays but the street widens, with one fewer point to keep out"],
-   a:1, e:"Support vectors have y·z = 1; a point with y·z = 3 lies outside the street and does not affect the boundary, so deleting it changes nothing.", src:"Quiz 2 Q2 · L07 s9,10,15"},
-  {t:"mc", q:"A soft-margin SVM gives a training point (label y) a score with <code>y·z = 0.4</code>. Which statement describes this point?",
-   o:["On the wrong side, inside the street, with slack between 1 and 2","On the wrong side of the boundary, a mistake, with slack 0.6","On the correct side, beyond its margin line, with slack 0","On the correct side, inside the street, with slack between 0 and 1"],
-   a:3, e:"0 < y·z < 1 means the correct side but inside the street; slack = max(0, 1−0.4) = 0.6, which is between 0 and 1.", src:"Quiz 2 Q3 · L07 s18,26,27"},
-  {t:"num", q:"A decision-tree node holds 10 training cars: 3 European and 7 not. Compute the <b>Gini impurity</b> <code>1 − Σ pₖ²</code>. Enter a number with two decimals.",
-   a:0.42, tol:0.01, e:"Gini = 1 − (0.3² + 0.7²) = 1 − (0.09 + 0.49) = 1 − 0.58 = <b>0.42</b>.", src:"Quiz 2 Q4 · L08 s27"},
-  {t:"mc", q:"Weight is converted from pounds to kilograms (×0.4536) while mpg is left alone. Three models are rebuilt: a depth-2 tree on raw features, kNN on standardized features, kNN on raw features. Which can give a different prediction?",
-   o:["Only the kNN on the raw features","Only the two kNN models","Only the tree on the raw features","All three of the rebuilt models"],
-   a:0, e:"Scaling weight changes raw distances (mpg now counts more), so raw-feature kNN can change. Standardized kNN is unchanged, and tree splits (thresholds) just rescale.", src:"Quiz 2 Q5 · L08 s19,45,52"},
-  {t:"num", q:"With <code>x = (2, 1)</code> and <code>u = (1, 3)</code>, compute the kernel <code>K(x, u) = (x·u)²</code>. Enter the value as a number.",
-   a:25, tol:0.01, e:"x·u = 2·1 + 1·3 = 5, so K = 5² = <b>25</b> — computed without ever building the three mapped features.", src:"L07 s32–34"},
-  {t:"mc", q:"A decision tree chooses each split by…",
-   o:["taking the split with the largest drop in impurity (gain)","splitting on a single feature that is chosen uniformly at random each time","always splitting on whichever feature happens to come first","keeping the total number of leaves as small as possible"],
-   a:0, e:"The greedy tree tries features/thresholds and keeps the split with the largest gain (impurity drop weighted by child sizes), then recurses.", src:"L14 s23 · L08 s29"},
-  {t:"mc", q:"Why does the <b>kernel trick</b> let an SVM draw curved boundaries cheaply?",
-   o:["A kernel returns the dot product of mapped features without ever building them","It adds extra slack variables so the decision boundary is free to bend around points","It standardizes every input feature to unit variance before the SVM is fitted","It keeps raising the cost C until the margin eventually disappears entirely"],
-   a:0, e:"The SVM uses features only through dot products, so a kernel K(x,u)=φ(x)·φ(u) supplies them directly — e.g. (x·u)² equals a dot product of three features built from two.", src:"L14 s21 · L07 s31"}
+backprop:[
+  {t:"num", q:"A graph computes f = (a + b)·c with an add node q = a + b and a multiply node f = q·c. For a = 1, b = 3, c = −2, compute the forward value f. Enter the value as a number.",
+   a:-8, tol:0.001, e:"q = a + b = 4, f = q·c = 4·(−2) = <b>−8</b>.", src:"L16 Practice 1 · s16–17"},
+  {t:"mc", q:"In the backward pass, an <b>add</b> gate…",
+   o:["copies the upstream gradient to every one of its inputs","sends each input the upstream gradient times the other input","passes the gradient only where its input was positive","splits the upstream gradient in half between its inputs"],
+   a:0, e:"The add node's local gradient is 1 for each input, so it copies the upstream gradient unchanged to all inputs.", src:"L16 s14–15"},
+  {t:"mc", q:"In the backward pass, a <b>multiply</b> gate f = a·b sends…",
+   o:["each input the upstream gradient times the other input","both inputs the upstream gradient unchanged","the gradient only to the larger of the two inputs","each input the upstream gradient times itself"],
+   a:0, e:"∂f/∂a = b and ∂f/∂b = a, so input a gets upstream·b and input b gets upstream·a — each input times the other.", src:"L16 s14–15"},
+  {t:"mc", q:"In the backward pass, a <b>ReLU</b> gate h = max(0, z)…",
+   o:["passes the upstream gradient where z was positive and sends 0 where z was negative","passes exactly half of the upstream gradient straight through to its single input at all times","squares the upstream gradient and then passes that squared value on to its input","adds the upstream gradient onto the stored forward-pass value of z before passing it"],
+   a:0, e:"ReLU's slope is 1 where its input was positive and 0 where it was negative, so it gates the upstream gradient through or blocks it.", src:"L16 s14–15"},
+  {t:"num", q:"For a sigmoid output with binary cross-entropy, the output error is δ_o = ŷ − y. With ŷ = 0.5 and label y = 1, compute δ_o. Enter the value as a number.",
+   a:-0.5, tol:0.001, e:"δ_o = ŷ − y = 0.5 − 1 = <b>−0.5</b>. (A negative gradient means the step will raise the weights that increase ŷ toward 1.)", src:"L16 s22,26"},
+  {t:"num", q:"A neuron computes t = w·u + b and p = σ(t), with w = 2, u = 1, b = −2. The sigmoid slope is σ(t)(1−σ(t)). Compute ∂p/∂u. Enter the value as a number.",
+   a:0.5, tol:0.001, e:"t = 2·1 − 2 = 0, so p = σ(0) = 0.5 and the slope is 0.5·0.5 = 0.25. ∂p/∂u = slope · w = 0.25·2 = <b>0.5</b>.", src:"L16 Practice 2 · s18–19"},
+  {t:"mc", q:"For a <b>softmax output with cross-entropy</b>, the output error of one example is…",
+   o:["p − y, the predicted probabilities minus the one-hot label","y − p, the one-hot label minus the predicted probabilities, and then squared","the softmax of the one-hot label vector y taken on its own","always exactly the zero vector, at every step of training"],
+   a:0, e:"Like the sigmoid/BCE case, the softmax + cross-entropy output error is simply prediction minus label: p − y, with y one-hot.", src:"L16 s34,57"},
+  {t:"mc", q:"When a single value is used by <b>two</b> downstream nodes, its gradient is…",
+   o:["the sum of the gradients coming back from both uses","the gradient coming back from whichever one of the two uses is larger","the product of the two gradients that come back","halved and then sent back just once"],
+   a:0, e:"A change in a value moves both of its uses, so by the multivariable chain rule its gradient is the sum of the two incoming gradients.", src:"L16 s15"},
+  {t:"num", q:"A tiny net: z = w₁x + b₁, h = ReLU(z), z_o = w₂h + b₂, ŷ = σ(z_o), with x = 3, w₁ = 1, b₁ = −1, w₂ = 0.5, b₂ = −1, label y = 0. Compute the gradient of w₂. Enter the value as a number.",
+   a:1, tol:0.001, e:"Forward: z = 1·3−1 = 2, h = 2, z_o = 0.5·2−1 = 0, ŷ = σ(0) = 0.5. δ_o = ŷ − y = 0.5. Grad w₂ = δ_o·h = 0.5·2 = <b>1</b>.", src:"L16 Check 1 · s58,65"}
 ],
-ensembles:[
-  {t:"mc", q:"A bagged ensemble of 100 deep trees barely improves when 400 more are added. Which change is most likely to lower the error further?",
-   o:["Add 1000 more bagged trees, since more averaging always lowers variance","Draw each bootstrap sample without replacement, so each tree sees all examples","Let each split consider every feature, so the strongest feature always wins","Let each split use a random subset of features, so more varied trees average better"],
-   a:3, e:"Variance of the average is ρσ² + (1−ρ)σ²/M; more trees shrink only the second term. A random feature subset at each split lowers ρ (the floor) — this is the random forest.", src:"Quiz 2 Q6 · L09 s7,25,26"},
-  {t:"mc", q:"A bootstrap sample of N training examples is drawn with replacement (N large). About what share of the examples is left out?",
-   o:["About 0.63","About 0.50","About 0.37","About 0.10"],
-   a:2, e:"The chance an example is missed in all N draws → 1/e ≈ 0.37, so about 37% are out-of-bag and ~63% appear.", src:"Review S3 · L09 s15"},
-  {t:"mc", q:"Averaging M models each with variance σ² and pairwise correlation ρ, the variance of the average…",
-   o:["never falls below ρσ², no matter how large M is","falls to zero as M grows, regardless of ρ","equals σ²/M only when ρ = 1","grows with M when ρ > 0"],
-   a:0, e:"Variance = ρσ² + (1−ρ)σ²/M. The first term is a floor that more models cannot lower — so members must be uncorrelated.", src:"L14 s26 · L09 s7"},
-  {t:"num", q:"A random forest uses the default <code>m = ⌊√D⌋</code> features per split. With <code>D = 16</code> features, what is m? Enter the value as a number.",
-   a:4, tol:0.01, e:"m = ⌊√16⌋ = <b>4</b>. The strongest feature is absent from most 4-of-16 draws, so trees decorrelate.", src:"L14 s28 · L09 s26"},
-  {t:"mc", q:"Bagging uses <b>deep</b> trees as its members because deep trees have…",
-   o:["low bias and high variance, and a vote removes variance","high bias and low variance, which a majority vote is able to remove","the smallest number of nodes to store in memory overall","no need for bootstrap samples once they are averaged"],
-   a:0, e:"Deep trees are low-bias, high-variance; a vote cancels variance but not bias, so deep trees are the right members to average.", src:"L14 s27 · L09 s18"}
+checking:[
+  {t:"num", q:"For the tiny network, the loss at w = 2.01 is 0.688160 and at w = 1.99 is 0.698160. Compute the central-difference derivative with ε = 0.01. Enter the value as a number.",
+   a:-0.5, tol:0.001, e:"Central difference = (L(w+ε) − L(w−ε))/(2ε) = (0.688160 − 0.698160)/(2·0.01) = −0.01/0.02 = <b>−0.5</b>.", src:"L16 Practice 6 · s42–43"},
+  {t:"num", q:"A student's backward pass returns −1.0 for a weight whose true (central-difference) gradient is −0.5. Compute the relative error |g_bp − g_num| / max(|g_bp|, |g_num|). Enter the value as a number.",
+   a:0.5, tol:0.001, e:"|−1.0 − (−0.5)| / max(1.0, 0.5) = 0.5 / 1.0 = <b>0.5</b> — far above 1e-6, so the code has a bug.", src:"L16 Practice 6 · s41–43"},
+  {t:"mc", q:"In double precision, a gradient check's <b>relative error</b> typically signals a correct backward pass when it is about…",
+   o:["1e-6 or smaller, while a bug usually gives 0.01 or more","0.1 or smaller, while a bug typically gives something around 0.05 instead","exactly 0 for every single weight, otherwise the backward pass is wrong","1.0 for both, the very same value for correct code and for buggy code"],
+   a:0, e:"A correct NumPy backward pass gives relative errors near 1e-6 or less; 0.01 or more usually means a bug.", src:"L16 s41"},
+  {t:"mc", q:"Backpropagation is far cheaper than numerical differences because it needs…",
+   o:["one forward pass and one backward pass for all gradients","two separate forward passes for each and every individual weight","one forward pass per layer of the network and no backward pass at all","a separate copy of the network to be trained from scratch for each weight"],
+   a:0, e:"Central differences cost two forward passes per weight (203,540 for the clothing net); backprop gets every gradient from one forward + one backward pass, the backward costing about as much as the forward.", src:"L16 s44"},
+  {t:"num", q:"Training uses 60,000 images in mini-batches of 64, with the last batch holding whatever is left. How many steps are in one epoch? Enter the value as a number.",
+   a:938, tol:0.5, e:"60,000 / 64 = 937.5, rounded up (the last batch is short) = <b>938</b> steps per epoch.", src:"L16 s47"},
+  {t:"mc", q:"Why do <b>deep sigmoid</b> networks often learn slowly in their early layers?",
+   o:["Each sigmoid layer multiplies the error by a slope of at most 0.25, so it shrinks like 0.25^k","The sigmoid function has no derivative anywhere, so no gradient can ever pass back through it","Sigmoid outputs are always negative numbers, and that is what cancels out the gradient","The sigmoid activation makes the forward pass itself diverge as depth increases"],
+   a:0, e:"The backward error is multiplied by the activation slope each layer; a sigmoid slope ≤ 0.25 means through k layers the error can shrink like 0.25^k, so early layers barely learn — the vanishing-gradient problem.", src:"L16 s55–56"},
+  {t:"mc", q:"ReLU avoids the vanishing-gradient factor of deep sigmoid nets because…",
+   o:["its slope is 1 wherever a unit is on, so it does not shrink the error","its slope is always strictly above 1, so it actually grows the error at every layer","it skips the backward pass entirely, so no multiplying factor is ever applied","it averages the error evenly over all of the layers of the network"],
+   a:0, e:"ReLU's slope is exactly 1 where a unit is on (0 where off), so the error is not multiplied down layer after layer.", src:"L16 s55–56"},
+  {t:"sa", q:"A gradient check gives relative error ≈ 1e-9 for every output-layer weight but ≈ 0.4 for every hidden-layer weight. Where is the bug most likely, and why? (1–2 sentences.)",
+   a:`<p>The <b>hidden-layer part of the backward pass</b> holds the bug.</p><p>The output-layer gradients pass the check, so the output error and output-weight gradients are right; the error only breaks once it is carried further back — in the product with W₂ᵀ, the ReLU slope, or the hidden outer product.</p>`, src:"L16 Check 2 · s59,66"}
 ],
-evaluation:[
-  {t:"mc", q:"Two kNN classifiers on one set of cars: k=1 gives train error 0.00, held-out 0.27; k=25 gives train 0.16, held-out 0.18. How does the k=25 model compare with k=1?",
-   o:["Less bias and less variance, because its held-out error is lower","More bias and less variance, because each vote averages over more cars","Less bias and more variance, because it uses more training cars","More bias and more variance, because its training error is higher"],
-   a:1, e:"Averaging more neighbors adds bias but cuts variance; k=1 memorizes (train error 0.00) and does much worse on held-out cars — classic high variance.", src:"Quiz 2 Q7 · L10 s21, L08 s9"},
-  {t:"mc", q:"A classmate standardizes horsepower and mpg using all 392 cars, then runs 5-fold CV for kNN on the standardized cars. What is true of the CV score?",
-   o:["It can look too poor, since standardizing throws away the units kNN needs","Nothing is wrong, because scaling uses features, never labels","It can look too good, because held-out-fold cars helped set the scaling","Nothing is wrong, because five folds average out the scaling effect"],
-   a:2, e:"Using all cars to scale lets held-out cars influence the fitted scaling step — that is leakage (even without labels). Each round must scale on its training folds only.", src:"Quiz 2 Q8 · L10 s50"},
-  {t:"num", q:"European is the positive class. A classifier flags 20 cars as European, and 15 of those really are. Compute the <b>precision</b>. Enter a number with two decimals.",
-   a:0.75, tol:0.01, e:"Precision = TP/(TP+FP) = 15/20 = <b>0.75</b> (15 true positives, 5 false positives).", src:"Quiz 2 Q9 · L11 s13"},
-  {t:"mc", q:"A classifier flags a car when its score is at least a threshold t. On a fixed test set, t is lowered from 0.5 to 0.3. What happens to the number of flagged cars?",
-   o:["It stays the same or grows, since every car flagged at 0.5 is still flagged at 0.3","It stays the same or shrinks, since a lower threshold makes it harder for a car to be flagged","It always stays the same, since the scores do not change","It can move either way, since the classifier is refitted at each threshold"],
-   a:0, e:"Every score ≥ 0.5 is also ≥ 0.3, so no flag is lost and more may be gained — flagged count can only stay the same or grow.", src:"Quiz 2 Q10 · L11 s24"},
-  {t:"num", q:"A spam filter flags 50 emails, 40 of which are spam; the test set holds 80 spam in all. Compute the <b>F1</b> score <code>2PR/(P+R)</code>. Enter a number with two decimals.",
-   a:0.62, tol:0.01, e:"Precision = 40/50 = 0.8, recall = 40/80 = 0.5. F1 = 2·0.8·0.5/(0.8+0.5) = 0.8/1.3 ≈ <b>0.62</b> — nearer the smaller of the two.", src:"Review S6 · L11 s14,16"},
-  {t:"mc", q:"The AUC (area under the ROC curve) is best described as…",
-   o:["the probability a random positive scores above a random negative","the overall accuracy of the model measured at a fixed decision threshold of 0.5","the share of all the flagged cases that turn out to be truly positive","the fraction of the actual positives that the model manages to flag"],
-   a:0, e:"AUC = P(random positive outranks a random negative), ties counting half; 0.5 is random ranking and 1 is perfect. It is a ranking measure, not a single-threshold score.", src:"L14 s34 · L11 s34"},
-  {t:"ms", q:"A tree grown with no depth limit gets every training point right but does poorly on validation. Which changes are likely to help? (Select all that apply.)",
-   o:["Cap the maximum depth, chosen by CV on the training data","Use a majority vote of many trees grown on bootstrap samples","Refit the same unlimited-depth tree on the same data","Add columns of random noise as new input features","Pick the depth with the lowest error on the training set"],
-   a:[0,1], e:"The problem is overfitting (high variance). A CV-chosen depth cap limits variance, and bagging (a vote of bootstrap trees) averages it away. Refitting changes nothing; noise columns and a depth picked on training error only fit harder.", src:"Review S2 · L08 s36, L09 s18"},
-  {t:"match", q:"Match each description to the term it describes. One term matches nothing.",
-   items:["The distance from a separating line to the closest training point","A function giving the inner product of two mapped feature vectors without computing the map","The training examples one bagged tree never saw, used to score that tree","Fitting a model N times on N examples, each time holding out exactly one","The probability a random positive scores above a random negative"],
-   terms:["Bootstrap sample","Kernel","Leave-one-out cross-validation","Margin","Out-of-bag examples","ROC AUC"],
-   a:[3,1,4,2,5], e:"1 margin, 2 kernel, 3 out-of-bag examples, 4 leave-one-out cross-validation, 5 ROC AUC. <b>Bootstrap sample</b> matches nothing — it is what a tree trains on, while the out-of-bag examples are the ones it never saw.", src:"Quiz 2 Q11 · L06 s29, L07 s31, L09 s21, L10 s31, L11 s34"},
-  {t:"sa", q:"A classmate tries k = 1…25 for kNN, picks the k with the lowest <b>test-set</b> error, and reports that error as the expected error on new data. Is the reported error reliable, and how should k be chosen? (2–3 sentences.)",
-   a:`<p><b>No.</b> By choosing k with the test set, the test set acted as a <b>validation set</b>, so its error is optimistic and may <b>understate</b> the error on genuinely new data.</p><p>Choose k by <b>cross-validation on the training data</b> (or a separate validation set), refit the chosen model, and then score it <b>once</b> on an unused test set.</p>`, src:"Review S9 · L10 s43"},
-  {t:"sa", q:"A polynomial is fitted to a small training set by least squares, then again with a ridge penalty at a moderate λ. Explain, using bias and variance, how the ridge penalty can change the test error. (2–3 sentences.)",
-   a:`<p>The ridge penalty <b>shrinks the weights</b>, which adds a little <b>bias²</b> (the fit can no longer reach the least-squares solution).</p><p>But it can <b>reduce the variance</b> across training sets by more than that added bias — especially on a small, noisy training set — so the <b>expected test error falls</b>. (Too large a λ eventually over-shrinks and raises error again.)</p>`, src:"Review S10 · L10 s21"}
+sgd:[
+  {t:"mc", q:"The exact (full-batch) gradient of the training loss equals…",
+   o:["the average of the per-example gradients over all N examples","the gradient of the single hardest example","the sum of the per-example gradients, left un-averaged","the gradient of the first mini-batch of each epoch"],
+   a:0, e:"The loss is an average over the N examples, and the gradient of an average is the average of the gradients.", src:"L17 s6"},
+  {t:"mc", q:"A <b>mini-batch</b> gradient (B examples drawn at random) is…",
+   o:["an unbiased but noisy estimate of the full gradient","always exactly equal to the full-batch gradient, with no noise at all","biased toward whichever examples were seen most recently","the full-batch gradient divided through by the batch size"],
+   a:0, e:"Every example is equally likely, so on average the mini-batch gradient equals the full gradient (unbiased); a single one differs by random gradient noise.", src:"L17 s7"},
+  {t:"mc", q:"Comparing batch size B = 1 and B = N:",
+   o:["B = 1 is stochastic gradient descent; B = N is full-batch gradient descent","B = 1 is full-batch gradient descent; B = N is stochastic gradient descent instead","both of them are called full-batch, and they differ only in their speed","neither one is ever used in practice; only a batch size of B = N/2 is"],
+   a:0, e:"B = 1 (one example per step) is SGD; B = N (all examples per step) is full-batch gradient descent; mini-batch sits between.", src:"L17 s8"},
+  {t:"num", q:"A training set has 60,000 images and uses mini-batches of 32. How many steps are in one epoch? Enter the value as a number.",
+   a:1875, tol:0.5, e:"60,000 / 32 = <b>1,875</b> steps (it divides evenly).", src:"L17 Practice 1 · s9–10"},
+  {t:"num", q:"With 60,000 images and batch size 256, 234 full batches hold 59,904 images. How many images are in the short last batch? Enter the value as a number.",
+   a:96, tol:0.5, e:"60,000 − 234·256 = 60,000 − 59,904 = <b>96</b> images in the last batch (235 steps total).", src:"L17 Practice 1 · s9–10"},
+  {t:"num", q:"With batch size B = 1 on 60,000 images, how many steps are in 10 epochs? Enter the value as a number.",
+   a:600000, tol:0.5, e:"B = 1 means one step per image, 60,000 steps per epoch × 10 = <b>600,000</b> steps.", src:"L17 Practice 1 · s9–10"},
+  {t:"num", q:"At batch size 32, one step costs 7.6 microseconds per image. One epoch reads all 60,000 images once. How many seconds does one epoch take? Enter the value to 3 decimals.",
+   a:0.456, tol:0.002, e:"7.6 µs × 60,000 = 456,000 µs = <b>0.456</b> seconds.", src:"L17 Practice 4 · s22–23"},
+  {t:"mc", q:"Why do batch sizes of about 32 to 256 train fastest in wall-clock time?",
+   o:["Many cheap, slightly noisy steps make more progress than a few exact, expensive ones","A single exact step computed on all of the data always beats many cheaper noisy ones","Tiny batches of just 1 image are fastest, because each individual step is the cheapest","Only the full batch is able to use the processor hardware efficiently at all"],
+   a:0, e:"Hardware processes a block at once, so mid-size batches are cheap per image AND reasonably accurate; in a fixed time they reach higher accuracy than full-batch's few exact steps.", src:"L17 s19–21"},
+  {t:"mc", q:"When gradients are <b>noisier</b> (from a smaller batch), the learning rate should usually be…",
+   o:["smaller, so the noise averages out over many steps","larger, to overpower the noise in one step","left unchanged, since noise does not affect η","set to zero until the noise disappears"],
+   a:0, e:"A large η on noisy gradients keeps the weights jittering near the bottom; a smaller η lets the noise average over many steps. (B=1 failed at η=0.1 but trained at η=0.01.)", src:"L17 s26"}
 ],
-unsupervised:[
-  {t:"mc", q:"PCA is run on the <b>raw</b> values of two house features: price (varies by tens of thousands) and room count (a few rooms). What is PC1 most likely to be?",
-   o:["The diagonal, because PCA weights both features equally","Nearly the rooms axis, because rooms change in whole steps","A random direction, because PCA ignores the units","Nearly the price axis, because price has the largest variance"],
-   a:3, e:"PC1 follows the direction of largest variance; price spreads over tens of thousands while rooms over a few, so PC1 lies nearly on the price axis. Standardize first to prevent this.", src:"Review S4 · L13 s59"},
-  {t:"match", q:"Match each description to a method. Two methods match nothing.",
-   items:["Averages trees grown on bootstrap samples, with a random feature subset at every split","Assigns points to the nearest centroid, then moves each centroid to the mean of its points","Grows clusters from points with at least minPts neighbors within distance eps","Finds the unit direction of largest variance of the projected data","Predicts the majority label of the k closest training points"],
-   terms:["DBSCAN","k-means","kNN","Lasso","PCA","Perceptron","Random forest"],
-   a:[6,1,0,4,2], e:"1 random forest, 2 k-means, 3 DBSCAN, 4 PCA, 5 kNN. <b>Lasso</b> and the <b>perceptron</b> match nothing.", src:"Review S5 · L09 s26, L12 s6,25, L13 s33, L08 s10"},
-  {t:"mc", q:"In k-means, each iteration assigns points to the nearest centroid and then moves each centroid to the mean of its points. What is guaranteed?",
-   o:["Neither step ever raises the objective J, and the loop stops when no point changes","The objective J increases a little every round right up until it finally converges","It is guaranteed to always find the single globally best clustering of the points","The number of clusters K is discovered automatically from the data itself"],
-   a:0, e:"Both steps are non-increasing in J, so it converges; but where it lands depends on the start (run several inits). K must be chosen; DBSCAN is the method that finds the cluster count itself.", src:"L14 s36 · L12 s14"},
-  {t:"mc", q:"In DBSCAN, a <b>core point</b> is one that…",
-   o:["has at least minPts points within distance eps of it","lies within eps of a core point but is not core itself","belongs to no cluster at all","is the mean of its cluster"],
-   a:0, e:"A core point has ≥ minPts neighbors in its eps-neighborhood. A border point is within eps of a core point but not core; noise is neither.", src:"L14 s37 · L12 s25"},
-  {t:"mc", q:"In PCA, the first principal component (PC1) is…",
-   o:["the eigenvector of the covariance matrix with the largest eigenvalue","the eigenvector of the covariance matrix with the very smallest eigenvalue","the mean (centroid) of all of the centered data points","the single feature that happens to have the most missing values"],
-   a:0, e:"PC1 is the unit direction of largest variance, which is the covariance matrix's eigenvector with the largest eigenvalue λ₁; the variance along it equals λ₁.", src:"L14 s38 · L13 s33"},
-  {t:"num", q:"A PCA scree result has eigenvalues summing to 200, with the largest eigenvalue λ₁ = 180. What share of the total variance does PC1 keep? Enter a number with two decimals.",
-   a:0.9, tol:0.01, e:"Each component keeps its eigenvalue's share: 180 / 200 = <b>0.90</b> (90% of the variance along PC1).", src:"L14 s38–39 · L13 s43"},
-  {t:"mc", q:"Before running PCA on features measured in <b>different units</b>, you should…",
-   o:["standardize the features, or the largest-variance one dominates PC1","leave the features raw, because PCA already accounts for differences in units","drop every feature except the one with the largest spread","center the features but never rescale any of them"],
-   a:0, e:"PCA chases variance, so a feature with a much larger numeric spread would dominate PC1; standardizing first puts features on equal footing.", src:"L14 s38 · L13 s59"}
+optimizers:[
+  {t:"num", q:"Momentum with ρ = 0.5 and η = 0.1 starts at w = 1, v = 0. The gradients at steps 1, 2, 3 are 2, 2, −2. Compute the weight w after step 3 (two decimals).",
+   a:0.55, tol:0.01, e:"Step 1: v=0.5·0+2=2, w=1−0.1·2=0.8. Step 2: v=0.5·2+2=3, w=0.8−0.3=0.5. Step 3: v=0.5·3−2=−0.5, w=0.5−0.1·(−0.5)=<b>0.55</b> — the stored velocity softens the reversal.", src:"L17 Practice 6 · s39–40"},
+  {t:"mc", q:"Momentum speeds up training in a narrow valley because…",
+   o:["gradients that agree across steps add up, while gradients that flip sign cancel","it automatically increases the global learning rate by a little on every single step","it completely removes the random noise from each mini-batch gradient estimate","it gives every weight in the network its own separate and different step size"],
+   a:0, e:"Along the valley the gradient stays steady and the velocity builds; across the valley it flips sign and cancels, so momentum moves fast along and damps the zigzag.", src:"L17 s36–38"},
+  {t:"num", q:"When the gradient g stays steady, momentum's velocity grows toward 1/(1−ρ) times g. With ρ = 0.9, what is that multiple? Enter the value as a number.",
+   a:10, tol:0.01, e:"1/(1−0.9) = 1/0.1 = <b>10</b>, so ρ=0.9 acts like a 10× larger learning rate while the gradient stays steady.", src:"L17 s37,45–46"},
+  {t:"num", q:"Adam's first step (t = 1): w = 0.5, g = 4, η = 0.001, β₁ = 0.9, β₂ = 0.999, ε ignored. After bias correction m̂ = g and ŝ = g², so the step is η·m̂/√ŝ. Compute the new weight w (three decimals).",
+   a:0.499, tol:0.001, e:"m̂ = 4, ŝ = 16, step = η·m̂/√ŝ = 0.001·4/4 = 0.001. w = 0.5 − 0.001 = <b>0.499</b> — at t=1 every weight moves by η against the sign of its gradient.", src:"L17 Practice 8 · s52–53"},
+  {t:"mc", q:"Adam keeps two running averages. They are averages of…",
+   o:["the recent gradients (m) and the recent squared gradients (s)","the recent weight values (m) and the recent per-step loss values (s)","the forward-pass outputs (m) and the backward-pass gradients (s)","the current learning rate (m) and the current mini-batch size (s)"],
+   a:0, e:"m averages the gradients (like momentum's velocity); s averages the squared gradients, so √s measures how large each weight's gradient has been.", src:"L17 s49"},
+  {t:"mc", q:"Dividing Adam's step by √ŝ (entry by entry) achieves what?",
+   o:["each weight gets its own step size, set by the recent size of its gradient","every single weight in the network gets the exact same fixed step size as the rest","the learning rate η is removed entirely from the weight update rule","the raw gradients are turned into probabilities that sum to one"],
+   a:0, e:"Scaling each weight's step by 1/√ŝ gives weights with large recent gradients smaller steps and vice versa — a per-weight step size.", src:"L17 s48–50"},
+  {t:"mc", q:"Adam uses <b>bias correction</b> because…",
+   o:["m and s start at 0, so their early values are too small","the raw gradients themselves are biased toward the very first output class","the chosen learning rate is always far too large at the start of training","the network weights start at random, biased starting values"],
+   a:0, e:"m and s are initialized to 0, so early averages underestimate; dividing by (1−β₁^t) and (1−β₂^t) rescales them back (at t=1 it recovers g and g²).", src:"L17 s50–51"},
+  {t:"ms", q:"Which statements about Adam are true? (Select all that apply.)",
+   o:["It keeps a running average of the squared gradients","It gives each weight its own step size","Its common default learning rate is 0.001","It uses one shared step size for every weight, like plain SGD","It needs no learning rate at all"],
+   a:[0,1,2], e:"Adam tracks squared gradients (s), uses them to give each weight its own step size, and defaults to η = 0.001. It does NOT share one step size (that's plain SGD) and it still needs a learning rate.", src:"L17 s48–50,56"},
+  {t:"mc", q:"A reasonable <b>first choice</b> of optimizer, needing little tuning of the learning rate, is…",
+   o:["Adam with η = 0.001","plain SGD with η = 1.0","full-batch gradient descent with η = 0.001","momentum with ρ = 0.0"],
+   a:0, e:"Adam with η = 0.001 trains well across a wide range of η. SGD with momentum and a tuned schedule is still strong and can win on some tasks, but needs more tuning.", src:"L17 s56–57"}
 ]
 };
 
@@ -571,11 +551,11 @@ const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Numeric Ent
 const SCORED = {mc:1, ms:1, num:1, match:1, sa:0};
 
 const store=(()=>{try{const t="__t";localStorage.setItem(t,"1");localStorage.removeItem(t);return localStorage;}catch(e){return null;}})();
-const KEY="ml-mid-progress-v1";
+const KEY="ml-nn-progress-v1";
 let state={}; try{ if(store) state=JSON.parse(store.getItem(KEY)||"{}"); }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
-let flags={}; try{ if(store) flags=JSON.parse(store.getItem("ml-mid-flags")||"{}"); }catch(e){ flags={}; }
-function saveFlags(){ try{ store && store.setItem("ml-mid-flags", JSON.stringify(flags)); }catch(e){} }
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("ml-nn-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("ml-nn-flags", JSON.stringify(flags)); }catch(e){} }
 
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function seededPerm(n, seed){
@@ -587,8 +567,8 @@ function seededPerm(n, seed){
 }
 function qid(sec,i){ return sec+"-"+i; }
 function arrEq(a,b){ if(!a||!b||a.length!==b.length) return false; const x=[...a].sort(),y=[...b].sort(); return x.every((v,i)=>v===y[i]); }
+function arrEq2(a,b){ if(!a||!b||a.length!==b.length) return false; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false; return true; }
 
-/* correctness from stored answer */
 function isCorrect(q, ans){
   if(ans===undefined || ans===null) return false;
   if(q.t==="mc") return ans===q.a;
@@ -597,55 +577,53 @@ function isCorrect(q, ans){
   if(q.t==="match") return arrEq2(ans, q.a);
   return false;
 }
-function arrEq2(a,b){ if(!a||!b||a.length!==b.length) return false; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false; return true; }
 
 const examEl=document.getElementById("exam"), gnav=document.getElementById("gnav"),
       gbody=document.getElementById("gbody"), gtitle=document.getElementById("gtitle");
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let activePart=null, cramPinned=false, curFilter="all";
 
-/* ---- Cram sheet ---- */
 const CRAM_HTML=`<div class="cram">
-<h5>Math Foundations (L01–02)</h5>
+<h5>MLP Architecture (L15)</h5>
 <ul>
-<li><code>‖x‖₂=√(Σxᵢ²)</code>, <code>‖x‖₁=Σ|xᵢ|</code>; <code>a·b=‖a‖‖b‖cosθ</code>; orthogonal ⟺ dot = 0.</li>
-<li><code>Av=λv</code>; symmetric → <b>real eigenvalues, orthonormal eigenvectors</b>. <code>XᵀX</code> invertible ⟺ columns independent.</li>
-<li>Bayes: <code>P(A|B)=P(B|A)P(A)/P(B)</code>, <code>P(B)=P(B|A)P(A)+P(B|¬A)P(¬A)</code>.</li>
-<li>MLE: maximize log-likelihood. Gaussian→squared error; Bernoulli→cross-entropy.</li>
-<li><code>H(p)=−Σp log₂p</code> (fair coin 1 bit); <b>KL = H(p,q)−H(p) ≥ 0</b>, =0 iff q=p, asymmetric.</li>
+<li>Neuron: <code>z = w·x + b</code> → activation. Layer: <code>z = Wx + b</code>, <b>W is units × inputs</b>.</li>
+<li>ReLU <code>max(0,z)</code>; unit "off" when z&lt;0. Hidden layer learns features h; output on h.</li>
+<li><b>Depth</b> = layers with weights; <b>width</b> = units. Dense = every unit to every next unit.</li>
+<li>Params per layer <code>= n_in·n_out + n_out</code>. 784→100→10 = <b>79,510</b>.</li>
+<li>Universal approx: one wide hidden layer fits any continuous function — but not how many units, training, or generalization. Pick size by held-out accuracy.</li>
 </ul>
-<h5>Linear Regression (L03–04)</h5>
+<h5>Activations &amp; Outputs (L15)</h5>
 <ul>
-<li>SSE <code>=Σ(y−ŷ)²</code>; normal eqns <code>w=(XᵀX)⁻¹Xᵀy</code>; residual <code>=y−ŷ</code>. Gaussian noise → LS = MLE.</li>
-<li>Polynomial degree ↑ = flexibility ↑; test error U-shaped (overfit at high degree).</li>
-<li><b>Ridge</b> <code>λΣwⱼ²</code> shrinks toward 0; <b>lasso</b> <code>λΣ|wⱼ|</code> → exactly 0 (feature selection). Intercept excluded.</li>
-<li>GD: <code>w←w−η∇L</code>; large η diverges; standardize → round bowl → faster.</li>
+<li>No nonlinearity → layers collapse to one linear layer (logistic regression).</li>
+<li>Sigmoid 0–1 (max slope <b>0.25</b>); tanh −1..1 (slope 1); ReLU 0+ (slope 0/1). Far from 0 → <b>saturated</b>.</li>
+<li>Hidden = ReLU; 2-class = sigmoid+BCE; K-class = softmax+CE; regression = identity+squared error.</li>
+<li>Softmax <code>p_k=e^{z_k}/Σe^{z_j}</code>; loss <code>−ln(p_true)</code>; confident wrong costs most.</li>
 </ul>
-<h5>Classification (L05–08)</h5>
+<h5>Backpropagation (L16)</h5>
 <ul>
-<li>Logistic: <code>σ(z)=1/(1+e⁻ᶻ)∈(0,1)</code>; loss cross-entropy; grad <code>(p−y)x</code>.</li>
-<li>Perceptron: update on mistake <code>w←w+ηyx</code>; stops ⟺ separable.</li>
-<li>SVM: margin <code>=1/‖w‖</code>; support vectors at <code>yz=1</code>; slack ξ, cost C; hinge <code>max(0,1−yz)</code>; kernel <code>K=φ(x)·φ(u)</code>.</li>
-<li>kNN: vote of k nearest (standardize); tree: <b>Gini</b> <code>1−Σpₖ²</code>, split by largest <b>gain</b>.</li>
+<li>Chain rule: <code>∂L/∂w = (∂L/∂u)(∂u/∂w)</code>. Backward = upstream × local gradient.</li>
+<li>Gates: <b>add</b> copies; <b>multiply</b> swaps (×other input); <b>ReLU</b> passes if input&gt;0 else 0; a value used twice <b>sums</b> gradients.</li>
+<li>Output error <code>δ_o = ŷ − y</code> (softmax: <code>p − y</code>). Output weight grad <code>δ_o·h</code>.</li>
+<li>Hidden error <code>δ = (W₂ᵀδ_o) ⊙ g'(z)</code>; weight grad <code>= δ·input</code>; every grad has the shape of its parameter.</li>
 </ul>
-<h5>Ensembles (L09)</h5>
+<h5>Checking &amp; Vanishing (L16)</h5>
 <ul>
-<li>Var of avg <code>=ρσ²+(1−ρ)σ²/M</code> → floor <b>ρσ²</b>. Bootstrap: ~<b>37% out-of-bag</b>.</li>
-<li>Bagging = deep trees voted. <b>Random forest</b> = bagging + <code>m=⌊√D⌋</code> features/split → lowers ρ.</li>
+<li>Central diff <code>(L(w+ε)−L(w−ε))/2ε</code> (error ~ε²). Rel err <code>|g_bp−g_num|/max(|·|)</code>: ≤1e-6 ok, ≥0.01 bug.</li>
+<li>Backprop = 1 forward + 1 backward (cheap) vs 2 forward passes per weight.</li>
+<li>Epoch = ⌈N/B⌉ steps (938 for 60k/64).</li>
+<li>Deep sigmoid: error shrinks like <code>0.25^k</code> → first layers barely learn; <b>ReLU slope 1</b> avoids it.</li>
 </ul>
-<h5>Model Evaluation (L10–11)</h5>
+<h5>SGD &amp; Mini-Batches (L17)</h5>
 <ul>
-<li><code>E[err]=bias²+variance+noise</code>; flexible → ↓bias ↑variance; held-out U-curve.</li>
-<li><b>k-fold CV</b> → pick on training → refit → <b>test once</b>. Leakage: scale/choose inside each fold.</li>
-<li><code>Precision=TP/(TP+FP)</code>, <code>Recall=TP/(TP+FN)</code>, <code>F1=2PR/(P+R)</code>.</li>
-<li>ROC: TPR vs FPR; <b>AUC=P(rand + &gt; rand −)</b> (0.5 random, 1 perfect). Rare class: threshold move / class weights / resample.</li>
+<li>Full gradient = mean of per-example gradients. Mini-batch = <b>unbiased, noisy</b> estimate.</li>
+<li>B=1 SGD, B=N full-batch; epoch = ⌈N/B⌉ steps. <b>B≈32–256 trains fastest</b> (hardware + accuracy).</li>
+<li>Smaller batch (noisier) → smaller η. Schedule: start large, <b>÷10 when loss stalls</b>.</li>
 </ul>
-<h5>Clustering &amp; PCA (L12–13)</h5>
+<h5>Momentum &amp; Adam (L17)</h5>
 <ul>
-<li><b>k-means</b>: assign→nearest centroid, move→mean; J never rises; depends on start.</li>
-<li><b>DBSCAN</b>: core (≥minPts in eps), border, noise; finds #clusters itself.</li>
-<li><b>PCA</b>: PC1 = eigenvector of covariance with largest λ; variance = λ; standardize units first.</li>
-<li><i>Not on exam: hierarchical clustering, silhouette score.</i></li>
+<li>Momentum <code>v ← ρv + g</code>, <code>w ← w − ηv</code>; agreeing grads add, flips cancel; long-run <code>×1/(1−ρ)</code> (ρ=0.9→10).</li>
+<li>Adam: m (grads) &amp; s (squared grads), bias-corrected; <code>w ← w − η·m̂/√ŝ</code> → <b>per-weight step</b>. Defaults β₁=0.9, β₂=0.999, η=0.001.</li>
+<li>Adam η=0.001 = good default; SGD+momentum 0.9 + schedule still strong. Lower η when loss stalls.</li>
 </ul>
 </div>`;
 
@@ -700,7 +678,6 @@ function buildBody(secId, i, q, id){
 
 function getQ(secId,i){ return QUESTIONS[secId][i]; }
 
-/* clicks: options, stars, submits, sa */
 examEl.addEventListener("click",(ev)=>{
   const star=ev.target.closest(".star");
   if(star){ const id=star.dataset.id; if(flags[id]){delete flags[id];star.classList.remove("on");}else{flags[id]=1;star.classList.add("on");} saveFlags(); if(curFilter==="starred") applyFilter(); updateCount(); return; }
@@ -744,7 +721,7 @@ function handleSubmit(id){
     const open=item.classList.toggle("open");
     const btn=item.querySelector(".submit");
     btn.textContent=open?"Hide model answer":"Show model answer";
-    state[id]=open?"seen":undefined; if(!open) delete state[id]; save();
+    if(open) state[id]="seen"; else delete state[id]; save();
     updateCount();
   }
 }
@@ -785,7 +762,7 @@ function renderQ(secId,i,q,id){
     const inp=document.getElementById("in-"+id);
     if(ans!==undefined){ inp.value=ans; inp.disabled=true; const ok=isCorrect(q,ans); inp.classList.toggle("okb",ok); inp.classList.toggle("nob",!ok);
       const btn=document.querySelector(`.submit[data-id="${id}"]`); if(btn) btn.disabled=true;
-      setFb(pts,ex,ok,q, null, `Correct answer: <b>${q.a}</b>. `);
+      setFb(pts,ex,ok,q, `Correct answer: <b>${q.a}</b>. `);
     } else resetFb(pts,ex,"1 point");
   }
   else if(q.t==="match"){
@@ -805,7 +782,7 @@ function renderQ(secId,i,q,id){
   }
 }
 
-function setFb(pts,ex,ok,q,label,prefix){
+function setFb(pts,ex,ok,q,prefix){
   if(pts){ pts.textContent=(ok?"1":"0")+" / 1 point"; pts.className="qpts "+(ok?"ok":"no"); }
   ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Incorrect'}</span>${prefix||""}${q.e}${srcLine(q)}`;
   ex.classList.add("show");
@@ -813,14 +790,14 @@ function setFb(pts,ex,ok,q,label,prefix){
 function resetFb(pts,ex,label){ if(pts){pts.textContent=label;pts.className="qpts";} ex.classList.remove("show"); ex.innerHTML=""; }
 
 /* ---- scoring ---- */
+function qDone(q,ans){ if(ans===undefined) return false; if(q.t==="ms") return !!ans.locked; return true; }
 function stats(){
   let total=0, answered=0, correct=0;
   SECTIONS.forEach(sec=>(QUESTIONS[sec.id]||[]).forEach((q,i)=>{
     if(!SCORED[q.t]) return;
     total++;
     const ans=state[qid(sec.id,i)];
-    const done = q.t==="ms" ? (ans&&ans.locked) : (ans!==undefined);
-    if(done){ answered++; if(isCorrect(q,ans)) correct++; }
+    if(qDone(q,ans)){ answered++; if(isCorrect(q,ans)) correct++; }
   }));
   return {total, answered, correct};
 }
@@ -833,7 +810,6 @@ function refreshOverall(){
 }
 
 /* ---- filtering ---- */
-function qDone(q,ans){ if(ans===undefined) return false; if(q.t==="ms") return !!ans.locked; return true; }
 function applyFilter(mode){
   if(mode) curFilter=mode;
   document.querySelectorAll(".fbtn").forEach(b=>b.classList.toggle("active",b.dataset.f===curFilter));
@@ -879,11 +855,10 @@ document.getElementById("resetBtn").addEventListener("click",()=>{
     const inp=document.getElementById("in-"+id); if(inp){inp.disabled=false;inp.value="";inp.classList.remove("okb","nob");}
     const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show model answer";}
     if(q.t==="match") q.items.forEach((_,di)=>{ const s2=document.getElementById(`sel-${id}-${di}`); if(s2){s2.disabled=false;s2.value="-1";} const r=document.getElementById(`row-${id}-${di}`); if(r)r.classList.remove("rc","rw"); });
-    buildBodyReset(sec.id,i,q,id);
+    renderQ(sec.id,i,q,id);
   }));
   refreshOverall(); applyFilter("all"); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
 });
-function buildBodyReset(secId,i,q,id){ renderQ(secId,i,q,id); }
 
 /* ---- study guide ---- */
 const cramChip=document.createElement("button");
@@ -906,12 +881,12 @@ function renderGuideBody(secId){
 }
 function showCram(){
   cramPinned=true; activePart=null;
-  gtitle.textContent="Cram Sheet — Key Formulas & Facts";
+  gtitle.textContent="Cram Sheet — Neural Networks";
   gbody.style.setProperty("--gh","var(--accent)");
   document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
   cramChip.classList.add("active");
   gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
-  try{ store && store.setItem("ml-mid-part","cram"); }catch(e){}
+  try{ store && store.setItem("ml-nn-part","cram"); }catch(e){}
 }
 function setActivePart(secId, fromClick){
   if(fromClick) cramPinned=false;
@@ -923,7 +898,7 @@ function setActivePart(secId, fromClick){
   const chip=document.getElementById("gchip-"+secId);
   if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
   if(changed) renderGuideBody(secId);
-  try{ store && store.setItem("ml-mid-part",secId); }catch(e){}
+  try{ store && store.setItem("ml-nn-part",secId); }catch(e){}
   if(fromClick){ document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"}); if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false); }
 }
 let ticking=false;
@@ -947,14 +922,14 @@ scrim.addEventListener("click",()=>setGuideOpen(false));
 document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
 const root=document.documentElement, tb=document.getElementById("themeBtn"), ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("ml-mid-theme",t);}catch(e){} }
-let curTheme="system"; try{ if(store) curTheme=store.getItem("ml-mid-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("ml-nn-theme",t);}catch(e){} }
+let curTheme="system"; try{ if(store) curTheme=store.getItem("ml-nn-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{ curTheme=curTheme==="system"?"light":curTheme==="light"?"dark":"system"; applyTheme(curTheme); });
 
 /* ---- init ---- */
 refreshOverall(); applyFilter("all");
-let initPart=null; try{ initPart=store&&store.getItem("ml-mid-part"); }catch(e){}
+let initPart=null; try{ initPart=store&&store.getItem("ml-nn-part"); }catch(e){}
 if(initPart==="cram"||!initPart) showCram();
 else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
 else showCram();
