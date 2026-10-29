@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COP 4710 — Writing SQL Functions (Quiz 2 Code Practice)</title>
+<title>Senior Design 1 — Engineering Economics Study Guide</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -47,10 +47,9 @@ a{color:var(--accent-strong)}
 ::selection{background:var(--accent-soft)}
 .wrap{max-width:1300px;margin:0 auto;padding:0 24px}
 code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
-.codeblk{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:9px 0 4px;font-size:12.5px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.55;tab-size:2}
+.codeblk{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:9px 0 4px;font-size:12.8px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.65;tab-size:2}
 .qtext .codeblk{font-weight:400;margin:8px 0 2px}
 .explain .codeblk,.sa-ans .codeblk{margin:7px 0}
-.kw{color:var(--hue);font-weight:600}
 
 .masthead{border-bottom:1px solid var(--line-strong);background:linear-gradient(180deg, var(--surface), var(--surface-2))}
 .mast-inner{padding:30px 24px 22px}
@@ -99,7 +98,7 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .qpts{font-family:var(--mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
 .qpts.ok{color:var(--ok)}.qpts.no{color:var(--bad)}
 .qtype{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px}
-.qtype.code{color:var(--accent-strong);border-color:var(--accent)}
+.qtype.calc{color:var(--accent-strong);border-color:var(--accent)}
 .star{flex:0 0 auto;margin-left:auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--faint);border-radius:7px;width:30px;height:26px;font-size:14px;line-height:1;display:grid;place-items:center;transition:.12s}
 .star:hover{border-color:var(--t4);color:var(--t4)}
 .star.on{background:var(--t4);border-color:var(--t4);color:#fff}
@@ -126,13 +125,20 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .opt.chosen-wrong{border-color:var(--bad-line);background:var(--bad-bg);color:var(--ink)}
 .opt.chosen-wrong .mk{background:var(--bad);border-color:var(--bad);color:#fff}
 .opt.dim{opacity:.55}
+.numrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.numprefix{font-family:var(--mono);font-size:15px;color:var(--muted);font-weight:700}
+.numin{font-family:var(--mono);font-size:15px;width:190px;max-width:60vw;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 12px}
+.numin:focus{outline:2px solid var(--accent);outline-offset:1px}
+.numin.okb{border-color:var(--ok);background:var(--ok-bg)}
+.numin.nob{border-color:var(--bad);background:var(--bad-bg)}
+.numunit{font-family:var(--mono);font-size:13px;color:var(--faint)}
 .submit{margin-top:11px;font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--hue);color:#fff;background:var(--hue);border-radius:99px;padding:8px 18px}
 .submit:hover{filter:brightness(1.07)}
 .submit:disabled{opacity:.5;cursor:default}
 table.match{border-collapse:collapse;width:100%;font-size:14px;margin-top:2px}
 table.match td{border:1px solid var(--line);padding:7px 9px;vertical-align:middle}
 table.match td.desc{color:var(--ink-soft)}
-table.match td.pick{width:40%}
+table.match td.pick{width:42%}
 .msel{font-family:inherit;font-size:13.5px;width:100%;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 8px}
 tr.rc td{background:var(--ok-bg)}
 tr.rw td{background:var(--bad-bg)}
@@ -152,7 +158,6 @@ tr.rw td{background:var(--bad-bg)}
 .sa-note{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-bottom:6px}
 @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .qitem.hide,.part-head.hide{display:none}
-.qitem.kfocus{outline:2px solid var(--accent);outline-offset:2px}
 .empty-state{border:1px dashed var(--line-strong);border-radius:12px;padding:30px 18px;text-align:center;color:var(--muted);font-size:14.5px;background:var(--surface-2)}
 
 .guide-head{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
@@ -177,7 +182,7 @@ tr.rw td{background:var(--bad-bg)}
 .note li{margin:3px 0}.note li::marker{color:var(--gh)}
 .note code{font-size:.86em}
 .note .kw{color:var(--gh);font-weight:600}
-.note .codeblk{font-size:11.8px;margin:8px 0 3px}
+.note .codeblk{font-size:12px;margin:8px 0 3px}
 .note .tbl{border-collapse:collapse;margin:8px 0;font-size:12px;width:100%}
 .note .tbl th,.note .tbl td{border:1px solid var(--line);padding:4px 7px;text-align:left}
 .note .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:600}
@@ -189,7 +194,7 @@ tr.rw td{background:var(--bad-bg)}
 .cram li{margin:4px 0;line-height:1.5;color:var(--ink-soft)}
 .cram li::marker{color:var(--gh)}
 .cram b{color:var(--ink)}.cram code{font-size:.85em}
-.cram .codeblk{font-size:11.5px;margin:7px 0 4px}
+.cram .codeblk{font-size:12px;margin:7px 0 4px}
 
 .guide-toggle{display:none;position:fixed;right:18px;bottom:18px;z-index:60;background:var(--accent);color:#fff;border:none;cursor:pointer;padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.06em;gap:8px;align-items:center}
 .guide-toggle:hover{background:var(--accent-strong)}
@@ -216,19 +221,14 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> COP 4710 · Database Systems <span class="dot"></span> Quiz 2 · Code Practice</div>
+      <div class="eyebrow"><span class="dot"></span> Senior Design 1 <span class="dot"></span> Engineering Economics · Quiz</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Writing SQL Functions That Return Info</h1>
-    <p class="subtitle">The quiz is <b>entirely code-writing</b>. Each problem asks you to <code>CREATE</code> a function with a given <b>argument type</b> and <b>return type</b>, compute a value, format it to the required precision, and handle the edge cases exactly. This guide drills that: declaring the right variables and types, reading data with aggregates, returning NULL vs a sentinel like <code>-1.00</code>, and rounding to the return type — with full worked solutions (PostgreSQL / PL-pgSQL).</p>
-    <div class="callout"><b>Model problem:</b> a function taking <code>dept_name VARCHAR(50)</code> that returns the % difference between MAX and MIN salary (of the lower one), <code>RETURNS DECIMAL(5,2)</code> — <b>NULL</b> if the department does not exist, <b>−1.00</b> if it has no employees.
-      <div class="callout"><b>Assumed schema (used in every problem):</b>
-      <div class="codeblk">departments(id INT PK, name VARCHAR(50))
-employees(id INT PK, first_name VARCHAR(50), last_name VARCHAR(50),
-          title VARCHAR(50), salary DECIMAL(10,2),
-          department_id INT  -> departments.id,
-          manager_id    INT  -> employees.id)</div></div>
-      Progress is saved in this browser. The ⚡ Cram Sheet on the right has the template and formulas.</div>
+    <h1 class="title">Interest, Equivalence & Cash Flows</h1>
+    <p class="subtitle">The time value of money: single payments <code>F = P(1+i)<sup>N</sup></code>, nominal vs effective rates, uniform-series (annuity) factors, and loan payments / remaining balances. Practice is mostly <b>compute-the-answer</b> — type a number and it's graded instantly — with concept checks and full worked solutions. Keep a calculator handy.</p>
+    <div class="callout"><b>Two habits that save the most points:</b> (1) use the <b>per-period</b> rate <code>i = r/m</code> and periods <code>N = m·(years)</code> for anything compounded m times a year; (2) <b>don't round i early</b> — carry full precision until the final answer.
+      <div class="callout" style="margin-top:10px"><b>Answers:</b> type a plain number (commas and <code>$</code> are fine, e.g. <code>5,796.37</code>). Dollar answers are graded to the nearest few dollars to allow for rounding.</div>
+    </div>
     <div class="scorebar">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0 / 0</span> graded</div>
@@ -271,449 +271,296 @@ employees(id INT PK, first_name VARCHAR(50), last_name VARCHAR(50),
 <button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
 <footer class="wrap">
-  <div class="mono">COP 4710 — Database Systems · Quiz 2: create a function that returns info · PostgreSQL / PL-pgSQL · code-writing practice.</div>
-  <div style="margin-top:8px">Write out each function, then reveal the model solution to compare. The ⚡ Cram Sheet has the template, types, and formulas.</div>
+  <div class="mono">Senior Design 1 — Engineering Economics · interest & economic equivalence · single payment · nominal/effective · uniform series · loans.</div>
+  <div style="margin-top:8px">Work each problem on paper, type your number, and check instantly. The ⚡ Cram Sheet has every factor formula in one place.</div>
 </footer>
 
 <script>
 /* =========================================================
-   STUDY-GUIDE NOTES — writing SQL functions (code practice)
+   STUDY-GUIDE NOTES — Engineering Economics (time value of money)
    ========================================================= */
 const SECTIONS = [
 {
-  id:"template", short:"Template & Types", tag:"Skeleton · data types", title:"Function Template & Types",
-  blurb:"The exact skeleton to write every time, how to match the argument type to the spec, and how to read a return type like DECIMAL(5,2) — plus declaring local variables that can hold the math.",
+  id:"basics", short:"Basics & Terms", tag:"vocabulary · simple vs compound", title:"Interest Basics & Terms",
+  blurb:"The vocabulary every problem is built from — principal, interest rate, interest period, number of periods — and the difference between simple and compound interest.",
   notes:[
-    {h:"The skeleton (memorize this)", html:`<div class="codeblk">CREATE OR REPLACE FUNCTION fname(arg1 TYPE, arg2 TYPE)
-RETURNS RET_TYPE AS $$
-DECLARE
-  v1 TYPE;          -- local variables
-  v2 TYPE;
-BEGIN
-  -- look things up, compute, decide
-  RETURN value;     -- must RETURN on every path
-END;
-$$ LANGUAGE plpgsql;</div>
-      <p>Header = name, <b>parameters (name + type)</b>, <code>RETURNS</code> type. Body between <code>$$ ... $$</code>. Procedural logic needs <b>LANGUAGE plpgsql</b>.</p>`},
-    {h:"Match the argument type", html:`<p>If the problem says the argument is <code>dept_name VARCHAR(50)</code>, write it <b>exactly</b> that way. Common types:</p>
-      <table class="tbl"><thead><tr><th>Type</th><th>Holds</th></tr></thead><tbody>
-      <tr><td><code>VARCHAR(n)</code></td><td>text up to n chars (names)</td></tr>
-      <tr><td><code>INT</code></td><td>whole number (ids, counts)</td></tr>
-      <tr><td><code>DECIMAL(p,s)</code> / <code>NUMERIC(p,s)</code></td><td>exact number, p digits, s after the point</td></tr>
-      <tr><td><code>BOOLEAN</code></td><td>TRUE / FALSE / NULL</td></tr>
-      <tr><td><code>TEXT</code></td><td>text, any length</td></tr></tbody></table>`},
-    {h:"Read the return type: DECIMAL(5,2)", html:`<ul>
-      <li><code>DECIMAL(5,2)</code> = <b>5 total digits, 2 after the decimal point</b> → max value <b>999.99</b> (3 digits before, 2 after). A percentage fits easily.</li>
-      <li>Return a value <b>rounded to the scale</b>: <code>ROUND(x, 2)</code> for scale 2.</li>
-      <li>A value that needs more than <code>p−s</code> digits before the point <b>overflows</b> (error) — pick a type big enough.</li></ul>`},
-    {h:"Declare locals that hold the math", html:`<ul>
-      <li>Use a <b>DECLARE</b> block to hold intermediate values (an id, a MAX, a MIN, a count).</li>
-      <li>For arithmetic, declare numeric locals as <code>NUMERIC</code> / <code>DECIMAL</code> so division is exact (see the integer-division trap in <i>Computing & Formatting</i>).</li>
-      <li>Assign with <code>:=</code>; or fill from a query with <code>SELECT ... INTO</code>.</li></ul>`}
+    {h:"The four quantities", html:`<table class="tbl"><thead><tr><th>Symbol</th><th>Meaning</th></tr></thead><tbody>
+      <tr><td><code>P</code></td><td><b>Principal</b> — present amount (money now, t = 0)</td></tr>
+      <tr><td><code>F</code></td><td><b>Future</b> value — amount at the end (t = N)</td></tr>
+      <tr><td><code>i</code></td><td><b>Interest rate per period</b> (a fraction, e.g. 0.03)</td></tr>
+      <tr><td><code>N</code></td><td><b>Number of interest periods</b></td></tr>
+      <tr><td><code>A</code></td><td><b>Annuity</b> — equal payment each period (Lecture 2)</td></tr></tbody></table>
+      <p><b>Interest</b> = the rent paid for money; <b>interest period</b> = the time between compounding events (year, month…).</p>`},
+    {h:"Simple vs compound interest", html:`<ul>
+      <li><b>Simple:</b> interest only on the original principal. <code>F = P(1 + i·N)</code>.</li>
+      <li><b>Compound:</b> interest earns interest. <code>F = P(1 + i)<sup>N</sup></code>.</li>
+      <li>Over many periods compound ≫ simple. Unless a problem says "simple interest," assume <b>compound</b>.</li></ul>
+      <div class="codeblk">$5000, 20%, 5 yr, simple:   F = 5000(1 + 0.20·5) = $10,000
+$5000, 20%, 5 yr, compound: F = 5000(1.20)^5    = $12,441.60</div>`},
+    {h:"Per-period rate i = r / m", html:`<p>A stated <b>nominal annual rate r</b> compounded <b>m</b> times a year gives a per-period rate and period count:</p>
+      <div class="codeblk">i = r / m            N = m · (number of years)</div>
+      <ul>
+        <li>Annually → m = 1; <b>Monthly → m = 12</b>; quarterly → 4; semiannually → 2; daily → 365.</li>
+        <li>Always put <b>i and N on the same period</b> (both monthly, or both yearly).</li>
+        <li>Use the <b>decimal</b> rate: 2.75% → 0.0275, then i = 0.0275/12.</li></ul>`}
   ]
 },
 {
-  id:"lookup", short:"Reading Data", tag:"SELECT INTO · aggregates", title:"Reading Data: SELECT INTO & Aggregates",
-  blurb:"Pulling one row or an aggregate into variables, the aggregate functions you will need (MAX, MIN, AVG, SUM, COUNT), and — crucially — what each returns over an empty set.",
+  id:"single", short:"Single Payment", tag:"F/P and P/F", title:"Single Payment: F and P",
+  blurb:"One lump sum moving through time. Grow a present amount to the future (F/P), discount a future amount back to now (P/F), and solve the same equation for the unknown rate i or number of periods N.",
   notes:[
-    {h:"SELECT ... INTO", html:`<p>Run a query and store its columns into variables (left to right):</p>
-      <div class="codeblk">SELECT id INTO d_id
-  FROM departments
- WHERE name = dept_name;</div>
-      <p>You can capture several columns / aggregates at once:</p>
-      <div class="codeblk">SELECT MAX(salary), MIN(salary) INTO hi, lo
-  FROM employees
- WHERE department_id = d_id;</div>`},
-    {h:"The aggregates", html:`<table class="tbl"><thead><tr><th>Aggregate</th><th>Returns</th></tr></thead><tbody>
-      <tr><td><code>MAX(x) / MIN(x)</code></td><td>largest / smallest value</td></tr>
-      <tr><td><code>AVG(x)</code></td><td>mean</td></tr>
-      <tr><td><code>SUM(x)</code></td><td>total</td></tr>
-      <tr><td><code>COUNT(*)</code></td><td>number of rows</td></tr></tbody></table>`},
-    {h:"Over an EMPTY set — the key difference", html:`<ul>
-      <li><code>COUNT(*)</code> over zero rows = <b>0</b> (never NULL).</li>
-      <li><code>MAX</code>, <code>MIN</code>, <code>AVG</code>, <code>SUM</code> over zero rows = <b>NULL</b>.</li></ul>
-      <p>So after <code>SELECT MAX(salary) INTO hi ...</code> on a department with no employees, <code>hi</code> is <b>NULL</b> — that is how you detect "no employees".</p>`},
-    {h:"FOUND does NOT detect an empty aggregate", html:`<p>An aggregate query <b>always returns exactly one row</b> (a single NULL when empty), so <code>FOUND</code> is <b>TRUE</b> even with no employees. Use <code>FOUND</code> only to test whether a <b>plain row lookup</b> matched; use <code>IS NULL</code> on the aggregate to test "no rows".</p>`}
+    {h:"Compound amount (F/P) and present worth (P/F)", html:`<div class="codeblk">F = P (1 + i)^N          ("F given P")
+P = F / (1 + i)^N        ("P given F")</div>
+      <p>Everything in single-payment problems is this one equation, solved for whichever letter is missing.</p>`},
+    {h:"Worked: future value", html:`<div class="codeblk">$5000, 3% / yr compounded MONTHLY, 5 years:
+   i = 0.03/12 = 0.0025 ,  N = 12·5 = 60
+   F = 5000(1.0025)^60 = $5,808.08</div>`},
+    {h:"Solve for i or N", html:`<p>Rearrange <code>F = P(1+i)<sup>N</sup></code>:</p>
+      <div class="codeblk">Unknown N:  N = ln(F/P) / ln(1 + i)
+Unknown i:  i = (F/P)^(1/N) − 1</div>
+      <ul>
+        <li><b>Double your money?</b> F/P = 2, so <code>N = ln 2 / ln(1+i)</code>.</li>
+        <li>$2000 → $4000 at 20%/yr: N = ln2 / ln1.2 = <b>3.80 years</b>.</li>
+        <li>$2000 → $4000 in 5 yr: i = 2^(1/5) − 1 = <b>14.87%</b>.</li></ul>`},
+    {h:"Beginning vs end of period", html:`<p>A deposit at the <b>beginning</b> of a year earns interest for one more period than one at the end. Count periods on a cash-flow timeline; a sum at the start of year k compounds for <code>N − (k−1)</code> periods to the end.</p>`}
   ]
 },
 {
-  id:"edge", short:"Edge Cases", tag:"NULL · NOT FOUND · sentinels", title:"Edge Cases: NULL, NOT FOUND & Sentinels",
-  blurb:"The heart of these problems: telling 'the thing does not exist' apart from 'it exists but is empty', returning the right value (NULL vs a sentinel like −1.00), and ordering the checks with IF / ELSIF.",
+  id:"nominal", short:"Nominal vs Effective", tag:"compounding frequency", title:"Nominal vs Effective Rates",
+  blurb:"Why 10% compounded monthly is really worth more than 10% a year, how to convert a nominal rate to the effective annual rate, and the two classic mistakes graders look for.",
   notes:[
-    {h:'"Does it exist?" → look it up, check NOT FOUND', html:`<p>A plain lookup that matches no row leaves the INTO variable NULL and sets <code>FOUND = FALSE</code>:</p>
-      <div class="codeblk">SELECT id INTO d_id FROM departments WHERE name = dept_name;
-IF NOT FOUND THEN
-  RETURN NULL;        -- department does not exist
-END IF;</div>`},
-    {h:'"Is it empty?" → aggregate IS NULL', html:`<p>After an aggregate, the department exists (we already checked) but may have no employees — detect that with <code>IS NULL</code>, not FOUND:</p>
-      <div class="codeblk">SELECT MAX(salary), MIN(salary) INTO hi, lo
-  FROM employees WHERE department_id = d_id;
-IF lo IS NULL THEN
-  RETURN -1.00;       -- exists, but no employees
-END IF;</div>`},
-    {h:"Order the checks correctly", html:`<ol>
-      <li><b>Existence first</b> → return NULL if the parent (department) is missing.</li>
-      <li><b>Emptiness next</b> → return the sentinel (−1.00) if there are no child rows.</li>
-      <li><b>Compute</b> the real answer last.</li></ol>
-      <p>If you check emptiness first, a non-existent department would wrongly return −1.00.</p>`},
-    {h:"NULL vs a sentinel value", html:`<ul>
-      <li><b>NULL</b> = "no answer / not applicable" — e.g. the department does not exist.</li>
-      <li><b>Sentinel</b> (a real value the caller agrees means something special, like <code>-1.00</code> or <code>-1</code>) = "exists but empty / no data".</li>
-      <li>The spec tells you which to return for which case — match it exactly, including the format (<code>-1.00</code>, not <code>-1</code>, for a DECIMAL(_,2) return).</li></ul>`},
-    {h:"IF / ELSIF / ELSE", html:`<div class="codeblk">IF cond1 THEN
-  RETURN a;
-ELSIF cond2 THEN       -- note the spelling: ELSIF
-  RETURN b;
-ELSE
-  RETURN c;
-END IF;</div>
-      <p>Each branch can <code>RETURN</code>. Make sure <b>every path</b> returns a value, or add a final RETURN.</p>`}
+    {h:"Effective annual rate", html:`<p>A nominal rate <code>r</code> compounded <code>m</code> times a year has <b>effective annual rate</b>:</p>
+      <div class="codeblk">i_eff = (1 + r/m)^m − 1</div>
+      <ul>
+        <li>10% compounded monthly → <code>(1 + 0.10/12)^12 − 1 = 10.47%</code> effective.</li>
+        <li>More frequent compounding ⇒ higher effective rate.</li>
+        <li>Use i_eff only when you need a <b>yearly</b> factor but the money compounds monthly (e.g. yearly deposits, monthly compounding).</li></ul>`},
+    {h:"Worked: certificate of deposit", html:`<div class="codeblk">$5000, 2.75% / yr nominal, compounded MONTHLY, 5 yr:
+   i = 0.0275/12 = 0.00229...   N = 60
+   F = 5000(1 + 0.0275/12)^60 = $5,736.11</div>`},
+    {h:"The two classic mistakes", html:`<ul>
+      <li><span class="kw">Mistake 1 — forgot to divide by 100:</span> using <code>2.75</code> instead of <code>0.0275</code>. (Gives an absurd billion-dollar answer.)</li>
+      <li><span class="kw">Mistake 2 — wrong i:</span> using the annual 0.0275 while N is in months, instead of <code>i = 0.0275/12</code>. Match i and N to the same period.</li>
+      <li><span class="kw">Mistake 3 — rounding i early:</span> round only the final result. $10,000 at 10%/mo for 50 yr is $1,453,699.23 — early rounding shifts it by thousands.</li></ul>`}
   ]
 },
 {
-  id:"compute", short:"Computing & Formatting", tag:"ROUND · % · casts", title:"Computing & Formatting the Result",
-  blurb:"The percentage / ratio formulas, rounding to the return type's scale with ROUND, the integer-division trap and how to cast around it, and formatting string results.",
+  id:"series", short:"Uniform Series", tag:"annuity factors", title:"Uniform Series (Annuities)",
+  blurb:"Equal payment A every period — savings deposits, 401(k), lottery payouts. The four annuity factors convert between A and a lump sum F or P, plus the beginning-of-period (annuity-due) adjustment.",
   notes:[
-    {h:'Percent difference "of the lower one"', html:`<p>"The difference between MAX and MIN as a % of the lower one":</p>
-      <div class="codeblk">(MAX - MIN) / MIN * 100</div>
-      <p>e.g. MAX = 120000, MIN = 100000 → (20000 / 100000) * 100 = <b>20.00</b>. A plain ratio "A as a % of B" is <code>A / B * 100</code>.</p>`},
-    {h:"Round to the return scale", html:`<p>Fit the value to <code>DECIMAL(p,s)</code> by rounding to <b>s</b> decimals:</p>
-      <div class="codeblk">RETURN ROUND((hi - lo) / lo * 100, 2);   -- scale 2</div>
-      <p><code>ROUND(x, 2)</code> gives two decimals, matching <code>DECIMAL(5,2)</code>.</p>`},
-    {h:"The integer-division trap", html:`<p>If the operands are <b>integers</b>, <code>/</code> does <b>integer division</b> and truncates — <code>(130-100)/100</code> is <code>0</code>, not <code>0.3</code>. Fix by making one side numeric:</p>
-      <div class="codeblk">(hi - lo) * 100.0 / lo          -- 100.0 forces numeric
-(hi - lo)::numeric / lo * 100   -- or cast with ::numeric</div>
-      <p>If <code>salary</code> is <code>DECIMAL</code> (as in our schema) the math is already exact — but cast whenever the columns or variables are <code>INT</code>.</p>`},
-    {h:"Casting values", html:`<ul>
-      <li><code>x::numeric</code>, <code>x::text</code>, <code>x::int</code> — cast between types.</li>
-      <li><code>n::text</code> turns a number into text for a string result (or just use <code>||</code>, which casts).</li>
-      <li><code>to_char(value,'FM999990.00')</code> / <code>to_char(d,'YYYY-MM-DD')</code> for controlled number / date formatting.</li></ul>`},
-    {h:"Formatting a string result", html:`<p>When the return is text, build it NULL-safely:</p>
-      <div class="codeblk">RETURN CONCAT_WS(' | ',
-  'Name: '   || last_name || ', ' || first_name,
-  'Salary: ' || COALESCE(salary::text, 'N/A'));</div>
-      <p><code>CONCAT_WS</code> skips NULLs; <code>COALESCE</code> gives a fallback; <code>||</code> is NULL-sensitive (any NULL → NULL).</p>`}
+    {h:"The four factors", html:`<p>With payment <code>A</code> at the <b>end</b> of each period, rate <code>i</code>, for <code>N</code> periods:</p>
+      <div class="codeblk">F given A :  F = A · [ ((1+i)^N − 1) / i ]
+A given F :  A = F · [ i / ((1+i)^N − 1) ]
+P given A :  P = A · [ ((1+i)^N − 1) / (i(1+i)^N) ]
+A given P :  A = P · [ i(1+i)^N / ((1+i)^N − 1) ]</div>
+      <p>F↔A are a pair (reciprocals); P↔A are a pair. Pick the one whose two known letters match the problem.</p>`},
+    {h:"Worked: regular savings", html:`<div class="codeblk">$1000 at end of each year, 10%/yr, 30 yr:
+   F = 1000 · [ (1.10^30 − 1) / 0.10 ] = $164,494.02
+
+$80 at end of each MONTH, 10%/yr comp. monthly, 30 yr:
+   i = 0.10/12 ,  N = 360
+   F = 80 · [ ((1+i)^360 − 1) / i ] = $180,839.03</div>`},
+    {h:"Ordinary vs annuity due (timing!)", html:`<ul>
+      <li><b>Ordinary annuity:</b> payment at the <b>end</b> of each period (the default, and what the factors above assume).</li>
+      <li><b>Annuity due:</b> payment at the <b>beginning</b> — every payment earns one extra period, so multiply by <code>(1+i)</code>:
+        <div class="codeblk">F_due = F_ordinary · (1 + i)
+$80/mo starting NOW, 10%/mo, 30 yr:
+   180,839.03 · (1 + 0.10/12) = $182,346.03</div></li>
+      <li>"Standard case" with no special note = ordinary (last payment included).</li></ul>`},
+    {h:"Mixing timescales", html:`<p>Yearly deposits but monthly compounding? Convert to the <b>effective annual rate</b> first, then use the yearly factor. (e.g. 10%/mo → 10.47% effective, then F/A with N in years.)</p>`}
   ]
 },
 {
-  id:"problems", short:"Worked Problems", tag:"Write the function", title:"Worked Problems (different return types)",
-  blurb:"Full code-writing problems like the quiz — a % (DECIMAL), a count (INT), an average (DECIMAL), a string (VARCHAR), and a boolean — each with the argument type, return type, formatting, and exact edge-case returns, plus a complete model solution.",
+  id:"loans", short:"Loans & Balance", tag:"payments · payoff", title:"Loans & Remaining Balance",
+  blurb:"A loan is a present amount P you pay off with a level payment A — the capital-recovery (A/P) factor. Here's the monthly payment, the total paid, and how much you still owe partway through.",
   notes:[
-    {h:"How to attack any problem", html:`<ol>
-      <li>Write the <b>header</b> with the exact arg type and <code>RETURNS</code> type.</li>
-      <li><b>DECLARE</b> the variables you'll need (an id, aggregates, a result).</li>
-      <li><b>Check existence</b> (lookup + <code>NOT FOUND</code> → NULL).</li>
-      <li><b>Read</b> the data (aggregate / count) and <b>check emptiness</b> (IS NULL → sentinel).</li>
-      <li><b>Compute &amp; ROUND</b> to the return scale, then <b>RETURN</b>.</li></ol>
-      <p>Reveal each problem's model solution in the practice list on the left. Keep this recipe open as you write.</p>`},
-    {h:"Return-value checklist", html:`<ul>
-      <li>Argument type matches the spec (e.g. <code>VARCHAR(50)</code>)? ✔</li>
-      <li><code>RETURNS</code> type matches (e.g. <code>DECIMAL(5,2)</code>)? ✔</li>
-      <li>Parent missing → <b>NULL</b>; no child rows → <b>sentinel</b> in the right format? ✔</li>
-      <li>Used <code>NOT FOUND</code> for existence, <code>IS NULL</code> for empty aggregate? ✔</li>
-      <li><code>ROUND</code>ed to the scale; no integer division? ✔</li>
-      <li>Every path <code>RETURN</code>s; ends with <code>LANGUAGE plpgsql;</code>? ✔</li></ul>`}
+    {h:"Monthly payment (A given P)", html:`<p>Borrow <code>P</code> now, repay with equal payments over <code>N</code> periods at rate <code>i</code>:</p>
+      <div class="codeblk">A = P · [ i(1+i)^N / ((1+i)^N − 1) ]</div>
+      <div class="codeblk">$32,000 car, 6.3%/yr nominal, monthly, 4 yr (N = 48):
+   i = 0.063/12
+   A = $755.93 / month
+   total paid = 48 · 755.93 = $36,284.65</div>`},
+    {h:"Worked: a mortgage", html:`<div class="codeblk">$200,000, 5%/yr nominal, monthly, 30 yr (N = 360):
+   A = $1,073.64 / month
+   total paid = 360 · 1073.64 = $386,511.57</div>`},
+    {h:"Remaining balance = PV of what's left", html:`<p>The payoff amount right after payment k equals the <b>present worth of the remaining payments</b> — use the P/A factor on the number of payments <b>still owed</b>:</p>
+      <div class="codeblk">Balance = A · [ ((1+i)^n − 1) / (i(1+i)^n) ]
+          n = payments remaining</div>
+      <div class="codeblk">$475/mo, 5.6%/yr monthly, 60 payments total.
+Owed right after the 42nd payment?  n = 60 − 42 = 18 left:
+   Balance = 475 · [ ((1+i)^18 − 1)/(i(1+i)^18) ] = $8,182.46</div>`},
+    {h:"Common pitfalls", html:`<ul>
+      <li>Using <code>n = 42</code> (payments made) instead of <code>n = 18</code> (payments left).</li>
+      <li>Forgetting <code>i = r/12</code> for a "nominal annual, compounded monthly" loan.</li>
+      <li>Total interest = total paid − principal borrowed.</li></ul>`}
   ]
 },
 {
-  id:"pitfalls", short:"Pitfalls & Checklist", tag:"Don't lose points", title:"Pitfalls & Final Checklist",
-  blurb:"The mistakes that cost points on a code quiz — wrong NULL/empty detection, integer division, forgetting ROUND, missing RETURN or LANGUAGE, type mismatches — and the order to double-check before you submit.",
+  id:"mixed", short:"Worked Problems", tag:"multi-step cash flows", title:"Mixed Worked Problems",
+  blurb:"Multi-step problems that combine the pieces: doubling time, deposit-then-stop, and shifting a lump sum across time. Reveal each solution and follow the cash-flow reasoning.",
   notes:[
-    {h:"Top pitfalls", html:`<ul>
-      <li><b>Using FOUND to detect an empty department.</b> An aggregate always returns a row → FOUND is TRUE. Use <code>IS NULL</code> on the aggregate.</li>
-      <li><b>Checking emptiness before existence.</b> A missing department would wrongly hit the −1.00 branch. Existence (NULL) first.</li>
-      <li><b>Integer division.</b> <code>(a-b)/b</code> with INT truncates to 0 — cast with <code>::numeric</code> or multiply by <code>100.0</code>.</li>
-      <li><b>Forgetting ROUND.</b> The value may not fit / may show too many decimals for <code>DECIMAL(p,s)</code>.</li>
-      <li><b>Wrong sentinel format.</b> Return <code>-1.00</code> (not <code>-1</code>) when the type is <code>DECIMAL(_,2)</code> and the spec says −1.00.</li>
-      <li><b>Missing RETURN / LANGUAGE / mismatched types.</b> Every path returns; end with <code>LANGUAGE plpgsql;</code>; cast to the declared return type.</li></ul>`},
-    {h:"Divide-by-zero (if MIN could be 0)", html:`<p>If the lower value could be <b>0</b>, <code>/ lo</code> errors. Guard it if the spec allows a zero salary:</p>
-      <div class="codeblk">IF lo = 0 THEN RETURN NULL; END IF;   -- or a stated sentinel</div>
-      <p>For salaries this usually can't happen, but mention/guard it if asked.</p>`},
-    {h:"Final submit checklist", html:`<ol>
-      <li>Header: name, arg types, <code>RETURNS</code> type — all exact.</li>
-      <li>Existence → NULL. Emptiness → sentinel (right format). Else compute.</li>
-      <li>No integer division; <code>ROUND</code> to the scale.</li>
-      <li>Every branch RETURNs; body in <code>$$ ... $$</code>; <code>LANGUAGE plpgsql;</code> at the end.</li></ol>`}
+    {h:"Strategy for any problem", html:`<ol>
+      <li><b>Draw the timeline</b> — mark each cash flow and whether it's at the start or end of a period.</li>
+      <li><b>Set i and N</b> on one consistent period (<code>i = r/m</code>, <code>N = m·years</code>).</li>
+      <li><b>Pick the factor</b> whose two known letters match (F/P, P/F, F/A, A/F, P/A, A/P).</li>
+      <li>For multi-step, <b>move each cash flow</b> to a common point in time, then combine.</li>
+      <li><b>Round only at the end.</b></li></ol>`},
+    {h:"Doubling time", html:`<div class="codeblk">Double at 5%/yr nominal, compounded monthly:
+   i = 0.05/12
+   N = ln2 / ln(1+i) = 166.7 → 167 months = 13 yr 11 mo
+Compounded annually instead:
+   N = ln2 / ln1.05 = 14.2 → 15 whole years</div>`},
+    {h:"Deposit, then stop", html:`<div class="codeblk">$80/mo for 10 yr, then nothing, 10%/yr monthly, value at 30 yr:
+ Step 1 — value at year 10 (120 deposits):
+   F10 = 80·[((1+i)^120 − 1)/i] = $16,387.60   (i = 0.10/12)
+ Step 2 — let it grow 20 more years (240 months):
+   F30 = 16,387.60 · (1+i)^240 = $120,089.53</div>`},
+    {h:"Shifting a lump sum (two deposits)", html:`<div class="codeblk">Want $10,000 at year 5, 20%/yr annual. Deposit $2000 at the
+start of year 1 — how much at the start of year 2?
+ $2000 compounds 5 yr:  F1 = 2000(1.20)^5 = $4,976.64
+ Remaining needed at yr 5: 10,000 − 4,976.64 = $5,023.36
+ Discount back to start of yr 2 (4 yr of growth):
+   P2 = 5,023.36 / (1.20)^4 = $2,422.53</div>`}
   ]
 }
 ];
 
 /* =========================================================
-   QUESTION BANK — code-writing practice (sa / mc / ms / match)
+   QUESTION BANK — num (graded) / mc / ms / match / sa
    ========================================================= */
 const QUESTIONS = {
-template:[
-  {t:"mc", q:"A return type is declared <code>RETURNS DECIMAL(5,2)</code>. What is the largest value it can hold?",
-   o:["999.99","99999.99","55.22","9999.99"],
-   a:0, e:"<code>DECIMAL(5,2)</code> = 5 total digits with 2 after the point, so 3 digits before → max <b>999.99</b>. Round results to 2 decimals and make sure they fit.", src:"Template & Types"},
-  {t:"mc", q:"The spec says the argument is <code>dept_name VARCHAR(50)</code>. In your CREATE FUNCTION header you should write…",
-   o:["the parameter exactly as dept_name VARCHAR(50)","just dept_name, letting the type be inferred","dept_name TEXT, since text length never matters","VARCHAR(50), with no parameter name at all"],
-   a:0, e:"Match the given name and type exactly: <code>CREATE FUNCTION f(dept_name VARCHAR(50)) ...</code>. The name is how you refer to it in the body.", src:"Template & Types"},
-  {t:"mc", q:"Which language must the function use to declare variables and use IF / RETURN logic?",
-   o:["LANGUAGE plpgsql","LANGUAGE sql","LANGUAGE python","LANGUAGE internal"],
-   a:0, e:"Procedural logic (DECLARE, IF, loops, explicit RETURN) needs <b>LANGUAGE plpgsql</b>. <code>LANGUAGE sql</code> is only for a single query with no control flow.", src:"Template & Types"},
-  {t:"mc", q:"To hold a MAX salary you looked up before dividing, the cleanest local declaration is…",
-   o:["hi NUMERIC; (or DECIMAL) so the arithmetic is exact","hi TEXT; and convert it back to a number later","hi BOOLEAN; since it is compared in an IF","no variable at all; you cannot store a MAX"],
-   a:0, e:"Declare numeric locals as <code>NUMERIC</code>/<code>DECIMAL</code> so later division is exact (avoids the integer-division trap). <code>SELECT MAX(salary) INTO hi</code> fills it.", src:"Template & Types"},
-  {t:"match", q:"Match each SQL data type to what it is used for in these functions.",
-   items:["A department or person name argument","An id, a count, or a headcount","An exact money or percentage value","A true / false flag result"],
-   terms:["VARCHAR(50)","INT","DECIMAL(p,s)","BOOLEAN","BYTEA"],
-   a:[0,1,2,3], e:"Names → VARCHAR(n); ids/counts → INT; money/percent → DECIMAL(p,s); yes/no → BOOLEAN. BYTEA (raw bytes) is a distractor here.", src:"Template & Types"}
+basics:[
+  {t:"mc", q:"A rate quoted as \"6% per year, compounded monthly\" — the 6% is the…",
+   o:["nominal annual rate; the per-period rate is 6%/12 = 0.5%","effective annual rate you use directly in F = P(1+i)^N","monthly rate, so i = 6% each month","simple-interest rate that never compounds"],
+   a:0, e:"A quoted \"X% per year compounded m times\" is the <b>nominal</b> rate. Convert to a per-period rate <code>i = r/m</code> before using it.", src:"Basics & Terms"},
+  {t:"mc", q:"What distinguishes compound interest from simple interest?",
+   o:["Compound interest earns interest on previously earned interest","Simple interest uses a higher rate than compound interest","Compound interest ignores the number of periods N","They are the same whenever N is greater than one"],
+   a:0, e:"Simple: <code>F = P(1+iN)</code> (interest only on P). Compound: <code>F = P(1+i)<sup>N</sup></code> — interest earns interest.", src:"Basics & Terms"},
+  {t:"num", q:"Deposit <b>$5,000</b> at <b>20% per year, simple interest</b>, for <b>5 years</b>. How much in total at the end? ($)",
+   a:10000, tol:1, unit:"dollars", e:"Simple interest: <code>F = P(1+iN) = 5000(1 + 0.20·5) = 5000·2 = $10,000</code>.", src:"Basics & Terms"},
+  {t:"num", q:"A loan is <b>18% per year compounded monthly</b>. What is the interest rate <b>per month</b>, as a percent? (%)",
+   a:1.5, tol:0.01, unit:"percent", e:"<code>i = r/m = 18%/12 = 1.5%</code> per month (0.015 as a decimal).", src:"Basics & Terms"},
+  {t:"match", q:"Match each symbol to what it represents.",
+   items:["P","F","i","N"],
+   terms:["Present amount (money at t = 0)","Future amount (money at t = N)","Interest rate per period","Number of interest periods","Equal periodic payment"],
+   a:[0,1,2,3], e:"P = present, F = future, i = rate per period, N = number of periods. (The 5th option, A, is the equal periodic payment used in uniform-series problems.)", src:"Basics & Terms"}
 ],
-lookup:[
-  {t:"mc", q:"What does <code>SELECT MAX(salary), MIN(salary) INTO hi, lo FROM employees WHERE department_id = d_id;</code> do?",
-   o:["Stores the department's max salary in hi and its min in lo","Returns two separate result rows, one for hi and one for lo","Inserts hi and lo as new rows into the employees table","Only works correctly if you run it twice, once per variable"],
-   a:0, e:"One query can load several aggregates into several variables in order: hi gets MAX, lo gets MIN.", src:"Reading Data"},
-  {t:"mc", q:"A department exists but has <b>no employees</b>. After <code>SELECT MAX(salary) INTO hi FROM employees WHERE department_id = d_id;</code>, what is <code>hi</code>?",
-   o:["NULL — MAX over zero rows is NULL","0 — aggregates default to zero when empty","an error is raised and the function stops","the previous value hi happened to hold"],
-   a:0, e:"MAX/MIN/AVG/SUM over an empty set return <b>NULL</b>. That NULL is exactly how you detect 'no employees'.", src:"Reading Data"},
-  {t:"mc", q:"Over a department with <b>no employees</b>, what does <code>SELECT COUNT(*) INTO n FROM employees WHERE department_id = d_id;</code> put in <code>n</code>?",
-   o:["0 — COUNT over zero rows is zero, never NULL","NULL, like the other aggregates","an error, because there is nothing to count","the number of departments instead"],
-   a:0, e:"Unlike MAX/MIN/AVG/SUM, <code>COUNT(*)</code> returns <b>0</b> for an empty set. So a count-based function often needs no separate empty check.", src:"Reading Data"},
-  {t:"mc", q:"After an aggregate query on an empty department, is the <code>FOUND</code> flag TRUE or FALSE?",
-   o:["TRUE — an aggregate always returns exactly one (NULL) row","FALSE — with no employee rows the FOUND flag is set false","It is simply left unchanged from the previous statement","It raises an error instead of setting the FOUND flag"],
-   a:0, e:"An aggregate query always returns one row (a NULL when empty), so <code>FOUND</code> is TRUE. Detect empty with <code>IS NULL</code> on the aggregate, not FOUND.", src:"Reading Data"},
-  {t:"ms", q:"Which aggregates return <b>NULL</b> (not 0) when run over a set with no rows? (Select all that apply.)",
-   o:["MAX(x)","MIN(x)","AVG(x)","SUM(x)","COUNT(*)"],
-   a:[0,1,2,3], e:"MAX, MIN, AVG, and SUM all return NULL over an empty set. Only <code>COUNT(*)</code> returns 0.", src:"Reading Data"}
+single:[
+  {t:"num", q:"Deposit <b>$5,000</b> at <b>3% per year compounded annually</b> for <b>5 years</b>. Future value? ($)",
+   a:5796.37, tol:2, unit:"dollars", e:"<code>F = 5000(1.03)<sup>5</sup> = 5000·1.159274 = $5,796.37</code>.", src:"Single Payment"},
+  {t:"num", q:"Deposit <b>$5,000</b> at <b>3% per year compounded monthly</b> for <b>5 years</b>. Future value? ($)",
+   a:5808.08, tol:2, unit:"dollars", e:"<code>i = 0.03/12</code>, <code>N = 60</code>: <code>F = 5000(1.0025)<sup>60</sup> = $5,808.08</code>. Monthly compounding beats annual slightly.", src:"Single Payment"},
+  {t:"num", q:"Deposit <b>$5,000</b> at <b>20% per year compounded annually</b> for <b>5 years</b>. Future value? ($)",
+   a:12441.60, tol:3, unit:"dollars", e:"<code>F = 5000(1.20)<sup>5</sup> = 5000·2.48832 = $12,441.60</code>.", src:"Single Payment"},
+  {t:"mc", q:"To find how much to deposit <b>now</b> (P) to have a target amount F in the future, you use…",
+   o:["P = F / (1 + i)^N","P = F · (1 + i)^N","P = F · (1 + i·N)","P = F / (i·N)"],
+   a:0, e:"Discounting a future amount to the present: <code>P = F/(1+i)<sup>N</sup></code> — the single-payment present-worth form.", src:"Single Payment"},
+  {t:"num", q:"How much must you deposit <b>now</b> to have <b>$5,000</b> in <b>5 years</b> at <b>20% per year compounded annually</b>? ($)",
+   a:2009.39, tol:2, unit:"dollars", e:"<code>P = 5000/(1.20)<sup>5</sup> = 5000/2.48832 = $2,009.39</code>.", src:"Single Payment"},
+  {t:"num", q:"You deposit <b>$2,000</b> and want it to grow to <b>$4,000</b> at <b>20% per year compounded annually</b>. How many <b>years</b>? (round to one decimal)",
+   a:3.8, tol:0.1, unit:"years", e:"<code>4000 = 2000(1.2)<sup>N</sup> → 2 = 1.2<sup>N</sup> → N = ln2/ln1.2 = 3.80 years</code>.", src:"Single Payment"},
+  {t:"num", q:"You deposit <b>$2,000</b> and it grows to <b>$4,000</b> in exactly <b>5 years</b>, compounded annually. What annual interest rate? (%, one decimal)",
+   a:14.87, tol:0.3, unit:"percent", e:"<code>4000 = 2000(1+i)<sup>5</sup> → (1+i)<sup>5</sup> = 2 → i = 2<sup>1/5</sup> − 1 = 0.1487 ≈ 14.9%</code>.", src:"Single Payment"},
+  {t:"sa", q:"<b>Two-deposit problem.</b> You want <b>$10,000</b> at the end of year 5. At <b>20%/yr compounded annually</b> you deposit <b>$2,000</b> at the <i>start of year 1</i>. How much must you deposit at the <i>start of year 2</i>? Show the steps.",
+   a:`<div class="sa-note">Move each cash flow to year 5, then solve for the unknown deposit.</div><div class="codeblk">Deposit at start of year 1 grows for 5 full years:
+   F1 = 2000·(1.20)^5 = $4,976.64
+
+Shortfall still needed at year 5:
+   10,000 − 4,976.64 = $5,023.36
+
+The 2nd deposit (start of year 2) grows for 4 years.
+Discount the shortfall back 4 years:
+   P2 = 5,023.36 / (1.20)^4 = $2,422.53</div><p>Deposit <b>$2,422.53</b> at the start of year 2. Key idea: a sum at the start of year 2 has 4 years of growth left to reach year 5.</p>`, src:"Single Payment"}
 ],
-edge:[
-  {t:"mc", q:"How do you detect that the <b>department does not exist</b> (so you can RETURN NULL)?",
-   o:["Look it up and test IF NOT FOUND after the SELECT INTO","Test whether MAX(salary) IS NULL after aggregating","Count the departments and check if it equals zero overall","Assume it exists; the aggregate will return NULL anyway"],
-   a:0, e:"Do a plain lookup <code>SELECT id INTO d_id FROM departments WHERE name = dept_name;</code> then <code>IF NOT FOUND THEN RETURN NULL;</code>. (An aggregate can't tell you the parent is missing.)", src:"Edge Cases"},
-  {t:"mc", q:"Why must you check that the department <b>exists</b> before checking whether it is <b>empty</b>?",
-   o:["Otherwise a missing department would wrongly return the −1.00 sentinel","Because the IS NULL test only works after a NOT FOUND check has run","Because the aggregate query would otherwise delete the department row","There is really no reason; either order gives the exact same result"],
-   a:0, e:"If you checked emptiness first, a non-existent department (whose aggregate is also NULL) would hit the −1.00 branch instead of returning NULL. Existence first, then emptiness.", src:"Edge Cases"},
-  {t:"mc", q:"The return type is <code>DECIMAL(5,2)</code> and the spec says return −1.00 when a department has no employees. You should write…",
-   o:["RETURN -1.00;","RETURN -1;","RETURN '−1.00';","RETURN NULL;"],
-   a:0, e:"Return the sentinel in the required format, <code>-1.00</code>, as a numeric literal (not a string, and not NULL — NULL is for the 'does not exist' case).", src:"Edge Cases"},
-  {t:"mc", q:"What is the correct keyword for a chained condition in PL/pgSQL (between IF and ELSE)?",
-   o:["ELSIF","ELSEIF","ELIF","ELSE IF"],
-   a:0, e:"PL/pgSQL spells it <code>ELSIF</code> (one word, no second E). Each branch can RETURN.", src:"Edge Cases"},
-  {t:"match", q:"Match each situation to what the model problem returns.",
-   items:["The department name matches no row","The department exists but has zero employees","The department has employees"],
-   terms:["RETURN NULL","RETURN -1.00","RETURN the computed % (rounded)","RETURN 0"],
-   a:[0,1,2], e:"No such department → NULL; exists but empty → −1.00 sentinel; otherwise → the computed, rounded percentage. (RETURN 0 is a distractor.)", src:"Edge Cases"},
-  {t:"sa", q:"<b>Edge-logic skeleton.</b> Without the final formula, write the header, DECLARE, and the two edge-case checks for: <code>sal_spread(dept_name VARCHAR(50)) RETURNS DECIMAL(5,2)</code> — NULL if the department does not exist, −1.00 if it has no employees.",
-   a:`<div class="sa-note">The structure is the hard part — the formula just slots in at the end.</div><div class="codeblk">CREATE OR REPLACE FUNCTION sal_spread(dept_name VARCHAR(50))
-RETURNS DECIMAL(5,2) AS $$
-DECLARE
-  d_id INT;
-  hi   NUMERIC;
-  lo   NUMERIC;
-BEGIN
-  -- 1) department exists?
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN
-    RETURN NULL;
-  END IF;
-
-  -- 2) any employees?
-  SELECT MAX(salary), MIN(salary) INTO hi, lo
-    FROM employees WHERE department_id = d_id;
-  IF lo IS NULL THEN
-    RETURN -1.00;
-  END IF;
-
-  -- 3) ... compute and RETURN here ...
-END;
-$$ LANGUAGE plpgsql;</div><p><b>NOT FOUND</b> after the plain lookup handles "does not exist" → NULL. <b>lo IS NULL</b> after the aggregate handles "no employees" → −1.00. The order (existence, then emptiness) matters.</p>`, src:"Edge Cases"}
+nominal:[
+  {t:"mc", q:"The effective annual rate for a nominal rate r compounded m times per year is…",
+   o:["i_eff = (1 + r/m)^m − 1","i_eff = r·m","i_eff = (1 + r)^m − 1","i_eff = r/m"],
+   a:0, e:"<code>i_eff = (1 + r/m)<sup>m</sup> − 1</code>. It's always ≥ the nominal rate, with equality only when m = 1.", src:"Nominal vs Effective"},
+  {t:"num", q:"What is the <b>effective annual rate</b> of <b>10% per year compounded monthly</b>? (%, two decimals)",
+   a:10.47, tol:0.05, unit:"percent", e:"<code>(1 + 0.10/12)<sup>12</sup> − 1 = 0.10471 = 10.47%</code>.", src:"Nominal vs Effective"},
+  {t:"num", q:"Deposit <b>$5,000</b> at <b>20% per year compounded monthly</b> for <b>5 years</b>. Future value? ($)",
+   a:13479.85, tol:4, unit:"dollars", e:"<code>i = 0.20/12</code>, <code>N = 60</code>: <code>F = 5000(1 + 0.20/12)<sup>60</sup> = $13,479.85</code> (vs $12,441.60 compounded annually).", src:"Nominal vs Effective"},
+  {t:"num", q:"A CD pays <b>2.75% per year nominal, compounded monthly</b>. Deposit <b>$5,000</b> for <b>5 years</b> — value at the end? ($)",
+   a:5736.11, tol:2, unit:"dollars", e:"<code>i = 0.0275/12</code>, <code>N = 60</code>: <code>F = 5000(1 + 0.0275/12)<sup>60</sup> = $5,736.11</code>.", src:"Nominal vs Effective"},
+  {t:"mc", q:"On that CD problem, a student got ≈ $1.19 <b>billion</b>. What did they most likely do wrong?",
+   o:["Used 2.75 instead of 0.0275 for the rate (forgot to divide by 100)","Used N = 60 months instead of N = 5 years for the period count","Rounded the monthly interest rate too early, before the final step","Used simple interest in place of monthly compound interest"],
+   a:0, e:"Plugging <code>2.75</code> (i.e. 275%) instead of <code>0.0275</code> explodes the answer. Always convert a percent to a decimal first.", src:"Nominal vs Effective"},
+  {t:"num", q:"Deposit <b>$10,000</b> at <b>10% per year compounded monthly</b>. Value after <b>50 years</b>? ($ — don't round i early)",
+   a:1453699.23, tol:400, unit:"dollars", e:"<code>i = 0.10/12</code>, <code>N = 600</code>: <code>F = 10,000(1 + 0.10/12)<sup>600</sup> = $1,453,699.23</code>. Rounding i to 0.0083 early loses thousands.", src:"Nominal vs Effective"}
 ],
-compute:[
-  {t:"mc", q:"\"The difference between MAX and MIN as a % of the <b>lower</b> one\" is computed as…",
-   o:["(MAX − MIN) / MIN * 100","(MAX − MIN) / MAX * 100","(MAX + MIN) / 2 * 100","MAX / MIN * 100"],
-   a:0, e:"Percent of the lower value = difference divided by the <b>lower</b> (MIN), times 100: <code>(MAX − MIN) / MIN * 100</code>.", src:"Computing & Formatting"},
-  {t:"mc", q:"Your columns are <code>INT</code>. Why does <code>(hi - lo) / lo * 100</code> often come out as <b>0</b>?",
-   o:["Integer division truncates the fraction before multiplying by 100","Because lo is always much larger than the quantity hi − lo","The × 100 runs before the division because of operator order","NULL values in the column silently turn the whole result into zero"],
-   a:0, e:"With integer operands, <code>/</code> truncates (e.g. 30/100 = 0) <i>before</i> the ×100. Cast to numeric or multiply by <code>100.0</code> first.", src:"Computing & Formatting"},
-  {t:"mc", q:"Which expression avoids the integer-division trap?",
-   o:["(hi - lo) * 100.0 / lo","(hi - lo) / lo * 100","((hi - lo) / lo) * 100","(hi - lo) / (lo * 100)"],
-   a:0, e:"Multiplying by <code>100.0</code> (a numeric literal) forces numeric arithmetic, so no truncation. <code>(hi - lo)::numeric / lo * 100</code> works too.", src:"Computing & Formatting"},
-  {t:"mc", q:"To return a value as <code>DECIMAL(5,2)</code>, you fit it to 2 decimals with…",
-   o:["ROUND(x, 2)","TRUNCATE(x)","FORMAT(x, 2)","x::int"],
-   a:0, e:"<code>ROUND(x, 2)</code> rounds to the scale 2 that <code>DECIMAL(5,2)</code> expects. <code>x::int</code> would drop the decimals entirely.", src:"Computing & Formatting"},
-  {t:"mc", q:"To put the integer <code>n</code> into a returned text string, you can write…",
-   o:["n::text, or just concatenate it with ||","n.toString() as a method call","str(n) using a built-in function","nothing works — numbers can't go in text"],
-   a:0, e:"Cast with <code>n::text</code>, or rely on <code>||</code> which casts the number to text when concatenating.", src:"Computing & Formatting"},
-  {t:"sa", q:"Finish the model problem: complete <code>sal_spread</code> so it returns the % difference between MAX and MIN salary of the lower one, as <code>DECIMAL(5,2)</code>, NULL if the department does not exist, −1.00 if it has no employees.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION sal_spread(dept_name VARCHAR(50))
-RETURNS DECIMAL(5,2) AS $$
-DECLARE
-  d_id INT;
-  hi   NUMERIC;
-  lo   NUMERIC;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN
-    RETURN NULL;                       -- no such department
-  END IF;
-
-  SELECT MAX(salary), MIN(salary) INTO hi, lo
-    FROM employees WHERE department_id = d_id;
-  IF lo IS NULL THEN
-    RETURN -1.00;                      -- exists, but no employees
-  END IF;
-
-  RETURN ROUND((hi - lo) / lo * 100, 2);  -- % of the lower one
-END;
-$$ LANGUAGE plpgsql;</div><p>Formula <code>(hi − lo) / lo * 100</code>; <code>ROUND(..., 2)</code> fits <code>DECIMAL(5,2)</code>. <code>salary</code> is DECIMAL so no integer-division cast is needed (if it were INT, use <code>(hi-lo)*100.0/lo</code>).</p>`, src:"Computing & Formatting"}
+series:[
+  {t:"mc", q:"To find the future value F of depositing a fixed amount A at the end of every period, use the factor…",
+   o:["F = A · [((1+i)^N − 1) / i]","F = A · [i / ((1+i)^N − 1)]","F = A · (1+i)^N","F = A · N · i"],
+   a:0, e:"Uniform-series compound amount (F given A): <code>F = A·[((1+i)<sup>N</sup> − 1)/i]</code>. Its reciprocal (A given F) is the sinking-fund factor.", src:"Uniform Series"},
+  {t:"num", q:"Deposit <b>$1,000 at the end of each year</b>, <b>10%/yr compounded annually</b>, for <b>30 years</b>. Total value? ($)",
+   a:164494.02, tol:20, unit:"dollars", e:"<code>F = 1000·[(1.10<sup>30</sup> − 1)/0.10] = 1000·164.494 = $164,494.02</code>.", src:"Uniform Series"},
+  {t:"num", q:"Deposit <b>$80 at the end of each month</b>, <b>10%/yr compounded monthly</b>, for <b>30 years</b>. Total value? ($)",
+   a:180839.03, tol:30, unit:"dollars", e:"<code>i = 0.10/12</code>, <code>N = 360</code>: <code>F = 80·[((1+i)<sup>360</sup> − 1)/i] = $180,839.03</code>.", src:"Uniform Series"},
+  {t:"mc", q:"Payments made at the <b>beginning</b> of each period (an annuity due) instead of the end means the future value is…",
+   o:["multiplied by (1 + i) — each payment earns one extra period","multiplied by N — one extra payment overall","divided by (1 + i) — one fewer period of growth","exactly the same; timing within a period doesn't matter"],
+   a:0, e:"Every beginning-of-period payment compounds one extra period, so <code>F_due = F_ordinary·(1+i)</code>.", src:"Uniform Series"},
+  {t:"num", q:"Deposit <b>$80 at the START of each month</b> (now), <b>10%/yr compounded monthly</b>, for <b>30 years</b>. Total value? ($)",
+   a:182346.03, tol:40, unit:"dollars", e:"Annuity due = ordinary · (1+i): <code>180,839.03 · (1 + 0.10/12) = $182,346.03</code>.", src:"Uniform Series"},
+  {t:"match", q:"Match each cash-flow conversion to its factor name.",
+   items:["F given A (deposits → lump sum later)","A given F (target lump sum → each payment)","P given A (stream of payments → value now)","A given P (loan now → each payment)"],
+   terms:["Uniform-series compound amount","Sinking fund","Uniform-series present worth","Capital recovery","Single-payment compound amount"],
+   a:[0,1,2,3], e:"F/A = compound amount, A/F = sinking fund, P/A = present worth, A/P = capital recovery. (The 5th, single-payment compound amount, is F/P.)", src:"Uniform Series"}
 ],
-problems:[
-  {t:"sa", q:"<b>INT return / count.</b> Write <code>dept_headcount(dept_name VARCHAR(50)) RETURNS INT</code> that returns the number of employees in the department, or <b>NULL</b> if the department does not exist.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION dept_headcount(dept_name VARCHAR(50))
-RETURNS INT AS $$
-DECLARE
-  d_id INT;
-  n    INT;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN
-    RETURN NULL;
-  END IF;
-
-  SELECT COUNT(*) INTO n
-    FROM employees WHERE department_id = d_id;
-  RETURN n;          -- COUNT(*) is 0 when empty, so no extra check
-END;
-$$ LANGUAGE plpgsql;</div><p>Because <code>COUNT(*)</code> returns <b>0</b> (not NULL) for an empty department, no separate "no employees" branch is needed — an empty department correctly returns 0.</p>`, src:"Worked Problems"},
-  {t:"sa", q:"<b>DECIMAL return / average.</b> Write <code>avg_salary(dept_name VARCHAR(50)) RETURNS DECIMAL(10,2)</code>: the average salary rounded to 2 decimals, <b>NULL</b> if the department does not exist, <b>−1.00</b> if it has no employees.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION avg_salary(dept_name VARCHAR(50))
-RETURNS DECIMAL(10,2) AS $$
-DECLARE
-  d_id INT;
-  a    NUMERIC;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN
-    RETURN NULL;
-  END IF;
-
-  SELECT AVG(salary) INTO a
-    FROM employees WHERE department_id = d_id;
-  IF a IS NULL THEN
-    RETURN -1.00;
-  END IF;
-
-  RETURN ROUND(a, 2);
-END;
-$$ LANGUAGE plpgsql;</div><p>Same existence/emptiness pattern. <code>AVG</code> is NULL over an empty set → the −1.00 branch. <code>ROUND(a, 2)</code> matches the scale. (<code>DECIMAL(10,2)</code> holds up to 99,999,999.99.)</p>`, src:"Worked Problems"},
-  {t:"sa", q:"<b>VARCHAR return / string.</b> Write <code>employee_card(emp_id INT) RETURNS VARCHAR(120)</code> returning <code>'Last, First — Title ($salary)'</code>, or <code>'No employee #<id>'</code> if no such employee. Use COALESCE so a missing title still works.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION employee_card(emp_id INT)
-RETURNS VARCHAR(120) AS $$
-DECLARE
-  ln  VARCHAR(50);
-  fn  VARCHAR(50);
-  ti  VARCHAR(50);
-  sal DECIMAL(10,2);
-BEGIN
-  SELECT last_name, first_name, title, salary
-    INTO ln, fn, ti, sal
-    FROM employees WHERE id = emp_id;
-  IF NOT FOUND THEN
-    RETURN 'No employee #' || emp_id;
-  END IF;
-
-  RETURN ln || ', ' || fn
-      || ' — ' || COALESCE(ti, 'N/A')
-      || ' ($' || sal::text || ')';
-END;
-$$ LANGUAGE plpgsql;</div><p>A plain lookup, so <code>NOT FOUND</code> handles the missing case. <code>COALESCE(ti,'N/A')</code> protects the one column that might be NULL; <code>sal::text</code> casts the number into the string; <code>|| emp_id</code> casts the id automatically.</p>`, src:"Worked Problems"},
-  {t:"sa", q:"<b>BOOLEAN return.</b> Write <code>earns_above(emp_id INT, threshold DECIMAL(10,2)) RETURNS BOOLEAN</code>: TRUE if the employee's salary is greater than the threshold, FALSE otherwise, and <b>NULL</b> if the employee does not exist.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION earns_above(emp_id INT,
-                                     threshold DECIMAL(10,2))
-RETURNS BOOLEAN AS $$
-DECLARE
-  sal DECIMAL(10,2);
-BEGIN
-  SELECT salary INTO sal
-    FROM employees WHERE id = emp_id;
-  IF NOT FOUND THEN
-    RETURN NULL;
-  END IF;
-
-  RETURN sal > threshold;   -- a comparison is already BOOLEAN
-END;
-$$ LANGUAGE plpgsql;</div><p>Two parameters, the second itself <code>DECIMAL(10,2)</code>. A comparison <code>sal > threshold</code> evaluates to a BOOLEAN, so you can return it directly. Missing employee → NULL.</p>`, src:"Worked Problems"},
-  {t:"sa", q:"<b>DECIMAL return / ratio of total.</b> Write <code>payroll_share(dept_name VARCHAR(50)) RETURNS DECIMAL(5,2)</code>: the department's total salary as a % of the whole company's payroll, rounded to 2 dp; <b>NULL</b> if the department does not exist; <b>−1.00</b> if it has no employees.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION payroll_share(dept_name VARCHAR(50))
-RETURNS DECIMAL(5,2) AS $$
-DECLARE
-  d_id      INT;
-  dept_sum  NUMERIC;
-  total_sum NUMERIC;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN
-    RETURN NULL;
-  END IF;
-
-  SELECT SUM(salary) INTO dept_sum
-    FROM employees WHERE department_id = d_id;
-  IF dept_sum IS NULL THEN
-    RETURN -1.00;                 -- no employees in this department
-  END IF;
-
-  SELECT SUM(salary) INTO total_sum FROM employees;  -- whole company
-  RETURN ROUND(dept_sum / total_sum * 100, 2);
-END;
-$$ LANGUAGE plpgsql;</div><p><code>SUM</code> is NULL for an empty department → −1.00. The company total comes from a second aggregate over all employees; <code>ROUND(..., 2)</code> fits <code>DECIMAL(5,2)</code>. (If salaries were INT, cast: <code>dept_sum::numeric / total_sum * 100</code>.)</p>`, src:"Worked Problems"}
+loans:[
+  {t:"mc", q:"The monthly payment on a loan (a present amount P repaid over N periods) is found with which factor?",
+   o:["Capital recovery: A = P·[i(1+i)^N / ((1+i)^N − 1)]","Sinking fund factor: A = F·[i / ((1+i)^N − 1)], for savings","Single-payment present worth: P = F/(1+i)^N","Single-payment compound amount: F = P(1+i)^N"],
+   a:0, e:"A loan converts a present P into equal payments A — the <b>capital-recovery (A/P)</b> factor.", src:"Loans & Balance"},
+  {t:"num", q:"Borrow <b>$32,000</b> at <b>6.3%/yr nominal, compounded monthly</b>, for a <b>4-year</b> loan (48 payments). Monthly payment? ($)",
+   a:755.93, tol:1, unit:"dollars", e:"<code>i = 0.063/12</code>, <code>N = 48</code>: <code>A = 32000·[i(1+i)<sup>48</sup>/((1+i)<sup>48</sup>−1)] = $755.93</code>.", src:"Loans & Balance"},
+  {t:"num", q:"For that same $32,000 / 6.3% / 48-month loan, what is the <b>total amount paid</b> over the life of the loan? ($)",
+   a:36284.65, tol:5, unit:"dollars", e:"<code>total = 48 · 755.93 = $36,284.65</code>. Interest paid = 36,284.65 − 32,000 = $4,284.65.", src:"Loans & Balance"},
+  {t:"num", q:"A <b>$200,000</b>, <b>30-year fixed</b> mortgage at <b>5%/yr nominal compounded monthly</b> (360 payments). Monthly payment? ($)",
+   a:1073.64, tol:1, unit:"dollars", e:"<code>i = 0.05/12</code>, <code>N = 360</code>: <code>A = 200000·[i(1+i)<sup>360</sup>/((1+i)<sup>360</sup>−1)] = $1,073.64</code>.", src:"Loans & Balance"},
+  {t:"mc", q:"The amount you still owe partway through a loan equals…",
+   o:["the present worth of the payments that remain","the sum of the payments you have already made","the original principal minus the payments made","the future value of all payments at the final period"],
+   a:0, e:"The payoff (remaining balance) is the <b>present worth of the remaining payments</b> — apply P/A to the number of payments still owed.", src:"Loans & Balance"},
+  {t:"num", q:"A car is <b>$475/month for 60 months</b> at <b>5.6%/yr nominal compounded monthly</b>. How much is still owed <b>right after the 42nd payment</b>? ($)",
+   a:8182.46, tol:5, unit:"dollars", e:"Payments left: <code>n = 60 − 42 = 18</code>. Balance = PV of those 18: <code>475·[((1+i)<sup>18</sup>−1)/(i(1+i)<sup>18</sup>)] = $8,182.46</code> with <code>i = 0.056/12</code>.", src:"Loans & Balance"}
 ],
-pitfalls:[
-  {t:"ms", q:"Which of these are real mistakes that would make a salary-% function wrong or error? (Select all that apply.)",
-   o:["Using IF NOT FOUND to detect a department with no employees","Dividing two INT columns without a numeric cast","Returning the computed value without ROUND to the scale","Checking existence before checking emptiness"],
-   a:[0,1,2], e:"FOUND can't detect an empty aggregate (use IS NULL); integer division truncates; and skipping ROUND can overflow or mis-format. Checking existence first is <b>correct</b>, not a mistake.", src:"Pitfalls & Checklist"},
-  {t:"mc", q:"A PL/pgSQL function can reach <code>END;</code> on some branch without a RETURN. What happens?",
-   o:["A run-time error: control reached end of function without RETURN","It silently returns NULL on that branch instead of erroring","It quietly returns whichever local variable was assigned last","It simply restarts the body again from the BEGIN keyword"],
-   a:0, e:"Every path must RETURN or you get a run-time error. Make sure each IF branch returns, or add a final RETURN.", src:"Pitfalls & Checklist"},
-  {t:"mc", q:"If the <b>lower</b> salary could be 0, the expression <code>(hi - lo) / lo</code> will…",
-   o:["raise a division-by-zero error unless you guard lo = 0 first","quietly return a value of 0 without raising any error at all","automatically and safely return NULL with no further handling","always round the result up to the nearest whole percent"],
-   a:0, e:"Dividing by zero errors. If a zero lower value is possible, guard it (e.g. <code>IF lo = 0 THEN RETURN NULL;</code> or a stated sentinel) before dividing.", src:"Pitfalls & Checklist"},
-  {t:"ms", q:"Before submitting a code answer, which should you verify? (Select all that apply.)",
-   o:["Argument and RETURNS types match the spec exactly","Missing parent → NULL, no child rows → the right-format sentinel","Body is dollar-quoted and ends with LANGUAGE plpgsql;","Every branch returns a value of the declared type"],
-   a:[0,1,2,3], e:"All four are part of the checklist: correct types, correct edge returns, proper body/LANGUAGE, and a RETURN on every path.", src:"Pitfalls & Checklist"},
-  {t:"sa", q:"<b>Putting it together.</b> Write <code>salary_range(dept_name VARCHAR(50)) RETURNS DECIMAL(10,2)</code>: the MAX minus MIN salary in the department; <b>NULL</b> if the department does not exist; <b>−1.00</b> if it has no employees.",
-   a:`<div class="codeblk">CREATE OR REPLACE FUNCTION salary_range(dept_name VARCHAR(50))
-RETURNS DECIMAL(10,2) AS $$
-DECLARE
-  d_id INT;
-  hi   NUMERIC;
-  lo   NUMERIC;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN
-    RETURN NULL;
-  END IF;
+mixed:[
+  {t:"num", q:"How many <b>whole months</b> to at least <b>double</b> an investment at <b>5%/yr nominal compounded monthly</b>? (give the number of months, rounded up)",
+   a:167, tol:0.5, unit:"months", e:"<code>N = ln2/ln(1 + 0.05/12) = 166.7 → 167 months</code> = 13 years 11 months. Round UP, since 166 months isn't quite doubled.", src:"Worked Problems"},
+  {t:"num", q:"At <b>5%/yr compounded annually</b>, the minimum <b>whole years</b> to at least double your money is…",
+   a:15, tol:0.5, unit:"years", e:"<code>N = ln2/ln1.05 = 14.2 → 15 whole years</code> (14 years isn't quite double). The \"Rule of 72\" estimates 72/5 ≈ 14.4.", src:"Worked Problems"},
+  {t:"mc", q:"You deposit a fixed amount once a YEAR, but the account compounds MONTHLY. The cleanest approach is to…",
+   o:["convert to the effective annual rate, then use the yearly F/A factor","use i = r/12 with N in years","ignore compounding frequency; annual deposits only need the annual rate","switch every deposit to a monthly amount of A/12"],
+   a:0, e:"Match the factor's period to the payment period: yearly deposits → use a yearly rate, which must be the <b>effective annual rate</b> <code>(1+r/12)<sup>12</sup>−1</code>.", src:"Worked Problems"},
+  {t:"sa", q:"<b>Deposit then stop.</b> You deposit <b>$80 at the end of each month for 10 years</b>, then stop, at <b>10%/yr compounded monthly</b>. What is the account worth at <b>30 years</b>? Show both steps.",
+   a:`<div class="sa-note">Build the annuity to year 10, then let that lump sum grow 20 more years.</div><div class="codeblk">i = 0.10/12 ,  deposits N = 120 (10 years of months)
 
-  SELECT MAX(salary), MIN(salary) INTO hi, lo
-    FROM employees WHERE department_id = d_id;
-  IF hi IS NULL THEN
-    RETURN -1.00;
-  END IF;
+Step 1 — value of the deposits at year 10:
+   F10 = 80 · [((1+i)^120 − 1)/i] = $16,387.60
 
-  RETURN ROUND(hi - lo, 2);
-END;
-$$ LANGUAGE plpgsql;</div><p>Same pattern as the model problem, but the result is a plain difference instead of a percentage — a good sanity check that you have the existence/emptiness structure memorized. <code>ROUND(hi - lo, 2)</code> fits the scale.</p>`, src:"Pitfalls & Checklist"}
+Step 2 — no more deposits; grow 20 years (240 months):
+   F30 = 16,387.60 · (1+i)^240 = $120,089.53</div><p>Worth <b>$120,089.53</b> at year 30. The money keeps compounding after deposits stop — a single-payment F/P move on the year-10 balance.</p>`, src:"Worked Problems"},
+  {t:"ms", q:"Which of these are genuine point-losing mistakes on these problems? (Select all that apply.)",
+   o:["Using the nominal rate with N in months instead of i = r/12","Rounding the per-period interest rate before the final step","Using payments made instead of payments remaining for a loan balance","Drawing a cash-flow timeline before choosing a factor"],
+   a:[0,1,2], e:"The first three are classic errors. Drawing a timeline first is <b>good practice</b>, not a mistake.", src:"Worked Problems"},
+  {t:"sa", q:"<b>Which factor?</b> For each, name the single factor to use (F/P, P/F, F/A, A/F, P/A, or A/P): (a) grow one deposit to the future; (b) monthly payment on a car loan; (c) value today of a pension paying $A/yr; (d) yearly saving needed to reach a target F.",
+   a:`<div class="codeblk">(a) one deposit → future lump sum .......... F/P   F = P(1+i)^N
+(b) loan now → equal payments .............. A/P   A = P·[i(1+i)^N/((1+i)^N−1)]
+(c) stream of payments → value now ......... P/A   P = A·[((1+i)^N−1)/(i(1+i)^N)]
+(d) target future lump → each payment ...... A/F   A = F·[i/((1+i)^N−1)]</div><p>Choose the factor whose <b>two known letters</b> match what you have and what you want. Keep i and N on the same period.</p>`, src:"Worked Problems"}
 ]
 };
 
 /* =========================================================
    RENDER + GRADING
    ========================================================= */
-const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Numeric Entry", match:"Matching", sa:"Write the Function"};
+const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Calculate", match:"Matching", sa:"Worked Solution"};
 const SCORED = {mc:1, ms:1, num:1, match:1, sa:0};
 
 const store=(()=>{try{const t="__t";localStorage.setItem(t,"1");localStorage.removeItem(t);return localStorage;}catch(e){return null;}})();
-const KEY="sql-code-progress-v1";
+const KEY="eng-econ-progress-v1";
 let state={}; try{ if(store) state=JSON.parse(store.getItem(KEY)||"{}"); }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
-let flags={}; try{ if(store) flags=JSON.parse(store.getItem("sql-code-flags")||"{}"); }catch(e){ flags={}; }
-function saveFlags(){ try{ store && store.setItem("sql-code-flags", JSON.stringify(flags)); }catch(e){} }
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("eng-econ-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("eng-econ-flags", JSON.stringify(flags)); }catch(e){} }
 
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function seededPerm(n, seed){
@@ -726,12 +573,13 @@ function seededPerm(n, seed){
 function qid(sec,i){ return sec+"-"+i; }
 function arrEq(a,b){ if(!a||!b||a.length!==b.length) return false; const x=[...a].sort(),y=[...b].sort(); return x.every((v,i)=>v===y[i]); }
 function arrEq2(a,b){ if(!a||!b||a.length!==b.length) return false; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false; return true; }
+function parseNum(s){ return parseFloat(String(s).replace(/[^0-9.\-]/g,"")); }
 
 function isCorrect(q, ans){
   if(ans===undefined || ans===null) return false;
   if(q.t==="mc") return ans===q.a;
   if(q.t==="ms"){ const sel=Array.isArray(ans)?ans:(ans&&ans.sel); return arrEq(sel, q.a); }
-  if(q.t==="num"){ const v=parseFloat(String(ans).replace(",",".")); return isFinite(v) && Math.abs(v-q.a)<=(q.tol||0.01); }
+  if(q.t==="num"){ const v=parseNum(ans); return isFinite(v) && Math.abs(v-q.a)<=(q.tol||0.01); }
   if(q.t==="match") return arrEq2(ans, q.a);
   return false;
 }
@@ -742,42 +590,39 @@ const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let activePart=null, cramPinned=false, curFilter="all";
 
 const CRAM_HTML=`<div class="cram">
-<h5>The Skeleton</h5>
-<div class="codeblk">CREATE OR REPLACE FUNCTION f(a VARCHAR(50))
-RETURNS DECIMAL(5,2) AS $$
-DECLARE d_id INT; hi NUMERIC; lo NUMERIC;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = a;
-  IF NOT FOUND THEN RETURN NULL; END IF;   -- missing
-  SELECT MAX(salary), MIN(salary) INTO hi, lo
-    FROM employees WHERE department_id = d_id;
-  IF lo IS NULL THEN RETURN -1.00; END IF; -- empty
-  RETURN ROUND((hi - lo) / lo * 100, 2);
-END; $$ LANGUAGE plpgsql;</div>
-<h5>Types &amp; Formatting</h5>
+<h5>Setup — every problem</h5>
 <ul>
-<li><b>DECIMAL(5,2)</b> = 5 digits, 2 after point → max <b>999.99</b>. Fit with <code>ROUND(x, 2)</code>.</li>
-<li>Match arg type to spec (<code>VARCHAR(50)</code>, <code>INT</code>, <code>DECIMAL(10,2)</code>, <code>BOOLEAN</code>).</li>
-<li>Numeric locals = <code>NUMERIC</code>/<code>DECIMAL</code>. Cast: <code>x::text</code>, <code>x::numeric</code>.</li>
+<li>Per-period rate <b><code>i = r / m</code></b>; periods <b><code>N = m · years</code></b>.</li>
+<li>m: annual 1 · semiannual 2 · quarterly 4 · <b>monthly 12</b> · daily 365.</li>
+<li>Percent → decimal (2.75% → 0.0275). <b>Don't round i early.</b></li>
+<li>Keep i and N on the <b>same period</b>.</li>
 </ul>
-<h5>Edge Cases</h5>
+<h5>Single Payment</h5>
+<div class="codeblk">F = P (1+i)^N          P = F / (1+i)^N
+simple:  F = P (1 + i·N)
+N = ln(F/P)/ln(1+i)    i = (F/P)^(1/N) − 1</div>
+<h5>Nominal → Effective</h5>
+<div class="codeblk">i_eff = (1 + r/m)^m − 1
+10%/mo → (1+0.10/12)^12 − 1 = 10.47%</div>
+<h5>Uniform Series (end-of-period A)</h5>
+<div class="codeblk">F/A:  F = A·[((1+i)^N − 1)/i]
+A/F:  A = F·[i/((1+i)^N − 1)]
+P/A:  P = A·[((1+i)^N − 1)/(i(1+i)^N)]
+A/P:  A = P·[i(1+i)^N/((1+i)^N − 1)]</div>
 <ul>
-<li>Parent missing → <b>NULL</b>: plain lookup + <code>IF NOT FOUND</code>.</li>
-<li>No child rows → <b>sentinel</b> (−1.00): aggregate <code>IS NULL</code> (not FOUND!).</li>
-<li>Order: <b>existence first</b>, then emptiness, then compute.</li>
-<li><code>COUNT(*)</code>=0 on empty; <b>MAX/MIN/AVG/SUM = NULL</b> on empty.</li>
+<li><b>Annuity due</b> (pay at START): multiply by <code>(1+i)</code>.</li>
 </ul>
-<h5>Computing</h5>
+<h5>Loans</h5>
 <ul>
-<li>% of the lower one: <code>(MAX − MIN) / MIN * 100</code>. A of B %: <code>A / B * 100</code>.</li>
-<li><b>Integer-division trap:</b> INT/INT truncates → <code>*100.0</code> or <code>::numeric</code>.</li>
-<li>Guard <code>lo = 0</code> (divide-by-zero) if a zero lower value is possible.</li>
+<li>Payment = <b>A/P</b> on the amount borrowed.</li>
+<li>Total paid = A · N; interest = total − P.</li>
+<li><b>Remaining balance</b> = P/A on the payments <b>still owed</b>.</li>
 </ul>
-<h5>Before you submit</h5>
+<h5>Handy</h5>
 <ul>
-<li>Arg + RETURNS types exact · NULL vs sentinel (right format) · ROUND to scale.</li>
-<li>Every path RETURNs · body in <code>$$ ... $$</code> · ends <code>LANGUAGE plpgsql;</code></li>
+<li>Double your money: <code>N = ln2 / ln(1+i)</code>.</li>
+<li>Round UP period counts that must "at least" reach a target.</li>
+<li>Draw the timeline; mark start vs end of period.</li>
 </ul>
 </div>`;
 
@@ -796,7 +641,7 @@ SECTIONS.forEach((sec,si)=>{
     const item=document.createElement("div");
     item.className="qitem"; item.id="q-"+id; item.dataset.sec=sec.id; item.dataset.scored=SCORED[q.t]; item.style.setProperty("--hue",hue);
     const on=flags[id]?" on":"";
-    const typeCls = q.t==="sa" ? "qtype code" : "qtype";
+    const typeCls = q.t==="num" ? "qtype calc" : "qtype";
     item.innerHTML=`<div class="qbadge">${qnum}</div>
       <div class="qbody">
         <div class="qmeta"><span class="qpts" id="pts-${id}">${SCORED[q.t]?'1 point':'self-check'}</span><span class="${typeCls}">${TYPE_LABEL[q.t]}</span><button class="star${on}" data-id="${id}" type="button" title="Flag for review" aria-label="Flag for review">★</button></div>
@@ -819,14 +664,16 @@ function buildBody(secId, i, q, id){
         <span class="mk">${q.t==="ms"?"✓":""}</span><span class="ot">${q.o[oi]}</span><span class="tag">Correct</span>
       </button>`).join("")+`</div>`+(q.t==="ms"?`<button class="submit" data-id="${id}" type="button">Check answer</button>`:``);
   } else if(q.t==="num"){
-    wrap.innerHTML=`<div class="numrow"><input class="numin" id="in-${id}" type="text" inputmode="decimal" autocomplete="off" placeholder="Enter a number" aria-label="Your numeric answer"><button class="submit" data-id="${id}" type="button">Check answer</button></div>`;
+    const pre = q.unit==="percent" ? "" : "$";
+    const post = q.unit==="percent" ? "%" : (q.unit&&q.unit!=="dollars" ? q.unit : "");
+    wrap.innerHTML=`<div class="numrow">${pre?`<span class="numprefix">${pre}</span>`:""}<input class="numin" id="in-${id}" type="text" inputmode="decimal" autocomplete="off" placeholder="your answer" aria-label="Your numeric answer">${post?`<span class="numunit">${post}</span>`:""}<button class="submit" data-id="${id}" type="button">Check answer</button></div>`;
   } else if(q.t==="match"){
     const legend=`<div class="terms-legend">Options: <b>${q.terms.join("</b> · <b>")}</b></div>`;
     const optsHtml=`<option value="-1">— choose —</option>`+q.terms.map((t,ti)=>`<option value="${ti}">${t}</option>`).join("");
     const rows=q.items.map((d,di)=>`<tr id="row-${id}-${di}"><td class="desc">${di+1}. ${d}</td><td class="pick"><select class="msel" id="sel-${id}-${di}" aria-label="Choice for item ${di+1}">${optsHtml}</select></td></tr>`).join("");
     wrap.innerHTML=legend+`<table class="match"><tbody>${rows}</tbody></table><button class="submit" data-id="${id}" type="button">Check answer</button>`;
   } else if(q.t==="sa"){
-    wrap.innerHTML=`<button class="submit" data-id="${id}" type="button" style="background:transparent;color:var(--hue)">Show model solution</button><div class="sa-ans">${q.a}</div>`;
+    wrap.innerHTML=`<button class="submit" data-id="${id}" type="button" style="background:transparent;color:var(--hue)">Show worked solution</button><div class="sa-ans">${q.a}</div>`;
   }
   renderQ(secId, i, q, id);
 }
@@ -840,6 +687,9 @@ examEl.addEventListener("click",(ev)=>{
   if(opt){ handleOpt(opt); return; }
   const sub=ev.target.closest(".submit");
   if(sub){ handleSubmit(sub.dataset.id); return; }
+});
+examEl.addEventListener("keydown",(ev)=>{
+  if(ev.key==="Enter" && ev.target.classList.contains("numin")){ ev.preventDefault(); const id=ev.target.id.slice(3); handleSubmit(id); }
 });
 
 function parseId(id){ const k=id.lastIndexOf("-"); return [id.slice(0,k), +id.slice(k+1)]; }
@@ -875,7 +725,7 @@ function handleSubmit(id){
     const item=document.getElementById("q-"+id);
     const open=item.classList.toggle("open");
     const btn=item.querySelector(".submit");
-    btn.textContent=open?"Hide model solution":"Show model solution";
+    btn.textContent=open?"Hide worked solution":"Show worked solution";
     if(open) state[id]="seen"; else delete state[id]; save();
     updateCount();
   }
@@ -917,7 +767,8 @@ function renderQ(secId,i,q,id){
     const inp=document.getElementById("in-"+id);
     if(ans!==undefined){ inp.value=ans; inp.disabled=true; const ok=isCorrect(q,ans); inp.classList.toggle("okb",ok); inp.classList.toggle("nob",!ok);
       const btn=document.querySelector(`.submit[data-id="${id}"]`); if(btn) btn.disabled=true;
-      setFb(pts,ex,ok,q, `Correct answer: <b>${q.a}</b>. `);
+      const shown = q.unit==="percent" ? (q.a+"%") : (q.unit && q.unit!=="dollars" ? (q.a+" "+q.unit) : ("$"+q.a.toLocaleString("en-US")));
+      setFb(pts,ex,ok,q, `Answer: <b>${shown}</b>. `);
     } else resetFb(pts,ex,"1 point");
   }
   else if(q.t==="match"){
@@ -939,7 +790,7 @@ function renderQ(secId,i,q,id){
 
 function setFb(pts,ex,ok,q,prefix){
   if(pts){ pts.textContent=(ok?"1":"0")+" / 1 point"; pts.className="qpts "+(ok?"ok":"no"); }
-  ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Incorrect'}</span>${prefix||""}${q.e}${srcLine(q)}`;
+  ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Not quite'}</span>${prefix||""}${q.e}${srcLine(q)}`;
   ex.classList.add("show");
 }
 function resetFb(pts,ex,label){ if(pts){pts.textContent=label;pts.className="qpts";} ex.classList.remove("show"); ex.innerHTML=""; }
@@ -1008,7 +859,7 @@ document.getElementById("resetBtn").addEventListener("click",()=>{
   SECTIONS.forEach(sec=>(QUESTIONS[sec.id]||[]).forEach((q,i)=>{ const id=qid(sec.id,i);
     const item=document.getElementById("q-"+id); item.classList.remove("open");
     const inp=document.getElementById("in-"+id); if(inp){inp.disabled=false;inp.value="";inp.classList.remove("okb","nob");}
-    const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show model solution";}
+    const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show worked solution";}
     if(q.t==="match") q.items.forEach((_,di)=>{ const s2=document.getElementById(`sel-${id}-${di}`); if(s2){s2.disabled=false;s2.value="-1";} const r=document.getElementById(`row-${id}-${di}`); if(r)r.classList.remove("rc","rw"); });
     renderQ(sec.id,i,q,id);
   }));
@@ -1036,12 +887,12 @@ function renderGuideBody(secId){
 }
 function showCram(){
   cramPinned=true; activePart=null;
-  gtitle.textContent="Cram Sheet — SQL Function Pattern";
+  gtitle.textContent="Cram Sheet — All Formulas";
   gbody.style.setProperty("--gh","var(--accent)");
   document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
   cramChip.classList.add("active");
   gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
-  try{ store && store.setItem("sql-code-part","cram"); }catch(e){}
+  try{ store && store.setItem("eng-econ-part","cram"); }catch(e){}
 }
 function setActivePart(secId, fromClick){
   if(fromClick) cramPinned=false;
@@ -1053,7 +904,7 @@ function setActivePart(secId, fromClick){
   const chip=document.getElementById("gchip-"+secId);
   if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
   if(changed) renderGuideBody(secId);
-  try{ store && store.setItem("sql-code-part",secId); }catch(e){}
+  try{ store && store.setItem("eng-econ-part",secId); }catch(e){}
   if(fromClick){ document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"}); if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false); }
 }
 let ticking=false;
@@ -1077,14 +928,14 @@ scrim.addEventListener("click",()=>setGuideOpen(false));
 document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
 const root=document.documentElement, tb=document.getElementById("themeBtn"), ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("sql-code-theme",t);}catch(e){} }
-let curTheme="system"; try{ if(store) curTheme=store.getItem("sql-code-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("eng-econ-theme",t);}catch(e){} }
+let curTheme="system"; try{ if(store) curTheme=store.getItem("eng-econ-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{ curTheme=curTheme==="system"?"light":curTheme==="light"?"dark":"system"; applyTheme(curTheme); });
 
 /* ---- init ---- */
 refreshOverall(); applyFilter("all");
-let initPart=null; try{ initPart=store&&store.getItem("sql-code-part"); }catch(e){}
+let initPart=null; try{ initPart=store&&store.getItem("eng-econ-part"); }catch(e){}
 if(initPart==="cram"||!initPart) showCram();
 else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
 else showCram();

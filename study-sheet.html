@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Writing SQL Functions — Study Sheet (COP 4710 Quiz 2)</title>
+<title>Engineering Economics Study Sheet — Senior Design 1</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -33,7 +33,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font
 .head h1{font-family:var(--serif);font-size:20px;font-weight:600;margin:0;letter-spacing:-.01em}
 .head .sc{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
 .cols{columns:2;column-gap:16px}
-.cols.three{columns:2}
 .card{break-inside:avoid;border:1px solid var(--line);border-left:3px solid var(--hue);border-radius:8px;background:var(--surface);padding:8px 11px;margin:0 0 11px}
 .card h2{font-size:13px;font-weight:700;margin:0 0 2px;color:var(--ink)}
 .card .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--hue);font-weight:700}
@@ -45,9 +44,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font
 .card p{margin:4px 0 0;color:var(--ink-soft)}
 .bad{color:var(--bad);font-weight:700}
 .ok{color:var(--ok);font-weight:700}
-.pill{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.04em;padding:1px 6px;border-radius:99px;color:#fff;background:var(--hue);vertical-align:middle}
 code{font-family:var(--mono);font-size:.86em;background:color-mix(in srgb,var(--hue) 10%,transparent);border:1px solid color-mix(in srgb,var(--hue) 22%,transparent);border-radius:4px;padding:0 3px;color:var(--ink)}
-pre{font-family:var(--mono);font-size:10.4px;line-height:1.4;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:7px 9px;margin:5px 0 2px;overflow-x:auto;white-space:pre;color:var(--ink);tab-size:2}
+pre{font-family:var(--mono);font-size:10.6px;line-height:1.5;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:7px 9px;margin:5px 0 2px;overflow-x:auto;white-space:pre;color:var(--ink);tab-size:2}
 pre .c{color:var(--muted)}
 table.t{border-collapse:collapse;margin:5px 0 2px;font-size:10.6px;width:100%}
 table.t th,table.t td{border:1px solid var(--line);padding:2.5px 5px;text-align:left;vertical-align:top}
@@ -57,15 +55,15 @@ table.t code{font-size:.9em}
 .footnote{font-family:var(--mono);font-size:9.5px;color:var(--faint);margin-top:6px;text-align:center}
 @media print{
   :root{--bg:#fff;--surface:#fff;--surface-2:#f3f3f3;--ink:#000;--ink-soft:#1a1a1a;--muted:#333;--line:#b4b4b4;--line-strong:#999}
-  body{font-size:8.3pt;line-height:1.3}
+  body{font-size:8.3pt;line-height:1.32}
   .bar{display:none}
   .pages{max-width:none;padding:0;margin:0}
   .page{box-shadow:none;border:none;border-radius:0;margin:0;max-width:none;padding:0}
   .page.front{break-after:page}
   .cols{column-gap:9px}
   .card{margin-bottom:6px;padding:5px 8px}
-  pre{font-size:7.1pt;padding:4px 6px;line-height:1.32}
-  table.t{font-size:7.1pt}
+  pre{font-size:7.2pt;padding:4px 6px;line-height:1.42}
+  table.t{font-size:7.2pt}
   .head h1{font-size:14pt}
   .page-tag{display:none}
   @page{margin:8mm}
@@ -74,7 +72,7 @@ table.t code{font-size:.9em}
 </head>
 <body>
 <div class="bar">
-  <span class="lbl">COP 4710 · Quiz 2 · code-writing · prints front &amp; back on one sheet</span>
+  <span class="lbl">Senior Design 1 · Engineering Economics · prints front &amp; back on one sheet</span>
   <div class="tools">
     <button class="btn" id="themeBtn" type="button">◐ Theme</button>
     <button class="btn" id="printBtn" type="button">⎙ Print / Save PDF</button>
@@ -85,109 +83,94 @@ table.t code{font-size:.9em}
 <!-- ===================== FRONT ===================== -->
 <section class="page front">
   <div class="page-tag">Front — page 1 of 2</div>
-  <div class="head"><h1>Writing SQL Functions — Types, Formatting &amp; Edge Cases</h1><span class="sc">COP 4710 · PostgreSQL / PL-pgSQL · Quiz 2</span></div>
+  <div class="head"><h1>Engineering Economics — Interest &amp; Equivalence</h1><span class="sc">Senior Design 1 · time value of money</span></div>
   <div class="cols">
 
     <div class="card" style="--hue:var(--t0)">
-      <div class="k">memorize this</div>
-      <h2>The Skeleton</h2>
-<pre>CREATE OR REPLACE FUNCTION f(arg VARCHAR(50))
-RETURNS DECIMAL(5,2) AS $$      <span class="c">-- return TYPE</span>
-DECLARE
-  d_id INT;  hi NUMERIC;  lo NUMERIC;
-BEGIN
-  <span class="c">-- look up, compute, decide</span>
-  RETURN value;                <span class="c">-- every path!</span>
-END;
-$$ LANGUAGE plpgsql;</pre>
+      <div class="k">do this first, every time</div>
+      <h2>Setup &amp; Symbols</h2>
+      <table class="t"><tr><th>sym</th><th>meaning</th></tr>
+        <tr><td><code>P</code></td><td>present amount (t = 0)</td></tr>
+        <tr><td><code>F</code></td><td>future amount (t = N)</td></tr>
+        <tr><td><code>i</code></td><td>rate per period (decimal)</td></tr>
+        <tr><td><code>N</code></td><td>number of periods</td></tr>
+        <tr><td><code>A</code></td><td>equal payment / period</td></tr></table>
+<pre>i = r / m        N = m · (years)
+m: yr 1 · semi 2 · qtr 4 · <span class="c">mo 12</span> · day 365</pre>
       <ul>
-        <li>Header = name, <b>params (name + type)</b>, <code>RETURNS</code> type.</li>
-        <li>Body between <b><code>$$ … $$</code></b>; logic (IF/DECLARE/RETURN) needs <b>LANGUAGE plpgsql</b>.</li>
-        <li><b>OR REPLACE</b> redefines; <code>DROP FUNCTION f(varchar);</code> removes.</li>
+        <li>Percent → decimal: 2.75% → <b>0.0275</b>.</li>
+        <li>Keep <b>i and N on the same period</b>.</li>
+        <li><span class="bad">Don't round i early</span> — only the final answer.</li>
       </ul>
     </div>
 
     <div class="card" style="--hue:var(--t1)">
-      <div class="k">variable types &amp; formatting</div>
-      <h2>Types &amp; Formatting</h2>
-      <table class="t"><tr><th>type</th><th>holds / use</th></tr>
-        <tr><td><code>VARCHAR(n)</code></td><td>text ≤ n chars (names)</td></tr>
-        <tr><td><code>INT</code></td><td>whole number (ids, counts)</td></tr>
-        <tr><td><code>DECIMAL(p,s)</code></td><td>p digits, s after point (money, %)</td></tr>
-        <tr><td><code>NUMERIC</code></td><td>exact number for math locals</td></tr>
-        <tr><td><code>BOOLEAN</code></td><td>TRUE / FALSE / NULL</td></tr></table>
-      <ul>
-        <li><b>DECIMAL(5,2)</b> = 5 digits, 2 after the point → max <b>999.99</b>. DECIMAL(10,2) → 99,999,999.99.</li>
-        <li>Fit the scale with <b><code>ROUND(x, 2)</code></b> before returning.</li>
-        <li>Match the <b>argument type to the spec exactly</b> (e.g. <code>dept_name VARCHAR(50)</code>).</li>
-        <li>Casts: <code>x::numeric</code>, <code>x::int</code>, <code>x::text</code>; dates <code>to_char(d,'YYYY-MM-DD')</code>.</li>
-      </ul>
+      <div class="k">one lump sum</div>
+      <h2>Single Payment</h2>
+<pre>F = P (1 + i)^N        <span class="c">-- F given P</span>
+P = F / (1 + i)^N      <span class="c">-- P given F</span>
+simple interest: F = P (1 + i·N)</pre>
+      <h3>Solve for the unknown</h3>
+<pre>N = ln(F/P) / ln(1 + i)
+i = (F/P)^(1/N) − 1
+double: N = ln 2 / ln(1 + i)</pre>
+      <p>Round period counts <b>up</b> when the goal is "at least" reach a target.</p>
     </div>
 
     <div class="card" style="--hue:var(--t2)">
-      <div class="k">read the data</div>
-      <h2>SELECT INTO &amp; Aggregates</h2>
-<pre>SELECT id INTO d_id
-  FROM departments WHERE name = dept_name;
-
-SELECT MAX(salary), MIN(salary) INTO hi, lo
-  FROM employees WHERE department_id = d_id;</pre>
-      <p>Over an <b>empty set</b>:</p>
-      <table class="t"><tr><th>aggregate</th><th>empty →</th></tr>
-        <tr><td><code>COUNT(*)</code></td><td><b>0</b> (never NULL)</td></tr>
-        <tr><td><code>MAX / MIN / AVG / SUM</code></td><td><b>NULL</b></td></tr></table>
+      <div class="k">compounding frequency</div>
+      <h2>Nominal vs Effective</h2>
+<pre>i_eff = (1 + r/m)^m − 1</pre>
       <ul>
-        <li>Capture several columns / aggregates into several vars, left to right.</li>
-        <li>An aggregate query always returns <b>one row</b>, so <code>FOUND</code> is TRUE even when empty — detect empty with <b><code>IS NULL</code></b>.</li>
+        <li>10% comp. monthly → <b>10.47%</b> effective.</li>
+        <li>More frequent compounding ⇒ higher effective rate.</li>
+        <li>Use i_eff when the <b>payment period</b> (e.g. yearly) differs from the <b>compounding period</b> (monthly).</li>
+      </ul>
+      <h3>Two classic mistakes</h3>
+      <ul>
+        <li><span class="bad">2.75 instead of 0.0275</span> → billion-dollar answer.</li>
+        <li><span class="bad">Annual i with N in months</span> → use <code>i = r/12</code>.</li>
       </ul>
     </div>
 
     <div class="card" style="--hue:var(--t3)">
-      <div class="k">the exam skill</div>
-      <h2>Edge Cases: NULL vs Sentinel</h2>
-<pre>SELECT id INTO d_id
-  FROM departments WHERE name = dept_name;
-IF NOT FOUND THEN RETURN NULL; END IF; <span class="c">-- missing</span>
-
-SELECT MAX(salary), MIN(salary) INTO hi, lo
-  FROM employees WHERE department_id = d_id;
-IF lo IS NULL THEN RETURN -1.00; END IF;<span class="c">-- empty</span></pre>
+      <div class="k">equal payment A each period</div>
+      <h2>Uniform Series (Annuity)</h2>
+      <p>A at the <b>end</b> of each period:</p>
+<pre>F/A  F = A·[((1+i)^N − 1) / i]
+A/F  A = F·[ i / ((1+i)^N − 1)]
+P/A  P = A·[((1+i)^N − 1)/(i(1+i)^N)]
+A/P  A = P·[ i(1+i)^N/((1+i)^N − 1)]</pre>
       <ul>
-        <li><b>Does it exist?</b> plain lookup + <code>IF NOT FOUND</code> → <b>NULL</b>.</li>
-        <li><b>Is it empty?</b> aggregate <code>IS NULL</code> → <b>sentinel</b> (e.g. −1.00).</li>
-        <li><b>Order:</b> existence first, then emptiness, then compute. (Else a missing parent wrongly hits −1.00.)</li>
-        <li>Match the sentinel format: <code>-1.00</code>, not <code>-1</code>, for a <code>DECIMAL(_,2)</code> return.</li>
+        <li>Pick the factor whose <b>two known letters</b> match.</li>
+        <li><b>Annuity due</b> (pay at START): <code>× (1 + i)</code>.</li>
+        <li>Yearly A, monthly compounding → use <b>i_eff</b> with N in years.</li>
       </ul>
     </div>
 
     <div class="card" style="--hue:var(--t4)">
-      <div class="k">compute &amp; round</div>
-      <h2>Formulas &amp; the INT Trap</h2>
-      <ul>
-        <li><b>% of the lower one:</b> <code>(MAX − MIN) / MIN * 100</code>.</li>
-        <li><b>A as % of B:</b> <code>A / B * 100</code>.</li>
-        <li><span class="bad">Integer-division trap:</span> INT/INT truncates (<code>30/100 = 0</code>). Force numeric: <code>* 100.0</code> or <code>::numeric</code>.</li>
-        <li>Guard <code>IF lo = 0</code> if the lower value could be 0 (divide-by-zero).</li>
-      </ul>
-<pre>RETURN ROUND((hi - lo) / lo * 100, 2);
-<span class="c">-- INT columns? -></span>
-RETURN ROUND((hi - lo) * 100.0 / lo, 2);</pre>
+      <div class="k">borrow &amp; repay</div>
+      <h2>Loans &amp; Remaining Balance</h2>
+<pre>payment:  A = P·[i(1+i)^N / ((1+i)^N − 1)]
+total paid = A · N
+interest   = total − P</pre>
+      <h3>Payoff partway through</h3>
+<pre>balance = P/A on payments STILL OWED
+ n = (total payments) − (payments made)</pre>
+      <p><span class="bad">Trap:</span> use <b>payments left (n)</b>, not payments already made.</p>
     </div>
 
     <div class="card" style="--hue:var(--t5)">
-      <div class="k">every problem uses this</div>
-      <h2>Assumed Schema</h2>
-<pre>departments(id INT PK,
-            name VARCHAR(50))
-
-employees(id INT PK,
-          first_name VARCHAR(50),
-          last_name  VARCHAR(50),
-          title      VARCHAR(50),
-          salary     DECIMAL(10,2),
-          department_id INT -> departments.id,
-          manager_id    INT -> employees.id)</pre>
-      <p>Attack order: <b>header</b> (types) → <b>DECLARE</b> → <b>exists?</b> (NULL) → <b>read + empty?</b> (sentinel) → <b>compute + ROUND</b> → <b>RETURN</b>.</p>
+      <div class="k">pick the right tool</div>
+      <h2>Factor Chooser</h2>
+      <table class="t"><tr><th>have → want</th><th>factor</th></tr>
+        <tr><td>P → F</td><td><code>F/P</code> compound amt</td></tr>
+        <tr><td>F → P</td><td><code>P/F</code> present worth</td></tr>
+        <tr><td>A → F</td><td><code>F/A</code> series compound</td></tr>
+        <tr><td>F → A</td><td><code>A/F</code> sinking fund</td></tr>
+        <tr><td>A → P</td><td><code>P/A</code> series present</td></tr>
+        <tr><td>P → A</td><td><code>A/P</code> capital recovery</td></tr></table>
+      <p>Always draw the <b>cash-flow timeline</b>; mark start vs end of period before choosing.</p>
     </div>
 
   </div>
@@ -196,132 +179,94 @@ employees(id INT PK,
 <!-- ===================== BACK ===================== -->
 <section class="page back">
   <div class="page-tag">Back — page 2 of 2</div>
-  <div class="head"><h1>Worked Problems — One per Return Type</h1><span class="sc">DECIMAL · INT · VARCHAR · BOOLEAN · pitfalls</span></div>
+  <div class="head"><h1>Worked Examples — One of Each Type</h1><span class="sc">numbers you can check against</span></div>
   <div class="cols">
 
     <div class="card" style="--hue:var(--t0)">
-      <div class="k">DECIMAL(5,2) · the model problem</div>
-      <h2>Salary % Spread <span class="pill">%</span></h2>
-      <p><i>% diff (of the lower) between MAX and MIN salary; NULL if dept missing; −1.00 if no employees.</i></p>
-<pre>CREATE OR REPLACE FUNCTION sal_spread(
-       dept_name VARCHAR(50))
-RETURNS DECIMAL(5,2) AS $$
-DECLARE d_id INT; hi NUMERIC; lo NUMERIC;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN RETURN NULL; END IF;
-  SELECT MAX(salary), MIN(salary) INTO hi, lo
-    FROM employees WHERE department_id = d_id;
-  IF lo IS NULL THEN RETURN -1.00; END IF;
-  RETURN ROUND((hi - lo) / lo * 100, 2);
-END;
-$$ LANGUAGE plpgsql;</pre>
+      <div class="k">F/P · compounding</div>
+      <h2>Single Deposit</h2>
+<pre>$5000, 3%/yr, 5 yr
+ annual : 5000(1.03)^5        = $5,796.37
+ monthly: 5000(1+.03/12)^60   = $5,808.08
+
+$5000, 20%/yr, 5 yr
+ annual : 5000(1.20)^5        = $12,441.60
+ monthly: 5000(1+.20/12)^60   = $13,479.85
+ simple : 5000(1+.20·5)       = $10,000.00</pre>
     </div>
 
     <div class="card" style="--hue:var(--t1)">
-      <div class="k">INT · count</div>
-      <h2>Head Count <span class="pill">INT</span></h2>
-      <p><i>Number of employees; NULL if dept missing. (Empty → 0 automatically.)</i></p>
-<pre>CREATE OR REPLACE FUNCTION headcount(
-       dept_name VARCHAR(50))
-RETURNS INT AS $$
-DECLARE d_id INT; n INT;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN RETURN NULL; END IF;
-  SELECT COUNT(*) INTO n
-    FROM employees WHERE department_id = d_id;
-  RETURN n;   <span class="c">-- COUNT is 0, not NULL</span>
-END;
-$$ LANGUAGE plpgsql;</pre>
-      <p><b>Why no empty check:</b> <code>COUNT(*)</code> is 0 for an empty dept, so 0 is already correct.</p>
+      <div class="k">solve for P, N, i</div>
+      <h2>Rearranging</h2>
+<pre>P now for $5000 in 5 yr @20%/yr:
+ P = 5000/1.20^5            = $2,009.39
+
+$2000 → $4000 @20%/yr, how long?
+ N = ln2/ln1.20            = 3.80 yr
+
+$2000 → $4000 in 5 yr, what rate?
+ i = 2^(1/5) − 1           = 14.87%</pre>
     </div>
 
     <div class="card" style="--hue:var(--t2)">
-      <div class="k">DECIMAL(10,2) · average</div>
-      <h2>Average Salary <span class="pill">AVG</span></h2>
-      <p><i>Avg salary rounded to 2 dp; NULL if dept missing; −1.00 if no employees.</i></p>
-<pre>CREATE OR REPLACE FUNCTION avg_salary(
-       dept_name VARCHAR(50))
-RETURNS DECIMAL(10,2) AS $$
-DECLARE d_id INT; a NUMERIC;
-BEGIN
-  SELECT id INTO d_id
-    FROM departments WHERE name = dept_name;
-  IF NOT FOUND THEN RETURN NULL; END IF;
-  SELECT AVG(salary) INTO a
-    FROM employees WHERE department_id = d_id;
-  IF a IS NULL THEN RETURN -1.00; END IF;
-  RETURN ROUND(a, 2);
-END;
-$$ LANGUAGE plpgsql;</pre>
+      <div class="k">effective rate · don't round early</div>
+      <h2>Nominal vs Effective</h2>
+<pre>CD: $5000, 2.75%/yr nominal,
+    comp. monthly, 5 yr
+ F = 5000(1+.0275/12)^60   = $5,736.11
+
+Effective of 10%/yr monthly:
+ (1+.10/12)^12 − 1         = 10.47%
+
+$10,000 @10%/yr monthly, 50 yr:
+ 10000(1+.10/12)^600       = $1,453,699.23</pre>
     </div>
 
     <div class="card" style="--hue:var(--t3)">
-      <div class="k">VARCHAR · string info</div>
-      <h2>Employee Card <span class="pill">TEXT</span></h2>
-      <p><i>'Last, First — Title ($salary)'; 'No employee #id' if none.</i></p>
-<pre>CREATE OR REPLACE FUNCTION emp_card(emp_id INT)
-RETURNS VARCHAR(120) AS $$
-DECLARE ln VARCHAR(50); fn VARCHAR(50);
-        ti VARCHAR(50); sal DECIMAL(10,2);
-BEGIN
-  SELECT last_name, first_name, title, salary
-    INTO ln, fn, ti, sal
-    FROM employees WHERE id = emp_id;
-  IF NOT FOUND THEN
-    RETURN 'No employee #' || emp_id;
-  END IF;
-  RETURN ln || ', ' || fn || ' — '
-      || COALESCE(ti,'N/A')
-      || ' ($' || sal::text || ')';
-END;
-$$ LANGUAGE plpgsql;</pre>
-      <p><b>||</b> casts numbers, but any NULL → NULL; shield with <b>COALESCE</b>.</p>
+      <div class="k">F/A · annuity</div>
+      <h2>Regular Saving</h2>
+<pre>$1000 / yr-end, 10%/yr, 30 yr:
+ 1000·[(1.10^30 − 1)/.10]  = $164,494.02
+
+$80 / mo-end, 10%/yr monthly, 30 yr:
+ i=.10/12, N=360
+ 80·[((1+i)^360 − 1)/i]    = $180,839.03
+
+Same but pay at START (annuity due):
+ 180,839.03 · (1+i)        = $182,346.03</pre>
     </div>
 
     <div class="card" style="--hue:var(--t4)">
-      <div class="k">BOOLEAN</div>
-      <h2>Earns Above <span class="pill">BOOL</span></h2>
-      <p><i>TRUE if salary &gt; threshold, FALSE otherwise, NULL if employee missing.</i></p>
-<pre>CREATE OR REPLACE FUNCTION earns_above(
-       emp_id INT, threshold DECIMAL(10,2))
-RETURNS BOOLEAN AS $$
-DECLARE sal DECIMAL(10,2);
-BEGIN
-  SELECT salary INTO sal
-    FROM employees WHERE id = emp_id;
-  IF NOT FOUND THEN RETURN NULL; END IF;
-  RETURN sal > threshold;  <span class="c">-- already bool</span>
-END;
-$$ LANGUAGE plpgsql;</pre>
-      <p>A comparison is itself a BOOLEAN, so return it directly.</p>
+      <div class="k">A/P · payments &amp; payoff</div>
+      <h2>Loans</h2>
+<pre>$32,000, 6.3%/yr monthly, 4 yr (48):
+ A = $755.93/mo   total = $36,284.65
+
+$200,000, 5%/yr monthly, 30 yr (360):
+ A = $1,073.64/mo total = $386,511.57
+
+$475/mo, 5.6%/yr monthly, 60 pmts.
+Owed after 42nd? n = 18 left:
+ 475·[((1+i)^18−1)/(i(1+i)^18)]
+                           = $8,182.46</pre>
     </div>
 
     <div class="card" style="--hue:var(--t5)">
-      <div class="k">don't lose points</div>
-      <h2>Pitfalls &amp; Final Check</h2>
-      <ul>
-        <li><span class="bad">FOUND to detect empty</span> — use <code>IS NULL</code> on the aggregate.</li>
-        <li><span class="bad">Emptiness before existence</span> — missing dept wrongly returns −1.00.</li>
-        <li><span class="bad">Integer division</span> → cast <code>::numeric</code> / <code>*100.0</code>.</li>
-        <li><span class="bad">Forgot ROUND</span> → overflow / too many decimals.</li>
-        <li><span class="bad">No RETURN on a path</span> → run-time error.</li>
-        <li><span class="bad">Type mismatch</span> → cast to the declared return type.</li>
-      </ul>
-      <h3>Before you submit ✔</h3>
-      <ul>
-        <li>Arg + <code>RETURNS</code> types exact.</li>
-        <li>Missing → NULL · empty → sentinel (right format).</li>
-        <li>ROUND to scale · no INT division.</li>
-        <li>Body in <code>$$…$$</code> · ends <code>LANGUAGE plpgsql;</code></li>
-      </ul>
+      <div class="k">multi-step</div>
+      <h2>Combined Cash Flows</h2>
+<pre>Double @5%/yr monthly:
+ ln2/ln(1+.05/12)=166.7 → 167 mo
+                          (13 yr 11 mo)
+
+$80/mo for 10 yr then STOP,
+10%/yr monthly, value at 30 yr:
+ F10 = 80·[((1+i)^120−1)/i] = $16,387.60
+ F30 = 16,387.60·(1+i)^240  = $120,089.53</pre>
+      <p><b>Method:</b> build annuity to year 10, then grow that lump 20 yr (F/P).</p>
     </div>
 
   </div>
-  <div class="footnote">COP 4710 Database Systems · Quiz 2 — writing SQL functions that return info · quick reference (front &amp; back)</div>
+  <div class="footnote">Senior Design 1 · Engineering Economics — interest, equivalence, annuities &amp; loans · quick reference (front &amp; back)</div>
 </section>
 
 </div>
@@ -329,8 +274,8 @@ $$ LANGUAGE plpgsql;</pre>
 <script>
 const store=(()=>{try{localStorage.setItem("__t","1");localStorage.removeItem("__t");return localStorage;}catch(e){return null;}})();
 const root=document.documentElement, tbtn=document.getElementById("themeBtn");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");tbtn.textContent="◐ Auto";} else {root.setAttribute("data-theme",t);tbtn.textContent=(t==="dark"?"☾ Dark":"☀ Light");} try{store&&store.setItem("sql-sheet-theme",t);}catch(e){} }
-let cur="system"; try{ if(store) cur=store.getItem("sql-sheet-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");tbtn.textContent="◐ Auto";} else {root.setAttribute("data-theme",t);tbtn.textContent=(t==="dark"?"☾ Dark":"☀ Light");} try{store&&store.setItem("eng-econ-sheet-theme",t);}catch(e){} }
+let cur="system"; try{ if(store) cur=store.getItem("eng-econ-sheet-theme")||"system"; }catch(e){}
 applyTheme(cur);
 tbtn.addEventListener("click",()=>{ cur = cur==="system"?"light":cur==="light"?"dark":"system"; applyTheme(cur); });
 document.getElementById("printBtn").addEventListener("click",()=>window.print());
