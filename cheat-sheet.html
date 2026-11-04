@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COP 4710 Midterm 2 — Cheat Sheet (4 pages)</title>
+<style>
+:root{
+  --serif: Georgia, "Palatino Linotype", Palatino, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#172230;--ink-soft:#2c3a48;--muted:#54636f;--faint:#8695a4;--line:#d6dee6;--line-strong:#c3cedb;
+  --accent:#2f6f9f;--accent-strong:#1f5480;--bad:#c23b3b;--ok:#1f8a4c;--warn:#9a6a12;
+  --kw:#1f5480;--cm:#6f7d8a;--str:#9a5518;
+  --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--t6:#386b86;--t7:#9a5a2f;
+  --shadow:0 1px 2px rgba(24,34,48,.05),0 6px 18px rgba(24,34,48,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;--accent:#6aa7d4;--accent-strong:#8cbfe4;--bad:#e88686;--ok:#5cc98a;--warn:#e3bb63;--kw:#8cc0ea;--cm:#6d7d8d;--str:#e0a56a;--t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--t6:#5fa5c4;--t7:#d39a66;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.35)}
+}
+:root[data-theme="light"]{--bg:#e9edf2;--surface:#fff;--surface-2:#f4f7fa;--ink:#172230;--ink-soft:#2c3a48;--muted:#54636f;--faint:#8695a4;--line:#d6dee6;--line-strong:#c3cedb;--accent:#2f6f9f;--accent-strong:#1f5480;--bad:#c23b3b;--ok:#1f8a4c;--warn:#9a6a12;--kw:#1f5480;--cm:#6f7d8a;--str:#9a5518;--t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--t6:#386b86;--t7:#9a5a2f}
+:root[data-theme="dark"]{--bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;--accent:#6aa7d4;--accent-strong:#8cbfe4;--bad:#e88686;--ok:#5cc98a;--warn:#e3bb63;--kw:#8cc0ea;--cm:#6d7d8d;--str:#e0a56a;--t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--t6:#5fa5c4;--t7:#d39a66}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:12.5px;line-height:1.36;-webkit-font-smoothing:antialiased}
+.bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:9px 18px}
+.bar .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.tools{display:flex;gap:8px}
+.btn{font-family:var(--mono);font-size:12px;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:7px 13px;cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent-strong)}
+.pages{max-width:1200px;margin:0 auto;padding:16px}
+.page{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:14px 16px;margin:0 auto 20px;max-width:1080px}
+.page-tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:right;margin-bottom:2px}
+.head{border-bottom:2px solid var(--accent);padding-bottom:5px;margin-bottom:9px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.head h1{font-family:var(--serif);font-size:18px;font-weight:600;margin:0;letter-spacing:-.01em}
+.head .sc{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.cols{columns:2;column-gap:14px}
+.card{break-inside:avoid;border:1px solid var(--line);border-left:3px solid var(--hue);border-radius:7px;background:var(--surface);padding:7px 10px;margin:0 0 10px}
+.card h2{font-size:12.5px;font-weight:700;margin:0 0 1px;color:var(--ink)}
+.card .k{font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--hue);font-weight:700}
+.card h3{font-size:11px;margin:7px 0 1px;color:var(--ink);font-weight:700}
+.card ul{margin:3px 0 0;padding-left:14px}
+.card li{margin:2px 0;color:var(--ink-soft)}
+.card li::marker{color:var(--hue)}
+.card b{color:var(--ink)}
+.bad{color:var(--bad);font-weight:700}.ok{color:var(--ok);font-weight:700}.warn{color:var(--warn);font-weight:700}
+code{font-family:var(--mono);font-size:.88em;background:color-mix(in srgb,var(--hue) 10%,transparent);border:1px solid color-mix(in srgb,var(--hue) 20%,transparent);border-radius:3px;padding:0 3px;color:var(--ink)}
+pre{font-family:var(--mono);font-size:10px;line-height:1.42;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:6px 8px;margin:4px 0 2px;overflow-x:auto;white-space:pre;color:var(--ink);tab-size:2}
+pre .kw{color:var(--kw);font-weight:600}
+pre .cm{color:var(--cm);font-style:italic}
+pre .str{color:var(--str)}
+table.t{border-collapse:collapse;margin:4px 0 2px;font-size:10px;width:100%}
+table.t th,table.t td{border:1px solid var(--line);padding:2px 5px;text-align:left;vertical-align:top}
+table.t th{background:color-mix(in srgb,var(--hue) 10%,transparent);font-family:var(--mono);font-size:9px;color:var(--muted);font-weight:600}
+table.t td{color:var(--ink-soft)}
+table.t code{font-size:.9em}
+.footnote{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:5px;text-align:center}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#f3f3f3;--ink:#000;--ink-soft:#161616;--muted:#333;--line:#b2b2b2;--line-strong:#999}
+  body{font-size:7.4pt;line-height:1.28}
+  .bar{display:none}
+  .pages{max-width:none;padding:0;margin:0}
+  .page{box-shadow:none;border:none;border-radius:0;margin:0;max-width:none;padding:0}
+  .page.brk{break-after:page}
+  .cols{column-gap:8px}
+  .card{margin-bottom:5px;padding:4px 7px;border-left-width:2px}
+  pre{font-size:6.5pt;padding:3px 5px;line-height:1.3}
+  table.t{font-size:6.5pt}
+  table.t th,table.t td{padding:1.5px 3px}
+  .head h1{font-size:13pt}
+  .head{margin-bottom:6px}
+  .page-tag{display:none}
+  @page{size:Letter;margin:7mm}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <span class="lbl">COP 4710 · Midterm 2 cheat sheet · 4 pages = 2 sheets front &amp; back</span>
+  <div class="tools">
+    <button class="btn" id="themeBtn" type="button">◐ Theme</button>
+    <button class="btn" id="printBtn" type="button">⎙ Print / Save PDF</button>
+  </div>
+</div>
+<div class="pages" id="pages"></div>
+
+<script>
+/* ---------- content ---------- */
+const PAGES = [
+{ tag:"Sheet 1 · Front — page 1 of 4", title:"DML &amp; DDL", sc:"INSERT · UPDATE · DELETE · ALTER · foreign keys", cards:[
+  {hue:"--t0", k:"add / change / remove rows", h:"DML syntax", body:
+   `<pre>INSERT INTO t (c1,c2) VALUES (v1,v2),(v3,v4);
+INSERT INTO t (c1,c2) SELECT a,b FROM s WHERE ..; -- list counts match
+UPDATE t SET c1=v1, c2=v2 WHERE cond;
+DELETE FROM t WHERE cond;
+UPDATE t SET c=s.c FROM s WHERE t.k=s.k;  -- from other table
+DELETE FROM t USING s WHERE t.k=s.k;      -- delete via other</pre>
+   <ul>
+   <li><b>UPDATE:</b> WHERE picks rows first; SET right side uses <b>old</b> values. SET col has <b>no alias</b> (<code>SET salary</code>), <b>no column list</b> after table.</li>
+   <li>Omitted INSERT cols get DEFAULT, else NULL.</li>
+   <li>DELETE allows <b>no JOIN</b> — use USING / subquery. Don't repeat target in UPDATE..FROM.</li>
+   </ul>`},
+  {hue:"--t0", k:"pick rows via another table", h:"IN / EXISTS + traps", body:
+   `<pre>-- rows that HAVE a match
+UPDATE Employees SET salary=salary*2
+WHERE dept_id IN (SELECT dept_id FROM Departments
+                  WHERE dept_name ILIKE '%research%');
+-- EXISTS (keyword + correlation line!)
+UPDATE Employees e SET salary=salary*2
+WHERE EXISTS (SELECT 1 FROM Departments d
+   WHERE d.dept_id=e.dept_id AND d.dept_name ILIKE '%sales%');
+-- rows with NONE
+DELETE FROM Departments d
+WHERE d.budget=0.00
+  AND NOT EXISTS (SELECT 1 FROM Employees e
+                  WHERE e.dept_id=d.dept_id);</pre>
+   <ul>
+   <li><b>ILIKE</b>=case-insensitive. <code>%</code>=any run, <code>_</code>=1 char; no % ⇒ whole string.</li>
+   <li class="bad">NOT IN with a NULL ⇒ nothing: use NOT EXISTS. <code>=NULL</code> never true: use IS NULL. Scalar subquery = 1 row. No WHERE = every row.</li>
+   </ul>`},
+  {hue:"--t3", k:"change structure (rows kept)", h:"ALTER TABLE (DDL)", body:
+   `<pre>ADD COLUMN c TYPE [NOT NULL] [DEFAULT v];
+DROP COLUMN c [CASCADE];
+RENAME COLUMN old TO new;   RENAME TO newtable;
+ALTER COLUMN c TYPE T [USING c::T];
+ALTER COLUMN c SET DEFAULT v;  / DROP DEFAULT
+ALTER COLUMN c SET NOT NULL;   / DROP NOT NULL
+ADD CONSTRAINT n CHECK(..) | UNIQUE(c)
+  | PRIMARY KEY(c) | FOREIGN KEY(c) REFERENCES p(k);
+DROP CONSTRAINT n;</pre>
+   <ul>
+   <li>Each line is <code>ALTER TABLE t &lt;action&gt;;</code>. Several actions = comma-sep; RENAME can't combine.</li>
+   <li>NOT NULL/DEFAULT use <b>ALTER COLUMN</b>, not ADD CONSTRAINT. Change a constraint = DROP then ADD.</li>
+   <li class="bad">Fails: SET NOT NULL w/ NULLs; ADD CONSTRAINT w/ bad rows; TYPE won't fit (USING); ADD COLUMN NOT NULL on filled table w/o DEFAULT; DROP COLUMN used by a view (CASCADE).</li>
+   </ul>`},
+  {hue:"--t4", k:"parent deleted/updated", h:"Foreign-key actions", body:
+   `<table class="t"><tr><th>Option</th><th>Child rows</th></tr>
+   <tr><td><code>NO ACTION</code> (default)</td><td>reject if children exist</td></tr>
+   <tr><td><code>CASCADE</code></td><td>deleted too / get new key</td></tr>
+   <tr><td><code>SET NULL</code></td><td>key col → NULL (not if in child PK)</td></tr>
+   <tr><td><code>SET DEFAULT</code></td><td>key col → its default</td></tr></table>
+   <ul>
+   <li>Change an action: DROP then ADD the FK. Default name <code>table_col_fkey</code>.</li>
+   <li><b>Circular FK</b> (dept_id ↔ dept_head): one col nullable, add FK later via ALTER; or DEFERRABLE + SET CONSTRAINTS DEFERRED.</li>
+   </ul>`},
+  {hue:"--t5", k:"recipe", h:"Rows via another table", body:
+   `<ul>
+   <li>Write inner <code>SELECT key FROM other WHERE..</code>; run it alone in your head.</li>
+   <li>Outer: <code>WHERE key IN (inner)</code> (has match) or <code>NOT EXISTS(..WHERE o.key=t.key)</code> (none).</li>
+   <li>EXISTS needs the correlation line. SET no alias; UPDATE no col list; DELETE no JOIN.</li>
+   </ul>`}
+]},
+
+{ tag:"Sheet 1 · Back — page 2 of 4", title:"Queries &amp; PL/pgSQL", sc:"joins · GROUP BY · HAVING · functions · exceptions", cards:[
+  {hue:"--t1", k:"combine &amp; summarize", h:"Joins · GROUP BY · HAVING", body:
+   `<ul>
+   <li>Order: SELECT · FROM · <b>WHERE</b>(rows) · GROUP BY · <b>HAVING</b>(groups) · ORDER BY. WHERE can't use aggregates.</li>
+   <li>INNER = matches only. LEFT = all left, right NULL if none. Self-join = 2 aliases (<code>e.manager_id=m.emp_id</code>).</li>
+   <li>Every non-aggregate SELECT col must be in GROUP BY. Qualify shared names.</li>
+   <li>LEFT no-match: <code>COUNT(*)</code>=1 (padded row), <code>COUNT(right.col)</code>=0. HAVING on AVG/SUM drops empty LEFT groups — use COALESCE to keep.</li>
+   </ul>`},
+  {hue:"--t1", k:"templates", h:"Aggregate queries", body:
+   `<pre>-- per-dept stats, only avg &gt; 5000
+SELECT d.dept_name, COUNT(e.emp_id) AS employees_no,
+       MAX(e.salary) AS max_salary
+FROM Departments d
+JOIN Employees e ON e.dept_id=d.dept_id
+GROUP BY d.dept_id, d.dept_name
+HAVING AVG(e.salary) &gt; 5000.00;
+-- keep empty depts
+LEFT JOIN Employees e ON e.dept_id=d.dept_id
+.. COALESCE(SUM(e.salary),0.00) ..
+-- above own-dept average
+WHERE e.salary &gt; (SELECT AVG(e2.salary) FROM Employees e2
+                 WHERE e2.dept_id=e.dept_id);
+-- payroll over budget
+GROUP BY d.dept_id,d.dept_name,d.budget
+HAVING SUM(e.salary) &gt; d.budget;</pre>`},
+  {hue:"--t5", k:"procedural code", h:"PL/pgSQL blocks &amp; functions", body:
+   `<pre>DO $b$
+DECLARE _t INTEGER := 0;
+BEGIN
+  FOR k IN 1..10 LOOP _t := _t + k; END LOOP;
+  IF _t &gt; 50 THEN RAISE INFO 'big %', _t;
+  ELSIF _t = 0 THEN RAISE INFO 'none';
+  ELSE RAISE INFO 'small %', _t; END IF;
+END; $b$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION public.f_Name(_p TYPE, _o TYPE=dflt)
+RETURNS TYPE AS $fb$
+DECLARE _v TYPE := init;
+BEGIN ... RETURN value; END;         -- every path returns
+$fb$ LANGUAGE plpgsql;
+DROP FUNCTION IF EXISTS public.f_Name(VARCHAR(20)); -- by arg types</pre>
+   <ul>
+   <li><code>:=</code> assigns; <code>;</code> ends each stmt; tags match. <code>ELSIF</code>, <code>END IF;</code>. <b>EXIT</b> leaves a loop, <b>RETURN</b> ends the function.</li>
+   <li>Defaults go at the end. Prefix vars with <code>_</code>. <code>SELECT c INTO _v..</code> = NULL if no row; MAX/MIN over 0 rows = NULL, COUNT = 0.</li>
+   </ul>`},
+  {hue:"--t2", k:"validate, don't crash", h:"Exceptions &amp; sentinels", body:
+   `<pre>IF _emp_id IS NULL
+   OR NOT EXISTS(SELECT 1 FROM Employees WHERE emp_id=_emp_id)
+THEN RETURN -1.00; END IF;              -- bad id / none
+BEGIN                                   -- risky cast, own block
+  _salary := TRIM(_new_salary)::DECIMAL(10,2);
+EXCEPTION
+  WHEN invalid_text_representation THEN RETURN -2.00; -- '12abc',''
+  WHEN numeric_value_out_of_range  THEN RETURN -3.00; -- too big
+END;
+IF _salary &lt; 0 THEN RETURN -4.00; END IF;  -- bad value
+UPDATE Employees SET salary=_salary WHERE emp_id=_emp_id;
+IF NOT FOUND THEN RETURN -5.00; END IF;     -- no row updated
+RETURN _salary;</pre>
+   <ul>
+   <li>Check order: <b>arguments → existence → value</b>. Codes negative (real salary is positive); comment each code.</li>
+   <li>Failed cast aborts the stmt — wrap in its own <code>BEGIN..EXCEPTION..END;</code>. <code>NUMERIC(10,2)</code> max 99999999.99.</li>
+   </ul>`}
+]},
+
+{ tag:"Sheet 2 · Front — page 3 of 4", title:"Types · Views · Indexes", sc:"arrays/strings/dates · views · keys · B+ trees", cards:[
+  {hue:"--t6", k:"1-based · date parts", h:"Arrays, dates, strings", body:
+   `<table class="t"><tr><th>fn</th><th>does</th></tr>
+   <tr><td><code>a || b</code></td><td>concat text</td></tr>
+   <tr><td><code>LOWER/UPPER/LENGTH</code></td><td>case / length</td></tr>
+   <tr><td><code>TRIM/LTRIM/RTRIM</code></td><td>strip both/left/right</td></tr>
+   <tr><td><code>POSITION('x' IN s)</code></td><td>1-based, 0=not found</td></tr>
+   <tr><td><code>LEFT/RIGHT(s,n)</code></td><td>first / last n</td></tr>
+   <tr><td><code>SUBSTRING(s FROM 4 FOR 8)</code></td><td>slice</td></tr>
+   <tr><td><code>ASCII/CHR</code></td><td>'R'=82; digits '0'-'9'=48-57</td></tr></table>
+   <ul><li>Arrays <b>1-based</b>; <code>CARDINALITY</code>=len (NULL→NULL). Test <code>x = ANY(arr)</code>. EXTRACT(MONTH/DAY/DOY FROM d). Fixed dates only (no Thanksgiving).</li></ul>
+   <pre>_h INTEGER[] := ARRAY[101,704,1111,1225]; -- mo*100+day
+_k := EXTRACT(MONTH FROM _date)*100 + EXTRACT(DAY FROM _date);
+RETURN _k = ANY(_h);   -- or TO_CHAR(d,'MM-DD') = ANY(txt[])</pre>`},
+  {hue:"--t7", k:"stored query", h:"Views", body:
+   `<pre>CREATE VIEW v (c1,c2) AS SELECT ...;   DROP VIEW v;
+-- employee info: self-join for manager
+CREATE OR REPLACE VIEW Employee_Info AS
+SELECT e.emp_id, e.fname||' '||e.lname AS full_name,
+       d.dept_name, e.salary,
+       COALESCE(m.fname||' '||m.lname,'N/A') AS manager
+FROM Employees e
+JOIN Departments d ON d.dept_id=e.dept_id
+LEFT JOIN Employees m ON m.emp_id=e.manager_id;</pre>
+   <ul>
+   <li>Rows computed on use; dropping leaves base tables. LEFT JOIN keeps top manager / no-dept rows.</li>
+   <li><b>Updatable</b> (SQL-92): 1 base table, select+project only, no aggregates. Insert → NULL in hidden cols (fails if PK/NOT NULL). WITH CHECK OPTION rejects rows leaving the condition.</li>
+   <li>A view using a col blocks DROP COLUMN (RESTRICT) until dropped.</li>
+   </ul>`},
+  {hue:"--t7", k:"dept info function", h:"Check order in a function", body:
+   `<pre>IF p_dept_id IS NULL THEN RETURN 'ID cannot be NULL'; END IF;
+SELECT COUNT(*) INTO v_exists FROM Departments
+ WHERE dept_id=p_dept_id;
+IF v_exists=0 THEN RETURN 'does not exist'; END IF;  -- existence
+SELECT COUNT(*), COALESCE(AVG(salary),0.00)
+  INTO v_cnt, v_avg FROM Employees WHERE dept_id=p_dept_id;
+IF v_cnt=0 THEN RETURN '..has 0 employees'; END IF;  -- empty
+RETURN '..has '||v_cnt||' employees; avg '||v_avg;</pre>
+   <ul><li>Separate branches: NULL arg vs. missing dept vs. empty dept. COALESCE guards head name / avg.</li></ul>`},
+  {hue:"--t0", k:"constraints vs structures", h:"Keys &amp; indexes", body:
+   `<ul>
+   <li><b>Superkey</b> ⊇ key; <b>candidate</b> minimal; <b>primary</b> chosen. Keys=constraints; index=performance (search key need not be unique).</li>
+   <li><b>Clustered</b>: data order = index order; ≤1 per table; range = few contiguous pages. <b>Secondary/unclustered</b>: ~1 page read per match (can lose to scan). <b>Index-only</b>: answered from entries (ok unclustered).</li>
+   <li><b>Hash</b>: equality on <b>full</b> key only. <b>B+ tree</b>: equality + range on a <b>key prefix</b> — <code>&lt;age,sal&gt;</code> can't do <code>sal&gt;40</code>.</li>
+   <li>Composite index bigger; updated when any field changes. SQL std has no CREATE INDEX. Entry forms: record / <code>&lt;key,rid&gt;</code> / <code>&lt;key,rid-list&gt;</code>.</li>
+   </ul>`},
+  {hue:"--t0", k:"search cost", h:"B+ tree", body:
+   `<pre>Root: 13 | 17 | 24 | 30
+[2 3 5 7]->[14 16]->[19 20 22]->[24 27 29]->[33 34 38 39]
+Search 15: 13&lt;=15&lt;17 -> leaf [14 16] -> absent.
+Range 17..27: leaf for 17, follow 'next' links.
+cost = root->leaf path + leaves read. height ~3-4.</pre>`}
+]},
+
+{ tag:"Sheet 2 · Back — page 4 of 4", title:"Transactions · Security · Fixes", sc:"ACID · isolation · triggers · GRANT · mistakes", cards:[
+  {hue:"--t4", k:"all or nothing", h:"Transactions &amp; ACID", body:
+   `<ul><li><b>A</b>tomic (all/none) · <b>C</b>onsistent in→out · <b>I</b>solation (= some serial order) · <b>D</b>urable (survives crash).</li></ul>
+   <table class="t"><tr><th>Isolation</th><th>Dirty</th><th>Unrep.</th><th>Phantom</th></tr>
+   <tr><td>READ UNCOMMITTED</td><td>maybe</td><td>maybe</td><td>maybe</td></tr>
+   <tr><td>READ COMMITTED</td><td>no</td><td>maybe</td><td>maybe</td></tr>
+   <tr><td>REPEATABLE READ</td><td>no</td><td>no</td><td>maybe</td></tr>
+   <tr><td>SERIALIZABLE</td><td>no</td><td>no</td><td>no</td></tr></table>
+   <ul>
+   <li>Conflicts (same obj, ≥1 write): WR=dirty read, RW=unrepeatable, WW=overwrite. Phantom=new matching row between reads.</li>
+   <li><b>Strict 2PL</b>: S lock to read, X to write; hold all to commit/abort. Deadlock=wait cycle, DBMS aborts one.</li>
+   <li>COMMIT / ROLLBACK / SAVEPOINT s / ROLLBACK TO SAVEPOINT s.</li>
+   </ul>`},
+  {hue:"--t4", k:"two updates as one", h:"Atomic transaction", body:
+   `<pre>DO $B$
+DECLARE _ret INTEGER;
+BEGIN
+  UPDATE Departments SET dept_head=2317 WHERE dept_id=19
+    RETURNING dept_id INTO _ret;
+  IF _ret IS NULL THEN RAISE EXCEPTION 'Dept not found'; END IF;
+  _ret := NULL;
+  UPDATE Employees SET dept_id=19 WHERE emp_id=2317
+    RETURNING emp_id INTO _ret;
+  IF _ret IS NULL THEN RAISE EXCEPTION 'Emp not found'; END IF;
+END; $B$ LANGUAGE plpgsql;
+-- plain: BEGIN; UPDATE..; UPDATE..; COMMIT;  (or ROLLBACK;)</pre>
+   <ul><li>A DO block / function is one unit — any error or RAISE EXCEPTION rolls back all. Validate with RETURNING..INTO + NULL check. PREPARE holds 1 stmt only.</li></ul>`},
+  {hue:"--t2", k:"E-C-A · column security", h:"Triggers &amp; permissions", body:
+   `<ul><li><b>Trigger</b> = Event + Condition + Action; before / after / instead of; per row / per statement. Proc params: IN, OUT, INOUT.</li></ul>
+   <pre>-- hide salary: column grants
+REVOKE SELECT ON Employees FROM PUBLIC;
+GRANT SELECT(emp_id,fname,lname,dept_id,manager_id)
+      ON Employees TO PUBLIC;
+GRANT SELECT(salary) ON Employees TO salary_readers;
+-- or hide behind a view without the column
+CREATE VIEW Employee_Public AS
+  SELECT emp_id,fname,lname,dept_id,manager_id FROM Employees;
+GRANT SELECT ON Employee_Public TO PUBLIC;</pre>`},
+  {hue:"--t3", k:"scan the night before", h:"Common mistakes → fixes", body:
+   `<table class="t"><tr><th>Wrong</th><th>Right</th></tr>
+   <tr><td><code>UPDATE t (col) SET</code></td><td><code>UPDATE t SET</code> (no col list)</td></tr>
+   <tr><td><code>SET e.salary=</code></td><td><code>SET salary=</code> (no alias)</td></tr>
+   <tr><td><code>WHERE (SELECT 1..)</code></td><td><code>WHERE EXISTS(SELECT 1..)</code></td></tr>
+   <tr><td>EXISTS, no correlation</td><td>add <code>AND d.id=e.id</code></td></tr>
+   <tr><td>subq+GROUP BY <code>=0</code></td><td>drop GROUP BY / NOT EXISTS</td></tr>
+   <tr><td><code>ALTER t ALTER col</code></td><td><code>ALTER TABLE t ALTER COLUMN</code></td></tr>
+   <tr><td><code>LIKE 'research'</code></td><td><code>ILIKE '%research%'</code></td></tr>
+   <tr><td><code>a + b</code> (strings)</td><td><code>a || b</code></td></tr>
+   <tr><td><code>col = NULL</code></td><td><code>col IS NULL</code></td></tr>
+   <tr><td><code>ELSEIF</code> / no END IF</td><td><code>ELSIF</code> / <code>END IF;</code></td></tr>
+   <tr><td>array index from 0</td><td>arrays start at <b>1</b></td></tr>
+   <tr><td>aggregate in WHERE</td><td>move to HAVING</td></tr>
+   <tr><td>RETURN to leave a loop</td><td><code>EXIT</code> (RETURN ends fn)</td></tr></table>`},
+  {hue:"--t5", k:"pick the tool", h:"Which construct?", body:
+   `<table class="t"><tr><th>Asked for</th><th>Use</th></tr>
+   <tr><td>change structure</td><td>ALTER TABLE</td></tr>
+   <tr><td>change row values</td><td>UPDATE</td></tr>
+   <tr><td>rows match / none</td><td>IN / NOT EXISTS</td></tr>
+   <tr><td>keep unmatched left</td><td>LEFT JOIN</td></tr>
+   <tr><td>hide cols / save query</td><td>VIEW</td></tr>
+   <tr><td>validate + codes</td><td>function + EXCEPTION</td></tr>
+   <tr><td>all-or-none</td><td>transaction / function</td></tr>
+   <tr><td>auto reaction</td><td>trigger</td></tr>
+   <tr><td>fast lookup</td><td>index (hash=eq, tree=range)</td></tr></table>`}
+]}
+];
+
+/* ---------- SQL highlighter ---------- */
+const KW=["SELECT","FROM","WHERE","INSERT","INTO","VALUES","UPDATE","SET","DELETE","USING","CREATE","REPLACE","VIEW","FUNCTION","RETURNS","RETURN","RETURNING","DECLARE","BEGIN","END","IF","THEN","ELSIF","ELSE","CASE","WHEN","LOOP","FOR","EXIT","EXCEPTION","RAISE","LANGUAGE","JOIN","LEFT","RIGHT","INNER","ON","GROUP","ORDER","HAVING","AND","OR","NOT","EXISTS","NULL","IS","LIKE","ILIKE","ANY","BY","AS","IN","COUNT","SUM","AVG","MAX","MIN","COALESCE","TRIM","EXTRACT","MONTH","DAY","DOY","CARDINALITY","TO_CHAR","POSITION","SUBSTRING","LOWER","UPPER","LENGTH","ASCII","CHR","LTRIM","RTRIM","ALTER","TABLE","ADD","COLUMN","DROP","CONSTRAINT","CHECK","UNIQUE","PRIMARY","KEY","FOREIGN","REFERENCES","DEFAULT","CASCADE","RENAME","TYPE","COMMIT","ROLLBACK","SAVEPOINT","PREPARE","GRANT","REVOKE","ROLE","TO","PUBLIC","DO","ARRAY","INFO","FOUND","WITH","OPTION","DEFERRABLE","CONSTRAINTS","DEFERRED","INTEGER","SMALLINT","BIGINT","DECIMAL","NUMERIC","VARCHAR","TEXT","DATE","BOOLEAN","INT","TRUE","FALSE","OTHERS"];
+const KWRE=new RegExp("\\b("+KW.join("|")+")\\b","g");
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function hlLine(line){
+  // line already contains HTML entities (&gt; etc.) from authoring; protect them
+  let ci=line.indexOf("--");
+  let codePart = ci>=0?line.slice(0,ci):line;
+  let com = ci>=0?line.slice(ci):"";
+  codePart = codePart.replace(/('[^']*')/g,'\u0001$1\u0002');
+  codePart = codePart.replace(KWRE,'<span class="kw">$1</span>');
+  codePart = codePart.replace(/\u0001([^\u0002]*)\u0002/g,'<span class="str">$1</span>');
+  if(com) com='<span class="cm">'+com+'</span>';
+  return codePart+com;
+}
+function highlightPres(root){
+  root.querySelectorAll("pre").forEach(pre=>{
+    pre.innerHTML = pre.innerHTML.split("\n").map(hlLine).join("\n");
+  });
+}
+
+/* ---------- render ---------- */
+const pagesEl=document.getElementById("pages");
+PAGES.forEach((pg,pi)=>{
+  const sec=document.createElement("section");
+  sec.className="page"+(pi<PAGES.length-1?" brk":"");
+  let html=`<div class="page-tag">${pg.tag}</div>
+    <div class="head"><h1>${pg.title}</h1><span class="sc">${pg.sc}</span></div>
+    <div class="cols">`;
+  pg.cards.forEach(c=>{
+    html+=`<div class="card" style="--hue:var(${c.hue})"><div class="k">${c.k}</div><h2>${c.h}</h2>${c.body}</div>`;
+  });
+  html+=`</div>`;
+  if(pi===PAGES.length-1) html+=`<div class="footnote">COP 4710 Midterm 2 · DML/DDL · queries · PL/pgSQL · views · indexes · transactions · cheat sheet (4 pages)</div>`;
+  sec.innerHTML=html;
+  highlightPres(sec);
+  pagesEl.appendChild(sec);
+});
+
+/* ---------- theme + print ---------- */
+const store=(()=>{try{localStorage.setItem("__t","1");localStorage.removeItem("__t");return localStorage;}catch(e){return null;}})();
+const root=document.documentElement, tbtn=document.getElementById("themeBtn");
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");tbtn.textContent="◐ Auto";} else {root.setAttribute("data-theme",t);tbtn.textContent=(t==="dark"?"☾ Dark":"☀ Light");} try{store&&store.setItem("m2-cheat-theme",t);}catch(e){} }
+let cur="system"; try{ if(store) cur=store.getItem("m2-cheat-theme")||"system"; }catch(e){}
+applyTheme(cur);
+tbtn.addEventListener("click",()=>{ cur=cur==="system"?"light":cur==="light"?"dark":"system"; applyTheme(cur); });
+document.getElementById("printBtn").addEventListener("click",()=>window.print());
+</script>
+</body>
+</html>
