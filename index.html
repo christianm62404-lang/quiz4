@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COP 4710 — Midterm 2 Study Guide</title>
+<title>OSTEP Concurrency — Study Guide (Quiz)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -11,840 +11,950 @@
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
   --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;
-  --ok:#1f8a4c;--bad:#c23b3b;--warn:#b5861f;
-  --kw:#1f5480;--cm:#7c8a99;--str:#9a5518;
+  --ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;--warn:#b5861f;--warn-bg:#fbf3df;--warn-line:#ecd9a6;
+  --badge:#2b3a4a;--badge-ink:#eaf0f6;
   --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;
   --shadow: 0 1px 2px rgba(24,34,48,.05), 0 6px 20px rgba(24,34,48,.06);
+  --radius:12px;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
-    --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--bad:#e88686;--warn:#e3bb63;
-    --kw:#8cc0ea;--cm:#6d7d8d;--str:#e0a56a;
+    --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;
+    --ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;--warn:#e3bb63;--warn-bg:#2a2314;--warn-line:#4d4126;
+    --badge:#32414f;--badge-ink:#eaf0f6;
     --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="light"]{
   --bg:#e9edf2;--surface:#ffffff;--surface-2:#f4f7fa;--ink:#182230;--ink-soft:#33414f;--muted:#5c6b7c;--faint:#8695a4;--line:#d8e0e8;--line-strong:#c3cedb;
-  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--bad:#c23b3b;--warn:#b5861f;--kw:#1f5480;--cm:#7c8a99;--str:#9a5518;
+  --accent:#2f6f9f;--accent-strong:#1f5480;--accent-soft:#e6eef5;--ok:#1f8a4c;--ok-bg:#e5f4ea;--ok-line:#bfe3cc;--bad:#c23b3b;--bad-bg:#fbe9e9;--bad-line:#f0c6c6;--warn:#b5861f;--warn-bg:#fbf3df;--warn-line:#ecd9a6;
+  --badge:#2b3a4a;--badge-ink:#eaf0f6;
   --t0:#3763a8;--t1:#2f7d8f;--t2:#7b5cc4;--t3:#b5622f;--t4:#a83e69;--t5:#4a7c59;--shadow:0 1px 2px rgba(24,34,48,.05),0 6px 20px rgba(24,34,48,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0e141b;--surface:#161e28;--surface-2:#1b2531;--ink:#e7edf4;--ink-soft:#c6d1dc;--muted:#93a2b2;--faint:#6d7d8d;--line:#26313d;--line-strong:#33404e;
-  --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--bad:#e88686;--warn:#e3bb63;--kw:#8cc0ea;--cm:#6d7d8d;--str:#e0a56a;
+  --accent:#6aa7d4;--accent-strong:#8cbfe4;--accent-soft:#1c2a38;--ok:#5cc98a;--ok-bg:#14261c;--ok-line:#2b4d38;--bad:#e88686;--bad-bg:#2a1618;--bad-line:#4d2a2c;--warn:#e3bb63;--warn-bg:#2a2314;--warn-line:#4d4126;
+  --badge:#32414f;--badge-ink:#eaf0f6;
   --t0:#6b9be0;--t1:#4fb0c2;--t2:#a58ae0;--t3:#d98b57;--t4:#d878a0;--t5:#6fb98a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-code{font-family:var(--mono);font-size:.86em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--accent-strong)}
+::selection{background:var(--accent-soft)}
+.wrap{max-width:1300px;margin:0 auto;padding:0 24px}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
+.codeblk{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:9px 0 4px;font-size:12.6px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.55;tab-size:2}
+.qtext .codeblk{font-weight:400;margin:8px 0 2px}
+.explain .codeblk,.sa-ans .codeblk{margin:7px 0}
 
-.masthead{border-bottom:1px solid var(--line-strong);background:linear-gradient(180deg,var(--surface),var(--surface-2))}
-.mast-inner{padding:30px 24px 20px;max-width:1080px;margin:0 auto}
-.mast-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.masthead{border-bottom:1px solid var(--line-strong);background:linear-gradient(180deg, var(--surface), var(--surface-2))}
+.mast-inner{padding:30px 24px 22px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
-h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-size:clamp(26px,4.4vw,38px);line-height:1.1;margin:.3em 0 .16em;color:var(--ink)}
-.subtitle{color:var(--muted);max-width:76ch;font-size:16px;margin:0}
-.btns{display:flex;gap:8px;flex-wrap:wrap}
-.hbtn{flex:0 0 auto;font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
-.hbtn:hover{border-color:var(--accent);color:var(--accent-strong)}
-.schema{margin-top:16px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14px;color:var(--ink-soft)}
-.schema b{color:var(--ink)}
-.schema pre{margin:8px 0 0}
+h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-size:clamp(26px,4.4vw,40px);line-height:1.1;margin:.32em 0 .18em;text-wrap:balance;color:var(--ink)}
+.subtitle{color:var(--muted);max-width:76ch;font-size:16.5px;margin:0}
+.mast-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.theme-btn{flex:0 0 auto;font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent-strong)}
+.callout{margin-top:18px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14.5px;color:var(--ink-soft)}
+.callout b{color:var(--ink)}
+.scorebar{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.pbar{flex:1 1 320px;min-width:220px;height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.pbar > span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-strong));transition:width .5s ease}
+.pmeta{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pmeta b{color:var(--ink)}
+.reset{font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line-strong);border-radius:99px;padding:7px 14px;cursor:pointer}
+.reset:hover{border-color:var(--bad);color:var(--bad)}
 
-.nav{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-.nav-inner{max-width:1080px;margin:0 auto;display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;padding:9px 24px}
-.chip{flex:0 0 auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:.14s}
-.chip .cn{font-family:var(--mono);font-size:11px;color:var(--hue);font-weight:700}
-.chip:hover{border-color:var(--hue);color:var(--ink)}
-.chip.active{background:var(--hue);border-color:var(--hue);color:#fff}
-.chip.active .cn{color:rgba(255,255,255,.9)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:36px;align-items:start;padding:28px 0 90px}
+.exam{min-width:0}
+.guide{position:sticky;top:16px;height:calc(100vh - 32px);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
 
-main{padding:10px 0 90px}
-.sec{scroll-margin-top:64px;padding:30px 0 6px;border-top:1px solid var(--line)}
-.sec:first-child{border-top:none}
-.sec-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hue);font-weight:600}
-.sec h2{font-family:var(--serif);font-weight:600;font-size:clamp(22px,3.3vw,30px);margin:.12em 0 .18em;letter-spacing:-.01em;display:flex;gap:12px;align-items:baseline}
-.sec h2 .num{font-family:var(--mono);font-size:.62em;color:var(--hue);font-weight:700}
-.sec .lead{color:var(--muted);max-width:78ch;margin:0 0 6px;font-size:15px}
-.sec h3{font-family:var(--sans);font-weight:700;font-size:16.5px;color:var(--ink);margin:22px 0 6px;padding-left:11px;border-left:3px solid var(--hue)}
+.exam-toolbar{position:sticky;top:0;z-index:25;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:16px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.fbtn{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 12px}
+.fbtn:hover{border-color:var(--accent);color:var(--accent-strong)}
+.fbtn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.fcount{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.jump{font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.jump:hover{border-color:var(--accent);color:var(--accent-strong)}
 
-.keys{margin:6px 0 2px;padding-left:20px}
-.keys li{margin:5px 0;color:var(--ink-soft)}
-.keys li::marker{color:var(--hue)}
-.keys b{color:var(--ink)}
-.bad{color:var(--bad);font-weight:700}.ok{color:var(--ok);font-weight:700}.warn{color:var(--warn);font-weight:700}
+.part-head{scroll-margin-top:16px;margin:30px 0 14px;padding:4px 0 4px 16px;border-left:4px solid var(--hue)}
+.part-head:first-of-type{margin-top:4px}
+.part-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hue);font-weight:600}
+.part-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(21px,3vw,27px);margin:.15em 0 .1em;letter-spacing:-.01em;text-wrap:balance}
+.part-head p{margin:0;color:var(--muted);max-width:74ch;font-size:14.5px}
 
-.tbl{border-collapse:collapse;margin:12px 0 4px;font-size:13.5px;width:100%;overflow:hidden}
-.tbl th,.tbl td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
-.tbl th{background:color-mix(in srgb,var(--hue) 11%,transparent);font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--muted);font-weight:600;text-transform:uppercase}
-.tbl td{color:var(--ink-soft)}
-.tbl td code{font-size:.92em}
-.tbl tr:nth-child(even) td{background:var(--surface-2)}
+.qitem{display:flex;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+.qbadge{flex:0 0 auto;width:46px;background:var(--badge);color:var(--badge-ink);display:flex;align-items:flex-start;justify-content:center;padding-top:16px;font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.qbody{flex:1;min-width:0;padding:14px 18px 16px}
+.qmeta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:9px}
+.qpts{font-family:var(--mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
+.qpts.ok{color:var(--ok)}.qpts.no{color:var(--bad)}
+.qtype{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px}
+.qtype.calc{color:var(--accent-strong);border-color:var(--accent)}
+.star{flex:0 0 auto;margin-left:auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--faint);border-radius:7px;width:30px;height:26px;font-size:14px;line-height:1;display:grid;place-items:center;transition:.12s}
+.star:hover{border-color:var(--t4);color:var(--t4)}
+.star.on{background:var(--t4);border-color:var(--t4);color:#fff}
+.qtext{font-weight:600;font-size:16px;color:var(--ink);margin:0 0 12px;text-wrap:pretty}
+.qtext code{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:10px;padding:11px 13px;font-size:14.5px;font-family:inherit;line-height:1.45;transition:.12s}
+.opt:hover:not(:disabled){border-color:var(--hue);background:var(--surface-2)}
+.opt:disabled{cursor:default}
+.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt .mk{flex:0 0 auto;width:20px;height:20px;border:2px solid var(--line-strong);margin-top:1px;display:grid;place-items:center;color:transparent}
+.opt.rad .mk{border-radius:50%}
+.opt.chk .mk{border-radius:5px;font-size:13px;font-weight:800}
+.opt .ot{flex:1}
+.opt .ot code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+.opt .tag{display:none;flex:0 0 auto;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--ok);border-radius:5px;padding:3px 7px;align-self:center}
+.opt.sel{border-color:var(--hue)}
+.opt.sel .mk{border-color:var(--hue);background:var(--hue);color:#fff}
+.opt.correct{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ink)}
+.opt.correct .mk{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.correct .tag{display:inline-block}
+.opt.miss{border-color:var(--warn-line);background:var(--warn-bg);color:var(--ink)}
+.opt.miss .mk{border-color:var(--warn);color:var(--warn);background:transparent}
+.opt.chosen-wrong{border-color:var(--bad-line);background:var(--bad-bg);color:var(--ink)}
+.opt.chosen-wrong .mk{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt.dim{opacity:.55}
+.numrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.numin{font-family:var(--mono);font-size:15px;width:150px;max-width:55vw;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 12px}
+.numin:focus{outline:2px solid var(--accent);outline-offset:1px}
+.numin.okb{border-color:var(--ok);background:var(--ok-bg)}
+.numin.nob{border-color:var(--bad);background:var(--bad-bg)}
+.numunit{font-family:var(--mono);font-size:13px;color:var(--faint)}
+.submit{margin-top:11px;font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--hue);color:#fff;background:var(--hue);border-radius:99px;padding:8px 18px}
+.submit:hover{filter:brightness(1.07)}
+.submit:disabled{opacity:.5;cursor:default}
+table.match{border-collapse:collapse;width:100%;font-size:14px;margin-top:2px}
+table.match td{border:1px solid var(--line);padding:7px 9px;vertical-align:middle}
+table.match td.desc{color:var(--ink-soft)}
+table.match td.pick{width:42%}
+.msel{font-family:inherit;font-size:13.5px;width:100%;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 8px}
+tr.rc td{background:var(--ok-bg)}
+tr.rw td{background:var(--bad-bg)}
+.terms-legend{font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+.terms-legend b{color:var(--ink);font-family:var(--mono)}
+.explain{margin-top:13px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:10px 14px;font-size:14px;color:var(--ink-soft);display:none}
+.explain.show{display:block;animation:fade .25s ease}
+.explain b{color:var(--ink)}
+.explain code{font-family:var(--mono);font-size:.9em}
+.explain .verdict{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-right:8px}
+.explain .verdict.ok{color:var(--ok)}
+.explain .verdict.no{color:var(--bad)}
+.explain .src{display:block;margin-top:7px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.sa-ans{display:none;margin-top:12px;border-left:3px solid var(--hue);background:var(--surface-2);border-radius:0 8px 8px 0;padding:4px 15px 8px;font-size:14.5px;color:var(--ink-soft)}
+.qitem.open .sa-ans{display:block;animation:fade .25s ease}
+.sa-ans p{margin:9px 0}.sa-ans b{color:var(--ink)}
+.sa-note{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-bottom:6px}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.qitem.hide,.part-head.hide{display:none}
+.empty-state{border:1px dashed var(--line-strong);border-radius:12px;padding:30px 18px;text-align:center;color:var(--muted);font-size:14.5px;background:var(--surface-2)}
 
-.ex{border:1px solid var(--line);border-left:3px solid var(--hue);border-radius:10px;background:var(--surface);box-shadow:var(--shadow);margin:14px 0;overflow:hidden}
-.ex-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:10px 14px 2px}
-.ex-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--hue);border-radius:5px;padding:3px 8px}
-.ex-label.alt{color:var(--hue);background:transparent;border:1px solid var(--hue)}
-.ex-title{font-weight:700;font-size:14.5px;color:var(--ink)}
-.ex-prompt{padding:2px 14px 0;color:var(--muted);font-size:13.5px;font-style:italic}
-.ex pre{margin:10px 14px}
-.ex-note{padding:0 14px 11px;color:var(--ink-soft);font-size:13.5px}
-.ex-note b{color:var(--ink)}
-.ex-note::before{content:"▸ ";color:var(--hue);font-weight:700}
+.guide-head{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.guide-head .glbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-strong);background:var(--surface);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+.guide-head .gtitle{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.guide-close{display:none;flex:0 0 auto;font-family:var(--mono);font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line-strong);border-radius:99px;width:30px;height:30px;cursor:pointer}
+.guide-close:hover{border-color:var(--bad);color:var(--bad)}
+.guide-nav{flex:0 0 auto;display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding:10px 14px;border-bottom:1px solid var(--line)}
+.gchip{flex:0 0 auto;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;transition:.14s}
+.gchip .gdot{width:8px;height:8px;border-radius:3px;background:var(--gh)}
+.gchip:hover{border-color:var(--gh);color:var(--ink)}
+.gchip.active{background:var(--gh);border-color:var(--gh);color:#fff}
+.gchip.active .gdot{background:rgba(255,255,255,.9)}
+.gchip.cramchip{--gh:var(--accent);font-weight:700}
+.guide-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:4px 18px 26px}
+.note{padding:14px 0;border-bottom:1px dashed var(--line)}
+.note:last-child{border-bottom:none}
+.note h4{margin:0 0 6px;font-size:14.5px;color:var(--ink);display:flex;align-items:baseline;gap:8px}
+.note h4 .n{font-family:var(--mono);font-size:11.5px;color:var(--gh);font-weight:700}
+.note p{margin:0 0 6px;color:var(--ink-soft);font-size:14px}
+.note ul,.note ol{margin:6px 0 0;padding-left:19px;color:var(--ink-soft);font-size:14px}
+.note li{margin:3px 0}.note li::marker{color:var(--gh)}
+.note code{font-size:.86em}
+.note .kw{color:var(--gh);font-weight:600}
+.note .codeblk{font-size:11.8px;margin:8px 0 3px}
+.note .tbl{border-collapse:collapse;margin:8px 0;font-size:12px;width:100%}
+.note .tbl th,.note .tbl td{border:1px solid var(--line);padding:4px 7px;text-align:left}
+.note .tbl th{background:var(--surface-2);font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:600}
+.note .tbl td{color:var(--ink-soft)}
+.note .tbl code{font-size:.92em}
+.cram h5{margin:15px 0 5px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--gh);border-bottom:1px solid var(--line);padding-bottom:3px}
+.cram h5:first-child{margin-top:2px}
+.cram ul{margin:0 0 4px;padding-left:17px}
+.cram li{margin:4px 0;line-height:1.5;color:var(--ink-soft)}
+.cram li::marker{color:var(--gh)}
+.cram b{color:var(--ink)}.cram code{font-size:.85em}
+.cram .codeblk{font-size:11.6px;margin:7px 0 4px}
 
-pre{font-family:var(--mono);font-size:12.9px;line-height:1.6;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:11px 13px;overflow-x:auto;white-space:pre;color:var(--ink);tab-size:2;margin:10px 0}
-pre .kw{color:var(--kw);font-weight:600}
-pre .cm{color:var(--cm);font-style:italic}
-pre .str{color:var(--str)}
-
-footer{padding:24px 0 60px;color:var(--faint);font-size:13px}
+.guide-toggle{display:none;position:fixed;right:18px;bottom:18px;z-index:60;background:var(--accent);color:#fff;border:none;cursor:pointer;padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.06em;gap:8px;align-items:center}
+.guide-toggle:hover{background:var(--accent-strong)}
+.scrim{display:none}
+footer{padding:26px 24px 50px;color:var(--faint);font-size:13px;border-top:1px solid var(--line);margin-top:10px}
 footer .mono{font-family:var(--mono)}
-.totop{position:fixed;right:18px;bottom:18px;z-index:40;background:var(--accent);color:#fff;border:none;cursor:pointer;width:44px;height:44px;border-radius:50%;box-shadow:var(--shadow);font-size:18px;opacity:0;pointer-events:none;transition:opacity .2s}
-.totop.show{opacity:1;pointer-events:auto}
-.totop:hover{background:var(--accent-strong)}
 
-@media (max-width:640px){.mast-inner{padding:24px 16px 16px}.wrap,.nav-inner{padding-left:16px;padding-right:16px}.ex pre,.ex-head,.ex-prompt,.ex-note{} }
-@media print{
-  :root{--bg:#fff;--surface:#fff;--surface-2:#f4f4f4;--ink:#000;--ink-soft:#1a1a1a;--muted:#333;--line:#bbb}
-  .nav,.totop,.btns{display:none}
-  .sec{break-inside:avoid-page}
-  .ex{break-inside:avoid}
-  pre{font-size:8.6pt;white-space:pre-wrap}
-  body{font-size:10pt}
+@media (max-width:1024px){
+  .layout{grid-template-columns:1fr}
+  .guide{position:fixed;top:0;right:0;height:100vh;width:min(94vw,440px);border-radius:0;border:none;border-left:1px solid var(--line-strong);transform:translateX(100%);transition:transform .28s ease;z-index:65;box-shadow:-10px 0 30px rgba(10,16,22,.18)}
+  body.guide-open .guide{transform:translateX(0)}
+  .guide-close{display:grid;place-items:center}
+  .guide-toggle{display:inline-flex}
+  body.guide-open .guide-toggle{opacity:0;pointer-events:none}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(10,16,22,.4);opacity:0;pointer-events:none;transition:opacity .28s ease;z-index:64}
+  body.guide-open .scrim{opacity:1;pointer-events:auto}
 }
+@media (prefers-reduced-motion: reduce){.guide,.scrim,.pbar>span{transition:none}}
+@media (max-width:620px){.mast-inner{padding:24px 16px 18px}.wrap{padding:0 16px}.qbadge{width:38px}.qbody{padding:13px 14px 14px}}
 </style>
 </head>
 <body>
 
 <header class="masthead">
-  <div class="mast-inner">
+  <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> COP 4710 · Database Systems <span class="dot"></span> Midterm 2 · Study Guide</div>
-      <div class="btns">
-        <button class="hbtn" id="printBtn" type="button">⎙ Print / PDF</button>
-        <button class="hbtn" id="themeBtn" type="button"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
-      </div>
+      <div class="eyebrow"><span class="dot"></span> Operating Systems · OSTEP <span class="dot"></span> Concurrency · Ch 26–32</div>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Midterm 2 — Study Guide &amp; Solved Examples</h1>
-    <p class="subtitle">Everything on the two-page formula sheet, organized by topic with the exam's official problems worked out: DML &amp; DDL, joins and aggregates, PL/pgSQL functions and exceptions, arrays/strings/dates, views, indexes &amp; B+ trees, and transactions/locking/permissions. PostgreSQL / PL-pgSQL.</p>
-    <div class="schema"><b>Working schema used throughout.</b> Two tables, self-referencing manager and department head:
-      <pre id="schemaPre">Departments(dept_id PK, dept_name, dept_head -&gt; Employees.emp_id,
-            budget, city)
-Employees(emp_id PK, fname, lname, salary,
-          dept_id -&gt; Departments.dept_id,
-          manager_id -&gt; Employees.emp_id)</pre>
+    <h1 class="title">Concurrency — Threads, Locks &amp; Deadlock</h1>
+    <p class="subtitle">A quiz-style study guide for the OSTEP concurrency chapters: threads &amp; race conditions (26), locks (28), concurrent data structures (29), condition variables (30), semaphores (31), and common concurrency bugs &amp; deadlock (32). Answer each question — multiple choice, select-all, matching, short numbers, and reveal-the-answer — and it grades instantly. Notes and a ⚡ Cram Sheet sit on the right.</p>
+    <div class="callout"><b>The whole problem in one line:</b> threads share memory and run in an <b>uncontrolled order</b>, so unsynchronized access to shared data is a <b>race condition</b>. The chapters build the tools to tame it — <b>mutual exclusion</b> (locks, semaphores) for atomicity, and <b>ordering</b> (condition variables, semaphores) for "wait until." Progress is saved in this browser.</div>
+    <div class="scorebar">
+      <div class="pbar"><span id="overallBar"></span></div>
+      <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0 / 0</span> graded</div>
+      <button class="reset" id="resetBtn">Reset</button>
     </div>
   </div>
 </header>
 
-<nav class="nav"><div class="nav-inner" id="nav"></div></nav>
+<div class="wrap">
+  <div class="layout">
+    <main class="exam">
+      <div class="exam-toolbar" id="examBar">
+        <div class="filters" role="group" aria-label="Filter questions">
+          <button class="fbtn active" data-f="all" type="button">All</button>
+          <button class="fbtn" data-f="unanswered" type="button">Unanswered</button>
+          <button class="fbtn" data-f="incorrect" type="button">Incorrect</button>
+          <button class="fbtn" data-f="starred" type="button">★ Review</button>
+        </div>
+        <div class="bar-right">
+          <span class="fcount" id="fcount"></span>
+          <button class="jump" id="jumpNext" type="button" title="Scroll to the next unanswered question">Next unanswered ↓</button>
+        </div>
+      </div>
+      <div class="exam-list" id="exam" aria-label="Practice questions"></div>
+      <div class="empty-state" id="emptyState" hidden></div>
+    </main>
+    <aside class="guide" id="guide" aria-label="Study guide">
+      <div class="guide-head">
+        <span class="glbl">Study Guide</span>
+        <span class="gtitle" id="gtitle">Study Guide</span>
+        <button class="guide-close" id="guideClose" type="button" aria-label="Close study guide">✕</button>
+      </div>
+      <div class="guide-nav" id="gnav" role="tablist"></div>
+      <div class="guide-body" id="gbody"></div>
+    </aside>
+  </div>
+</div>
 
-<main class="wrap" id="main"></main>
+<div class="scrim" id="scrim"></div>
+<button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
 <footer class="wrap">
-  <div class="mono">COP 4710 — Midterm 2 · DML/DDL · joins &amp; aggregates · PL/pgSQL · views · indexes · transactions · built from the formula sheet &amp; Exam 2 practice set.</div>
-  <div style="margin-top:8px">Reference only — read the notes, then study each solved example. Use the chips above to jump between topics; the ⎙ button saves a PDF.</div>
+  <div class="mono">OSTEP — Operating Systems: Three Easy Pieces · Concurrency (Ch 26, 28, 29, 30, 31, 32) · study-guide quiz.</div>
+  <div style="margin-top:8px">Work through the questions, reveal the worked answers, and keep the ⚡ Cram Sheet open for the one-page recap.</div>
 </footer>
-<button class="totop" id="totop" aria-label="Back to top">↑</button>
 
 <script>
-/* ============================================================
-   COP 4710 Midterm 2 — study guide content (notes + solved SQL)
-   ============================================================ */
+/* =========================================================
+   STUDY-GUIDE NOTES — OSTEP Concurrency (Ch 26–32)
+   ========================================================= */
 const SECTIONS = [
 {
-  id:"toolbox", short:"Toolbox", tag:"orientation", title:"Pick the Right Tool",
-  lead:"Most questions are 'make this change' or 'answer this question about the data.' Match the ask to the construct, then follow the recipe.",
-  blocks:[
-    {type:"table", head:["If the question asks you to…","Use"], rows:[
-      ["Change a table's structure (a column, a constraint)","<code>ALTER TABLE</code> (DDL)"],
-      ["Change values in existing rows","<code>UPDATE</code> (DML)"],
-      ["Remove rows","<code>DELETE</code> (DML)"],
-      ["Choose rows via another table — matched / none","<code>IN</code> / <code>EXISTS</code> · <code>NOT IN</code> / <code>NOT EXISTS</code>"],
-      ["Filter rows vs. filter groups","<code>WHERE</code> (rows) vs. <code>HAVING</code> (groups)"],
-      ["Keep unmatched left-side rows","<code>LEFT JOIN</code>"],
-      ["Hide columns / save a reusable query","<code>VIEW</code>"],
-      ["Validate input and return status codes","function + <code>EXCEPTION</code> block"],
-      ["Several changes, all-or-nothing","transaction or a function"],
-      ["Auto-react to a change","trigger"],
-      ["Faster lookup","index (hash = equality, B+ tree = range)"]
-    ]},
-    {type:"h3", t:"Recipe — change/delete rows chosen through another table"},
-    {type:"keys", items:[
-      "Write the inner <code>SELECT key FROM other WHERE …</code> and mentally run it alone.",
-      "Outer: <code>WHERE key IN (inner)</code> for rows that <b>have</b> a match, or <code>NOT EXISTS (… WHERE o.key = t.key)</code> for rows with <b>none</b>.",
-      "With <code>EXISTS</code>, don't forget the keyword <b>and</b> the correlation line (<code>d.dept_id = e.dept_id</code>).",
-      "<code>SET</code> column takes <b>no alias</b>; <code>UPDATE</code> takes <b>no column list</b>; <code>DELETE</code> takes <b>no JOIN</b> (use <code>USING</code> or a subquery).",
-      "Re-read: is there a <code>WHERE</code>? Which rows survive on the sample data?"
-    ]},
-    {type:"h3", t:"Recipe — write a function"},
-    {type:"keys", items:[
-      "Signature, <code>RETURNS</code> type, dollar quotes, <code>LANGUAGE plpgsql</code>.",
-      "<code>DECLARE</code> variables (<code>:=</code> to assign; every statement ends <code>;</code>).",
-      "Check in order: <b>arguments</b> (NULL?) → <b>existence</b> (<code>SELECT … INTO</code> / <code>EXISTS</code>) → <b>value</b>.",
-      "Put a risky cast inside its own <code>BEGIN … EXCEPTION … END;</code>.",
-      "Do the work, then <code>RETURN</code>. <b>Every path returns.</b>"
-    ]}
+  id:"threads", short:"Threads & Races", tag:"Chapter 26", title:"Concurrency: Threads & Race Conditions",
+  blurb:"A thread is a second point of execution inside one process. Threads share memory, so concurrent access to shared data — under an uncontrolled schedule — produces race conditions and indeterminate results.",
+  notes:[
+    {h:"What a thread is (and shares)", html:`<ul>
+      <li>A <b>thread</b> is like a process but it <b>shares the address space</b> with the other threads of the process: same code, heap, and globals.</li>
+      <li>Each thread has its <b>own</b> stack, registers, and program counter (PC). A context switch saves/restores per-thread state (a TCB).</li>
+      <li>Why threads: <b>parallelism</b> (use many CPUs) and <b>overlapping I/O</b> (don't block the whole program while one part waits).</li></ul>`},
+    {h:"The core problem: uncontrolled scheduling", html:`<p>The scheduler can switch threads at <b>any</b> instruction. A shared update like <code>counter = counter + 1</code> is really three instructions:</p>
+      <div class="codeblk">mov  counter, %eax    ; load
+add  $1, %eax         ; add
+mov  %eax, counter    ; store</div>
+      <p>If two threads interleave load/add/store, one update is <b>lost</b>. The bug depends on timing, so results are <b>indeterminate</b> (different each run).</p>`},
+    {h:"Vocabulary", html:`<table class="tbl"><tbody>
+      <tr><td><b>Race condition</b></td><td>result depends on the timing/interleaving of threads</td></tr>
+      <tr><td><b>Critical section</b></td><td>code that accesses a shared resource and must not run concurrently</td></tr>
+      <tr><td><b>Mutual exclusion</b></td><td>guarantee that only one thread is in the critical section at a time</td></tr>
+      <tr><td><b>Atomic</b></td><td>"all or none" — executes as one indivisible unit</td></tr>
+      <tr><td><b>Indeterminate</b></td><td>program output varies run to run because of a race</td></tr></tbody></table>`},
+    {h:"Two needs the rest of the unit solves", html:`<ul>
+      <li><b>Mutual exclusion / atomicity</b> → <b>locks</b> and <b>semaphores</b> (Ch 28, 31).</li>
+      <li><b>Ordering</b> ("wait until another thread does X") → <b>condition variables</b> and <b>semaphores</b> (Ch 30, 31).</li></ul>`}
   ]
 },
 {
-  id:"dml", short:"DML", tag:"INSERT · UPDATE · DELETE", title:"Data Manipulation (DML)",
-  lead:"Add, change, and remove rows. The exam's favorite move: pick the affected rows through a subquery on the other table.",
-  blocks:[
-    {type:"h3", t:"Syntax forms"},
-    {type:"code", code:
-`INSERT INTO t (c1,c2) VALUES (v1,v2), (v3,v4);
-INSERT INTO t (c1,c2) SELECT a,b FROM s WHERE ..;  -- list count must match
-UPDATE t SET c1 = v1, c2 = v2 WHERE cond;
-DELETE FROM t WHERE cond;
-UPDATE t SET c = s.c FROM s WHERE t.k = s.k;        -- update using another table
-DELETE FROM t USING s WHERE t.k = s.k;              -- delete using another table`},
-    {type:"keys", items:[
-      "<code>UPDATE</code>: <code>WHERE</code> picks rows first; the <code>SET</code> right side uses the <b>old</b> values. <code>SET</code> column has no alias (<code>SET salary</code>, not <code>SET e.salary</code>); there is <b>no column list</b> after the table name.",
-      "Omitted <code>INSERT</code> columns get their <code>DEFAULT</code>, else <code>NULL</code>.",
-      "<code>DELETE</code> allows no <code>JOIN</code> — use <code>USING</code> or a subquery. Don't repeat the target table in <code>UPDATE … FROM</code>.",
-      "<span class='bad'>Traps:</span> no <code>WHERE</code> = every row. <code>NOT IN</code> with a <code>NULL</code> in the subquery returns nothing → use <code>NOT EXISTS</code>. <code>= NULL</code> is never true → use <code>IS NULL</code>. A scalar subquery must return exactly 1 row.",
-      "<code>ILIKE</code> = case-insensitive <code>LIKE</code>. <code>%</code> = any run (even empty), <code>_</code> = one char; no <code>%</code> means the whole string must match."
-    ]},
-    {type:"ex", label:"Official Q1", title:"UPDATE + ILIKE + subquery", prompt:"For employees of departments whose name contains “Research” (case-insensitive), double the salary.", code:
-`UPDATE Employees
-SET salary = salary * 2
-WHERE dept_id IN (
-    SELECT dept_id
-    FROM Departments
-    WHERE dept_name ILIKE '%research%'
-);`, note:"Inner query lists the matching department ids; the outer <code>UPDATE</code> hits employees in those departments."},
-    {type:"ex", label:"Q1 variant", alt:true, title:"Same idea with EXISTS", prompt:"Double salaries for employees whose department name contains “Sales”.", code:
-`UPDATE Employees e
-SET salary = salary * 2
-WHERE EXISTS (
-    SELECT 1
-    FROM Departments d
-    WHERE d.dept_id = e.dept_id      -- correlation line
-      AND d.dept_name ILIKE '%sales%'
-);`, note:"<code>EXISTS</code> needs the correlation line tying <code>d.dept_id</code> to <code>e.dept_id</code>; otherwise it's true for every row."},
-    {type:"ex", label:"Official Q2", title:"DELETE + NOT EXISTS", prompt:"Delete departments with budget 0 AND no employees.", code:
-`DELETE FROM Departments d
-WHERE d.budget = 0.00
-  AND NOT EXISTS (
-      SELECT 1
-      FROM Employees e
-      WHERE e.dept_id = d.dept_id
-  );`, note:"“No children” = <code>NOT EXISTS</code>. A scalar-count variant works too: <code>AND (SELECT COUNT(*) FROM Employees e WHERE e.dept_id = d.dept_id) = 0</code>."},
-    {type:"ex", label:"Variant", alt:true, title:"UPDATE from an aggregate condition", prompt:"Raise salaries 5% in departments whose average salary is under 5000.", code:
-`UPDATE Employees
-SET salary = salary * 1.05
-WHERE dept_id IN (
-    SELECT dept_id
-    FROM Employees
-    GROUP BY dept_id
-    HAVING AVG(salary) < 5000.00
-);`, note:"Group/aggregate lives <b>inside</b> the subquery; the outer <code>UPDATE</code> just filters by the ids it returns."},
-    {type:"ex", label:"Variant", alt:true, title:"Correlated / scalar subquery in SET", prompt:"Set each department head's salary to that department's maximum salary.", code:
-`UPDATE Employees e
-SET salary = (
-    SELECT MAX(e2.salary)
-    FROM Employees e2
-    WHERE e2.dept_id = e.dept_id
-)
-WHERE e.emp_id IN (
-    SELECT dept_head FROM Departments
-    WHERE dept_head IS NOT NULL
-);`, note:"The <code>SET</code> value is a scalar subquery (one row). Guard the rows with <code>WHERE</code> so only heads are touched."}
+  id:"locks", short:"Locks", tag:"Chapter 28", title:"Locks",
+  blurb:"A lock makes a critical section atomic: a thread acquires it, runs, releases. Evaluate a lock by correctness, fairness, and performance — and build one from atomic hardware instructions, not plain loads/stores.",
+  notes:[
+    {h:"Basic use", html:`<div class="codeblk">pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_lock(&m);     // enter: only one thread past here
+balance = balance + 1;      // critical section
+pthread_mutex_unlock(&m);   // leave</div>
+      <p>A lock is a variable in state <b>held</b> (one owner) or <b>free</b>. Others calling <code>lock()</code> block until it's released.</p>`},
+    {h:"Three ways to judge a lock", html:`<ol>
+      <li><b>Correctness</b> — does it actually provide mutual exclusion?</li>
+      <li><b>Fairness</b> — does every waiter eventually get the lock (no starvation)?</li>
+      <li><b>Performance</b> — overhead with 1 thread, many threads on 1 CPU, and many CPUs.</li></ol>`},
+    {h:"Attempts that don't work (and why)", html:`<ul>
+      <li><b>Disable interrupts</b>: gives mutual exclusion on a <b>single</b> CPU only, needs privilege, and is useless on multiprocessors.</li>
+      <li><b>A plain flag with loads/stores</b>: a switch between "check flag" and "set flag" lets two threads enter — <b>no</b> mutual exclusion — and it spins.</li></ul>`},
+    {h:"Atomic hardware primitives", html:`<p><b>Test-and-set</b> (atomic exchange): set to 1, return the old value → the simplest <b>spin lock</b>.</p>
+      <div class="codeblk">int TestAndSet(int *p, int new){ int old=*p; *p=new; return old; }
+void lock(lock_t *l){ while (TestAndSet(&l->flag, 1) == 1) ; } // spin
+void unlock(lock_t *l){ l->flag = 0; }</div>
+      <ul>
+      <li><b>Compare-and-swap</b>: write <code>new</code> only if <code>*p == expected</code>; more powerful (enables lock-free code).</li>
+      <li><b>Load-linked / store-conditional</b>: the store succeeds only if no write happened since the load.</li>
+      <li><b>Fetch-and-add</b> → a <b>ticket lock</b> (take a ticket, wait for your turn) → guarantees <b>fairness/FIFO</b>; test-and-set spin locks do not.</li></ul>`},
+    {h:"Spinning wastes CPU — so sleep", html:`<ul>
+      <li>A spin lock with N threads on 1 CPU wastes a whole time slice spinning for a lock the holder isn't even running to release.</li>
+      <li><b>Just yield()</b>: give up the CPU instead of spinning — better, but many context switches and possible starvation.</li>
+      <li><b>Queues + park()/unpark()</b> (Solaris) / <b>futex</b> (Linux): put waiters to sleep on a queue and wake one on unlock → avoids starvation; a <code>setpark()</code> guard avoids the wakeup/waiting race.</li>
+      <li><b>Two-phase lock</b>: spin a little (in case the lock frees soon), then sleep.</li></ul>`}
   ]
 },
 {
-  id:"alter", short:"ALTER TABLE", tag:"DDL · structure", title:"Changing Structure (ALTER TABLE)",
-  lead:"DDL that changes the table itself; existing rows are kept. Column adds, drops, renames, type/default/not-null changes, and constraints.",
-  blocks:[
-    {type:"code", code:
-`ALTER TABLE t ADD COLUMN c TYPE [NOT NULL] [DEFAULT v];
-ALTER TABLE t DROP COLUMN c [CASCADE];
-ALTER TABLE t RENAME COLUMN old TO new;   -- or RENAME TO newtable
-ALTER TABLE t ALTER COLUMN c TYPE T [USING c::T];
-ALTER TABLE t ALTER COLUMN c SET DEFAULT v;   -- or DROP DEFAULT
-ALTER TABLE t ALTER COLUMN c SET NOT NULL;    -- or DROP NOT NULL
-ALTER TABLE t ADD CONSTRAINT n CHECK (..) | UNIQUE (c)
-      | PRIMARY KEY (c) | FOREIGN KEY (c) REFERENCES p (k) [ON DELETE act];
-ALTER TABLE t DROP CONSTRAINT n;`},
-    {type:"keys", items:[
-      "Several actions can be comma-separated in one <code>ALTER</code>. <code>RENAME</code> can't be combined with others.",
-      "<code>NOT NULL</code> and <code>DEFAULT</code> use <code>ALTER COLUMN</code>, not <code>ADD CONSTRAINT</code>.",
-      "<span class='bad'>ALTER fails when:</span> <code>SET NOT NULL</code> with NULLs present (fix the rows first); <code>ADD CONSTRAINT</code> with rule-breaking rows; a <code>TYPE</code> value won't convert/fit (use <code>USING</code>); <code>ADD COLUMN NOT NULL</code> on a filled table with no <code>DEFAULT</code>; <code>DROP COLUMN</code> blocked by a dependent view (<code>CASCADE</code> drops it).",
-      "<code>SET DEFAULT</code> affects future rows only. <code>DROP COLUMN</code> also drops that column's own constraints; an FK elsewhere pointing at it blocks the drop."
-    ]},
-    {type:"ex", label:"Official Q3", title:"Add a NOT NULL constraint", prompt:"Add NOT NULL to Departments.dept_name.", code:
-`ALTER TABLE Departments
-ALTER COLUMN dept_name SET NOT NULL;`, note:"If any row already has a NULL name, <code>UPDATE … WHERE dept_name IS NULL</code> first, or this fails."},
-    {type:"ex", label:"Official Q4", title:"Drop a column", prompt:"Remove manager_id from Employees.", code:`ALTER TABLE Employees DROP COLUMN manager_id;`, note:"Any view or FK referencing <code>manager_id</code> must be dropped first (or use <code>CASCADE</code>)."},
-    {type:"ex", label:"Official Q5", title:"Add a column with default", prompt:"Add salary_expectation DECIMAL(15,2), default 0.00, not null.", code:
-`ALTER TABLE Employees
-ADD COLUMN salary_expectation DECIMAL(15,2)
-    NOT NULL DEFAULT 0.00;
-
--- if NULLs must be allowed, drop NOT NULL:
-ALTER TABLE Employees
-ADD COLUMN salary_expectation DECIMAL(15,2) DEFAULT 0.00;`, note:"Adding a <code>NOT NULL</code> column to a filled table <b>requires</b> a <code>DEFAULT</code> so existing rows have a value."},
-    {type:"ex", label:"Variants", alt:true, title:"Change / drop default, add a CHECK", code:
-`ALTER TABLE Employees ALTER COLUMN salary_expectation SET DEFAULT 1000.00;
-ALTER TABLE Employees ALTER COLUMN salary_expectation DROP DEFAULT;
-ALTER TABLE Employees
-ADD CONSTRAINT chk_salary_nonnegative CHECK (salary >= 0.00);`, note:"To change an existing constraint you <b>DROP</b> it then <b>ADD</b> it again — there is no “ALTER CONSTRAINT.”"}
+  id:"structures", short:"Data Structures", tag:"Chapter 29", title:"Lock-based Concurrent Data Structures",
+  blurb:"Adding locks makes a structure thread-safe; adding them well makes it scale. Start simple (one lock), then reduce contention only where it pays: sloppy counters, hand-over-hand lists, two-lock queues, per-bucket hash tables.",
+  notes:[
+    {h:"Concurrent counter", html:`<ul>
+      <li>Wrap <code>increment</code> in one lock → correct, but all threads <b>serialize</b> on it → poor scaling (perfect scaling = N threads finish as fast as 1).</li>
+      <li><b>Approximate (sloppy) counter</b>: one <b>local</b> counter per CPU (+ its own lock) and one <b>global</b>. Bump the local; when a local hits threshold <b>S</b>, grab the global lock, add the local into the global, reset local.</li>
+      <li>Bigger <b>S</b> → <b>more scalable</b> but the global value is <b>more approximate</b> (further behind). Classic accuracy/performance trade-off.</li></ul>`},
+    {h:"Concurrent linked list", html:`<ul>
+      <li>Simplest: one lock around the whole list (release it on every return path — easy to forget).</li>
+      <li><b>Hand-over-hand (lock coupling)</b>: a lock <b>per node</b>; grab the next node's lock before releasing the current one. More concurrency in principle, but the per-node lock/unlock overhead often makes it <b>slower</b> than one big lock.</li></ul>`},
+    {h:"Concurrent queue & hash table", html:`<ul>
+      <li><b>Michael &amp; Scott queue</b>: separate <b>head</b> and <b>tail</b> locks + a <b>dummy node</b>, so enqueue (tail) and dequeue (head) rarely contend.</li>
+      <li><b>Hash table</b>: one lock <b>per bucket</b> instead of one global lock → scales well because different buckets proceed in parallel.</li></ul>`},
+    {h:"The lesson", html:`<ul>
+      <li>Start with a <b>single big lock</b>; it's usually correct and often fast enough.</li>
+      <li>Only add complexity when a real bottleneck appears — "<b>premature optimization is the root of all evil</b>" (Knuth). More concurrency ≠ more speed if overhead dominates.</li></ul>`}
   ]
 },
 {
-  id:"fk", short:"Foreign Keys", tag:"referential actions", title:"Foreign-Key Actions",
-  lead:"What happens to child rows when a referenced parent row is deleted or updated.",
-  blocks:[
-    {type:"table", head:["Option","Effect on child rows"], rows:[
-      ["<code>NO ACTION</code> (default)","The delete/update of the parent is <b>rejected</b> if children exist."],
-      ["<code>CASCADE</code>","Children are deleted too / get the new key."],
-      ["<code>SET NULL</code>","Key column set to <code>NULL</code> (not allowed if it's part of the child's PK)."],
-      ["<code>SET DEFAULT</code>","Key column set to its declared default."]
-    ]},
-    {type:"keys", items:[
-      "Change an action by <code>DROP</code>ping the constraint and <code>ADD</code>ing it again. Default name is <code>table_column_fkey</code>.",
-      "A <code>manager_id</code> FK with <code>NO ACTION</code> blocks deleting someone who still has reports.",
-      "<b>Circular FKs</b> (<code>employees.dept_id ↔ departments.dept_head</code>): create one table with a nullable column and add its FK later with <code>ALTER</code>, or use <code>DEFERRABLE</code> + <code>SET CONSTRAINTS … DEFERRED</code>."
-    ]}
+  id:"condvars", short:"Condition Variables", tag:"Chapter 30", title:"Condition Variables",
+  blurb:"When a thread must wait for a condition (not just for a lock), use a condition variable: wait() atomically releases the lock and sleeps; signal() wakes a waiter. Always re-check the condition in a while loop.",
+  notes:[
+    {h:"The two routines", html:`<div class="codeblk">pthread_cond_wait(&cond, &mutex);   // release mutex + sleep; on wake, re-acquire mutex
+pthread_cond_signal(&cond);         // wake one waiting thread</div>
+      <ul>
+      <li>You must <b>hold the lock</b> when calling <code>wait()</code>; it releases it atomically as it sleeps and re-acquires it before returning.</li>
+      <li>Signalling only wakes a thread — it does not hand over any data by itself. Use a shared <b>state variable</b> plus the lock.</li></ul>`},
+    {h:"Always use while, never if", html:`<div class="codeblk">while (ready == 0)          // NOT: if (ready == 0)
+    pthread_cond_wait(&c, &m);</div>
+      <p>After waking you re-acquire the lock, but the condition <b>may no longer hold</b> (another thread ran first; Mesa semantics; spurious wakeups). A <code>while</code> re-checks and is always safe; an <code>if</code> can let a thread proceed when it shouldn't.</p>`},
+    {h:"Producer/consumer (bounded buffer)", html:`<ul>
+      <li>Needs <b>two</b> condition variables — one to wait for <b>empty</b> space (producers) and one to wait for <b>full</b> entries (consumers).</li>
+      <li>With a <b>single</b> CV, a consumer can wake another consumer (not the producer) and both stall. Two CVs + <code>while</code> fixes it.</li></ul>`},
+    {h:"Covering conditions", html:`<p>When you can't tell which waiter is able to make progress, use <b>broadcast</b> (<code>pthread_cond_broadcast</code>) to wake <b>all</b> of them; each re-checks its <code>while</code> and the ones that can't proceed go back to sleep. Safe but can cost performance.</p>`}
   ]
 },
 {
-  id:"joins", short:"Joins & Aggregates", tag:"JOIN · GROUP BY · HAVING", title:"Joins, GROUP BY, HAVING",
-  lead:"Combine tables and summarize groups. The classic exam query: per-department counts and salary stats with a HAVING filter.",
-  blocks:[
-    {type:"keys", items:[
-      "Clause order: <code>SELECT</code> · <code>FROM</code> · <code>WHERE</code> (rows) · <code>GROUP BY</code> · <code>HAVING</code> (groups, aggregates OK) · <code>ORDER BY</code>. <code>WHERE</code> cannot use aggregates.",
-      "<code>INNER JOIN</code> keeps matches only. <code>LEFT JOIN</code> keeps all left rows; right columns are <code>NULL</code> when there's no match. Self-join = same table, two aliases (<code>e.manager_id = m.emp_id</code>).",
-      "Every non-aggregate <code>SELECT</code> column must appear in <code>GROUP BY</code>. Qualify shared names (<code>d.dept_id</code>).",
-      "On a LEFT JOIN with no match: <code>COUNT(*)</code> still counts the padded row (1); <code>COUNT(right.col)</code> gives 0. A <code>HAVING</code> on <code>AVG/SUM</code> drops empty LEFT groups (<code>NULL &gt; 5000</code> isn't true) — use <code>COALESCE</code> if you need them."
-    ]},
-    {type:"ex", label:"Official Q10", title:"Per-department stats with HAVING", prompt:"department_name, employees_no, max_salary — only departments whose average salary > 5000.", code:
-`SELECT d.dept_name AS department_name,
-       COUNT(e.emp_id) AS employees_no,
-       MAX(e.salary)   AS max_salary
-FROM Departments d
-JOIN Employees e ON e.dept_id = d.dept_id
-GROUP BY d.dept_id, d.dept_name
-HAVING AVG(e.salary) > 5000.00;`, note:"Filter on an aggregate (<code>AVG</code>) belongs in <code>HAVING</code>, not <code>WHERE</code>. Group by the PK plus any selected label column."},
-    {type:"ex", label:"Variant", alt:true, title:"Include zero-employee departments", prompt:"Every department must appear, showing 0 employees / 0 payroll.", code:
-`SELECT d.dept_name,
-       COUNT(e.emp_id) AS employees_no,
-       COALESCE(SUM(e.salary), 0.00) AS total_salary
-FROM Departments d
-LEFT JOIN Employees e ON e.dept_id = d.dept_id
-GROUP BY d.dept_id, d.dept_name;`, note:"<code>LEFT JOIN</code> keeps empty departments; <code>COALESCE</code> turns the <code>NULL</code> sum into 0."},
-    {type:"ex", label:"Variant", alt:true, title:"Above own-department average", prompt:"Employees earning more than their department's average.", code:
-`SELECT e.emp_id, e.fname, e.lname, e.salary
-FROM Employees e
-WHERE e.salary > (
-    SELECT AVG(e2.salary)
-    FROM Employees e2
-    WHERE e2.dept_id = e.dept_id
-);`, note:"Correlated subquery recomputes the average for each employee's own department."},
-    {type:"ex", label:"Variants", alt:true, title:"More HAVING patterns", code:
-`-- payroll exceeds budget
-SELECT d.dept_name, d.budget, SUM(e.salary) AS payroll
-FROM Departments d JOIN Employees e ON e.dept_id = d.dept_id
-GROUP BY d.dept_id, d.dept_name, d.budget
-HAVING SUM(e.salary) > d.budget;
-
--- max salary at least twice the min
-SELECT dept_id
-FROM Employees
-GROUP BY dept_id
-HAVING MAX(salary) >= 2 * MIN(salary);`, note:"Anything comparing group aggregates goes in <code>HAVING</code>; include grouped columns you also select."}
+  id:"semaphores", short:"Semaphores", tag:"Chapter 31", title:"Semaphores",
+  blurb:"A semaphore is an integer with two atomic ops: wait (decrement, block if negative) and post (increment, wake one). One primitive does both jobs — as a lock (init 1) and for ordering (init 0).",
+  notes:[
+    {h:"Definition", html:`<div class="codeblk">sem_init(&s, 0, V);   // initialize value to V (0 = shared within a process)
+sem_wait(&s);         // P: decrement; if value < 0, block
+sem_post(&s);         // V: increment; wake one waiter if any</div>
+      <ul>
+      <li>Dijkstra's original names: <b>P()</b> = wait, <b>V()</b> = post.</li>
+      <li>When the value is <b>negative</b>, its magnitude equals the <b>number of threads waiting</b>.</li></ul>`},
+    {h:"The initial value sets the behavior", html:`<table class="tbl"><thead><tr><th>Use</th><th>init</th></tr></thead><tbody>
+      <tr><td><b>Binary semaphore = lock</b></td><td><b>1</b> (one thread may hold it)</td></tr>
+      <tr><td><b>Ordering</b> (wait for an event, e.g. parent waits for child)</td><td><b>0</b> (nothing to "give away" yet)</td></tr>
+      <tr><td><b>Counting</b> / N permits (thread throttling)</td><td><b>N</b> (max threads allowed in at once)</td></tr></tbody></table>`},
+    {h:"Producer/consumer with semaphores", html:`<ul>
+      <li><code>empty</code> init <b>MAX</b>, <code>full</code> init <b>0</b>, plus a binary <b>mutex</b> (init 1) around the buffer.</li>
+      <li><b>Scope of the mutex matters</b>: lock only around the actual buffer put/get. Putting <code>sem_wait(&mutex)</code> <b>outside</b> <code>sem_wait(&empty)</code>/<code>sem_wait(&full)</code> causes <b>deadlock</b> (a blocked consumer holds the mutex the producer needs).</li></ul>`},
+    {h:"Reader-writer locks", html:`<ul>
+      <li>Allow <b>many readers OR one writer</b>. A <code>readers</code> count is guarded by a lock; the <b>first</b> reader acquires the <code>writelock</code> semaphore and the <b>last</b> reader releases it.</li>
+      <li>Simple version can <b>starve writers</b> (a steady stream of readers never lets the writer in). More complex than a plain lock — only worth it when reads dominate.</li></ul>`},
+    {h:"Dining philosophers", html:`<p>5 philosophers, 5 forks; each needs <b>both</b> neighboring forks to eat. If everyone grabs <b>left then right</b>, all can hold one fork and wait forever → <b>deadlock</b> (circular wait). <b>Fix:</b> make <b>one</b> philosopher grab <b>right then left</b> — this breaks the cycle.</p>
+      <div class="codeblk">void get_forks(int p){
+  if (p == 4){ sem_wait(&forks[right(p)]); sem_wait(&forks[left(p)]); }  // reversed
+  else       { sem_wait(&forks[left(p)]);  sem_wait(&forks[right(p)]); }
+}</div>`}
   ]
 },
 {
-  id:"plpgsql", short:"PL/pgSQL", tag:"DO · functions · loops", title:"PL/pgSQL: Blocks, Loops, Functions",
-  lead:"Procedural code: a DO block runs once; a FUNCTION is a reusable named block that returns a value.",
-  blocks:[
-    {type:"h3", t:"DO block, loop, IF"},
-    {type:"code", code:
-`DO $b$
-DECLARE _total INTEGER := 0;
-BEGIN
-  FOR k IN 1..10 LOOP _total := _total + k; END LOOP;
-  IF _total > 50 THEN RAISE INFO 'big %', _total;
-  ELSIF _total = 0 THEN RAISE INFO 'none';
-  ELSE RAISE INFO 'small %', _total;
-  END IF;
-END;
-$b$ LANGUAGE plpgsql;`},
-    {type:"keys", items:[
-      "Dollar-quote tags must match (<code>$b$ … $b$</code>). <code>:=</code> assigns; every statement ends <code>;</code>.",
-      "<code>RAISE INFO '..%..', v;</code> — each <code>%</code> consumes the next argument.",
-      "<code>EXIT</code> leaves the loop; <code>RETURN</code> ends the whole block/function. It's <code>ELSIF</code> (not ELSEIF); <code>IF</code> needs <code>THEN … END IF;</code>. The <code>FOR</code> loop variable is its own variable; a NULL loop bound is an error."
-    ]},
-    {type:"h3", t:"Function shape"},
-    {type:"code", code:
-`CREATE OR REPLACE FUNCTION public.f_Name(_p TYPE, _o TYPE = dflt)
-RETURNS TYPE AS
-$fb$
-DECLARE _v TYPE := init;
-BEGIN
-  ...
-  RETURN value;        -- every path returns
-END;
-$fb$ LANGUAGE plpgsql;
-
-DROP FUNCTION IF EXISTS public.f_Name(VARCHAR(20));  -- identify by arg types
-SELECT dept_name, f_Name(dept_name) FROM Departments;`},
-    {type:"keys", items:[
-      "Defaults go at the <b>end</b> of the parameter list. Prefix variable names with <code>_</code> to avoid clashing with column names.",
-      "Look up with <code>SELECT c INTO _v FROM t WHERE ..;</code> — leaves <code>_v</code> NULL if no row. <code>MAX</code>/<code>MIN</code> over 0 rows = NULL; <code>COUNT</code> over 0 rows = 0.",
-      "Identify a function to <code>DROP</code> by its argument types."
-    ]},
-    {type:"ex", label:"Review Q12", title:"Count near-top earners (95% of max)", prompt:"Return how many employees in a department earn at least 95% of that department's max salary.", code:
-`CREATE OR REPLACE FUNCTION f_getLargestSalariedEmployees(_dept_id SMALLINT)
-RETURNS SMALLINT AS
-$FBODY$
-DECLARE
-  _max_salary DECIMAL(10,2) := NULL;
-  _emp_no     INTEGER := NULL;
-BEGIN
-  IF _dept_id IS NULL THEN RETURN -1; END IF;          -- bad argument
-
-  SELECT MAX(e.salary) INTO _max_salary
-  FROM Employees e WHERE e.dept_id = _dept_id;
-
-  IF _max_salary IS NULL THEN RETURN 0; END IF;        -- no employees
-
-  SELECT COUNT(emp_id) INTO _emp_no
-  FROM Employees
-  WHERE dept_id = _dept_id
-    AND salary >= 0.95 * _max_salary;
-
-  RETURN _emp_no;
-END;
-$FBODY$ LANGUAGE plpgsql PARALLEL SAFE;`, note:"Check order: argument → existence/data (max is NULL ⇒ empty) → compute. Sentinel <code>-1</code> for bad input, <code>0</code> for an empty department."},
-    {type:"ex", label:"Variant", alt:true, title:"CASE on a count / salary deviation", code:
-`SELECT COUNT(*) INTO _cnt FROM Employees WHERE dept_id = _dept_id;
-CASE
-  WHEN _cnt = 0 THEN RETURN 'Empty';
-  WHEN _cnt < 5 THEN RETURN 'Small';
-  ELSE RETURN 'Large';
-END CASE;
-
--- MAX - MIN spread, sentinel if empty
-SELECT MAX(salary) - MIN(salary) INTO _d FROM Employees WHERE dept_id = _dept_id;
-IF _d IS NULL THEN RETURN -1.00; END IF;
-RETURN _d;`, note:"<code>CASE … END CASE;</code> for multi-way branching; the aggregate-is-NULL test detects an empty group."}
-  ]
-},
-{
-  id:"exceptions", short:"Exceptions", tag:"validation · sentinels", title:"Exceptions & Input Validation",
-  lead:"Validate before you act, wrap risky casts, and return negative codes instead of crashing.",
-  blocks:[
-    {type:"keys", items:[
-      "Check order: <b>arguments</b> (NULL = bad argument) → <b>existence</b> → <b>value</b> (negative/FALSE = bad value).",
-      "Sentinels are negative codes (impossible real answers, since a real salary is positive). State each code's meaning in a comment.",
-      "A failed cast aborts the statement — wrap it in its own <code>BEGIN … EXCEPTION … END;</code>. <code>'Hello'::INTEGER</code> raises <code>invalid_text_representation</code>; <code>5000000000::INTEGER</code> (or a value past <code>NUMERIC(10,2)</code>'s max 99999999.99) raises <code>numeric_value_out_of_range</code>.",
-      "After an <code>UPDATE</code>, <code>IF NOT FOUND THEN …</code> catches “no such row.”"
-    ]},
-    {type:"ex", label:"Official Q6", title:"f_SetSalary — validate string, set, return", prompt:"f_SetSalary(_emp_id BIGINT, _new_salary VARCHAR(20)): validate id and salary text; on success return the salary, on errors return negative codes.", code:
-`CREATE OR REPLACE FUNCTION f_SetSalary(_emp_id BIGINT, _new_salary VARCHAR(20))
-RETURNS DECIMAL(10,2) AS
-$FBODY$
-DECLARE _salary DECIMAL(10,2) := NULL;
-BEGIN
-  IF _emp_id IS NULL
-     OR NOT EXISTS (SELECT 1 FROM Employees WHERE emp_id = _emp_id)
-  THEN RETURN -1.00; END IF;              -- bad id / no such employee
-
-  IF _new_salary IS NULL THEN RETURN -2.00; END IF;
-
-  BEGIN                                   -- risky cast in its own block
-    _salary := TRIM(_new_salary)::DECIMAL(10,2);
-  EXCEPTION
-    WHEN invalid_text_representation THEN RETURN -2.00;  -- '12abc', ''
-    WHEN numeric_value_out_of_range  THEN RETURN -3.00;  -- too big
-  END;
-
-  IF _salary < 0 THEN RETURN -4.00; END IF;              -- bad value
-
-  UPDATE Employees SET salary = _salary WHERE emp_id = _emp_id;
-  RETURN _salary;
-END;
-$FBODY$ LANGUAGE plpgsql;`, note:"The cast lives in a nested block so a bad string returns a code instead of aborting. Codes are negative because a real salary is positive."},
-    {type:"ex", label:"Variant", alt:true, title:"UPDATE … RETURNING to confirm the write", code:
-`CREATE OR REPLACE FUNCTION f_SetSalary2(_emp_id INTEGER, _new VARCHAR(20))
-RETURNS DECIMAL(10,2) AS $$
-DECLARE _salary DECIMAL(10,2);
-BEGIN
-  BEGIN
-    _salary := _new::DECIMAL(10,2);
-  EXCEPTION WHEN OTHERS THEN RETURN -1.00;
-  END;
-
-  UPDATE Employees SET salary = _salary
-  WHERE emp_id = _emp_id
-  RETURNING salary INTO _salary;          -- value actually stored
-
-  IF NOT FOUND THEN RETURN -2.00; END IF;  -- no such employee
-  RETURN _salary;
-END;
-$$ LANGUAGE plpgsql;`, note:"<code>RETURNING … INTO</code> reads back what PostgreSQL stored; <code>NOT FOUND</code> flags a missing employee."},
-    {type:"ex", label:"Trace", alt:true, title:"String → integer status (check_number pattern)", code:
-`'3781957'  ->  positive integer
-'0'        ->  integer, but not positive
-'007'      ->  positive (cast gives 7)
-'12a4'     ->  NOT positive; trouble at position 3
-'-5'       ->  NOT positive; '-' is ASCII 45, at position 1
-''         ->  NOT positive; empty string or NULL`, note:"Loop characters; any outside ASCII 48–57 (<code>'0'</code>–<code>'9'</code>) sets a flag, records the position, and <code>EXIT</code>s. Digits '0'–'9' = 48–57."}
-  ]
-},
-{
-  id:"arrays", short:"Arrays/Strings/Dates", tag:"ARRAY · EXTRACT · string fns", title:"Arrays, Dates & Strings",
-  lead:"1-based arrays, date-part extraction, and the string functions you'll need for validation and labels.",
-  blocks:[
-    {type:"table", head:["Function","Does"], rows:[
-      ["<code>a || b</code>","concatenate text"],
-      ["<code>LOWER / UPPER / LENGTH</code>","case / length"],
-      ["<code>TRIM / LTRIM / RTRIM</code>","strip both / leading / trailing"],
-      ["<code>POSITION('x' IN s)</code>","1-based index, 0 = not found"],
-      ["<code>LEFT(s,n) / RIGHT(s,n)</code>","first / last n chars"],
-      ["<code>SUBSTRING(s FROM 4 FOR 8)</code>","slice from position 4, length 8"],
-      ["<code>ASCII('R')=82 · CHR(82)='R'</code>","char ↔ code; digits '0'–'9' = 48–57"]
-    ]},
-    {type:"keys", items:[
-      "Arrays are <b>1-based</b>; <code>CARDINALITY(arr)</code> is the length (NULL array → NULL). Test membership with <code>x = ANY(arr)</code>.",
-      "<code>EXTRACT(MONTH FROM d)</code>, <code>EXTRACT(DAY FROM d)</code>, <code>EXTRACT(DOY FROM d)</code> pull date parts. Fixed month/day only — moving holidays (Thanksgiving) can't use a fixed date."
-    ]},
-    {type:"ex", label:"Official Q11", title:"f_IsHoliday — fixed holidays via arrays", prompt:"Return TRUE if the date is a fixed holiday.", code:
-`CREATE OR REPLACE FUNCTION f_IsHoliday(_date DATE)
-RETURNS BOOLEAN AS
-$FBODY$
-DECLARE
-  _h INTEGER[] := ARRAY[101, 704, 1111, 1225];  -- month*100 + day
-  _k INTEGER;
-BEGIN
-  IF _date IS NULL THEN RETURN FALSE; END IF;
-  _k := EXTRACT(MONTH FROM _date) * 100 + EXTRACT(DAY FROM _date);
-  FOR _i IN 1..CARDINALITY(_h) LOOP
-    IF _h[_i] = _k THEN RETURN TRUE; END IF;
-  END LOOP;
-  RETURN FALSE;                                 -- nothing matched
-END;
-$FBODY$ LANGUAGE plpgsql;`, note:"Encode each holiday as <code>month*100+day</code> so one integer compare per entry. Short form: <code>RETURN _k = ANY(_h);</code>"},
-    {type:"ex", label:"Variant", alt:true, title:"One text array with TO_CHAR", code:
-`CREATE OR REPLACE FUNCTION f_IsHoliday2(_date DATE)
-RETURNS BOOLEAN AS $$
-DECLARE _holidays TEXT[] := ARRAY['01-01','07-04','12-25'];
-BEGIN
-  IF _date IS NULL THEN RETURN FALSE; END IF;
-  RETURN TO_CHAR(_date,'MM-DD') = ANY(_holidays);
-END;
-$$ LANGUAGE plpgsql;`, note:"<code>TO_CHAR(d,'MM-DD')</code> formats the date; <code>= ANY</code> checks the array in one line."}
-  ]
-},
-{
-  id:"views", short:"Views", tag:"stored queries · security", title:"Views",
-  lead:"A view is a stored query whose rows are computed on use. Great for hiding columns and saving a join.",
-  blocks:[
-    {type:"code", code:`CREATE VIEW v (c1,c2) AS SELECT ...;    DROP VIEW v;`},
-    {type:"keys", items:[
-      "Rows are computed each time the view is used; dropping it leaves the base tables untouched. <code>LEFT JOIN</code>s inside keep rows like the top manager (no manager) or employees with no department.",
-      "Uses: logical data independence, security, convenience.",
-      "<b>Updatable</b> (SQL-92): one base table, selection + projection only, no aggregates. An insert puts <code>NULL</code> in hidden columns (fails if a hidden column is PK/NOT NULL). <code>WITH CHECK OPTION</code> rejects changes that would leave the view's condition.",
-      "A view that uses a column blocks <code>DROP COLUMN</code> of it until the view is dropped (or <code>CASCADE</code>)."
-    ]},
-    {type:"ex", label:"Official Q8", title:"Employee info view (two LEFT JOINs)", prompt:"View: employee id, full name, department name, salary, manager's full name.", code:
-`DROP VIEW IF EXISTS Employee_Info;
-CREATE OR REPLACE VIEW Employee_Info AS
-SELECT e.emp_id,
-       e.fname || ' ' || e.lname AS full_name,
-       d.dept_name,
-       e.salary,
-       COALESCE(m.fname || ' ' || m.lname, 'N/A') AS manager_full_name
-FROM Employees e
-JOIN Departments d ON d.dept_id = e.dept_id
-LEFT JOIN Employees m ON m.emp_id = e.manager_id;   -- self-join for manager`, note:"Self-join <code>Employees m</code> gets the manager. <code>LEFT JOIN</code> keeps the top manager (no manager row); <code>INNER</code> would drop them."},
-    {type:"ex", label:"Quiz 2 pattern", title:"f_GetDeptInfo — full department info string", prompt:"Return a sentence describing a department: name, head, employee count, average salary; handle NULL id, missing department, and empty department.", code:
-`CREATE OR REPLACE FUNCTION f_GetDeptInfo(p_dept_id INT)
-RETURNS TEXT AS $$
-DECLARE
-  v_dept_name VARCHAR(100);  v_dept_head INT;
-  v_head_name VARCHAR(200);  v_emp_count INT;
-  v_avg_salary DECIMAL(15,2); v_exists INT;
-BEGIN
-  IF p_dept_id IS NULL THEN RETURN 'Department ID cannot be NULL.'; END IF;
-
-  SELECT COUNT(*) INTO v_exists FROM Departments WHERE dept_id = p_dept_id;
-  IF v_exists = 0 THEN
-    RETURN 'Department ' || p_dept_id || ' does not exist';
-  END IF;
-
-  SELECT dept_name, dept_head INTO v_dept_name, v_dept_head
-  FROM Departments WHERE dept_id = p_dept_id;
-
-  IF v_dept_head IS NULL THEN
-    v_head_name := 'N/A';
-  ELSE
-    SELECT COALESCE(fname || ' ' || lname, 'N/A') INTO v_head_name
-    FROM Employees WHERE emp_id = v_dept_head;
-    IF NOT FOUND OR v_head_name IS NULL THEN v_head_name := 'N/A'; END IF;
-  END IF;
-
-  SELECT COUNT(*), COALESCE(AVG(salary), 0.00)
-  INTO v_emp_count, v_avg_salary
-  FROM Employees WHERE dept_id = p_dept_id;
-
-  IF v_emp_count = 0 THEN
-    RETURN 'The department ' || v_dept_name ||
-           ' managed by ' || v_head_name || ' has 0 employees';
-  ELSE
-    RETURN 'The department ' || v_dept_name ||
-           ' managed by ' || v_head_name ||
-           ' has ' || v_emp_count ||
-           ' employees; avg salary ' || v_avg_salary;
-  END IF;
-END;
-$$ LANGUAGE plpgsql;`, note:"Check order again: NULL argument → existence → data. <code>COALESCE</code> protects the head name; the empty-department branch is separate from the “doesn't exist” branch."},
-    {type:"ex", label:"Variant", alt:true, title:"Gather it all in one grouped query", code:
-`SELECT d.dept_name,
-       COALESCE(h.fname || ' ' || h.lname, 'N/A'),
-       COUNT(e.emp_id),
-       COALESCE(AVG(e.salary), 0.00)
-INTO v_name, v_head, v_count, v_avg
-FROM Departments d
-LEFT JOIN Employees h ON h.emp_id = d.dept_head    -- the head
-LEFT JOIN Employees e ON e.dept_id = d.dept_id      -- members
-WHERE d.dept_id = p_dept_id
-GROUP BY d.dept_id, d.dept_name, h.fname, h.lname;
-IF NOT FOUND THEN RETURN 'Department does not exist'; END IF;`, note:"Two LEFT JOINs (head, members) collect every field in one <code>SELECT … INTO</code>; group by the department plus the head's name columns."},
-    {type:"ex", label:"Review Q13", title:"Department view with head + totals", prompt:"Named-column view: dept name, employee count, head last/first, budget, total salary; exclude Hamburg and Barcelona.", code:
-`DROP VIEW IF EXISTS Department_Info;
-CREATE OR REPLACE VIEW Department_Info
-  (dept_name, employee_no, dept_head_lname, dept_head_fname, budget, total_salary)
-AS
-SELECT d.dept_name, COUNT(e.emp_id), h.lname, h.fname, d.budget, SUM(e.salary)
-FROM Departments d
-INNER JOIN Employees e ON e.dept_id = d.dept_id
-LEFT JOIN Employees h ON h.emp_id = d.dept_head
-WHERE d.city NOT IN ('Hamburg', 'Barcelona')
-GROUP BY d.dept_name, h.lname, h.fname, d.budget;`, note:"You can name the view's columns in parentheses. <code>INNER JOIN</code> to members drops empty departments; swap to <code>LEFT JOIN</code> + <code>COALESCE</code> to keep them."}
-  ]
-},
-{
-  id:"indexes", short:"Indexes & Keys", tag:"keys · B+ trees", title:"Indexes, Keys & B+ Trees",
-  lead:"Keys are constraints; indexes are performance structures. Know which index answers which query.",
-  blocks:[
-    {type:"keys", items:[
-      "<b>Superkey</b> ⊇ a key; <b>candidate key</b> is minimal; <b>primary</b> is the chosen one. Keys = constraints; an index = a performance structure, and its search key need not be unique.",
-      "<b>Clustered</b>: data stored in index order — at most one per table, so range scans read a few contiguous pages. <b>Secondary</b>/unclustered: other indexes; a range match costs ~1 page read per match (can lose to a full scan). <b>Index-only</b>: answered from index entries alone (works even unclustered).",
-      "<b>Hash</b>: equality on the <b>full</b> key only. <b>B+ tree</b>: equality and range, on a <b>key prefix</b> — a composite <code>&lt;age,sal&gt;</code> can't help <code>sal &gt; 40</code> (sal isn't a prefix).",
-      "B+ tree search cost = root-to-leaf path + leaf pages holding matches (leaves are linked). Balanced, height ~3–4. Composite index is bigger and must be updated whenever any of its fields changes. The SQL standard has no <code>CREATE INDEX</code> (it's DBMS-specific).",
-      "Index data-entry forms: (1) the record itself, (2) <code>&lt;key, rid&gt;</code>, (3) <code>&lt;key, rid-list&gt;</code>."
-    ]},
-    {type:"ex", label:"Worked", title:"B+ tree search & range", code:
-`Root:   13 | 17 | 24 | 30
-Leaves (linked):
- [2* 3* 5* 7*] -> [14* 16*] -> [19* 20* 22*]
- -> [24* 27* 29*] -> [33* 34* 38* 39*]
- ranges:  <13 | 13<=k<17 | 17<=k<24 | 24<=k<30 | k>=30
-
-Search 15 : 13 <= 15 < 17  -> 2nd leaf [14 16] -> not there = absent.
-Range 17..27 : find leaf for 17, then follow 'next' links.
-Cost = path length (root->leaf) + number of leaves read.
-Equality on full key -> hash. Range or key prefix -> B+ tree.`, note:"Navigate root to the correct leaf by range, then walk linked leaves for a range query."}
-  ]
-},
-{
-  id:"tx", short:"Transactions", tag:"ACID · locking · triggers", title:"Transactions, Locking & Triggers",
-  lead:"All-or-nothing units of work, the anomalies isolation levels prevent, and how to do two updates atomically.",
-  blocks:[
-    {type:"table", head:["Property","Meaning"], rows:[
-      ["Atomicity","all or nothing"],
-      ["Consistency","consistent in → consistent out"],
-      ["Isolation","result equals some serial order"],
-      ["Durability","committed work survives a crash"]
-    ]},
-    {type:"h3", t:"Anomalies vs. isolation level"},
-    {type:"table", head:["Isolation level","Dirty read","Unrepeatable read","Phantom"], rows:[
-      ["READ UNCOMMITTED","maybe","maybe","maybe"],
-      ["READ COMMITTED","no","maybe","maybe"],
-      ["REPEATABLE READ","no","no","maybe"],
-      ["SERIALIZABLE","no","no","no"]
-    ]},
-    {type:"keys", items:[
-      "Conflicts (same object, at least one write): <b>WR</b> = dirty read (read uncommitted write), <b>RW</b> = unrepeatable read, <b>WW</b> = overwrite uncommitted data. A <b>phantom</b> is a new matching row appearing between two reads.",
-      "<b>Strict 2PL</b>: shared (S) lock to read, exclusive (X) lock to write; hold all locks until commit/abort. A deadlock is a wait cycle — the DBMS aborts one transaction.",
-      "<code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT s</code>, <code>ROLLBACK TO SAVEPOINT s</code> (undoes work after <code>s</code>). <code>BEGIN;</code> opens a transaction explicitly; a single function call is itself one atomic unit.",
-      "<b>Trigger</b> = Event + Condition + Action; <code>before</code>/<code>after</code>/<code>instead of</code>; per row or per statement. Stored-procedure parameters: <code>IN</code>, <code>OUT</code>, <code>INOUT</code>."
-    ]},
-    {type:"ex", label:"Official Q9", title:"Move a department head atomically", prompt:"Set Departments.dept_head and the head employee's dept_id as one unit; abort on any failure.", code:
-`DO $BODY$
-DECLARE
-  _head_id INTEGER := 2317;
-  _dept_id SMALLINT := 19;
-  _returned INTEGER;
-BEGIN
-  UPDATE Departments SET dept_head = _head_id
-  WHERE dept_id = _dept_id
-  RETURNING dept_id INTO _returned;
-  IF _returned IS NULL THEN
-    RAISE EXCEPTION 'Department % not found', _dept_id;
-  END IF;
-
-  _returned := NULL;
-
-  UPDATE Employees SET dept_id = _dept_id
-  WHERE emp_id = _head_id
-  RETURNING emp_id INTO _returned;
-  IF _returned IS NULL THEN
-    RAISE EXCEPTION 'Employee % not found', _head_id;
-  END IF;
-END;
-$BODY$ LANGUAGE plpgsql;`, note:"A DO block / function call is one atomic unit: if either <code>UPDATE</code> fails or you <code>RAISE EXCEPTION</code>, everything rolls back. Validate with <code>RETURNING … INTO</code> + a NULL check."},
-    {type:"ex", label:"Lecture", alt:true, title:"Bank transfer (guarded transaction)", prompt:"Move $500 between accounts; abort if an account is missing or the balance would go negative.", code:
-`DO $$
-DECLARE _src_acc BIGINT; _dst_acc BIGINT; _src_final DECIMAL(19,2);
-BEGIN
-  UPDATE Account1 SET balance = balance - 500.00
-  WHERE acc_no = 21301
-  RETURNING acc_no, balance INTO _src_acc, _src_final;
-  IF _src_acc IS NULL THEN RAISE EXCEPTION 'Source account not found'; END IF;
-  IF _src_final < 0.00 THEN RAISE EXCEPTION 'Insufficient funds'; END IF;
-
-  UPDATE Account2 SET balance = balance + 500.00
-  WHERE acc_no = 40104
-  RETURNING acc_no INTO _dst_acc;
-  IF _dst_acc IS NULL THEN RAISE EXCEPTION 'Destination account not found'; END IF;
-END $$;`, note:"<code>RETURNING balance</code> lets you check the post-update balance before committing; any <code>RAISE EXCEPTION</code> rolls back both updates."},
-    {type:"ex", label:"Plain SQL", alt:true, title:"Explicit transaction & rollback", code:
-`BEGIN;
-UPDATE Departments SET budget = budget - 1000 WHERE dept_id = 3;
-UPDATE Departments SET budget = budget + 1000 WHERE dept_id = 5;
-COMMIT;        -- or ROLLBACK; to undo everything since BEGIN`, note:"Two statements, one unit. <code>PREPARE</code> holds a single statement only — use a function or <code>BEGIN/COMMIT</code> for two updates."}
-  ]
-},
-{
-  id:"privs", short:"Permissions", tag:"GRANT · REVOKE · column security", title:"Column-Level Permissions",
-  lead:"Hide a sensitive column (salary) by revoking blanket access and granting narrower rights — via column grants or a view.",
-  blocks:[
-    {type:"ex", label:"Official Q7", title:"Column privileges for salary", prompt:"Let everyone read non-salary columns; restrict salary to approved users.", code:
-`CREATE ROLE salary_readers;
-
-REVOKE SELECT ON Employees FROM PUBLIC;              -- drop blanket read
-GRANT SELECT (emp_id, fname, lname, dept_id, manager_id)
-  ON Employees TO PUBLIC;                            -- everyone: non-salary cols
-GRANT SELECT (salary) ON Employees TO salary_readers; -- only this group
-
-GRANT salary_readers TO alice;
-GRANT salary_readers TO bob;`, note:"Column-level <code>GRANT SELECT (cols)</code> exposes only the listed columns; put approved users in a role."},
-    {type:"ex", label:"Q7 variant", alt:true, title:"Hide salary behind a view", code:
-`CREATE OR REPLACE VIEW Employee_Public AS
-SELECT emp_id, fname, lname, dept_id, manager_id FROM Employees;
-
-REVOKE SELECT ON Employees FROM PUBLIC;
-GRANT SELECT ON Employee_Public TO PUBLIC;           -- public sees the view
-GRANT SELECT ON Employees TO salary_readers;         -- group sees the table`, note:"The view omits <code>salary</code>; the public gets the view, trusted roles keep table access."}
-  ]
-},
-{
-  id:"pitfalls", short:"Fixes", tag:"common mistakes", title:"Common Mistakes & Fixes",
-  lead:"The errors the formula sheet flags most — scan these the night before.",
-  blocks:[
-    {type:"table", head:["Mistake","Fix"], rows:[
-      ["<code>UPDATE t (col) SET ..</code>","<code>UPDATE t SET ..</code> — no column list"],
-      ["<code>SET e.salary = ..</code>","<code>SET salary = ..</code> — no alias on the SET column"],
-      ["<code>WHERE (SELECT 1 ..)</code>","<code>WHERE EXISTS (SELECT 1 ..)</code>"],
-      ["<code>EXISTS</code> with no correlation line","add <code>AND d.dept_id = e.dept_id</code>"],
-      ["subquery + <code>GROUP BY</code> compared <code>= 0</code>","drop the GROUP BY, or use <code>NOT EXISTS</code>"],
-      ["<code>ALTER t ALTER col ..</code>","<code>ALTER TABLE t ALTER COLUMN c ..</code>"],
-      ["<code>LIKE 'research'</code> (expecting contains)","<code>ILIKE '%research%'</code>"],
-      ["<code>a + b</code> for strings","<code>a || b</code>"],
-      ["<code>col = NULL</code>","<code>col IS NULL</code>"],
-      ["<code>ELSEIF</code> / missing <code>END IF</code>","<code>ELSIF …</code> and <code>END IF;</code>"],
-      ["array index from 0","arrays start at <b>1</b>"],
-      ["aggregate in <code>WHERE</code>","move it to <code>HAVING</code>"],
-      ["<code>RETURN</code> used to leave a loop","<code>EXIT</code> leaves a loop; <code>RETURN</code> ends the function"],
-      ["repeating the target table in <code>UPDATE … FROM</code>","don't list it twice; <code>DELETE</code> uses <code>USING</code> / subquery"]
-    ]}
+  id:"bugs", short:"Bugs & Deadlock", tag:"Chapter 32", title:"Common Concurrency Problems",
+  blurb:"Real concurrency bugs (Lu et al.) split into non-deadlock (atomicity & order violations — the majority) and deadlock. Deadlock needs four conditions at once; prevent it by breaking any one, usually with a lock order.",
+  notes:[
+    {h:"The Lu et al. study", html:`<ul>
+      <li>Examined MySQL, Apache, Mozilla, OpenOffice: <b>105</b> bugs total — <b>74 non-deadlock</b>, <b>31 deadlock</b>. Non-deadlock bugs are the <b>majority</b> and often easier to fix.</li></ul>`},
+    {h:"Non-deadlock bugs", html:`<ul>
+      <li><b>Atomicity violation:</b> a region meant to be atomic isn't. e.g. Thread 1 checks <code>thd->proc_info</code> then uses it, while Thread 2 sets it to <code>NULL</code> in between → crash. <b>Fix:</b> a <b>lock</b> around all accesses.</li>
+      <li><b>Order violation:</b> the required order between two threads isn't enforced. e.g. Thread 2 uses <code>mThread</code> before Thread 1 has created it. <b>Fix:</b> enforce order with a <b>condition variable</b> or <b>semaphore</b>.</li></ul>`},
+    {h:"The four conditions for deadlock", html:`<p>All four must hold at once; break <b>any one</b> and deadlock cannot occur:</p>
+      <ol>
+      <li><b>Mutual exclusion</b> — resources held exclusively.</li>
+      <li><b>Hold-and-wait</b> — hold resources while waiting for more.</li>
+      <li><b>No preemption</b> — resources can't be forcibly taken.</li>
+      <li><b>Circular wait</b> — a cycle of threads each waiting on the next.</li></ol>`},
+    {h:"Prevention — break one condition", html:`<table class="tbl"><thead><tr><th>Break</th><th>How</th></tr></thead><tbody>
+      <tr><td><b>Circular wait</b></td><td><b>Total/partial lock ordering</b> (e.g. always L1 before L2, or order by lock address). Most practical.</td></tr>
+      <tr><td><b>Hold-and-wait</b></td><td>Acquire <b>all</b> locks at once atomically (a global <code>prevention</code> lock). Hurts concurrency; must know all locks up front.</td></tr>
+      <tr><td><b>No preemption</b></td><td><code>trylock</code> + release-and-retry (back out gracefully). Risks <b>livelock</b> — add a random delay.</td></tr>
+      <tr><td><b>Mutual exclusion</b></td><td><b>Lock-free / wait-free</b> code using hardware CAS (no locks at all).</td></tr></tbody></table>`},
+    {h:"Avoid, or detect & recover", html:`<ul>
+      <li><b>Avoidance via scheduling</b>: with global knowledge of which locks each thread needs, schedule so deadlock can't arise (<b>Dijkstra's Banker's Algorithm</b>). Niche — needs full knowledge and limits concurrency.</li>
+      <li><b>Detect &amp; recover</b>: let deadlock happen, run a <b>detector</b> that looks for a <b>cycle</b> in the resource graph, then recover/restart. Common in <b>database</b> systems; fine if deadlocks are rare.</li></ul>`}
   ]
 }
 ];
 
-/* ---------- render ---------- */
-const KW = ["SELECT","FROM","WHERE","INSERT","INTO","VALUES","UPDATE","SET","DELETE","USING","CREATE","REPLACE","VIEW","FUNCTION","RETURNS","RETURN","RETURNING","DECLARE","BEGIN","END","IF","THEN","ELSIF","ELSE","CASE","WHEN","LOOP","FOR","EXIT","EXCEPTION","RAISE","LANGUAGE","PLPGSQL","JOIN","LEFT","RIGHT","INNER","OUTER","ON","GROUP","ORDER","HAVING","ASC","DESC","AND","OR","NOT","EXISTS","NULL","IS","LIKE","ILIKE","ANY","ALL","DISTINCT","BY","AS","IN","COUNT","SUM","AVG","MAX","MIN","COALESCE","TRIM","LTRIM","RTRIM","EXTRACT","MONTH","DAY","DOY","CARDINALITY","TO_CHAR","POSITION","SUBSTRING","LOWER","UPPER","LENGTH","ASCII","CHR","ALTER","TABLE","ADD","COLUMN","DROP","CONSTRAINT","CHECK","UNIQUE","PRIMARY","KEY","FOREIGN","REFERENCES","DEFAULT","CASCADE","RENAME","TYPE","COMMIT","ROLLBACK","SAVEPOINT","GRANT","REVOKE","ROLE","TO","PUBLIC","DO","ARRAY","OF","INFO","NOTICE","FOUND","PARALLEL","SAFE","WITH","OPTION","INTEGER","SMALLINT","BIGINT","DECIMAL","NUMERIC","VARCHAR","TEXT","DATE","BOOLEAN","INT","TRUE","FALSE","OTHERS"];
-const KWRE = new RegExp("\\b("+KW.join("|")+")\\b","g");
-function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-function hlLine(line){
-  let ci=line.indexOf("--");
-  let codePart = ci>=0?line.slice(0,ci):line;
-  let com = ci>=0?line.slice(ci):"";
-  // escape, then color string literals, then keywords (outside strings)
-  let out = esc(codePart).replace(/('[^']*')/g,'\u0001$1\u0002');
-  out = out.replace(KWRE,'<span class="kw">$1</span>');
-  out = out.replace(/\u0001([^\u0002]*)\u0002/g,'<span class="str">$1</span>');
-  if(com) out += '<span class="cm">'+esc(com)+'</span>';
-  return out;
+/* =========================================================
+   QUESTION BANK
+   ========================================================= */
+const QUESTIONS = {
+threads:[
+  {t:"mc", q:"Which resource do threads of the same process <b>NOT</b> share (each thread has its own)?",
+   o:["The stack, registers, and program counter","The heap and dynamically allocated memory","Global variables","The program's code"],
+   a:0, e:"Threads share the address space (code, heap, globals) but each has its <b>own stack, registers, and PC</b>. That private execution state is what a context switch saves and restores.", src:"Ch 26"},
+  {t:"mc", q:"A result that changes from run to run depending on how threads interleave is called…",
+   o:["a race condition (indeterminate result)","a critical section being entered by two threads at once","a case of mutual exclusion","a routine context switch"],
+   a:0, e:"A <b>race condition</b> makes output depend on timing, so the program is <b>indeterminate</b>. The code region that must be protected is the <i>critical section</i>; protecting it is <i>mutual exclusion</i>.", src:"Ch 26"},
+  {t:"num", q:"The statement <code>counter = counter + 1</code> typically compiles to how many machine instructions (load, add, store)?",
+   a:3, unit:"instructions", e:"Three: <b>load</b> counter into a register, <b>add</b> 1, <b>store</b> back. A context switch between any of these across two threads can lose an update.", src:"Ch 26"},
+  {t:"mc", q:"What does it mean for a sequence of operations to be <b>atomic</b>?",
+   o:["It executes as one indivisible unit — all of it or none","It runs much faster than ordinary instructions do","It can be safely interrupted at any point with no ill effect","It uses only a single CPU register"],
+   a:0, e:"<b>Atomic</b> = “all or none,” executed as one indivisible unit. Synchronization primitives give us atomicity over regions that hardware doesn't make atomic by itself.", src:"Ch 26"},
+  {t:"match", q:"Match each term to its meaning.",
+   items:["Critical section","Mutual exclusion","Race condition","Thread"],
+   terms:["Code accessing a shared resource that mustn't run concurrently","Only one thread in the critical section at a time","Outcome depends on scheduling/timing","An execution stream sharing the address space"],
+   a:[0,1,2,3], e:"Critical section = the protected code; mutual exclusion = the guarantee; race condition = the bug when it's missing; thread = the shared-memory execution stream.", src:"Ch 26"},
+  {t:"ms", q:"Why use threads instead of a single-threaded program? (Select all that apply.)",
+   o:["To run work in parallel across multiple CPUs","To overlap computation with slow I/O instead of blocking","To share memory easily among the parallel parts","To eliminate the need for any synchronization"],
+   a:[0,1,2], e:"Threads give parallelism, I/O overlap, and easy memory sharing. They do <b>not</b> remove the need for synchronization — sharing memory is exactly what creates races.", src:"Ch 26"}
+],
+locks:[
+  {t:"mc", q:"What are the three standard criteria for evaluating a lock implementation?",
+   o:["Correctness, fairness, and performance","Speed, size, and simplicity","Atomicity, consistency, and durability","Safety, liveness, and portability"],
+   a:0, e:"Evaluate a lock by <b>correctness</b> (real mutual exclusion), <b>fairness</b> (no starvation), and <b>performance</b> (overhead with 1 thread, N threads/1 CPU, and N CPUs).", src:"Ch 28"},
+  {t:"mc", q:"Why is “disable interrupts” a poor general-purpose lock?",
+   o:["It only works on a single processor, needs privilege, and is unsafe to expose","It is too slow because interrupts are expensive to toggle","It does not actually provide mutual exclusion, even on a single-CPU machine","It requires a special atomic instruction the hardware may lack"],
+   a:0, e:"Disabling interrupts gives mutual exclusion on a <b>single</b> CPU only, is a <b>privileged</b> operation (a greedy thread could hog the CPU), and does nothing on a <b>multiprocessor</b>.", src:"Ch 28"},
+  {t:"mc", q:"A spin lock built from <b>test-and-set</b> is correct, but which property does it fail to provide?",
+   o:["Fairness — a waiter can be starved; there's no FIFO order","Correctness — two threads can hold it at once","Atomicity of the underlying test-and-set hardware instruction itself","Mutual exclusion on a single processor"],
+   a:0, e:"Test-and-set spin locks give mutual exclusion but <b>no fairness</b> — a thread can spin forever while others repeatedly win. A <b>ticket lock</b> (fetch-and-add) adds FIFO fairness.", src:"Ch 28"},
+  {t:"mc", q:"Which atomic primitive naturally builds a <b>fair (FIFO) ticket lock</b>?",
+   o:["Fetch-and-add (ticket and turn)","A single test-and-set","A simple plain load followed by a plain store","Disabling all interrupts"],
+   a:0, e:"<b>Fetch-and-add</b> hands each arriving thread an increasing <i>ticket</i>; a thread waits until the <i>turn</i> equals its ticket, so threads acquire the lock in arrival order.", src:"Ch 28"},
+  {t:"mc", q:"<code>CompareAndSwap(addr, expected, new)</code> changes <code>*addr</code> to <code>new</code> only when…",
+   o:["the current value equals expected (else it fails and changes nothing)","the address passed in happens to be non-NULL","no other thread currently holds the lock protecting that memory address","the new value is larger than the old"],
+   a:0, e:"CAS writes <code>new</code> only if <code>*addr == expected</code>, returning success/failure. That conditional update is the basis of lock-free algorithms (retry on failure).", src:"Ch 28"},
+  {t:"mc", q:"On one CPU with many threads, a pure spin lock is wasteful mainly because…",
+   o:["a waiting thread spins for a whole time slice while the holder isn't even running","the test-and-set instruction is very expensive","it disables interrupts the entire time it waits, even on a multiprocessor system","it allocates a queue for every waiter"],
+   a:0, e:"The spinner burns its entire quantum waiting for a lock whose holder is <b>descheduled</b> and can't release it. Yielding or sleeping (park/unpark) avoids the waste.", src:"Ch 28"},
+  {t:"mc", q:"What does a <b>two-phase lock</b> do?",
+   o:["Spin briefly in case the lock frees soon, then sleep if it doesn't","Acquire two separate locks at once in order to prevent any deadlock","Lock in one phase and log in a second phase","Use two separate locks for readers and writers"],
+   a:0, e:"A two-phase lock <b>spins</b> for a short while (cheap if the lock is about to free) and then <b>sleeps</b> (park) to avoid wasting the CPU on a long wait — a hybrid of the two strategies.", src:"Ch 28"},
+  {t:"ms", q:"Which are real ways to avoid wasteful spinning? (Select all that apply.)",
+   o:["yield() to give up the CPU instead of spinning","park()/unpark() with a wait queue (or Linux futex)","A two-phase lock that spins then sleeps","Busy-wait harder with a tighter loop"],
+   a:[0,1,2], e:"Yielding, sleeping on a queue (park/unpark, futex), and the two-phase hybrid all cut waste. Spinning harder does not help.", src:"Ch 28"}
+],
+structures:[
+  {t:"mc", q:"A single-lock concurrent counter is correct but scales poorly because…",
+   o:["every thread serializes on the one lock, so adding CPUs doesn't speed it up","the one lock is unfair and repeatedly starves some of the waiting threads","counting is inherently a floating-point operation","the counter value overflows under load"],
+   a:0, e:"One global lock makes all increments <b>serialize</b>; with N threads you get ~1 thread's throughput. Perfect scaling would have N threads finish as fast as one.", src:"Ch 29"},
+  {t:"mc", q:"In an <b>approximate (sloppy) counter</b>, increasing the threshold S…",
+   o:["improves scalability but makes the global count more approximate","makes the global count fully exact but considerably slower overall","removes the need for any locks","reduces the number of CPUs needed"],
+   a:0, e:"Local counters flush to the global only every S bumps. A bigger <b>S</b> means less contention on the global lock (<b>more scalable</b>) but the global value lags further behind (<b>less accurate</b>).", src:"Ch 29"},
+  {t:"mc", q:"“Hand-over-hand” (lock coupling) locking on a linked list means…",
+   o:["grab the next node's lock before releasing the current node's lock","one single global lock protects the whole list","lock the head and the tail of the list with two separate locks","never release a lock until the traversal ends"],
+   a:0, e:"Each node has its own lock; you acquire the next before releasing the current. It enables concurrency in theory, but per-node lock overhead often makes it <b>slower</b> than a single list lock.", src:"Ch 29"},
+  {t:"mc", q:"How does the Michael &amp; Scott <b>concurrent queue</b> increase concurrency?",
+   o:["Separate head and tail locks (plus a dummy node) so enqueue and dequeue rarely contend","One separate lock per element","Lock-free with no atomic instructions","It disables interrupts during each enqueue and dequeue so they never overlap at all"],
+   a:0, e:"Distinct <b>head</b> and <b>tail</b> locks let a dequeuer and an enqueuer operate at the same time; a <b>dummy node</b> keeps the two ends from interfering when the queue is near-empty.", src:"Ch 29"},
+  {t:"mc", q:"Why does a per-bucket-locked <b>hash table</b> scale well?",
+   o:["Operations on different buckets use different locks and proceed in parallel","It never needs locks because hashing is atomic","Using a single global lock is actually faster than using many small locks","Buckets are stored on separate disks"],
+   a:0, e:"One lock <b>per bucket</b> means threads touching different buckets don't contend, so throughput grows with the number of buckets/CPUs.", src:"Ch 29"},
+  {t:"sa", q:"<b>Design lesson.</b> You're told a data structure is “slow under threads.” Why is reaching straight for a fancy lock-free or fine-grained design often the wrong first move?",
+   a:`<div class="sa-note">OSTEP's advice: measure, keep it simple.</div><p><b>Start with a single lock.</b> It's almost always <b>correct</b> and frequently <b>fast enough</b>. More concurrency does not automatically mean more speed — fine-grained schemes (e.g. hand-over-hand) add lock/unlock overhead that can make them <b>slower</b> than one big lock.</p><p>Only add complexity after a <b>real bottleneck</b> is measured ("premature optimization is the root of all evil"). Then target the specific contention: sloppy counters for counting, per-bucket locks for hash tables, two-lock queues, etc.</p>`, src:"Ch 29"}
+],
+condvars:[
+  {t:"mc", q:"When a thread calls <code>pthread_cond_wait(&cond, &mutex)</code>, what happens?",
+   o:["It atomically releases the mutex and sleeps; on wake it re-acquires the mutex","It spins on the mutex, busy-waiting until the condition finally becomes true","It signals all other waiters and continues","It releases the mutex permanently"],
+   a:0, e:"<code>wait()</code> <b>atomically</b> releases the lock and puts the caller to sleep; when signalled it wakes and <b>re-acquires</b> the lock before returning. You must hold the lock when you call it.", src:"Ch 30"},
+  {t:"mc", q:"Why must you wait on a condition in a <code>while</code> loop rather than an <code>if</code>?",
+   o:["After waking, the condition may no longer hold, so you must re-check","while loops are faster than if statements","signal() is only able to wake a thread that is sitting inside a while loop","if statements can't call wait()"],
+   a:0, e:"Between the signal and when the waiter re-acquires the lock, another thread may change the state (Mesa semantics; also spurious wakeups). A <code>while</code> re-tests the condition and is always safe; an <code>if</code> can let a thread proceed wrongly.", src:"Ch 30"},
+  {t:"mc", q:"A correct producer/consumer (bounded buffer) with condition variables needs…",
+   o:["two condition variables — one for “empty” and one for “full” — plus while loops","just one condition variable combined with an if-statement check instead of a while loop","no lock, just the condition variable","three locks, one per thread"],
+   a:0, e:"With a single CV, a consumer can wake another consumer while the producer stays asleep. <b>Two</b> CVs (wait-for-empty, wait-for-full) plus <code>while</code> loops fix it.", src:"Ch 30"},
+  {t:"mc", q:"A <b>covering condition</b> is handled by…",
+   o:["broadcast — wake all waiters and let each re-check its while condition","signalling exactly one specific chosen waiter selected by its thread id","never signalling, to avoid races","disabling interrupts before signalling"],
+   a:0, e:"When you can't tell which waiter can proceed, <code>pthread_cond_broadcast</code> wakes <b>all</b>; each re-checks its <code>while</code> and those that can't continue go back to sleep. Correct, though possibly less efficient.", src:"Ch 30"},
+  {t:"mc", q:"Signalling a condition variable, by itself, does what?",
+   o:["Wakes one waiting thread — it transfers no data on its own","Directly transfers the shared value over to the waiting thread itself","Acquires the lock for the waiter permanently","Guarantees the waiter runs next"],
+   a:0, e:"<code>signal()</code> just <b>wakes</b> a waiter. The actual information passes through a <b>shared state variable</b> protected by the lock; that's why the waiter re-checks state in a <code>while</code>.", src:"Ch 30"},
+  {t:"sa", q:"<b>Trace the bug.</b> A producer/consumer uses a single condition variable and <code>if</code> (not <code>while</code>). Describe a schedule with two consumers and one producer that hangs.",
+   a:`<p>Consumer C1 finds the buffer empty and waits. Consumer C2 also finds it empty and waits. The producer fills one slot and <code>signal()</code>s — waking <b>C1</b>. But before C1 runs, <b>C2 is signalled instead</b> in a later round, or C1 wakes, and a second consumer consumes the single item first.</p><p>With an <code>if</code>, the just-woken consumer does <b>not re-check</b> that the buffer is still non-empty — it consumes from an <b>empty</b> buffer (error), or a consumer ends up signalling another <b>consumer</b> (not the producer), and everyone sleeps forever.</p><p><b>Fixes:</b> (1) use <code>while</code> so a woken thread re-verifies the buffer state; (2) use <b>two</b> condition variables so producers wake consumers and vice versa, never same-role.</p>`, src:"Ch 30"}
+],
+semaphores:[
+  {t:"mc", q:"What do <code>sem_wait()</code> and <code>sem_post()</code> do to a semaphore's value?",
+   o:["wait decrements (blocking if the value goes negative); post increments and wakes a waiter","wait increments the value, while post decrements it and blocks the caller if it goes negative","both leave the value unchanged","wait sets it to 0; post sets it to 1"],
+   a:0, e:"<code>sem_wait</code> (P) <b>decrements</b> and blocks if the result is negative; <code>sem_post</code> (V) <b>increments</b> and wakes one waiter if any. When negative, the magnitude = number of waiters.", src:"Ch 31"},
+  {t:"num", q:"To use a semaphore as a <b>lock</b> (binary semaphore), what initial value do you give it?",
+   a:1, unit:"value", e:"Init to <b>1</b>: the first <code>sem_wait</code> takes it to 0 and enters; a second waits at −1 until <code>sem_post</code> releases. One holder at a time = a lock.", src:"Ch 31"},
+  {t:"num", q:"A semaphore used purely for <b>ordering</b> (e.g. a parent that must wait for its child to finish) is initialized to what value?",
+   a:0, unit:"value", e:"Init to <b>0</b>. The parent's <code>sem_wait</code> blocks (0 → −1) until the child calls <code>sem_post</code> (−1 → 0). There's nothing to “give away” at the start, so 0 is correct.", src:"Ch 31"},
+  {t:"num", q:"If a semaphore's current value is <b>−3</b>, how many threads are blocked waiting on it?",
+   a:3, unit:"threads", e:"When a semaphore is negative, the <b>magnitude is the number of waiting threads</b> — here, 3 threads are blocked in <code>sem_wait</code>.", src:"Ch 31"},
+  {t:"mc", q:"In the semaphore producer/consumer, what goes wrong if you put <code>sem_wait(&mutex)</code> <b>outside</b> (before) <code>sem_wait(&empty)</code>?",
+   o:["Deadlock: a blocked thread holds the mutex the other thread needs","Nothing at all — the scope of the mutex truly does not matter in this case","The buffer overflows","Readers end up starving writers"],
+   a:0, e:"If a consumer grabs the mutex and <b>then</b> blocks on <code>full</code>, it holds the mutex while asleep; the producer can't get the mutex to add an item → <b>deadlock</b>. Keep the mutex scope <b>narrow</b> (only around the buffer access).", src:"Ch 31"},
+  {t:"num", q:"In the classic dining philosophers problem, how many forks are on the table for 5 philosophers?",
+   a:5, unit:"forks", e:"<b>5</b> forks (one between each adjacent pair). Each philosopher needs <b>both</b> neighboring forks to eat, which creates the contention.", src:"Ch 31"},
+  {t:"mc", q:"How is deadlock broken in the dining philosophers solution?",
+   o:["One philosopher grabs the forks in the opposite order (right then left)","Add a sixth shared fork to the table","Change the rules so that philosophers are allowed to eat with just one fork","Disable interrupts while eating"],
+   a:0, e:"If everyone grabs left-then-right, all can hold one fork and wait → circular wait. Making <b>one</b> philosopher grab <b>right-then-left</b> breaks the cycle, so deadlock can't form.", src:"Ch 31"},
+  {t:"mc", q:"A simple reader-writer lock allows many readers OR one writer. Its main drawback is…",
+   o:["writers can starve under a continuous stream of readers","concurrent readers can end up corrupting each other's read operations","it needs no lock at all","only one reader at a time is allowed"],
+   a:0, e:"Because the writelock stays held while <b>any</b> reader is active, a nonstop flow of readers can <b>starve the writer</b>. Reader-writer locks also add complexity, so they pay off only when reads dominate.", src:"Ch 31"},
+  {t:"match", q:"Match each synchronization primitive to what it's best at.",
+   items:["Lock / binary semaphore","Condition variable","Counting semaphore (init N)","Test-and-set"],
+   terms:["Mutual exclusion over a critical section","Waiting for a condition / ordering","Allowing up to N threads in at once","Building a basic spin lock"],
+   a:[0,1,2,3], e:"Locks → mutual exclusion; condition variables → ordering/waiting; a counting semaphore init to N → throttle to N threads; test-and-set → the hardware basis of a spin lock.", src:"Ch 28–31"}
+],
+bugs:[
+  {t:"num", q:"In the Lu et al. study, how many of the 105 bugs were <b>non-deadlock</b> bugs?",
+   a:74, unit:"bugs", e:"<b>74</b> non-deadlock and 31 deadlock, out of 105. Non-deadlock bugs are the majority — and usually easier to fix.", src:"Ch 32"},
+  {t:"mc", q:"Two threads: T1 checks <code>if (p->info)</code> then uses it, while T2 sets <code>p->info = NULL</code> in between, causing a crash. This is a…",
+   o:["atomicity violation — a region meant to be atomic wasn't","order violation — required ordering wasn't enforced","deadlock","livelock"],
+   a:0, e:"The check-then-use was supposed to be <b>atomic</b> but wasn't. <b>Fix:</b> hold a <b>lock</b> around every access to <code>p->info</code>.", src:"Ch 32"},
+  {t:"mc", q:"Thread 2 uses <code>mThread</code> before Thread 1 has created it. Which bug is this, and the usual fix?",
+   o:["Order violation — fix by forcing order with a condition variable or semaphore","An atomicity violation — fix it by holding one lock around every shared access","Deadlock — fix with lock ordering","Race on a counter — fix with a sloppy counter"],
+   a:0, e:"The needed <b>order</b> between threads wasn't enforced (an <b>order violation</b>). Enforce “T1 before T2” with a <b>condition variable</b> or <b>semaphore</b>, not a mutex.", src:"Ch 32"},
+  {t:"ms", q:"Which four conditions must <b>all</b> hold for deadlock? (Select all four.)",
+   o:["Mutual exclusion","Hold-and-wait","No preemption","Circular wait","Priority inversion"],
+   a:[0,1,2,3], e:"Coffman's four: <b>mutual exclusion, hold-and-wait, no preemption, circular wait</b>. Break any one and deadlock cannot occur. Priority inversion is a different problem.", src:"Ch 32"},
+  {t:"mc", q:"The most practical way to prevent deadlock in real code is to break which condition, and how?",
+   o:["Circular wait — impose a total/partial lock-acquisition order","Mutual exclusion — make everything lock-free","No preemption — always use trylock","Hold-and-wait — grab every single lock that is needed right at program start"],
+   a:0, e:"Enforcing a consistent <b>lock order</b> (e.g. always L1 before L2, or by lock address) prevents the cycle and is the standard, practical technique.", src:"Ch 32"},
+  {t:"mc", q:"Using <code>pthread_mutex_trylock</code> with release-and-retry (to break “no preemption”) introduces which new risk?",
+   o:["Livelock — threads keep retrying and failing, making no progress","It can create an entirely new deadlock cycle among the threads","Loss of mutual exclusion","Priority inversion between threads"],
+   a:0, e:"Two threads can repeatedly grab one lock, fail on the second, release, and retry in lockstep — busy but making no progress (<b>livelock</b>). A <b>random delay</b> before retrying reduces the odds.", src:"Ch 32"},
+  {t:"mc", q:"“Detect and recover” handles deadlock by…",
+   o:["letting it happen, then running a detector that finds a cycle in the resource graph and recovers","preventing it with a global prevention lock","scheduling all threads ahead of time with Dijkstra's Banker's Algorithm, given full knowledge","making all data structures wait-free"],
+   a:0, e:"Allow rare deadlocks, run a periodic <b>detector</b> (look for a <b>cycle</b> in the resource graph), then recover/restart. Common in <b>database systems</b>; pragmatic when deadlocks are rare.", src:"Ch 32"},
+  {t:"match", q:"Match each deadlock condition to a technique that breaks it.",
+   items:["Circular wait","Hold-and-wait","No preemption","Mutual exclusion"],
+   terms:["Total lock ordering (e.g. by address)","Acquire all locks atomically at once","trylock + release-and-retry","Lock-free code with CAS"],
+   a:[0,1,2,3], e:"Ordering kills circular wait; all-at-once acquisition kills hold-and-wait; trylock/back-out removes the no-preemption assumption; lock-free (CAS) removes mutual exclusion entirely.", src:"Ch 32"},
+  {t:"sa", q:"<b>Why does the two-lock example deadlock, and what's the fix?</b> T1 does <code>lock(L1); lock(L2)</code> and T2 does <code>lock(L2); lock(L1)</code>.",
+   a:`<p><b>Deadlock schedule:</b> T1 acquires L1, then a context switch; T2 acquires L2 and tries for L1 (held by T1); T1 resumes and tries for L2 (held by T2). Each holds one lock and waits on the other — a <b>cycle</b> in the dependency graph, so neither can proceed.</p><p>All four conditions hold: mutual exclusion (locks), hold-and-wait (each holds one while wanting another), no preemption (locks aren't taken away), and circular wait (T1→L2→T2→L1→T1).</p><p><b>Fix:</b> impose a <b>global lock order</b> — have <i>both</i> threads acquire L1 before L2 (or order by lock address so <code>do_something(m1,m2)</code> and <code>do_something(m2,m1)</code> still agree). No cycle can form, so no deadlock.</p>`, src:"Ch 32"}
+]
+};
+
+/* =========================================================
+   RENDER + GRADING
+   ========================================================= */
+const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Short Answer", match:"Matching", sa:"Explain"};
+const SCORED = {mc:1, ms:1, num:1, match:1, sa:0};
+
+const store=(()=>{try{const t="__t";localStorage.setItem(t,"1");localStorage.removeItem(t);return localStorage;}catch(e){return null;}})();
+const KEY="ostep-conc-progress-v1";
+let state={}; try{ if(store) state=JSON.parse(store.getItem(KEY)||"{}"); }catch(e){ state={}; }
+function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("ostep-conc-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("ostep-conc-flags", JSON.stringify(flags)); }catch(e){} }
+
+function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function seededPerm(n, seed){
+  let a=seed>>>0;
+  const rnd=()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};
+  const idx=Array.from({length:n},(_,i)=>i);
+  for(let i=n-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}
+  return idx;
 }
-function hl(code){ return code.split("\n").map(hlLine).join("\n"); }
+function qid(sec,i){ return sec+"-"+i; }
+function arrEq(a,b){ if(!a||!b||a.length!==b.length) return false; const x=[...a].sort(),y=[...b].sort(); return x.every((v,i)=>v===y[i]); }
+function arrEq2(a,b){ if(!a||!b||a.length!==b.length) return false; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false; return true; }
+function parseNum(s){ return parseFloat(String(s).replace(/[^0-9.\-]/g,"")); }
 
-const main=document.getElementById("main"), nav=document.getElementById("nav");
+function isCorrect(q, ans){
+  if(ans===undefined || ans===null) return false;
+  if(q.t==="mc") return ans===q.a;
+  if(q.t==="ms"){ const sel=Array.isArray(ans)?ans:(ans&&ans.sel); return arrEq(sel, q.a); }
+  if(q.t==="num"){ const v=parseNum(ans); return isFinite(v) && Math.abs(v-q.a)<=(q.tol||0.001); }
+  if(q.t==="match") return arrEq2(ans, q.a);
+  return false;
+}
+
+const examEl=document.getElementById("exam"), gnav=document.getElementById("gnav"),
+      gbody=document.getElementById("gbody"), gtitle=document.getElementById("gtitle");
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let activePart=null, cramPinned=false, curFilter="all";
+
+const CRAM_HTML=`<div class="cram">
+<h5>The problem (Ch 26)</h5>
+<ul>
+<li>Threads share memory; the scheduler interleaves them <b>unpredictably</b> → <b>race conditions</b>, indeterminate output.</li>
+<li><code>counter+1</code> = load/add/store → not atomic → lost updates.</li>
+<li>Need <b>mutual exclusion</b> (atomicity) and <b>ordering</b> (wait-for).</li>
+</ul>
+<h5>Locks (Ch 28)</h5>
+<ul>
+<li>Judge by <b>correctness · fairness · performance</b>.</li>
+<li><b>test-and-set</b> → spin lock (correct, not fair). <b>fetch-and-add</b> → <b>ticket lock</b> (fair/FIFO). <b>CAS</b> → lock-free.</li>
+<li>Spinning wastes CPU → <b>yield</b>, <b>park/unpark</b> (futex), <b>two-phase</b> lock.</li>
+</ul>
+<h5>Concurrent structures (Ch 29)</h5>
+<ul>
+<li>One big lock first. <b>Sloppy counter</b>: per-CPU locals + threshold S (bigger S = faster, less exact).</li>
+<li><b>Hand-over-hand</b> list · <b>two-lock</b> queue · <b>per-bucket</b> hash. More concurrency ≠ more speed.</li>
+</ul>
+<h5>Condition variables (Ch 30)</h5>
+<ul>
+<li><code>wait()</code> = release lock + sleep, re-acquire on wake (hold the lock to call it).</li>
+<li><b>Always <code>while</code>, never <code>if</code></b>. Producer/consumer needs <b>two</b> CVs. Unsure who to wake → <b>broadcast</b>.</li>
+</ul>
+<h5>Semaphores (Ch 31)</h5>
+<ul>
+<li><code>sem_wait</code> = P (−−, block if &lt;0) · <code>sem_post</code> = V (++). Negative value = # waiters.</li>
+<li>Init: <b>lock = 1 · ordering = 0 · N permits = N</b>. P/C: empty=MAX, full=0, mutex narrow.</li>
+<li>Dining philosophers: one philosopher grabs forks in <b>reverse order</b> to break the cycle.</li>
+</ul>
+<h5>Bugs & deadlock (Ch 32)</h5>
+<ul>
+<li>Lu: 105 bugs = <b>74 non-deadlock</b> + 31 deadlock. Atomicity violation → lock; order violation → CV/semaphore.</li>
+<li><b>4 conditions</b> (all): mutual exclusion · hold-and-wait · no preemption · circular wait.</li>
+<li>Prevent: order locks (circular wait) · all-at-once (hold-and-wait) · trylock→livelock (no preemption) · lock-free (mutual excl). Also avoidance (Banker's) · detect &amp; recover (DBs).</li>
+</ul>
+</div>`;
+
+/* ---- build exam ---- */
+let qnum=0;
 SECTIONS.forEach((sec,si)=>{
-  const hue=`var(--t${si%6})`;
-  const a=document.createElement("a");
-  a.className="chip"; a.href="#"+sec.id; a.style.setProperty("--hue",hue); a.dataset.id=sec.id;
-  a.innerHTML=`<span class="cn">${String(si+1).padStart(2,"0")}</span>${sec.short}`;
-  nav.appendChild(a);
+  const hue=`var(--t${si})`;
+  const ph=document.createElement("div");
+  ph.className="part-head"; ph.id="part-"+sec.id; ph.style.setProperty("--hue",hue);
+  ph.innerHTML=`<div class="part-kicker">${sec.tag}</div><h2>${sec.title}</h2><p>${sec.blurb}</p>`;
+  examEl.appendChild(ph);
 
-  const s=document.createElement("section");
-  s.className="sec"; s.id=sec.id; s.style.setProperty("--hue",hue);
-  let html=`<div class="sec-kicker">${sec.tag}</div><h2><span class="num">${String(si+1).padStart(2,"0")}</span>${sec.title}</h2><p class="lead">${sec.lead}</p>`;
-  sec.blocks.forEach(b=>{
-    if(b.type==="p") html+=`<p class="lead">${b.html}</p>`;
-    else if(b.type==="h3") html+=`<h3>${b.t}</h3>`;
-    else if(b.type==="keys") html+=`<ul class="keys">`+b.items.map(x=>`<li>${x}</li>`).join("")+`</ul>`;
-    else if(b.type==="table"){
-      html+=`<table class="tbl"><thead><tr>`+b.head.map(h=>`<th>${h}</th>`).join("")+`</tr></thead><tbody>`+
-        b.rows.map(r=>`<tr>`+r.map(c=>`<td>${c}</td>`).join("")+`</tr>`).join("")+`</tbody></table>`;
-    }
-    else if(b.type==="code") html+=`<pre>${hl(b.code)}</pre>`;
-    else if(b.type==="ex"){
-      html+=`<div class="ex"><div class="ex-head"><span class="ex-label${b.alt?' alt':''}">${b.label}</span><span class="ex-title">${b.title}</span></div>`;
-      if(b.prompt) html+=`<div class="ex-prompt">${b.prompt}</div>`;
-      html+=`<pre>${hl(b.code)}</pre>`;
-      if(b.note) html+=`<div class="ex-note">${b.note}</div>`;
-      html+=`</div>`;
-    }
+  (QUESTIONS[sec.id]||[]).forEach((q,i)=>{
+    qnum++;
+    const id=qid(sec.id,i);
+    const item=document.createElement("div");
+    item.className="qitem"; item.id="q-"+id; item.dataset.sec=sec.id; item.dataset.scored=SCORED[q.t]; item.style.setProperty("--hue",hue);
+    const on=flags[id]?" on":"";
+    const typeCls = q.t==="num" ? "qtype calc" : "qtype";
+    item.innerHTML=`<div class="qbadge">${qnum}</div>
+      <div class="qbody">
+        <div class="qmeta"><span class="qpts" id="pts-${id}">${SCORED[q.t]?'1 point':'self-check'}</span><span class="${typeCls}">${TYPE_LABEL[q.t]}</span><button class="star${on}" data-id="${id}" type="button" title="Flag for review" aria-label="Flag for review">★</button></div>
+        <div class="qtext">${q.q}</div>
+        <div class="qbodywrap" id="body-${id}"></div>
+        <div class="explain" id="ex-${id}"></div>
+      </div>`;
+    examEl.appendChild(item);
+    buildBody(sec.id, i, q, id);
   });
-  s.innerHTML=html;
-  main.appendChild(s);
 });
 
-/* ---------- scroll-spy ---------- */
-const chips=[...document.querySelectorAll(".chip")];
-const secEls=SECTIONS.map(s=>document.getElementById(s.id));
-let spy=false;
+function buildBody(secId, i, q, id){
+  const wrap=document.getElementById("body-"+id);
+  if(q.t==="mc"||q.t==="ms"){
+    const perm=seededPerm(q.o.length, hashStr(id));
+    const cls=q.t==="mc"?"rad":"chk";
+    wrap.innerHTML=`<div class="opts">`+perm.map(oi=>`
+      <button class="opt ${cls}" data-id="${id}" data-o="${oi}" type="button">
+        <span class="mk">${q.t==="ms"?"✓":""}</span><span class="ot">${q.o[oi]}</span><span class="tag">Correct</span>
+      </button>`).join("")+`</div>`+(q.t==="ms"?`<button class="submit" data-id="${id}" type="button">Check answer</button>`:``);
+  } else if(q.t==="num"){
+    const post = q.unit ? q.unit : "";
+    wrap.innerHTML=`<div class="numrow"><input class="numin" id="in-${id}" type="text" inputmode="numeric" autocomplete="off" placeholder="your answer" aria-label="Your answer">${post?`<span class="numunit">${post}</span>`:""}<button class="submit" data-id="${id}" type="button">Check answer</button></div>`;
+  } else if(q.t==="match"){
+    const legend=`<div class="terms-legend">Options: <b>${q.terms.join("</b> · <b>")}</b></div>`;
+    const optsHtml=`<option value="-1">— choose —</option>`+q.terms.map((t,ti)=>`<option value="${ti}">${t}</option>`).join("");
+    const rows=q.items.map((d,di)=>`<tr id="row-${id}-${di}"><td class="desc">${di+1}. ${d}</td><td class="pick"><select class="msel" id="sel-${id}-${di}" aria-label="Choice for item ${di+1}">${optsHtml}</select></td></tr>`).join("");
+    wrap.innerHTML=legend+`<table class="match"><tbody>${rows}</tbody></table><button class="submit" data-id="${id}" type="button">Check answer</button>`;
+  } else if(q.t==="sa"){
+    wrap.innerHTML=`<button class="submit" data-id="${id}" type="button" style="background:transparent;color:var(--hue)">Show answer</button><div class="sa-ans">${q.a}</div>`;
+  }
+  renderQ(secId, i, q, id);
+}
+
+function getQ(secId,i){ return QUESTIONS[secId][i]; }
+
+examEl.addEventListener("click",(ev)=>{
+  const star=ev.target.closest(".star");
+  if(star){ const id=star.dataset.id; if(flags[id]){delete flags[id];star.classList.remove("on");}else{flags[id]=1;star.classList.add("on");} saveFlags(); if(curFilter==="starred") applyFilter(); updateCount(); return; }
+  const opt=ev.target.closest(".opt");
+  if(opt){ handleOpt(opt); return; }
+  const sub=ev.target.closest(".submit");
+  if(sub){ handleSubmit(sub.dataset.id); return; }
+});
+examEl.addEventListener("keydown",(ev)=>{
+  if(ev.key==="Enter" && ev.target.classList.contains("numin")){ ev.preventDefault(); const id=ev.target.id.slice(3); handleSubmit(id); }
+});
+
+function parseId(id){ const k=id.lastIndexOf("-"); return [id.slice(0,k), +id.slice(k+1)]; }
+
+function handleOpt(opt){
+  const id=opt.dataset.id, oi=+opt.dataset.o;
+  const [secId,i]=parseId(id); const q=getQ(secId,i);
+  if(q.t==="mc"){
+    if(state[id]!==undefined) return;
+    state[id]=oi; save(); renderQ(secId,i,q,id); refreshOverall(); updateCount();
+  } else if(q.t==="ms"){
+    if(state[id]!==undefined && state[id].locked) return;
+    const cur=new Set((state[id]&&state[id].sel)||[]);
+    if(cur.has(oi)) cur.delete(oi); else cur.add(oi);
+    state[id]={sel:[...cur], locked:false}; save();
+    opt.classList.toggle("sel", cur.has(oi));
+  }
+}
+
+function handleSubmit(id){
+  const [secId,i]=parseId(id); const q=getQ(secId,i);
+  if(q.t==="ms"){
+    const sel=(state[id]&&state[id].sel)||[];
+    state[id]={sel, locked:true}; save(); renderQ(secId,i,q,id); refreshOverall(); updateCount();
+  } else if(q.t==="num"){
+    const v=document.getElementById("in-"+id).value.trim();
+    if(v==="") return;
+    state[id]=v; save(); renderQ(secId,i,q,id); refreshOverall(); updateCount();
+  } else if(q.t==="match"){
+    const sel=q.items.map((_,di)=>+document.getElementById(`sel-${id}-${di}`).value);
+    state[id]=sel; save(); renderQ(secId,i,q,id); refreshOverall(); updateCount();
+  } else if(q.t==="sa"){
+    const item=document.getElementById("q-"+id);
+    const open=item.classList.toggle("open");
+    const btn=item.querySelector(".submit");
+    btn.textContent=open?"Hide answer":"Show answer";
+    if(open) state[id]="seen"; else delete state[id]; save();
+    updateCount();
+  }
+}
+
+function srcLine(q){ return q.src?`<span class="src">Source: ${q.src}</span>`:""; }
+
+function renderQ(secId,i,q,id){
+  const ans=state[id];
+  const ex=document.getElementById("ex-"+id);
+  const pts=document.getElementById("pts-"+id);
+
+  if(q.t==="mc"){
+    const item=document.getElementById("q-"+id);
+    const chosen=ans;
+    item.querySelectorAll(".opt").forEach(b=>{
+      const oi=+b.dataset.o; b.classList.remove("correct","chosen-wrong","dim"); b.disabled=chosen!==undefined;
+      if(chosen!==undefined){ if(oi===q.a) b.classList.add("correct"); else if(oi===chosen) b.classList.add("chosen-wrong"); else b.classList.add("dim"); }
+    });
+    if(chosen!==undefined){ const ok=chosen===q.a; setFb(pts,ex,ok,q); } else resetFb(pts,ex,"1 point");
+  }
+  else if(q.t==="ms"){
+    const item=document.getElementById("q-"+id);
+    const sel=new Set((ans&&ans.sel)||[]); const locked=ans&&ans.locked;
+    item.querySelectorAll(".opt").forEach(b=>{
+      const oi=+b.dataset.o; b.classList.remove("correct","chosen-wrong","dim","miss","sel"); b.disabled=!!locked;
+      if(!locked){ if(sel.has(oi)) b.classList.add("sel"); }
+      else{
+        const isAns=q.a.includes(oi), isSel=sel.has(oi);
+        if(isAns && isSel) b.classList.add("correct");
+        else if(!isAns && isSel) b.classList.add("chosen-wrong");
+        else if(isAns && !isSel) b.classList.add("miss");
+        else b.classList.add("dim");
+      }
+    });
+    if(locked){ const ok=arrEq([...sel], q.a); setFb(pts,ex,ok,q); } else resetFb(pts,ex,"1 point · select all");
+  }
+  else if(q.t==="num"){
+    const inp=document.getElementById("in-"+id);
+    if(ans!==undefined){ inp.value=ans; inp.disabled=true; const ok=isCorrect(q,ans); inp.classList.toggle("okb",ok); inp.classList.toggle("nob",!ok);
+      const btn=document.querySelector(`.submit[data-id="${id}"]`); if(btn) btn.disabled=true;
+      const shown = q.a + (q.unit?(" "+q.unit):"");
+      setFb(pts,ex,ok,q, `Answer: <b>${shown}</b>. `);
+    } else resetFb(pts,ex,"1 point");
+  }
+  else if(q.t==="match"){
+    if(ans!==undefined){
+      let allok=true;
+      q.items.forEach((_,di)=>{ const sel=document.getElementById(`sel-${id}-${di}`); const row=document.getElementById(`row-${id}-${di}`);
+        if(sel){ sel.value=ans[di]; sel.disabled=true; }
+        const ok=ans[di]===q.a[di]; if(!ok) allok=false;
+        if(row){ row.classList.remove("rc","rw"); row.classList.add(ok?"rc":"rw"); }
+      });
+      const btn=document.querySelector(`.submit[data-id="${id}"]`); if(btn) btn.disabled=true;
+      setFb(pts,ex,allok,q);
+    } else resetFb(pts,ex,"1 point");
+  }
+  else if(q.t==="sa"){
+    pts.textContent="self-check"; pts.className="qpts";
+  }
+}
+
+function setFb(pts,ex,ok,q,prefix){
+  if(pts){ pts.textContent=(ok?"1":"0")+" / 1 point"; pts.className="qpts "+(ok?"ok":"no"); }
+  ex.innerHTML=`<span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Not quite'}</span>${prefix||""}${q.e}${srcLine(q)}`;
+  ex.classList.add("show");
+}
+function resetFb(pts,ex,label){ if(pts){pts.textContent=label;pts.className="qpts";} ex.classList.remove("show"); ex.innerHTML=""; }
+
+/* ---- scoring ---- */
+function qDone(q,ans){ if(ans===undefined) return false; if(q.t==="ms") return !!ans.locked; return true; }
+function stats(){
+  let total=0, answered=0, correct=0;
+  SECTIONS.forEach(sec=>(QUESTIONS[sec.id]||[]).forEach((q,i)=>{
+    if(!SCORED[q.t]) return;
+    total++;
+    const ans=state[qid(sec.id,i)];
+    if(qDone(q,ans)){ answered++; if(isCorrect(q,ans)) correct++; }
+  }));
+  return {total, answered, correct};
+}
+function refreshOverall(){
+  const s=stats();
+  document.getElementById("overallBar").style.width=(s.total?Math.round(100*s.answered/s.total):0)+"%";
+  document.getElementById("overallPct").textContent=(s.answered?Math.round(100*s.correct/s.answered):0)+"%";
+  document.getElementById("overallCount").textContent=`${s.correct} / ${s.answered}`;
+  document.getElementById("overallPts").textContent=`${s.answered} / ${s.total}`;
+}
+
+/* ---- filtering ---- */
+function applyFilter(mode){
+  if(mode) curFilter=mode;
+  document.querySelectorAll(".fbtn").forEach(b=>b.classList.toggle("active",b.dataset.f===curFilter));
+  let visible=0;
+  SECTIONS.forEach(sec=>{
+    let any=false;
+    (QUESTIONS[sec.id]||[]).forEach((q,i)=>{
+      const id=qid(sec.id,i); const el=document.getElementById("q-"+id); const ans=state[id];
+      let show;
+      if(curFilter==="all") show=true;
+      else if(curFilter==="unanswered") show=!qDone(q,ans);
+      else if(curFilter==="incorrect") show=SCORED[q.t] && qDone(q,ans) && !isCorrect(q,ans);
+      else show=!!flags[id];
+      el.classList.toggle("hide",!show);
+      if(show){visible++;any=true;}
+    });
+    document.getElementById("part-"+sec.id).classList.toggle("hide",!any);
+  });
+  const es=document.getElementById("emptyState");
+  if(visible===0 && curFilter!=="all"){ es.hidden=false;
+    es.textContent = curFilter==="incorrect" ? "No incorrect answers here — switch to All to keep practicing."
+      : curFilter==="unanswered" ? "Everything is answered. Switch to All, or ★ Review your flagged ones."
+      : "Nothing flagged yet — tap the ★ on a question to add it to your review list.";
+  } else es.hidden=true;
+  updateCount(visible);
+}
+function updateCount(vis){
+  if(vis===undefined) vis=document.querySelectorAll(".qitem:not(.hide)").length;
+  const s=stats();
+  document.getElementById("fcount").textContent=`${vis} shown · ${s.answered}/${s.total} graded · ${s.correct} right`;
+}
+document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{ applyFilter(b.dataset.f); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }));
+document.getElementById("jumpNext").addEventListener("click",()=>{
+  const items=[...document.querySelectorAll(".qitem:not(.hide)")];
+  const t=items.find(el=>{ const [secId,i]=parseId(el.id.slice(2)); return !qDone(getQ(secId,i), state[el.id.slice(2)]); });
+  if(t) t.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"center"});
+  else document.getElementById("fcount").textContent="All shown questions answered ✓";
+});
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  state={}; save();
+  SECTIONS.forEach(sec=>(QUESTIONS[sec.id]||[]).forEach((q,i)=>{ const id=qid(sec.id,i);
+    const item=document.getElementById("q-"+id); item.classList.remove("open");
+    const inp=document.getElementById("in-"+id); if(inp){inp.disabled=false;inp.value="";inp.classList.remove("okb","nob");}
+    const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show answer";}
+    if(q.t==="match") q.items.forEach((_,di)=>{ const s2=document.getElementById(`sel-${id}-${di}`); if(s2){s2.disabled=false;s2.value="-1";} const r=document.getElementById(`row-${id}-${di}`); if(r)r.classList.remove("rc","rw"); });
+    renderQ(sec.id,i,q,id);
+  }));
+  refreshOverall(); applyFilter("all"); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+});
+
+/* ---- study guide ---- */
+const cramChip=document.createElement("button");
+cramChip.className="gchip cramchip"; cramChip.id="gchip-cram"; cramChip.type="button";
+cramChip.innerHTML=`<span class="gdot"></span>⚡ Cram Sheet`;
+cramChip.addEventListener("click",()=>showCram());
+gnav.appendChild(cramChip);
+SECTIONS.forEach((sec,si)=>{
+  const chip=document.createElement("button");
+  chip.className="gchip"; chip.id="gchip-"+sec.id; chip.type="button"; chip.style.setProperty("--gh",`var(--t${si})`);
+  chip.innerHTML=`<span class="gdot"></span>${sec.short}`;
+  chip.addEventListener("click",()=>setActivePart(sec.id,true));
+  gnav.appendChild(chip);
+});
+function renderGuideBody(secId){
+  const si=SECTIONS.findIndex(s=>s.id===secId);
+  gbody.style.setProperty("--gh",`var(--t${si})`);
+  gbody.innerHTML=SECTIONS[si].notes.map((n,i)=>`<div class="note"><h4><span class="n">${String(i+1).padStart(2,"0")}</span>${n.h}</h4>${n.html}</div>`).join("");
+  gbody.scrollTop=0;
+}
+function showCram(){
+  cramPinned=true; activePart=null;
+  gtitle.textContent="Cram Sheet — Concurrency";
+  gbody.style.setProperty("--gh","var(--accent)");
+  document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
+  cramChip.classList.add("active");
+  gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
+  try{ store && store.setItem("ostep-conc-part","cram"); }catch(e){}
+}
+function setActivePart(secId, fromClick){
+  if(fromClick) cramPinned=false;
+  if(activePart===secId && !fromClick) return;
+  const changed=activePart!==secId; activePart=secId;
+  const si=SECTIONS.findIndex(s=>s.id===secId);
+  gtitle.textContent=SECTIONS[si].title;
+  document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
+  const chip=document.getElementById("gchip-"+secId);
+  if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
+  if(changed) renderGuideBody(secId);
+  try{ store && store.setItem("ostep-conc-part",secId); }catch(e){}
+  if(fromClick){ document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"}); if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false); }
+}
+let ticking=false;
 function onScroll(){
-  if(spy) return; spy=true;
-  requestAnimationFrame(()=>{ spy=false;
-    let cur=secEls[0].id, y=120;
-    for(const el of secEls){ if(el.getBoundingClientRect().top<=y) cur=el.id; else break; }
-    chips.forEach(c=>{ const on=c.dataset.id===cur; c.classList.toggle("active",on); if(on) c.scrollIntoView({block:"nearest",inline:"center"}); });
-    document.getElementById("totop").classList.toggle("show", window.scrollY>600);
+  if(ticking) return; ticking=true;
+  requestAnimationFrame(()=>{ ticking=false;
+    if(cramPinned) return;
+    let cur=SECTIONS[0].id;
+    for(const s of SECTIONS){ const el=document.getElementById("part-"+s.id); if(el.classList.contains("hide")) continue; if(el.getBoundingClientRect().top<=150) cur=s.id; else break; }
+    if(cur!==activePart) setActivePart(cur,false);
   });
 }
-window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
-document.getElementById("totop").addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+window.addEventListener("scroll",onScroll,{passive:true});
 
-/* ---------- theme + print ---------- */
-const store=(()=>{try{localStorage.setItem("__t","1");localStorage.removeItem("__t");return localStorage;}catch(e){return null;}})();
+/* ---- mobile drawer + theme ---- */
+const guideToggle=document.getElementById("guideToggle"), guideClose=document.getElementById("guideClose"), scrim=document.getElementById("scrim");
+function setGuideOpen(open){ document.body.classList.toggle("guide-open",open); }
+guideToggle.addEventListener("click",()=>setGuideOpen(true));
+guideClose.addEventListener("click",()=>setGuideOpen(false));
+scrim.addEventListener("click",()=>setGuideOpen(false));
+document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
+
 const root=document.documentElement, tb=document.getElementById("themeBtn"), ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("m2-theme",t);}catch(e){} }
-let curTheme="system"; try{ if(store) curTheme=store.getItem("m2-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("ostep-conc-theme",t);}catch(e){} }
+let curTheme="system"; try{ if(store) curTheme=store.getItem("ostep-conc-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{ curTheme=curTheme==="system"?"light":curTheme==="light"?"dark":"system"; applyTheme(curTheme); });
-document.getElementById("printBtn").addEventListener("click",()=>window.print());
+
+/* ---- init ---- */
+refreshOverall(); applyFilter("all");
+let initPart=null; try{ initPart=store&&store.getItem("ostep-conc-part"); }catch(e){}
+if(initPart==="cram"||!initPart) showCram();
+else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
+else showCram();
 </script>
 </body>
 </html>
