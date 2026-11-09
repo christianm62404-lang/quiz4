@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OSTEP Concurrency — Study Guide (Quiz)</title>
+<title>CAI 4105 — Neural Networks Review (L15–L19)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -47,6 +47,7 @@ a{color:var(--accent-strong)}
 ::selection{background:var(--accent-soft)}
 .wrap{max-width:1300px;margin:0 auto;padding:0 24px}
 code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
+sub,sup{font-size:.72em}
 .codeblk{font-family:var(--mono);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:9px 0 4px;font-size:12.6px;color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.55;tab-size:2}
 .qtext .codeblk{font-weight:400;margin:8px 0 2px}
 .explain .codeblk,.sa-ans .codeblk{margin:7px 0}
@@ -56,7 +57,7 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);border:
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
 h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-size:clamp(26px,4.4vw,40px);line-height:1.1;margin:.32em 0 .18em;text-wrap:balance;color:var(--ink)}
-.subtitle{color:var(--muted);max-width:76ch;font-size:16.5px;margin:0}
+.subtitle{color:var(--muted);max-width:78ch;font-size:16.5px;margin:0}
 .mast-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .theme-btn{flex:0 0 auto;font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
 .theme-btn:hover{border-color:var(--accent);color:var(--accent-strong)}
@@ -125,7 +126,7 @@ h1.title{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-siz
 .opt.chosen-wrong .mk{background:var(--bad);border-color:var(--bad);color:#fff}
 .opt.dim{opacity:.55}
 .numrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.numin{font-family:var(--mono);font-size:15px;width:150px;max-width:55vw;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 12px}
+.numin{font-family:var(--mono);font-size:15px;width:160px;max-width:55vw;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 12px}
 .numin:focus{outline:2px solid var(--accent);outline-offset:1px}
 .numin.okb{border-color:var(--ok);background:var(--ok-bg)}
 .numin.nob{border-color:var(--bad);background:var(--bad-bg)}
@@ -219,12 +220,12 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> Operating Systems · OSTEP <span class="dot"></span> Concurrency · Ch 26–32</div>
+      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning <span class="dot"></span> Neural Networks · L15–L19</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Concurrency — Threads, Locks &amp; Deadlock</h1>
-    <p class="subtitle">A quiz-style study guide for the OSTEP concurrency chapters: threads &amp; race conditions (26), locks (28), concurrent data structures (29), condition variables (30), semaphores (31), and common concurrency bugs &amp; deadlock (32). Answer each question — multiple choice, select-all, matching, short numbers, and reveal-the-answer — and it grades instantly. Notes and a ⚡ Cram Sheet sit on the right.</p>
-    <div class="callout"><b>The whole problem in one line:</b> threads share memory and run in an <b>uncontrolled order</b>, so unsynchronized access to shared data is a <b>race condition</b>. The chapters build the tools to tame it — <b>mutual exclusion</b> (locks, semaphores) for atomicity, and <b>ordering</b> (condition variables, semaphores) for "wait until." Progress is saved in this browser.</div>
+    <h1 class="title">Neural Networks Review — L15 to L19</h1>
+    <p class="subtitle">An in-depth review of the neural-network block: the multilayer perceptron (L15), backpropagation (L16), training faster with SGD (L17), regularization &amp; training practice (L18), and convolutional networks (L19). Questions are in the style of the course quizzes — scenario multiple choice, numeric computations, and matching — and grade instantly, with slide-referenced explanations. Notes and a ⚡ Cram Sheet sit on the right.</p>
+    <div class="callout"><b>The through-line:</b> a network learns its own features. Hidden layers of weighted sums + a nonlinear activation (ReLU) build features; an output unit + loss fit the task; backprop gets every gradient; SGD, momentum/Adam, regularization and good initialization make training work; and convolution adds the right structure for images. Progress is saved in this browser. For numeric answers, type a plain number (e.g. <code>0.119</code> or <code>101770</code>).</div>
     <div class="scorebar">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0 / 0</span> graded</div>
@@ -267,317 +268,299 @@ footer .mono{font-family:var(--mono)}
 <button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
 <footer class="wrap">
-  <div class="mono">OSTEP — Operating Systems: Three Easy Pieces · Concurrency (Ch 26, 28, 29, 30, 31, 32) · study-guide quiz.</div>
-  <div style="margin-top:8px">Work through the questions, reveal the worked answers, and keep the ⚡ Cram Sheet open for the one-page recap.</div>
+  <div class="mono">CAI 4105 — Current Topics in Machine Learning I · Neural Networks review (Lectures 15–19) · study-guide quiz.</div>
+  <div style="margin-top:8px">Work the questions, reveal the worked solutions, and keep the ⚡ Cram Sheet open for the formulas and defaults.</div>
 </footer>
 
 <script>
 /* =========================================================
-   STUDY-GUIDE NOTES — OSTEP Concurrency (Ch 26–32)
+   STUDY-GUIDE NOTES — CAI 4105 Neural Networks (L15–L19)
    ========================================================= */
 const SECTIONS = [
 {
-  id:"threads", short:"Threads & Races", tag:"Chapter 26", title:"Concurrency: Threads & Race Conditions",
-  blurb:"A thread is a second point of execution inside one process. Threads share memory, so concurrent access to shared data — under an uncontrolled schedule — produces race conditions and indeterminate results.",
+  id:"mlp", short:"MLP", tag:"Lecture 15", title:"The Multilayer Perceptron",
+  blurb:"A neuron is a weighted sum passed through an activation. Stack layers of them and a network computes its own features. A nonlinear activation is what keeps the layers from collapsing into one line.",
   notes:[
-    {h:"What a thread is (and shares)", html:`<ul>
-      <li>A <b>thread</b> is like a process but it <b>shares the address space</b> with the other threads of the process: same code, heap, and globals.</li>
-      <li>Each thread has its <b>own</b> stack, registers, and program counter (PC). A context switch saves/restores per-thread state (a TCB).</li>
-      <li>Why threads: <b>parallelism</b> (use many CPUs) and <b>overlapping I/O</b> (don't block the whole program while one part waits).</li></ul>`},
-    {h:"The core problem: uncontrolled scheduling", html:`<p>The scheduler can switch threads at <b>any</b> instruction. A shared update like <code>counter = counter + 1</code> is really three instructions:</p>
-      <div class="codeblk">mov  counter, %eax    ; load
-add  $1, %eax         ; add
-mov  %eax, counter    ; store</div>
-      <p>If two threads interleave load/add/store, one update is <b>lost</b>. The bug depends on timing, so results are <b>indeterminate</b> (different each run).</p>`},
-    {h:"Vocabulary", html:`<table class="tbl"><tbody>
-      <tr><td><b>Race condition</b></td><td>result depends on the timing/interleaving of threads</td></tr>
-      <tr><td><b>Critical section</b></td><td>code that accesses a shared resource and must not run concurrently</td></tr>
-      <tr><td><b>Mutual exclusion</b></td><td>guarantee that only one thread is in the critical section at a time</td></tr>
-      <tr><td><b>Atomic</b></td><td>"all or none" — executes as one indivisible unit</td></tr>
-      <tr><td><b>Indeterminate</b></td><td>program output varies run to run because of a race</td></tr></tbody></table>`},
-    {h:"Two needs the rest of the unit solves", html:`<ul>
-      <li><b>Mutual exclusion / atomicity</b> → <b>locks</b> and <b>semaphores</b> (Ch 28, 31).</li>
-      <li><b>Ordering</b> ("wait until another thread does X") → <b>condition variables</b> and <b>semaphores</b> (Ch 30, 31).</li></ul>`}
+    {h:"Neuron, layer, matrix form", html:`<ul>
+      <li>One neuron: pre-activation <code>z = w·x + b</code>, then activation. Logistic regression is one sigmoid neuron.</li>
+      <li>A <b>layer</b> is units sharing the same inputs. Weight <code>w<sub>jk</sub></code> connects input k to unit j. Stack the rows → <code>z = W x + b</code>; <b>W has one row per unit, one column per input</b>.</li>
+      <li>One hidden layer + output: <code>h = g(W<sub>1</sub>x + b<sub>1</sub>)</code>, then <code>z<sub>o</sub> = w<sub>2</sub>·h + b<sub>2</sub></code>. Training fits all of them, so the features <b>h are learned</b>.</li>
+      <li><b>Batch:</b> stack N examples as rows of X; <code>Z = X W<sup>T</sup> + b</code> (broadcasting). H is N×(units).</li></ul>`},
+    {h:"ReLU and the three activations", html:`<table class="tbl"><thead><tr><th>Activation</th><th>Range</th><th>Max slope</th></tr></thead><tbody>
+      <tr><td>Sigmoid</td><td>0 to 1</td><td>0.25 (at z=0)</td></tr>
+      <tr><td>Tanh</td><td>−1 to 1</td><td>1</td></tr>
+      <tr><td><b>ReLU</b> = max(0,z)</td><td>0 and up</td><td>1 (slope 0 or 1)</td></tr></tbody></table>
+      <ul><li>A unit with <b>negative pre-activation outputs 0</b> — it is <b>off</b>. ReLU is the hidden-layer default: cheap, slope stays 1 where on. Sigmoid/tanh <b>saturate</b> (slope → 0) far from 0.</li></ul>`},
+    {h:"Why the activation must bend", html:`<ul>
+      <li>Remove the activation and a stack of linear layers <b>collapses to one</b> linear layer — same straight boundary as logistic regression, no matter the depth.</li>
+      <li>A nonlinear activation between layers stops the collapse. That is the whole reason hidden units have one.</li>
+      <li><b>Universal approximation:</b> one hidden layer of enough ReLU units (+ linear output) can approximate any continuous function on a closed bounded region — but it doesn't say <i>how many</i> units, that training will find them, or that it generalizes. A wide-enough net can also fit noise, so <b>size is chosen by held-out accuracy</b>.</li></ul>`},
+    {h:"Depth, width, parameter count", html:`<ul>
+      <li><b>MLP</b> = fully connected / dense: every unit connects to every unit of the next layer. <b>Depth</b> = layers with weights; <b>width</b> = units per layer.</li>
+      <li>Params of a layer = (inputs × units) weights + (units) biases. Example 784→128→10: 128·784+128 + 10·128+10 = <b>101,770</b> (almost all in layer 1). 784→100→10 = <b>79,510</b>.</li></ul>`},
+    {h:"Output unit and loss per task", html:`<table class="tbl"><thead><tr><th>Task</th><th>Output</th><th>Loss</th></tr></thead><tbody>
+      <tr><td>Regression</td><td>Identity</td><td>Squared error</td></tr>
+      <tr><td>Two classes</td><td>Sigmoid</td><td>Binary cross-entropy</td></tr>
+      <tr><td>K classes</td><td>Softmax</td><td>Cross-entropy</td></tr></tbody></table>
+      <ul><li>Each classification loss is the <b>negative log-likelihood</b> of the true label, so a <b>confident wrong answer costs the most</b>. Softmax: <code>p<sub>k</sub> = e<sup>z<sub>k</sub></sup> / Σ e<sup>z<sub>j</sub></sup></code>; loss = <code>−ln p<sub>y</sub></code> (only the true class enters the numerator; all classes count in the denominator).</li></ul>`}
   ]
 },
 {
-  id:"locks", short:"Locks", tag:"Chapter 28", title:"Locks",
-  blurb:"A lock makes a critical section atomic: a thread acquires it, runs, releases. Evaluate a lock by correctness, fairness, and performance — and build one from atomic hardware instructions, not plain loads/stores.",
+  id:"backprop", short:"Backprop", tag:"Lecture 16", title:"Backpropagation",
+  blurb:"Gradient descent needs the slope of the loss for every weight. Backpropagation computes all of them in one backward pass through the network using the chain rule — each node multiplies the upstream gradient by its local gradient.",
   notes:[
-    {h:"Basic use", html:`<div class="codeblk">pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_lock(&m);     // enter: only one thread past here
-balance = balance + 1;      // critical section
-pthread_mutex_unlock(&m);   // leave</div>
-      <p>A lock is a variable in state <b>held</b> (one owner) or <b>free</b>. Others calling <code>lock()</code> block until it's released.</p>`},
-    {h:"Three ways to judge a lock", html:`<ol>
-      <li><b>Correctness</b> — does it actually provide mutual exclusion?</li>
-      <li><b>Fairness</b> — does every waiter eventually get the lock (no starvation)?</li>
-      <li><b>Performance</b> — overhead with 1 thread, many threads on 1 CPU, and many CPUs.</li></ol>`},
-    {h:"Attempts that don't work (and why)", html:`<ul>
-      <li><b>Disable interrupts</b>: gives mutual exclusion on a <b>single</b> CPU only, needs privilege, and is useless on multiprocessors.</li>
-      <li><b>A plain flag with loads/stores</b>: a switch between "check flag" and "set flag" lets two threads enter — <b>no</b> mutual exclusion — and it spins.</li></ul>`},
-    {h:"Atomic hardware primitives", html:`<p><b>Test-and-set</b> (atomic exchange): set to 1, return the old value → the simplest <b>spin lock</b>.</p>
-      <div class="codeblk">int TestAndSet(int *p, int new){ int old=*p; *p=new; return old; }
-void lock(lock_t *l){ while (TestAndSet(&l->flag, 1) == 1) ; } // spin
-void unlock(lock_t *l){ l->flag = 0; }</div>
-      <ul>
-      <li><b>Compare-and-swap</b>: write <code>new</code> only if <code>*p == expected</code>; more powerful (enables lock-free code).</li>
-      <li><b>Load-linked / store-conditional</b>: the store succeeds only if no write happened since the load.</li>
-      <li><b>Fetch-and-add</b> → a <b>ticket lock</b> (take a ticket, wait for your turn) → guarantees <b>fairness/FIFO</b>; test-and-set spin locks do not.</li></ul>`},
-    {h:"Spinning wastes CPU — so sleep", html:`<ul>
-      <li>A spin lock with N threads on 1 CPU wastes a whole time slice spinning for a lock the holder isn't even running to release.</li>
-      <li><b>Just yield()</b>: give up the CPU instead of spinning — better, but many context switches and possible starvation.</li>
-      <li><b>Queues + park()/unpark()</b> (Solaris) / <b>futex</b> (Linux): put waiters to sleep on a queue and wake one on unlock → avoids starvation; a <code>setpark()</code> guard avoids the wakeup/waiting race.</li>
-      <li><b>Two-phase lock</b>: spin a little (in case the lock frees soon), then sleep.</li></ul>`}
+    {h:"Chain rule on a computational graph", html:`<ul>
+      <li>A computational graph breaks a formula into simple nodes (multiply, add, square, ReLU, …). <b>Forward</b> computes values left→right; <b>backward</b> sends the gradient right→left.</li>
+      <li>Each node knows its <b>local gradient</b> (slope of its output in each input). The backward rule: <b>upstream gradient × local gradient</b>, passed to each input.</li>
+      <li>A value used in two places receives the <b>sum</b> of the two gradients.</li></ul>`},
+    {h:"The three gate patterns", html:`<table class="tbl"><thead><tr><th>Gate</th><th>Backward</th></tr></thead><tbody>
+      <tr><td><b>Add</b></td><td>copies the upstream gradient to every input</td></tr>
+      <tr><td><b>Multiply</b></td><td>each input gets upstream × the <i>other</i> input</td></tr>
+      <tr><td><b>ReLU</b></td><td>passes the upstream where input &gt; 0, sends 0 where input &lt; 0</td></tr></tbody></table>`},
+    {h:"Backprop through the network", html:`<ul>
+      <li><b>Output error</b> δ<sub>o</sub> = <b>prediction − label</b> (ŷ − y) for sigmoid+BCE and for softmax+cross-entropy (p − y, y one-hot). This simple form is why those output/loss pairs are chosen.</li>
+      <li>Output-layer weight gradient = δ<sub>o</sub> · h<sub>j</sub> (multiply rule); bias gradient = δ<sub>o</sub>.</li>
+      <li><b>Back to the hidden layer:</b> each h<sub>j</sub> gets δ<sub>o</sub>·w<sub>2,j</sub>, then multiply by the <b>ReLU slope</b> (1 if on, 0 if off) → hidden error δ. Hidden weight gradient = outer product δ x<sup>T</sup>.</li>
+      <li><b>Shape check:</b> every gradient has the shape of the thing it differentiates (∇W<sub>l</sub> is shaped like W<sub>l</sub>).</li></ul>`},
+    {h:"Gradient checking", html:`<ul>
+      <li><b>Central difference:</b> (L(w+ε) − L(w−ε)) / 2ε, error shrinks like ε² (vs ε for one-sided).</li>
+      <li><b>Relative error</b> = |g<sub>bp</sub> − g<sub>num</sub>| / max(|g<sub>bp</sub>|,|g<sub>num</sub>|). In double precision a correct backward pass gives ≈ 1e−6 or smaller; a bug gives ≈ 0.01 or more.</li>
+      <li>Backprop is <b>cheap</b>: one forward + one backward pass for <i>all</i> gradients; numerical differences need two forward passes <i>per weight</i>.</li></ul>`},
+    {h:"Training loop & vanishing gradients", html:`<ul>
+      <li>Loop: forward → loss → backward → update <code>w ← w − η·∇</code>. On large data use a <b>mini-batch</b> and average its gradients. One pass over all data = an <b>epoch</b>.</li>
+      <li><b>Deep sigmoid networks learn slowly:</b> each layer multiplies the error by the activation slope (≤ 0.25 for sigmoid), so through k layers it shrinks like 0.25<sup>k</sup> — early layers barely move. <b>ReLU has slope 1 where on</b>, so it doesn't shrink the error.</li></ul>`}
   ]
 },
 {
-  id:"structures", short:"Data Structures", tag:"Chapter 29", title:"Lock-based Concurrent Data Structures",
-  blurb:"Adding locks makes a structure thread-safe; adding them well makes it scale. Start simple (one lock), then reduce contention only where it pays: sloppy counters, hand-over-hand lists, two-lock queues, per-bucket hash tables.",
+  id:"sgd", short:"SGD & Optimizers", tag:"Lecture 17", title:"Training Faster with SGD",
+  blurb:"The full gradient averages over all examples and is expensive. A mini-batch gives a cheap, noisy estimate — and many cheap noisy steps beat a few exact ones. Schedules, momentum, and Adam make each step do more.",
   notes:[
-    {h:"Concurrent counter", html:`<ul>
-      <li>Wrap <code>increment</code> in one lock → correct, but all threads <b>serialize</b> on it → poor scaling (perfect scaling = N threads finish as fast as 1).</li>
-      <li><b>Approximate (sloppy) counter</b>: one <b>local</b> counter per CPU (+ its own lock) and one <b>global</b>. Bump the local; when a local hits threshold <b>S</b>, grab the global lock, add the local into the global, reset local.</li>
-      <li>Bigger <b>S</b> → <b>more scalable</b> but the global value is <b>more approximate</b> (further behind). Classic accuracy/performance trade-off.</li></ul>`},
-    {h:"Concurrent linked list", html:`<ul>
-      <li>Simplest: one lock around the whole list (release it on every return path — easy to forget).</li>
-      <li><b>Hand-over-hand (lock coupling)</b>: a lock <b>per node</b>; grab the next node's lock before releasing the current one. More concurrency in principle, but the per-node lock/unlock overhead often makes it <b>slower</b> than one big lock.</li></ul>`},
-    {h:"Concurrent queue & hash table", html:`<ul>
-      <li><b>Michael &amp; Scott queue</b>: separate <b>head</b> and <b>tail</b> locks + a <b>dummy node</b>, so enqueue (tail) and dequeue (head) rarely contend.</li>
-      <li><b>Hash table</b>: one lock <b>per bucket</b> instead of one global lock → scales well because different buckets proceed in parallel.</li></ul>`},
-    {h:"The lesson", html:`<ul>
-      <li>Start with a <b>single big lock</b>; it's usually correct and often fast enough.</li>
-      <li>Only add complexity when a real bottleneck appears — "<b>premature optimization is the root of all evil</b>" (Knuth). More concurrency ≠ more speed if overhead dominates.</li></ul>`}
+    {h:"Mini-batches, iterations, epochs", html:`<ul>
+      <li>Full gradient = mean of all N per-example gradients. A <b>mini-batch</b> of B averages B random examples — on average it equals the full gradient, but one batch differs by <b>gradient noise</b>.</li>
+      <li><b>B = 1</b> is SGD; <b>B = N</b> is full-batch. An <b>iteration/step</b> = one update from one batch. An <b>epoch</b> = one pass over all N (⌈N/B⌉ steps; the last batch may be short).</li>
+      <li>Larger B → less noisy but costlier per step. On Fashion-MNIST, <b>B = 32 to 256 trained fastest</b> (hardware processes a block at once; below ~256 a bigger batch spreads the fixed cost).</li></ul>`},
+    {h:"Learning rate & schedules", html:`<ul>
+      <li>η too small → slow; too large → can stall (at η = 2.0, most ReLU units died and loss ≈ ln 10 = chance). <b>Noisier gradients (smaller batches) need a smaller η.</b></li>
+      <li><b>Schedule:</b> start large, lower η later so jitter shrinks near the bottom. <b>Step decay</b> divides η by a factor (e.g. 10) at chosen epochs.</li>
+      <li>Judge progress by the <b>epoch-mean loss</b>; a single batch's loss is noisy. Rising mean → η too big; flat from the start → η too small or units dead.</li></ul>`},
+    {h:"Momentum", html:`<ul>
+      <li>Keep a <b>velocity</b> v: <code>v ← ρ·v + g</code>, then <code>w ← w − η·v</code>. Gradients that <b>agree add up</b>; gradients that <b>flip sign cancel</b> → cuts zigzag in narrow valleys, moves faster along them.</li>
+      <li>With steady g, velocity grows toward <code>1/(1−ρ)</code> times g. So <b>ρ = 0.9 acts like a 10× larger step</b>; ρ = 0.99 like 100×. First step (v=0) equals plain SGD.</li></ul>`},
+    {h:"Adam", html:`<ul>
+      <li>Two running averages: <code>m</code> (of g, like momentum) and <code>s</code> (of g²). <b>Bias-correct</b> (they start at 0): m̂ = m/(1−β<sub>1</sub><sup>t</sup>), ŝ = s/(1−β<sub>2</sub><sup>t</sup>). Step: <code>w ← w − η·m̂/(√ŝ + ε)</code>.</li>
+      <li>Divides each weight's step by the recent <b>size</b> of its own gradient → per-weight step size. Defaults <b>β<sub>1</sub>=0.9, β<sub>2</sub>=0.999, η=0.001</b>. At t=1, m̂=g and ŝ=g², so every weight moves η against the sign of its gradient.</li></ul>`},
+    {h:"Choosing an optimizer", html:`<ul>
+      <li><b>Adam, η=0.001</b> is a good first choice (little tuning). <b>SGD+momentum 0.9</b> with a tuned η and schedule is still widely used and can beat Adam on some tasks (e.g. CIFAR-10).</li>
+      <li>Starting points: batch 32–256, Adam 0.001 / momentum 0.01 / plain SGD 0.1, divide η by 10 when the loss stalls, and run a gradient check.</li></ul>`}
   ]
 },
 {
-  id:"condvars", short:"Condition Variables", tag:"Chapter 30", title:"Condition Variables",
-  blurb:"When a thread must wait for a condition (not just for a lock), use a condition variable: wait() atomically releases the lock and sleeps; signal() wakes a waiter. Always re-check the condition in a while loop.",
+  id:"reg", short:"Regularization", tag:"Lecture 18", title:"Regularization & Training Practice",
+  blurb:"A big network can memorize the training set (train 1.00, validation far lower). Weight decay, early stopping, and dropout fight that; good initialization and batch norm make training itself work.",
   notes:[
-    {h:"The two routines", html:`<div class="codeblk">pthread_cond_wait(&cond, &mutex);   // release mutex + sleep; on wake, re-acquire mutex
-pthread_cond_signal(&cond);         // wake one waiting thread</div>
-      <ul>
-      <li>You must <b>hold the lock</b> when calling <code>wait()</code>; it releases it atomically as it sleeps and re-acquires it before returning.</li>
-      <li>Signalling only wakes a thread — it does not hand over any data by itself. Use a shared <b>state variable</b> plus the lock.</li></ul>`},
-    {h:"Always use while, never if", html:`<div class="codeblk">while (ready == 0)          // NOT: if (ready == 0)
-    pthread_cond_wait(&c, &m);</div>
-      <p>After waking you re-acquire the lock, but the condition <b>may no longer hold</b> (another thread ran first; Mesa semantics; spurious wakeups). A <code>while</code> re-checks and is always safe; an <code>if</code> can let a thread proceed when it shouldn't.</p>`},
-    {h:"Producer/consumer (bounded buffer)", html:`<ul>
-      <li>Needs <b>two</b> condition variables — one to wait for <b>empty</b> space (producers) and one to wait for <b>full</b> entries (consumers).</li>
-      <li>With a <b>single</b> CV, a consumer can wake another consumer (not the producer) and both stall. Two CVs + <code>while</code> fixes it.</li></ul>`},
-    {h:"Covering conditions", html:`<p>When you can't tell which waiter is able to make progress, use <b>broadcast</b> (<code>pthread_cond_broadcast</code>) to wake <b>all</b> of them; each re-checks its <code>while</code> and the ones that can't proceed go back to sleep. Safe but can cost performance.</p>`}
+    {h:"Weight decay", html:`<ul>
+      <li>Add <code>(λ/2)·Σw²</code> to the loss (ridge inside a network; <b>biases are not penalized</b>). Gradient adds λw, so each step shrinks every weight by the factor <b>(1 − ηλ)</b> before the usual step — hence "decay".</li>
+      <li>Larger λ → smaller weights and a smaller train–val gap, but too large hurts validation (it stops fitting real patterns). Choose λ on the <b>validation set</b> (≈ 0.0001–0.001).</li></ul>`},
+    {h:"Early stopping", html:`<ul>
+      <li>Track validation loss each epoch, keep a copy of the <b>best</b> weights. Stop when it hasn't improved for <b>patience</b> epochs, and return the kept (best-epoch) weights.</li>
+      <li>Larger patience is more robust to noisy dips; patience too small can stop at a lucky dip.</li></ul>`},
+    {h:"Dropout", html:`<ul>
+      <li>During <b>training</b>, switch off each hidden unit independently with probability <b>p</b> (set output 0), a fresh mask per example per step. Kept units are rescaled by <b>1/(1−p)</b> (inverted dropout), so the average output is unchanged. At <b>test time: nothing is dropped and nothing is rescaled</b>.</li>
+      <li>Why it helps: a unit can't rely on any one neighbor (it might be off), so each must be useful on its own; each step trains a different sub-network and test time ≈ their average.</li></ul>`},
+    {h:"Initialization", html:`<ul>
+      <li><b>All-zero weights</b>: every hidden output 0 → zero gradients everywhere but the output bias; the network is stuck at chance. Equal weights make units <b>identical</b> and they stay identical — random weights <b>break the symmetry</b>.</li>
+      <li><b>He initialization</b> (ReLU): weights ~ Normal(0, <b>2/n<sub>in</sub></b>), biases 0. The factor 2 offsets ReLU zeroing ~half the outputs, keeping each layer's spread steady (too small → spread/gradients vanish by depth; too large → they blow up).</li></ul>`},
+    {h:"Batch normalization", html:`<ul>
+      <li>For each unit, standardize its pre-activations over the mini-batch (subtract mean, divide by std), then <b>scale by γ and shift by β</b> (both learned per unit).</li>
+      <li><b>Test time uses running averages</b> of mean/variance kept during training, so one image's output doesn't depend on its batch (a batch-of-one would give ẑ=0 and collapse to chance).</li>
+      <li>Keeps each layer's inputs well-scaled → <b>larger learning rates stay stable</b>, deep nets train faster. With tiny batches, use layer/group norm instead.</li></ul>`}
   ]
 },
 {
-  id:"semaphores", short:"Semaphores", tag:"Chapter 31", title:"Semaphores",
-  blurb:"A semaphore is an integer with two atomic ops: wait (decrement, block if negative) and post (increment, wake one). One primitive does both jobs — as a lock (init 1) and for ordering (init 0).",
+  id:"cnn", short:"CNNs", tag:"Lecture 19", title:"Convolutional Neural Networks",
+  blurb:"An MLP flattens the image and gives every pixel its own weight — nothing says two pixels are neighbors, and a learned pattern isn't reused elsewhere. Convolution fixes both with local connectivity and weight sharing.",
   notes:[
-    {h:"Definition", html:`<div class="codeblk">sem_init(&s, 0, V);   // initialize value to V (0 = shared within a process)
-sem_wait(&s);         // P: decrement; if value < 0, block
-sem_post(&s);         // V: increment; wake one waiter if any</div>
-      <ul>
-      <li>Dijkstra's original names: <b>P()</b> = wait, <b>V()</b> = post.</li>
-      <li>When the value is <b>negative</b>, its magnitude equals the <b>number of threads waiting</b>.</li></ul>`},
-    {h:"The initial value sets the behavior", html:`<table class="tbl"><thead><tr><th>Use</th><th>init</th></tr></thead><tbody>
-      <tr><td><b>Binary semaphore = lock</b></td><td><b>1</b> (one thread may hold it)</td></tr>
-      <tr><td><b>Ordering</b> (wait for an event, e.g. parent waits for child)</td><td><b>0</b> (nothing to "give away" yet)</td></tr>
-      <tr><td><b>Counting</b> / N permits (thread throttling)</td><td><b>N</b> (max threads allowed in at once)</td></tr></tbody></table>`},
-    {h:"Producer/consumer with semaphores", html:`<ul>
-      <li><code>empty</code> init <b>MAX</b>, <code>full</code> init <b>0</b>, plus a binary <b>mutex</b> (init 1) around the buffer.</li>
-      <li><b>Scope of the mutex matters</b>: lock only around the actual buffer put/get. Putting <code>sem_wait(&mutex)</code> <b>outside</b> <code>sem_wait(&empty)</code>/<code>sem_wait(&full)</code> causes <b>deadlock</b> (a blocked consumer holds the mutex the producer needs).</li></ul>`},
-    {h:"Reader-writer locks", html:`<ul>
-      <li>Allow <b>many readers OR one writer</b>. A <code>readers</code> count is guarded by a lock; the <b>first</b> reader acquires the <code>writelock</code> semaphore and the <b>last</b> reader releases it.</li>
-      <li>Simple version can <b>starve writers</b> (a steady stream of readers never lets the writer in). More complex than a plain lock — only worth it when reads dominate.</li></ul>`},
-    {h:"Dining philosophers", html:`<p>5 philosophers, 5 forks; each needs <b>both</b> neighboring forks to eat. If everyone grabs <b>left then right</b>, all can hold one fork and wait forever → <b>deadlock</b> (circular wait). <b>Fix:</b> make <b>one</b> philosopher grab <b>right then left</b> — this breaks the cycle.</p>
-      <div class="codeblk">void get_forks(int p){
-  if (p == 4){ sem_wait(&forks[right(p)]); sem_wait(&forks[left(p)]); }  // reversed
-  else       { sem_wait(&forks[left(p)]);  sem_wait(&forks[right(p)]); }
-}</div>`}
-  ]
-},
-{
-  id:"bugs", short:"Bugs & Deadlock", tag:"Chapter 32", title:"Common Concurrency Problems",
-  blurb:"Real concurrency bugs (Lu et al.) split into non-deadlock (atomicity & order violations — the majority) and deadlock. Deadlock needs four conditions at once; prevent it by breaking any one, usually with a lock order.",
-  notes:[
-    {h:"The Lu et al. study", html:`<ul>
-      <li>Examined MySQL, Apache, Mozilla, OpenOffice: <b>105</b> bugs total — <b>74 non-deadlock</b>, <b>31 deadlock</b>. Non-deadlock bugs are the <b>majority</b> and often easier to fix.</li></ul>`},
-    {h:"Non-deadlock bugs", html:`<ul>
-      <li><b>Atomicity violation:</b> a region meant to be atomic isn't. e.g. Thread 1 checks <code>thd->proc_info</code> then uses it, while Thread 2 sets it to <code>NULL</code> in between → crash. <b>Fix:</b> a <b>lock</b> around all accesses.</li>
-      <li><b>Order violation:</b> the required order between two threads isn't enforced. e.g. Thread 2 uses <code>mThread</code> before Thread 1 has created it. <b>Fix:</b> enforce order with a <b>condition variable</b> or <b>semaphore</b>.</li></ul>`},
-    {h:"The four conditions for deadlock", html:`<p>All four must hold at once; break <b>any one</b> and deadlock cannot occur:</p>
-      <ol>
-      <li><b>Mutual exclusion</b> — resources held exclusively.</li>
-      <li><b>Hold-and-wait</b> — hold resources while waiting for more.</li>
-      <li><b>No preemption</b> — resources can't be forcibly taken.</li>
-      <li><b>Circular wait</b> — a cycle of threads each waiting on the next.</li></ol>`},
-    {h:"Prevention — break one condition", html:`<table class="tbl"><thead><tr><th>Break</th><th>How</th></tr></thead><tbody>
-      <tr><td><b>Circular wait</b></td><td><b>Total/partial lock ordering</b> (e.g. always L1 before L2, or order by lock address). Most practical.</td></tr>
-      <tr><td><b>Hold-and-wait</b></td><td>Acquire <b>all</b> locks at once atomically (a global <code>prevention</code> lock). Hurts concurrency; must know all locks up front.</td></tr>
-      <tr><td><b>No preemption</b></td><td><code>trylock</code> + release-and-retry (back out gracefully). Risks <b>livelock</b> — add a random delay.</td></tr>
-      <tr><td><b>Mutual exclusion</b></td><td><b>Lock-free / wait-free</b> code using hardware CAS (no locks at all).</td></tr></tbody></table>`},
-    {h:"Avoid, or detect & recover", html:`<ul>
-      <li><b>Avoidance via scheduling</b>: with global knowledge of which locks each thread needs, schedule so deadlock can't arise (<b>Dijkstra's Banker's Algorithm</b>). Niche — needs full knowledge and limits concurrency.</li>
-      <li><b>Detect &amp; recover</b>: let deadlock happen, run a <b>detector</b> that looks for a <b>cycle</b> in the resource graph, then recover/restart. Common in <b>database</b> systems; fine if deadlocks are rare.</li></ul>`}
+    {h:"Convolution", html:`<ul>
+      <li>A <b>filter/kernel</b> K (e.g. 3×3) slides over the input; at each position multiply the k² weights by the pixels under them, add, plus bias → one output. The grid of outputs is a <b>feature map</b>.</li>
+      <li>Example edge kernel (−1,0,1 columns) = right minus left → responds to <b>vertical edges</b>, 0 on flat regions. Because the same kernel is used everywhere, the <b>response moves with the pattern</b> (shift the edge, the output shifts).</li></ul>`},
+    {h:"Stride, padding, output size", html:`<ul>
+      <li><b>Stride s</b> = pixels moved between positions. <b>Padding p</b> = rings of zeros added around the input. With a 3×3 kernel, p=1, s=1, size is preserved.</li>
+      <li><b>Output width</b> <code>m = ⌊(n + 2p − k)/s⌋ + 1</code> (round down; a partial window is dropped). e.g. 28, k=5, p=0 → 24; 28, k=3, p=1 → 28; 7, k=3, s=2 → 3.</li></ul>`},
+    {h:"Local connectivity & weight sharing", html:`<ul>
+      <li><b>Local connectivity:</b> each output depends only on a small patch (nearby pixels carry most meaning). <b>Weight sharing:</b> every position uses the same K and b — one 3×3 filter is 9 weights + 1 bias <b>for any image size</b>.</li>
+      <li>Params of a conv layer = <code>C<sub>out</sub> · (C<sub>in</sub> · k · k) + C<sub>out</sub></code>. e.g. 16 filters 5×5 on 3 channels = 16·75+16 = <b>1,216</b>. A 3×3, 8-filter conv on a 28×28 image has 80 params vs a dense layer's 4.9 million.</li></ul>`},
+    {h:"Channels, pooling", html:`<ul>
+      <li>Each filter makes one map → a layer with 8 filters outputs <b>8 channels</b>. A next-layer filter spans <b>all</b> input channels (3×3 over 8 channels = 72 weights). Color starts at 3 channels (RGB), grayscale at 1.</li>
+      <li><b>Max pooling</b> 2×2, stride 2: keep the largest value of each non-overlapping block → halves height and width, <b>no weights</b>, per channel. Gains some shift tolerance; loses exact position.</li></ul>`},
+    {h:"The CNN & receptive fields", html:`<ul>
+      <li>Standard design: blocks of <b>conv → ReLU → pool</b>, then dense layer(s) + softmax (LeNet, 1998). The course CNN: conv1(8)→pool→conv2(16)→pool→flatten(784)→dense(10) = <b>9,098 params</b>, reaching <b>0.894</b> vs the MLP's 101,770 params at 0.886.</li>
+      <li><b>Receptive field grows with depth:</b> a conv1 output sees 3×3; after a 2×2 pool, a pooled value covers 4×4; a conv2 output over 3×3 pooled values sees <b>8×8</b> of the image. So early filters find edges, later layers combine them over larger regions.</li>
+      <li>Params don't depend on image size (weight sharing), so the same conv1 on a 56×56 image still has 80 params.</li></ul>`}
   ]
 }
 ];
 
 /* =========================================================
-   QUESTION BANK
+   QUESTION BANK — quiz style (mc / num / match), + a few sa
    ========================================================= */
 const QUESTIONS = {
-threads:[
-  {t:"mc", q:"Which resource do threads of the same process <b>NOT</b> share (each thread has its own)?",
-   o:["The stack, registers, and program counter","The heap and dynamically allocated memory","Global variables","The program's code"],
-   a:0, e:"Threads share the address space (code, heap, globals) but each has its <b>own stack, registers, and PC</b>. That private execution state is what a context switch saves and restores.", src:"Ch 26"},
-  {t:"mc", q:"A result that changes from run to run depending on how threads interleave is called…",
-   o:["a race condition (indeterminate result)","a critical section being entered by two threads at once","a case of mutual exclusion","a routine context switch"],
-   a:0, e:"A <b>race condition</b> makes output depend on timing, so the program is <b>indeterminate</b>. The code region that must be protected is the <i>critical section</i>; protecting it is <i>mutual exclusion</i>.", src:"Ch 26"},
-  {t:"num", q:"The statement <code>counter = counter + 1</code> typically compiles to how many machine instructions (load, add, store)?",
-   a:3, unit:"instructions", e:"Three: <b>load</b> counter into a register, <b>add</b> 1, <b>store</b> back. A context switch between any of these across two threads can lose an update.", src:"Ch 26"},
-  {t:"mc", q:"What does it mean for a sequence of operations to be <b>atomic</b>?",
-   o:["It executes as one indivisible unit — all of it or none","It runs much faster than ordinary instructions do","It can be safely interrupted at any point with no ill effect","It uses only a single CPU register"],
-   a:0, e:"<b>Atomic</b> = “all or none,” executed as one indivisible unit. Synchronization primitives give us atomicity over regions that hardware doesn't make atomic by itself.", src:"Ch 26"},
-  {t:"match", q:"Match each term to its meaning.",
-   items:["Critical section","Mutual exclusion","Race condition","Thread"],
-   terms:["Code accessing a shared resource that mustn't run concurrently","Only one thread in the critical section at a time","Outcome depends on scheduling/timing","An execution stream sharing the address space"],
-   a:[0,1,2,3], e:"Critical section = the protected code; mutual exclusion = the guarantee; race condition = the bug when it's missing; thread = the shared-memory execution stream.", src:"Ch 26"},
-  {t:"ms", q:"Why use threads instead of a single-threaded program? (Select all that apply.)",
-   o:["To run work in parallel across multiple CPUs","To overlap computation with slow I/O instead of blocking","To share memory easily among the parallel parts","To eliminate the need for any synchronization"],
-   a:[0,1,2], e:"Threads give parallelism, I/O overlap, and easy memory sharing. They do <b>not</b> remove the need for synchronization — sharing memory is exactly what creates races.", src:"Ch 26"}
+mlp:[
+  {t:"mc", q:"Without any activation functions, a network of several linear (fully connected) layers…",
+   o:["collapses into one linear layer, drawing only straight boundaries like logistic regression","becomes strictly more expressive with each extra layer added, because more depth always adds real capacity","can still bend a boundary, because matrix products are nonlinear operations","fails to run, because the shapes of the weight matrices no longer line up"],
+   a:0, e:"Multiplying the weight matrices out leaves one weight matrix and one bias, so the stack is one linear layer however deep it is — a nonlinear activation between layers is what prevents this collapse. (L15 s21.)", src:"L15 s21"},
+  {t:"mc", q:"A hidden ReLU unit has pre-activation z = −3. What does the unit output, and what is its slope there?",
+   o:["Output 0 and slope 0 — the unit is off","Output −3 and slope 1 — ReLU is linear","Output 0.047 and slope 0.045 — the sigmoid value","Output 3 and slope 1 — ReLU takes the absolute value"],
+   a:0, e:"ReLU(z)=max(0,z), so a negative input gives output 0 and slope 0; the unit is off for that example. (L15 s9, s24.)", src:"L15 s9"},
+  {t:"num", q:"The tiny network has W<sub>1</sub>=[[2,−1],[1,1]], b<sub>1</sub>=(1,−1), ReLU hidden units, w<sub>2</sub>=(2,−1), b<sub>2</sub>=0, sigmoid output. For input x=(0,3), give the output ŷ to 3 decimals.",
+   a:0.119, tol:0.002, e:"Hidden z=(2·0−1·3+1, 1·0+1·3−1)=(−2,2); ReLU → h=(0,2); z<sub>o</sub>=2·0−1·2+0=−2; ŷ=σ(−2)=0.119. Unit 1 is off. (L15 s15–16.)", src:"L15 s16"},
+  {t:"num", q:"An MLP reads 784 pixels, has one hidden layer of 100 ReLU units and an output layer of 10 units, every unit with a bias. How many parameters in total?",
+   a:79510, unit:"params", e:"Layer 1: 100·784 + 100 = 78,500. Layer 2: 10·100 + 10 = 1,010. Total 79,510. (L15 s34–36.)", src:"L15 s35"},
+  {t:"num", q:"An output layer gives three class scores z=(1,−1,2) and the true class is class 3. Compute the cross-entropy loss of this example (2 decimals).",
+   a:0.35, tol:0.02, e:"Softmax: e<sup>1</sup>,e<sup>−1</sup>,e<sup>2</sup> = 2.718, 0.368, 7.389; sum 10.475; p=(0.259,0.035,0.705). Loss = −ln(0.705) = 0.350. (L15 s53–54.)", src:"L15 s53"},
+  {t:"mc", q:"On the interleaved-arcs data, an MLP with 16 hidden units gets train accuracy 1.00 but held-out 0.90, while 4 units gets 0.98 and 0.94. Which should you keep, and why?",
+   o:["4 units, because it has the highest held-out accuracy; 16 units overfits","16 units, because its training-set accuracy is clearly the highest of the two","16 units, because more hidden units always generalize better","4 units, because a smaller network is always the safer choice"],
+   a:0, e:"Keep the network with the highest <b>held-out</b> accuracy. 16 units memorizes (train 1.00) but generalizes worse (0.90), i.e. it overfits; 4 units fits well at 0.94. (L15 s39–41.)", src:"L15 s40"},
+  {t:"mc", q:"Which statement about the universal approximation theorem is correct?",
+   o:["One hidden layer of enough ReLU units can approximate any continuous function on a bounded region, but it doesn't say how many units or that training finds them","It guarantees that a one-hidden-layer network trained by ordinary gradient descent will reach exactly zero error on both the training set and the test set","It says a deep network is always needed, because one hidden layer cannot represent curved functions","It proves that wider networks always generalize better than narrower ones on new data"],
+   a:0, e:"The theorem is about representational power on a closed bounded region; it is silent on the number of units, on optimization, and on generalization — a net wide enough to fit anything can also fit noise, so size is set by held-out accuracy. (L15 s43.)", src:"L15 s43"},
+  {t:"match", q:"Match each task to the output unit and loss the course pairs with it.",
+   items:["Predict a house price in dollars","Decide whether an email is spam (two classes)","Name which of 10 clothing classes an image shows"],
+   terms:["Identity output, squared error","Sigmoid output, binary cross-entropy","Softmax output, cross-entropy","Tanh output, hinge loss"],
+   a:[0,1,2], e:"Regression → identity + squared error; two classes → sigmoid + binary cross-entropy; K classes → softmax + cross-entropy. (L15 s49, s60.)", src:"L15 s49"},
+  {t:"mc", q:"Why does a confident wrong prediction cost so much under the cross-entropy loss?",
+   o:["The loss is −ln(probability of the true class), which grows without bound as that probability → 0","The loss squares the error, so large mistakes are amplified","The loss simply counts the number of wrong classes, which happens to be largest when the model is confident","The softmax denominator removes the penalty for the true class"],
+   a:0, e:"Cross-entropy charges −ln p<sub>y</sub>. If the model gives the true class a tiny probability, −ln of it is huge; it is near 0 for a confident correct answer. (L15 s52.)", src:"L15 s52"},
+  {t:"num", q:"A batch X holds 64 clothing images of 784 pixels. The hidden layer has 128 units. What is the number of columns of the hidden output matrix H for this batch?",
+   a:128, unit:"columns", e:"H is 64 by 128 — one row per image, one column per hidden unit. (L15 s18–19.)", src:"L15 s19"}
 ],
-locks:[
-  {t:"mc", q:"What are the three standard criteria for evaluating a lock implementation?",
-   o:["Correctness, fairness, and performance","Speed, size, and simplicity","Atomicity, consistency, and durability","Safety, liveness, and portability"],
-   a:0, e:"Evaluate a lock by <b>correctness</b> (real mutual exclusion), <b>fairness</b> (no starvation), and <b>performance</b> (overhead with 1 thread, N threads/1 CPU, and N CPUs).", src:"Ch 28"},
-  {t:"mc", q:"Why is “disable interrupts” a poor general-purpose lock?",
-   o:["It only works on a single processor, needs privilege, and is unsafe to expose","It is too slow because interrupts are expensive to toggle","It does not actually provide mutual exclusion, even on a single-CPU machine","It requires a special atomic instruction the hardware may lack"],
-   a:0, e:"Disabling interrupts gives mutual exclusion on a <b>single</b> CPU only, is a <b>privileged</b> operation (a greedy thread could hog the CPU), and does nothing on a <b>multiprocessor</b>.", src:"Ch 28"},
-  {t:"mc", q:"A spin lock built from <b>test-and-set</b> is correct, but which property does it fail to provide?",
-   o:["Fairness — a waiter can be starved; there's no FIFO order","Correctness — two threads can hold it at once","Atomicity of the underlying test-and-set hardware instruction itself","Mutual exclusion on a single processor"],
-   a:0, e:"Test-and-set spin locks give mutual exclusion but <b>no fairness</b> — a thread can spin forever while others repeatedly win. A <b>ticket lock</b> (fetch-and-add) adds FIFO fairness.", src:"Ch 28"},
-  {t:"mc", q:"Which atomic primitive naturally builds a <b>fair (FIFO) ticket lock</b>?",
-   o:["Fetch-and-add (ticket and turn)","A single test-and-set","A simple plain load followed by a plain store","Disabling all interrupts"],
-   a:0, e:"<b>Fetch-and-add</b> hands each arriving thread an increasing <i>ticket</i>; a thread waits until the <i>turn</i> equals its ticket, so threads acquire the lock in arrival order.", src:"Ch 28"},
-  {t:"mc", q:"<code>CompareAndSwap(addr, expected, new)</code> changes <code>*addr</code> to <code>new</code> only when…",
-   o:["the current value equals expected (else it fails and changes nothing)","the address passed in happens to be non-NULL","no other thread currently holds the lock protecting that memory address","the new value is larger than the old"],
-   a:0, e:"CAS writes <code>new</code> only if <code>*addr == expected</code>, returning success/failure. That conditional update is the basis of lock-free algorithms (retry on failure).", src:"Ch 28"},
-  {t:"mc", q:"On one CPU with many threads, a pure spin lock is wasteful mainly because…",
-   o:["a waiting thread spins for a whole time slice while the holder isn't even running","the test-and-set instruction is very expensive","it disables interrupts the entire time it waits, even on a multiprocessor system","it allocates a queue for every waiter"],
-   a:0, e:"The spinner burns its entire quantum waiting for a lock whose holder is <b>descheduled</b> and can't release it. Yielding or sleeping (park/unpark) avoids the waste.", src:"Ch 28"},
-  {t:"mc", q:"What does a <b>two-phase lock</b> do?",
-   o:["Spin briefly in case the lock frees soon, then sleep if it doesn't","Acquire two separate locks at once in order to prevent any deadlock","Lock in one phase and log in a second phase","Use two separate locks for readers and writers"],
-   a:0, e:"A two-phase lock <b>spins</b> for a short while (cheap if the lock is about to free) and then <b>sleeps</b> (park) to avoid wasting the CPU on a long wait — a hybrid of the two strategies.", src:"Ch 28"},
-  {t:"ms", q:"Which are real ways to avoid wasteful spinning? (Select all that apply.)",
-   o:["yield() to give up the CPU instead of spinning","park()/unpark() with a wait queue (or Linux futex)","A two-phase lock that spins then sleeps","Busy-wait harder with a tighter loop"],
-   a:[0,1,2], e:"Yielding, sleeping on a queue (park/unpark, futex), and the two-phase hybrid all cut waste. Spinning harder does not help.", src:"Ch 28"}
+backprop:[
+  {t:"mc", q:"At a <b>multiply</b> node o = a·b, the upstream gradient is δ. What gradient is sent back to input a?",
+   o:["δ times the other input, b","δ times a itself","δ simply copied over completely unchanged","δ divided by the other input b"],
+   a:0, e:"The multiply gate sends each input the upstream gradient times the <i>other</i> input: ∂o/∂a = b, so a receives δ·b. (An add gate copies δ; ReLU gates it.) (L16 s14–15.)", src:"L16 s14"},
+  {t:"num", q:"A graph computes f=(a+b)·c with a=1, b=3, c=−2. What is the gradient of f with respect to c?",
+   a:4, e:"q=a+b=4, f=q·c=−8. ∂f/∂c = q = 4 (the other input to the multiply). The gradients for a and b are each c=−2. (L16 s16–17.)", src:"L16 s16"},
+  {t:"mc", q:"For a sigmoid output with binary cross-entropy (and for softmax with cross-entropy), the output error δ<sub>o</sub> simplifies to…",
+   o:["prediction minus label (ŷ − y, or p − y for one-hot y)","label minus prediction (y − ŷ)","the sigmoid slope ŷ(1 − ŷ)","minus the natural log of the predicted probability value"],
+   a:0, e:"These output/loss pairs are chosen precisely because the output error is the clean <b>ŷ − y</b> (p − y for softmax), which starts the backward pass. (L16 s22, s34, s57.)", src:"L16 s22"},
+  {t:"num", q:"The tiny network at x=(1,2) gives h=(1,2), ŷ=0.5. With label y=0, what is the output error δ<sub>o</sub>?",
+   a:0.5, e:"δ<sub>o</sub> = ŷ − y = 0.5 − 0 = 0.5. (With y=1 it would be −0.5; every sign flips.) (L16 s28–29.)", src:"L16 s28"},
+  {t:"mc", q:"Backpropagating through a hidden ReLU unit that was <b>off</b> (its pre-activation was negative) on this example does what to the gradient flowing into that unit's weights?",
+   o:["Sets it to 0 — ReLU blocks the gradient where the unit was off","Passes it unchanged — ReLU is linear in the backward pass","Doubles it — the off unit amplifies the error","Reverses its sign — ReLU flips negative inputs"],
+   a:0, e:"The ReLU slope is 0 where the input was negative, so the backward pass multiplies the incoming gradient by 0; that unit's weights get no gradient on this example. (L16 s24, s31.)", src:"L16 s31"},
+  {t:"num", q:"A gradient check: the loss at w=2.01 is 0.688160 and at w=1.99 is 0.698160. Compute the central-difference gradient with ε=0.01.",
+   a:-0.5, tol:0.001, e:"(0.688160 − 0.698160) / (2·0.01) = −0.010 / 0.02 = −0.5. If a student's backward pass returns −1.0, the relative error is 0.5 — far above 1e−6, so the code has a bug. (L16 s42–43.)", src:"L16 s42"},
+  {t:"mc", q:"A gradient check gives relative error ≈ 1e−9 for every output-layer weight but ≈ 0.4 for every hidden-layer weight. Where is the bug most likely?",
+   o:["In the hidden-layer part of the backward pass (the product with W₂, the ReLU slope, or the hidden outer product)","In the output error computation, since that value feeds forward into absolutely everything downstream in the pass","In the forward pass, since the loss itself must be wrong","Nowhere — 0.4 is an acceptable relative error in double precision"],
+   a:0, e:"The output-layer gradients pass (≈1e−9), so the output error and output weights are right; the large error is isolated to the hidden-layer computation. A correct pass is ≈1e−6 or smaller. (L16 s41, s59, s66.)", src:"L16 s59"},
+  {t:"mc", q:"Why do the early layers of a deep network of sigmoid units barely learn?",
+   o:["Each layer multiplies the error by a slope of at most 0.25, so through k layers it shrinks like 0.25^k","Sigmoid units output values strictly between 0 and 1, so the weights themselves can never become negative","The forward pass saturates, so the loss is always zero at the first layer","Backpropagation visits the last layer only once but the first layer k times"],
+   a:0, e:"The backward pass multiplies the error by each layer's activation slope; a sigmoid slope ≤ 0.25, so the product shrinks geometrically and the error reaching layer 1 is tiny (vanishing gradient). ReLU has slope 1 where on, avoiding this. (L16 s55–56.)", src:"L16 s55"},
+  {t:"mc", q:"Compared with checking gradients by numerical differences, backpropagation is cheap because…",
+   o:["it gets all gradients in one forward + one backward pass, while differences need two forward passes per weight","it skips the forward pass entirely and only runs backward","it only ever computes the gradients for the output layer and ignores all of the deeper hidden layers entirely","it uses single-precision numbers, which are faster than double precision"],
+   a:0, e:"One backward pass costs about one forward pass and yields every gradient; central differences cost two forward passes per weight (203,540 passes for the 101,770-parameter network). (L16 s44.)", src:"L16 s44"},
+  {t:"num", q:"Mini-batches of 64 are used on 60,000 training images. How many steps (iterations) are in one epoch? (Round up for the short last batch.)",
+   a:938, unit:"steps", e:"⌈60,000 / 64⌉ = ⌈937.5⌉ = 938 steps per epoch (the last batch holds 32 images). (L16 s47.)", src:"L16 s47"}
 ],
-structures:[
-  {t:"mc", q:"A single-lock concurrent counter is correct but scales poorly because…",
-   o:["every thread serializes on the one lock, so adding CPUs doesn't speed it up","the one lock is unfair and repeatedly starves some of the waiting threads","counting is inherently a floating-point operation","the counter value overflows under load"],
-   a:0, e:"One global lock makes all increments <b>serialize</b>; with N threads you get ~1 thread's throughput. Perfect scaling would have N threads finish as fast as one.", src:"Ch 29"},
-  {t:"mc", q:"In an <b>approximate (sloppy) counter</b>, increasing the threshold S…",
-   o:["improves scalability but makes the global count more approximate","makes the global count fully exact but considerably slower overall","removes the need for any locks","reduces the number of CPUs needed"],
-   a:0, e:"Local counters flush to the global only every S bumps. A bigger <b>S</b> means less contention on the global lock (<b>more scalable</b>) but the global value lags further behind (<b>less accurate</b>).", src:"Ch 29"},
-  {t:"mc", q:"“Hand-over-hand” (lock coupling) locking on a linked list means…",
-   o:["grab the next node's lock before releasing the current node's lock","one single global lock protects the whole list","lock the head and the tail of the list with two separate locks","never release a lock until the traversal ends"],
-   a:0, e:"Each node has its own lock; you acquire the next before releasing the current. It enables concurrency in theory, but per-node lock overhead often makes it <b>slower</b> than a single list lock.", src:"Ch 29"},
-  {t:"mc", q:"How does the Michael &amp; Scott <b>concurrent queue</b> increase concurrency?",
-   o:["Separate head and tail locks (plus a dummy node) so enqueue and dequeue rarely contend","One separate lock per element","Lock-free with no atomic instructions","It disables interrupts during each enqueue and dequeue so they never overlap at all"],
-   a:0, e:"Distinct <b>head</b> and <b>tail</b> locks let a dequeuer and an enqueuer operate at the same time; a <b>dummy node</b> keeps the two ends from interfering when the queue is near-empty.", src:"Ch 29"},
-  {t:"mc", q:"Why does a per-bucket-locked <b>hash table</b> scale well?",
-   o:["Operations on different buckets use different locks and proceed in parallel","It never needs locks because hashing is atomic","Using a single global lock is actually faster than using many small locks","Buckets are stored on separate disks"],
-   a:0, e:"One lock <b>per bucket</b> means threads touching different buckets don't contend, so throughput grows with the number of buckets/CPUs.", src:"Ch 29"},
-  {t:"sa", q:"<b>Design lesson.</b> You're told a data structure is “slow under threads.” Why is reaching straight for a fancy lock-free or fine-grained design often the wrong first move?",
-   a:`<div class="sa-note">OSTEP's advice: measure, keep it simple.</div><p><b>Start with a single lock.</b> It's almost always <b>correct</b> and frequently <b>fast enough</b>. More concurrency does not automatically mean more speed — fine-grained schemes (e.g. hand-over-hand) add lock/unlock overhead that can make them <b>slower</b> than one big lock.</p><p>Only add complexity after a <b>real bottleneck</b> is measured ("premature optimization is the root of all evil"). Then target the specific contention: sloppy counters for counting, per-bucket locks for hash tables, two-lock queues, etc.</p>`, src:"Ch 29"}
+sgd:[
+  {t:"num", q:"A training set has 60,000 images. With a batch size of B=256, how many steps are in one epoch? (The last batch holds whatever is left.)",
+   a:235, unit:"steps", e:"60,000/256 = 234.375 → 234 full batches use 59,904 images, leaving 96, so 235 steps (last batch 96 images). (L17 s9–10.)", src:"L17 s10"},
+  {t:"mc", q:"On Fashion-MNIST, in a fixed amount of training time, which batch size won the race to the highest accuracy?",
+   o:["Mid-size batches (32 to 256) — many cheap, slightly noisy steps beat a few exact full-batch steps","The full batch, because its exact gradient makes the most genuine progress per individual step","B = 1 — the noisiest gradient explores the loss surface best","They all reach the same accuracy, since the gradient is unbiased"],
+   a:0, e:"Full batch took only ~50 steps (0.720); B=32 and B=256 reached ~0.88. Many cheap noisy steps beat a few exact ones, and B=32–256 uses the hardware well. (L17 s19–21.)", src:"L17 s20"},
+  {t:"mc", q:"When gradients are noisier (smaller batches), the learning rate η should generally be…",
+   o:["smaller — a large η lets the noise keep the weights jittering near the bottom","larger — to push through the extra noise faster","unchanged, because η depends only on the network architecture, not on the batch size","set to exactly 1/B — the reciprocal of the batch size"],
+   a:0, e:"Noisier gradients call for a smaller η; otherwise each step follows its own batch and the weights jitter. In a sweep, B=1 failed at η=0.1 but trained at η=0.01. (L17 s26.)", src:"L17 s26"},
+  {t:"num", q:"Momentum with ρ=0.5 and η=0.1 starts at w=1, v=0. The gradients at steps 1, 2, 3 are 2, 2, −2. What is w after step 3? (2 decimals)",
+   a:0.55, tol:0.001, e:"v₁=2→w=0.8; v₂=0.5·2+2=3→w=0.5; v₃=0.5·3−2=−0.5→w=0.5−0.1·(−0.5)=0.55. The stored velocity softens the reversal. (L17 s39–40.)", src:"L17 s39"},
+  {t:"mc", q:"While the gradient stays steady, momentum with ρ=0.9 takes a long-run step of what size, relative to plain SGD?",
+   o:["About 10× the plain step, since the velocity grows toward 1/(1−ρ) = 10 times g","About 0.9× the plain step, since it keeps ninety percent of the old velocity each step","The same as plain SGD, since momentum only changes direction","About 2× the plain step, regardless of ρ"],
+   a:0, e:"Agreeing gradients accumulate, so v → g/(1−ρ). With ρ=0.9 that is 10g, so momentum at η=0.01 tracked plain SGD at η=0.1. (L17 s37, s44.)", src:"L17 s37"},
+  {t:"num", q:"Adam's first step (t=1) on a weight w=0.5 with gradient g=4, using β₁=0.9, β₂=0.999, η=0.001 (ignore ε). What is the new weight? (3 decimals)",
+   a:0.499, tol:0.001, e:"m=0.1·4=0.4, s=0.001·16=0.016; bias-corrected m̂=4, ŝ=16; step = η·m̂/√ŝ = 0.001·4/4 = 0.001; w = 0.5 − 0.001 = 0.499. (L17 s52–53.)", src:"L17 s52"},
+  {t:"mc", q:"What is the main thing Adam does that plain SGD and momentum do not?",
+   o:["It gives each weight its own step size, dividing by the recent size of that weight's gradient","It averages the gradients over several recent steps in order to build up a running velocity term","It lowers the learning rate on a fixed schedule","It adds a penalty on the size of the weights"],
+   a:0, e:"Adam divides each weight's step by √ŝ, the recent root-mean-square of <i>that weight's</i> gradient, so large-gradient and small-gradient directions get appropriately sized steps. (Momentum only accumulates; a schedule only changes a shared η.) (L17 s48–50.)", src:"L17 s48"},
+  {t:"mc", q:"A training run's loss is flat from the very first epoch and never drops. Which is a likely cause?",
+   o:["η is too small, or most ReLU units are dead (loss near ln 10 means chance-level)","η is only slightly too large, so each step keeps overshooting past the minimum repeatedly","The batch size is too large, averaging out all progress","Weight decay λ is negative, inflating the weights"],
+   a:0, e:"A flat-from-the-start mean loss means little learning — η too small, or (at too-large η) many ReLU units turned off and the net guesses uniformly (loss ≈ ln 10 = 2.303). (L17 s30.)", src:"L17 s30"},
+  {t:"mc", q:"Which is a sensible default first choice of optimizer and learning rate for a new network?",
+   o:["Adam with η = 0.001, because it trains well with little tuning","Plain SGD with η = 2.0, because a large step learns fastest","Full-batch gradient descent, because its gradient is exact","Momentum with ρ = 0.99, because more momentum is always better"],
+   a:0, e:"Adam at η=0.001 is the recommended first choice (robust across a wide η range). SGD+momentum 0.9 with a tuned η and schedule is the main alternative. (L17 s56–57.)", src:"L17 s56"},
+  {t:"match", q:"Match each training knob to what it does.",
+   items:["Momentum coefficient ρ","Step decay schedule","Mini-batch size B","Adam's second moment s"],
+   terms:["Accumulates agreeing gradients into a velocity","Divides η by a factor at chosen epochs","Trades gradient noise against cost per step","Tracks each weight's squared gradient for per-weight scaling"],
+   a:[0,1,2,3], e:"ρ builds velocity; step decay lowers η; B sets the noise/cost trade-off; Adam's s (running average of g²) scales each weight's step. (L17 s27, s36, s49.)", src:"L17 s27–49"}
 ],
-condvars:[
-  {t:"mc", q:"When a thread calls <code>pthread_cond_wait(&cond, &mutex)</code>, what happens?",
-   o:["It atomically releases the mutex and sleeps; on wake it re-acquires the mutex","It spins on the mutex, busy-waiting until the condition finally becomes true","It signals all other waiters and continues","It releases the mutex permanently"],
-   a:0, e:"<code>wait()</code> <b>atomically</b> releases the lock and puts the caller to sleep; when signalled it wakes and <b>re-acquires</b> the lock before returning. You must hold the lock when you call it.", src:"Ch 30"},
-  {t:"mc", q:"Why must you wait on a condition in a <code>while</code> loop rather than an <code>if</code>?",
-   o:["After waking, the condition may no longer hold, so you must re-check","while loops are faster than if statements","signal() is only able to wake a thread that is sitting inside a while loop","if statements can't call wait()"],
-   a:0, e:"Between the signal and when the waiter re-acquires the lock, another thread may change the state (Mesa semantics; also spurious wakeups). A <code>while</code> re-tests the condition and is always safe; an <code>if</code> can let a thread proceed wrongly.", src:"Ch 30"},
-  {t:"mc", q:"A correct producer/consumer (bounded buffer) with condition variables needs…",
-   o:["two condition variables — one for “empty” and one for “full” — plus while loops","just one condition variable combined with an if-statement check instead of a while loop","no lock, just the condition variable","three locks, one per thread"],
-   a:0, e:"With a single CV, a consumer can wake another consumer while the producer stays asleep. <b>Two</b> CVs (wait-for-empty, wait-for-full) plus <code>while</code> loops fix it.", src:"Ch 30"},
-  {t:"mc", q:"A <b>covering condition</b> is handled by…",
-   o:["broadcast — wake all waiters and let each re-check its while condition","signalling exactly one specific chosen waiter selected by its thread id","never signalling, to avoid races","disabling interrupts before signalling"],
-   a:0, e:"When you can't tell which waiter can proceed, <code>pthread_cond_broadcast</code> wakes <b>all</b>; each re-checks its <code>while</code> and those that can't continue go back to sleep. Correct, though possibly less efficient.", src:"Ch 30"},
-  {t:"mc", q:"Signalling a condition variable, by itself, does what?",
-   o:["Wakes one waiting thread — it transfers no data on its own","Directly transfers the shared value over to the waiting thread itself","Acquires the lock for the waiter permanently","Guarantees the waiter runs next"],
-   a:0, e:"<code>signal()</code> just <b>wakes</b> a waiter. The actual information passes through a <b>shared state variable</b> protected by the lock; that's why the waiter re-checks state in a <code>while</code>.", src:"Ch 30"},
-  {t:"sa", q:"<b>Trace the bug.</b> A producer/consumer uses a single condition variable and <code>if</code> (not <code>while</code>). Describe a schedule with two consumers and one producer that hangs.",
-   a:`<p>Consumer C1 finds the buffer empty and waits. Consumer C2 also finds it empty and waits. The producer fills one slot and <code>signal()</code>s — waking <b>C1</b>. But before C1 runs, <b>C2 is signalled instead</b> in a later round, or C1 wakes, and a second consumer consumes the single item first.</p><p>With an <code>if</code>, the just-woken consumer does <b>not re-check</b> that the buffer is still non-empty — it consumes from an <b>empty</b> buffer (error), or a consumer ends up signalling another <b>consumer</b> (not the producer), and everyone sleeps forever.</p><p><b>Fixes:</b> (1) use <code>while</code> so a woken thread re-verifies the buffer state; (2) use <b>two</b> condition variables so producers wake consumers and vice versa, never same-role.</p>`, src:"Ch 30"}
+reg:[
+  {t:"num", q:"Weight decay with λ=0.1 and η=0.1. A weight w=2 has data-loss gradient 0.5. What is the weight after one step? (2 decimals)",
+   a:1.93, tol:0.001, e:"Shrink factor (1 − ηλ) = 1 − 0.01 = 0.99, so 0.99·2 = 1.98, then minus η·gradient = 1.98 − 0.1·0.5 = 1.93. (L18 s6–8.)", src:"L18 s7"},
+  {t:"mc", q:"Weight decay adds (λ/2)·Σw² to the loss. Compared with no decay, a larger λ tends to…",
+   o:["shrink the weights and reduce the train–validation gap, but too large a λ also hurts validation","increase the weights steadily, letting the network fit the training data much more closely each step","leave the weights unchanged but lower the training loss","set weights to exactly zero one at a time, like the lasso"],
+   a:0, e:"Decay shrinks weights each step; a larger λ narrows the gap (less overfitting), but too much stops the net from fitting real patterns and validation falls. Choose λ on validation. Biases aren't penalized. (L18 s6, s10.)", src:"L18 s10"},
+  {t:"num", q:"Validation losses after epochs 1–10 are 0.90, 0.70, 0.62, 0.60, 0.61, 0.59, 0.63, 0.64, 0.66, 0.65. With early stopping at patience 3, which epoch's weights are returned?",
+   a:6, unit:"(epoch)", e:"The lowest loss is 0.59 at epoch 6. Epochs 7, 8, 9 don't beat it, so after epoch 9 three epochs have passed without improvement and training stops, returning epoch 6's weights. (L18 s14–15.)", src:"L18 s14"},
+  {t:"mc", q:"With inverted dropout at rate p during training, what happens at <b>test</b> time?",
+   o:["Nothing is dropped and nothing is rescaled — the training rescaling already kept each unit's average output","Each unit is independently dropped with probability p, exactly the same way it was during the training phase","Every unit's output is divided by (1−p)","Half the units are dropped regardless of p"],
+   a:0, e:"Training keeps units with prob 1−p and rescales them by 1/(1−p) so the average output matches the full output; at test time the full network runs with no dropping and no rescaling. (L18 s17–18, s40.)", src:"L18 s17"},
+  {t:"num", q:"A hidden layer has outputs h=(1,2,1), output weights w₂=(1,1,−1), bias 0. Dropout p=0.5 draws mask r=(1,0,1). What is the output pre-activation z<sub>o</sub> at <b>test</b> time?",
+   a:2, e:"At test time no mask is applied: z<sub>o</sub> = 1·1 + 1·2 + (−1)·1 = 2. (During that training step with the mask, h̃=(2,0,2) and z<sub>o</sub>=0.) (L18 s21–22.)", src:"L18 s21"},
+  {t:"mc", q:"If every weight and bias of a network is initialized to 0, what happens during training?",
+   o:["It is stuck: every hidden output is 0, so all weights get zero gradient except the output bias — it stays at chance","It converges unusually quickly, because zero is a perfectly neutral and unbiased starting point for every weight","Only the first layer learns; the deeper layers stay at 0","It overfits immediately, because symmetric weights memorize the data"],
+   a:0, e:"All-zero → hidden outputs 0 → output weights get 0 gradient; the hidden error is the output error times w₂=0, so hidden weights get 0 too. Only the output bias moves; measured test accuracy stayed at chance (0.100). (L18 s25.)", src:"L18 s25"},
+  {t:"mc", q:"He initialization for a ReLU layer draws each weight from a normal distribution with mean 0 and variance…",
+   o:["2 / n_in, with biases 0 — the 2 offsets ReLU zeroing about half the outputs","1 / n_in, with the biases also drawn from the same random normal distribution","n_in / 2, so larger layers start larger","0, so every unit starts identical"],
+   a:0, e:"He init uses variance 2/n_in (biases 0). The factor 2 compensates for ReLU setting ~half the outputs to 0, keeping each layer's spread steady with depth. (L18 s28–29.)", src:"L18 s29"},
+  {t:"num", q:"Batch norm on one unit with pre-activations z=(−4,2,4,10) over a mini-batch of 4 (divide by 4), with γ=2, β=1. The batch mean is 3; what is the batch variance?",
+   a:25, e:"Variance = ((−7)² + (−1)² + 1² + 7²)/4 = (49+1+1+49)/4 = 100/4 = 25 (std 5). Then ẑ=(−1.4,−0.2,0.2,1.4) and y=γẑ+β=(−1.8,0.6,1.4,3.8). (L18 s33–34.)", src:"L18 s33"},
+  {t:"mc", q:"A batch-normalized network is evaluated on single test images, each normalized with the mean and variance of its own batch of one. What goes wrong, and the fix?",
+   o:["ẑ = 0 for every unit (a single value has 0 variance), so every image gives the same output — use the running averages from training instead","Nothing goes wrong at all, because batch normalization behaves exactly the same way on a single image as it does on a full mini-batch","The variance explodes, so use a smaller learning rate","The γ and β values must be recomputed per image"],
+   a:0, e:"With one value, z−mean=0 and variance=0, so every unit outputs its β and accuracy falls to chance. Test time must use the <b>running averages</b> of mean/variance kept during training. (L18 s35, s41, s48.)", src:"L18 s41"},
+  {t:"mc", q:"Besides fighting overfitting, why is batch normalization useful during training?",
+   o:["It keeps each layer's inputs at a steady scale, so larger learning rates stay stable and deep nets train faster","It completely removes the need for any nonlinear activation function between the hidden layers of the network","It guarantees the weights stay exactly unit-norm","It replaces the need for a loss function on the output"],
+   a:0, e:"Standardizing each layer's pre-activations keeps their scale steady, which stabilizes larger η and speeds deep training (at η=1.0 a deep net trained with BN but stalled at chance without it). (L18 s36–37.)", src:"L18 s36"}
 ],
-semaphores:[
-  {t:"mc", q:"What do <code>sem_wait()</code> and <code>sem_post()</code> do to a semaphore's value?",
-   o:["wait decrements (blocking if the value goes negative); post increments and wakes a waiter","wait increments the value, while post decrements it and blocks the caller if it goes negative","both leave the value unchanged","wait sets it to 0; post sets it to 1"],
-   a:0, e:"<code>sem_wait</code> (P) <b>decrements</b> and blocks if the result is negative; <code>sem_post</code> (V) <b>increments</b> and wakes one waiter if any. When negative, the magnitude = number of waiters.", src:"Ch 31"},
-  {t:"num", q:"To use a semaphore as a <b>lock</b> (binary semaphore), what initial value do you give it?",
-   a:1, unit:"value", e:"Init to <b>1</b>: the first <code>sem_wait</code> takes it to 0 and enters; a second waits at −1 until <code>sem_post</code> releases. One holder at a time = a lock.", src:"Ch 31"},
-  {t:"num", q:"A semaphore used purely for <b>ordering</b> (e.g. a parent that must wait for its child to finish) is initialized to what value?",
-   a:0, unit:"value", e:"Init to <b>0</b>. The parent's <code>sem_wait</code> blocks (0 → −1) until the child calls <code>sem_post</code> (−1 → 0). There's nothing to “give away” at the start, so 0 is correct.", src:"Ch 31"},
-  {t:"num", q:"If a semaphore's current value is <b>−3</b>, how many threads are blocked waiting on it?",
-   a:3, unit:"threads", e:"When a semaphore is negative, the <b>magnitude is the number of waiting threads</b> — here, 3 threads are blocked in <code>sem_wait</code>.", src:"Ch 31"},
-  {t:"mc", q:"In the semaphore producer/consumer, what goes wrong if you put <code>sem_wait(&mutex)</code> <b>outside</b> (before) <code>sem_wait(&empty)</code>?",
-   o:["Deadlock: a blocked thread holds the mutex the other thread needs","Nothing at all — the scope of the mutex truly does not matter in this case","The buffer overflows","Readers end up starving writers"],
-   a:0, e:"If a consumer grabs the mutex and <b>then</b> blocks on <code>full</code>, it holds the mutex while asleep; the producer can't get the mutex to add an item → <b>deadlock</b>. Keep the mutex scope <b>narrow</b> (only around the buffer access).", src:"Ch 31"},
-  {t:"num", q:"In the classic dining philosophers problem, how many forks are on the table for 5 philosophers?",
-   a:5, unit:"forks", e:"<b>5</b> forks (one between each adjacent pair). Each philosopher needs <b>both</b> neighboring forks to eat, which creates the contention.", src:"Ch 31"},
-  {t:"mc", q:"How is deadlock broken in the dining philosophers solution?",
-   o:["One philosopher grabs the forks in the opposite order (right then left)","Add a sixth shared fork to the table","Change the rules so that philosophers are allowed to eat with just one fork","Disable interrupts while eating"],
-   a:0, e:"If everyone grabs left-then-right, all can hold one fork and wait → circular wait. Making <b>one</b> philosopher grab <b>right-then-left</b> breaks the cycle, so deadlock can't form.", src:"Ch 31"},
-  {t:"mc", q:"A simple reader-writer lock allows many readers OR one writer. Its main drawback is…",
-   o:["writers can starve under a continuous stream of readers","concurrent readers can end up corrupting each other's read operations","it needs no lock at all","only one reader at a time is allowed"],
-   a:0, e:"Because the writelock stays held while <b>any</b> reader is active, a nonstop flow of readers can <b>starve the writer</b>. Reader-writer locks also add complexity, so they pay off only when reads dominate.", src:"Ch 31"},
-  {t:"match", q:"Match each synchronization primitive to what it's best at.",
-   items:["Lock / binary semaphore","Condition variable","Counting semaphore (init N)","Test-and-set"],
-   terms:["Mutual exclusion over a critical section","Waiting for a condition / ordering","Allowing up to N threads in at once","Building a basic spin lock"],
-   a:[0,1,2,3], e:"Locks → mutual exclusion; condition variables → ordering/waiting; a counting semaphore init to N → throttle to N threads; test-and-set → the hardware basis of a spin lock.", src:"Ch 28–31"}
-],
-bugs:[
-  {t:"num", q:"In the Lu et al. study, how many of the 105 bugs were <b>non-deadlock</b> bugs?",
-   a:74, unit:"bugs", e:"<b>74</b> non-deadlock and 31 deadlock, out of 105. Non-deadlock bugs are the majority — and usually easier to fix.", src:"Ch 32"},
-  {t:"mc", q:"Two threads: T1 checks <code>if (p->info)</code> then uses it, while T2 sets <code>p->info = NULL</code> in between, causing a crash. This is a…",
-   o:["atomicity violation — a region meant to be atomic wasn't","order violation — required ordering wasn't enforced","deadlock","livelock"],
-   a:0, e:"The check-then-use was supposed to be <b>atomic</b> but wasn't. <b>Fix:</b> hold a <b>lock</b> around every access to <code>p->info</code>.", src:"Ch 32"},
-  {t:"mc", q:"Thread 2 uses <code>mThread</code> before Thread 1 has created it. Which bug is this, and the usual fix?",
-   o:["Order violation — fix by forcing order with a condition variable or semaphore","An atomicity violation — fix it by holding one lock around every shared access","Deadlock — fix with lock ordering","Race on a counter — fix with a sloppy counter"],
-   a:0, e:"The needed <b>order</b> between threads wasn't enforced (an <b>order violation</b>). Enforce “T1 before T2” with a <b>condition variable</b> or <b>semaphore</b>, not a mutex.", src:"Ch 32"},
-  {t:"ms", q:"Which four conditions must <b>all</b> hold for deadlock? (Select all four.)",
-   o:["Mutual exclusion","Hold-and-wait","No preemption","Circular wait","Priority inversion"],
-   a:[0,1,2,3], e:"Coffman's four: <b>mutual exclusion, hold-and-wait, no preemption, circular wait</b>. Break any one and deadlock cannot occur. Priority inversion is a different problem.", src:"Ch 32"},
-  {t:"mc", q:"The most practical way to prevent deadlock in real code is to break which condition, and how?",
-   o:["Circular wait — impose a total/partial lock-acquisition order","Mutual exclusion — make everything lock-free","No preemption — always use trylock","Hold-and-wait — grab every single lock that is needed right at program start"],
-   a:0, e:"Enforcing a consistent <b>lock order</b> (e.g. always L1 before L2, or by lock address) prevents the cycle and is the standard, practical technique.", src:"Ch 32"},
-  {t:"mc", q:"Using <code>pthread_mutex_trylock</code> with release-and-retry (to break “no preemption”) introduces which new risk?",
-   o:["Livelock — threads keep retrying and failing, making no progress","It can create an entirely new deadlock cycle among the threads","Loss of mutual exclusion","Priority inversion between threads"],
-   a:0, e:"Two threads can repeatedly grab one lock, fail on the second, release, and retry in lockstep — busy but making no progress (<b>livelock</b>). A <b>random delay</b> before retrying reduces the odds.", src:"Ch 32"},
-  {t:"mc", q:"“Detect and recover” handles deadlock by…",
-   o:["letting it happen, then running a detector that finds a cycle in the resource graph and recovers","preventing it with a global prevention lock","scheduling all threads ahead of time with Dijkstra's Banker's Algorithm, given full knowledge","making all data structures wait-free"],
-   a:0, e:"Allow rare deadlocks, run a periodic <b>detector</b> (look for a <b>cycle</b> in the resource graph), then recover/restart. Common in <b>database systems</b>; pragmatic when deadlocks are rare.", src:"Ch 32"},
-  {t:"match", q:"Match each deadlock condition to a technique that breaks it.",
-   items:["Circular wait","Hold-and-wait","No preemption","Mutual exclusion"],
-   terms:["Total lock ordering (e.g. by address)","Acquire all locks atomically at once","trylock + release-and-retry","Lock-free code with CAS"],
-   a:[0,1,2,3], e:"Ordering kills circular wait; all-at-once acquisition kills hold-and-wait; trylock/back-out removes the no-preemption assumption; lock-free (CAS) removes mutual exclusion entirely.", src:"Ch 32"},
-  {t:"sa", q:"<b>Why does the two-lock example deadlock, and what's the fix?</b> T1 does <code>lock(L1); lock(L2)</code> and T2 does <code>lock(L2); lock(L1)</code>.",
-   a:`<p><b>Deadlock schedule:</b> T1 acquires L1, then a context switch; T2 acquires L2 and tries for L1 (held by T1); T1 resumes and tries for L2 (held by T2). Each holds one lock and waits on the other — a <b>cycle</b> in the dependency graph, so neither can proceed.</p><p>All four conditions hold: mutual exclusion (locks), hold-and-wait (each holds one while wanting another), no preemption (locks aren't taken away), and circular wait (T1→L2→T2→L1→T1).</p><p><b>Fix:</b> impose a <b>global lock order</b> — have <i>both</i> threads acquire L1 before L2 (or order by lock address so <code>do_something(m1,m2)</code> and <code>do_something(m2,m1)</code> still agree). No cycle can form, so no deadlock.</p>`, src:"Ch 32"}
+cnn:[
+  {t:"num", q:"A 28×28 image is convolved with a 5×5 kernel, no padding, stride 1. What is the output width?",
+   a:24, unit:"px", e:"m = ⌊(n + 2p − k)/s⌋ + 1 = (28 + 0 − 5)/1 + 1 = 24. (With a 3×3 kernel and p=1, s=1 it would stay 28.) (L19 s18–20.)", src:"L19 s19"},
+  {t:"num", q:"A 7×7 input, a 3×3 kernel, no padding, stride s=2. What is the output width?",
+   a:3, unit:"px", e:"m = ⌊(7 + 0 − 3)/2⌋ + 1 = ⌊4/2⌋ + 1 = 2 + 1 = 3. Round the fraction down when s doesn't divide evenly. (L19 s21–22.)", src:"L19 s21"},
+  {t:"num", q:"A convolution layer has 16 filters of size 5×5 and reads a color image with 3 channels. How many parameters (weights and biases)?",
+   a:1216, unit:"params", e:"Each filter: 3·5·5 = 75 weights; 16 filters → 1,200 weights + 16 biases = 1,216. Params = C_out·(C_in·k·k) + C_out. (L19 s26, s30–31.)", src:"L19 s30"},
+  {t:"mc", q:"The two properties that let a convolution layer use far fewer weights than a dense layer are…",
+   o:["local connectivity (each output sees a small patch) and weight sharing (the same kernel at every position)","deep stacking of many layers together with batch normalization applied before each and every activation step","max pooling and dropout","large strides and zero padding"],
+   a:0, e:"Local connectivity means an output depends only on a small patch; weight sharing means one kernel (9 weights + 1 bias for 3×3) is reused everywhere, for any image size. (L19 s25.)", src:"L19 s25"},
+  {t:"mc", q:"Because a convolution reuses the same kernel at every position, its parameter count…",
+   o:["does not depend on the image size — the same 3×3 filter works on a 28×28 or a 56×56 image","grows with the square of the image width","grows linearly with the total number of output pixels in each feature map that it produces","is always larger than a dense layer's"],
+   a:0, e:"Weights are shared across positions, so a larger image needs no new parameters — conv1 (8 filters, 3×3) has 80 params on 28×28 and the same 80 on 56×56 (output 8×56×56). (L19 s25, s56, s62.)", src:"L19 s56"},
+  {t:"num", q:"Max pooling with 2×2 blocks and stride 2 is applied to the map rows (2,7,1,0), (5,3,4,4), (0,0,1,3), (6,1,2,2). What is the value of the top-left pooled cell?",
+   a:7, e:"The top-left 2×2 block is {2,7,5,3}; its max is 7. (Full pooled grid: rows (7,4) and (6,3).) Pooling halves H and W, has no weights, and works per channel. (L19 s35–36.)", src:"L19 s35"},
+  {t:"num", q:"The course CNN: input 1×28×28 → conv1 (8 filters, 3×3, pad 1, stride 1) → 2×2 pool → conv2 (16 filters, 3×3, pad 1) → 2×2 pool → flatten. What is the flattened length?",
+   a:784, unit:"values", e:"conv1 keeps 28×28 (pad 1) → 8×28×28; pool → 8×14×14; conv2 → 16×14×14; pool → 16×7×7; flatten → 16·7·7 = 784. (L19 s37–40.)", src:"L19 s39"},
+  {t:"mc", q:"An MLP and a CNN are tested on images shifted two pixels right. The CNN keeps much more accuracy than the MLP mainly because…",
+   o:["weight sharing makes the same patch give the same response anywhere, and pooling absorbs small shifts","the CNN simply has many more parameters available to memorize every possible shift of the input image","the MLP uses ReLU while the CNN uses sigmoid","the CNN is trained for more epochs than the MLP"],
+   a:0, e:"A shared kernel responds the same wherever a pattern sits, and 2×2 max pooling often keeps the same maximum under a one-pixel shift — so the CNN (0.894→0.745) degrades far less than the flattening MLP (0.876→0.524). The CNN actually has ~11× <i>fewer</i> parameters. (L19 s3–4, s13, s34.)", src:"L19 s34"},
+  {t:"mc", q:"As you go deeper in a CNN (conv → pool → conv), the receptive field of a unit…",
+   o:["grows — a conv1 output sees 3×3, but after a 2×2 pool a conv2 output sees an 8×8 patch of the image","stays fixed at 3×3, because every convolution layer in the network uses the same 3×3 kernel size","shrinks, because pooling discards pixels","covers the whole image already at the first layer"],
+   a:0, e:"conv1 sees 3×3; a 2×2 pool makes each pooled value cover 4×4; a conv2 over 3×3 pooled values then sees 8×8 — so early filters find edges and later layers combine them over larger regions. (L19 s48.)", src:"L19 s48"},
+  {t:"match", q:"Match each CNN component to what it contributes.",
+   items:["Convolution filter","Max pooling","Padding","Stride"],
+   terms:["Slides shared weights over a patch to make a feature map","Halves height/width and adds small shift tolerance, no weights","Adds a border of zeros so the output can keep the input size","Moves the window more than one pixel, shrinking the output"],
+   a:[0,1,2,3], e:"Convolution = shared-weight feature extractor; pooling = downsample + shift tolerance (no weights); padding preserves size; stride downsamples by skipping positions. (L19 s7, s16–17, s33.)", src:"L19 s7–33"}
 ]
 };
 
 /* =========================================================
    RENDER + GRADING
    ========================================================= */
-const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Short Answer", match:"Matching", sa:"Explain"};
+const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Compute", match:"Matching", sa:"Worked Solution"};
 const SCORED = {mc:1, ms:1, num:1, match:1, sa:0};
 
 const store=(()=>{try{const t="__t";localStorage.setItem(t,"1");localStorage.removeItem(t);return localStorage;}catch(e){return null;}})();
-const KEY="ostep-conc-progress-v1";
+const KEY="nn-rev-progress-v1";
 let state={}; try{ if(store) state=JSON.parse(store.getItem(KEY)||"{}"); }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
-let flags={}; try{ if(store) flags=JSON.parse(store.getItem("ostep-conc-flags")||"{}"); }catch(e){ flags={}; }
-function saveFlags(){ try{ store && store.setItem("ostep-conc-flags", JSON.stringify(flags)); }catch(e){} }
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("nn-rev-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("nn-rev-flags", JSON.stringify(flags)); }catch(e){} }
 
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function seededPerm(n, seed){
@@ -607,39 +590,40 @@ const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let activePart=null, cramPinned=false, curFilter="all";
 
 const CRAM_HTML=`<div class="cram">
-<h5>The problem (Ch 26)</h5>
+<h5>MLP (L15)</h5>
 <ul>
-<li>Threads share memory; the scheduler interleaves them <b>unpredictably</b> → <b>race conditions</b>, indeterminate output.</li>
-<li><code>counter+1</code> = load/add/store → not atomic → lost updates.</li>
-<li>Need <b>mutual exclusion</b> (atomicity) and <b>ordering</b> (wait-for).</li>
+<li>Layer: <code>z = Wx + b</code>, W is units×inputs. ReLU default hidden; <b>negative → off</b>.</li>
+<li>No activation ⇒ layers <b>collapse</b> to one line. Universal approx: enough ReLU units fit anything, size set by held-out.</li>
+<li>Params/layer = inputs·units + units. 784-128-10 = <b>101,770</b>.</li>
+<li>Output/loss: regression=identity/squared · 2-class=sigmoid/BCE · K-class=softmax/cross-entropy (<code>−ln p<sub>y</sub></code>).</li>
 </ul>
-<h5>Locks (Ch 28)</h5>
+<h5>Backprop (L16)</h5>
 <ul>
-<li>Judge by <b>correctness · fairness · performance</b>.</li>
-<li><b>test-and-set</b> → spin lock (correct, not fair). <b>fetch-and-add</b> → <b>ticket lock</b> (fair/FIFO). <b>CAS</b> → lock-free.</li>
-<li>Spinning wastes CPU → <b>yield</b>, <b>park/unpark</b> (futex), <b>two-phase</b> lock.</li>
+<li>Node: upstream × local gradient. Add copies · multiply swaps inputs · ReLU gates (0 where off).</li>
+<li><b>Output error δ<sub>o</sub> = ŷ − y</b> (p − y). Hidden: δ<sub>o</sub>W₂ then ×ReLU slope; ∇W = δ·xᵀ.</li>
+<li>Check: central diff, rel. error ≈1e−6 ok, ≥0.01 bug. One backward ≈ one forward pass.</li>
+<li>Deep sigmoid: error shrinks like <b>0.25<sup>k</sup></b> (vanishing); ReLU slope 1 avoids it.</li>
 </ul>
-<h5>Concurrent structures (Ch 29)</h5>
+<h5>SGD & optimizers (L17)</h5>
 <ul>
-<li>One big lock first. <b>Sloppy counter</b>: per-CPU locals + threshold S (bigger S = faster, less exact).</li>
-<li><b>Hand-over-hand</b> list · <b>two-lock</b> queue · <b>per-bucket</b> hash. More concurrency ≠ more speed.</li>
+<li>Mini-batch = cheap noisy gradient; <b>B=32–256</b> fastest. Epoch = ⌈N/B⌉ steps.</li>
+<li>Noisier ⇒ smaller η. Step decay: ÷10 when loss stalls. Judge by epoch-mean loss.</li>
+<li>Momentum <code>v←ρv+g</code>; steady ⇒ <b>1/(1−ρ)</b>× step (ρ=0.9 → 10×).</li>
+<li>Adam: m (g), s (g²), bias-correct, <code>w−η·m̂/√ŝ</code>. Defaults β₁=0.9, β₂=0.999, η=0.001.</li>
 </ul>
-<h5>Condition variables (Ch 30)</h5>
+<h5>Regularization (L18)</h5>
 <ul>
-<li><code>wait()</code> = release lock + sleep, re-acquire on wake (hold the lock to call it).</li>
-<li><b>Always <code>while</code>, never <code>if</code></b>. Producer/consumer needs <b>two</b> CVs. Unsure who to wake → <b>broadcast</b>.</li>
+<li>Weight decay = ridge; shrink factor <b>(1−ηλ)</b>, biases not penalized.</li>
+<li>Early stopping: keep best-val epoch, stop after <b>patience</b> with no improvement.</li>
+<li>Dropout p in training (rescale <b>1/(1−p)</b>); <b>test: none dropped, none rescaled</b>.</li>
+<li>All-zero/equal ⇒ stuck/identical. <b>He init</b> variance <b>2/n<sub>in</sub></b>. Batch norm: standardize per batch, <b>test uses running averages</b>, enables larger η.</li>
 </ul>
-<h5>Semaphores (Ch 31)</h5>
+<h5>CNNs (L19)</h5>
 <ul>
-<li><code>sem_wait</code> = P (−−, block if &lt;0) · <code>sem_post</code> = V (++). Negative value = # waiters.</li>
-<li>Init: <b>lock = 1 · ordering = 0 · N permits = N</b>. P/C: empty=MAX, full=0, mutex narrow.</li>
-<li>Dining philosophers: one philosopher grabs forks in <b>reverse order</b> to break the cycle.</li>
-</ul>
-<h5>Bugs & deadlock (Ch 32)</h5>
-<ul>
-<li>Lu: 105 bugs = <b>74 non-deadlock</b> + 31 deadlock. Atomicity violation → lock; order violation → CV/semaphore.</li>
-<li><b>4 conditions</b> (all): mutual exclusion · hold-and-wait · no preemption · circular wait.</li>
-<li>Prevent: order locks (circular wait) · all-at-once (hold-and-wait) · trylock→livelock (no preemption) · lock-free (mutual excl). Also avoidance (Banker's) · detect &amp; recover (DBs).</li>
+<li>Output width <code>m = ⌊(n+2p−k)/s⌋+1</code>. 3×3 pad1 s1 keeps size.</li>
+<li>Params = <b>C<sub>out</sub>·(C<sub>in</sub>·k·k)+C<sub>out</sub></b>, independent of image size.</li>
+<li><b>Local connectivity + weight sharing</b> → few weights, shift-robust. Max pool 2×2: halve, no weights.</li>
+<li>Receptive field grows with depth (3×3 → pool → 8×8). CNN 9,098 params, 0.894 &gt; MLP.</li>
 </ul>
 </div>`;
 
@@ -682,14 +666,14 @@ function buildBody(secId, i, q, id){
       </button>`).join("")+`</div>`+(q.t==="ms"?`<button class="submit" data-id="${id}" type="button">Check answer</button>`:``);
   } else if(q.t==="num"){
     const post = q.unit ? q.unit : "";
-    wrap.innerHTML=`<div class="numrow"><input class="numin" id="in-${id}" type="text" inputmode="numeric" autocomplete="off" placeholder="your answer" aria-label="Your answer">${post?`<span class="numunit">${post}</span>`:""}<button class="submit" data-id="${id}" type="button">Check answer</button></div>`;
+    wrap.innerHTML=`<div class="numrow"><input class="numin" id="in-${id}" type="text" inputmode="decimal" autocomplete="off" placeholder="your answer" aria-label="Your answer">${post?`<span class="numunit">${post}</span>`:""}<button class="submit" data-id="${id}" type="button">Check answer</button></div>`;
   } else if(q.t==="match"){
     const legend=`<div class="terms-legend">Options: <b>${q.terms.join("</b> · <b>")}</b></div>`;
     const optsHtml=`<option value="-1">— choose —</option>`+q.terms.map((t,ti)=>`<option value="${ti}">${t}</option>`).join("");
     const rows=q.items.map((d,di)=>`<tr id="row-${id}-${di}"><td class="desc">${di+1}. ${d}</td><td class="pick"><select class="msel" id="sel-${id}-${di}" aria-label="Choice for item ${di+1}">${optsHtml}</select></td></tr>`).join("");
     wrap.innerHTML=legend+`<table class="match"><tbody>${rows}</tbody></table><button class="submit" data-id="${id}" type="button">Check answer</button>`;
   } else if(q.t==="sa"){
-    wrap.innerHTML=`<button class="submit" data-id="${id}" type="button" style="background:transparent;color:var(--hue)">Show answer</button><div class="sa-ans">${q.a}</div>`;
+    wrap.innerHTML=`<button class="submit" data-id="${id}" type="button" style="background:transparent;color:var(--hue)">Show worked solution</button><div class="sa-ans">${q.a}</div>`;
   }
   renderQ(secId, i, q, id);
 }
@@ -741,7 +725,7 @@ function handleSubmit(id){
     const item=document.getElementById("q-"+id);
     const open=item.classList.toggle("open");
     const btn=item.querySelector(".submit");
-    btn.textContent=open?"Hide answer":"Show answer";
+    btn.textContent=open?"Hide worked solution":"Show worked solution";
     if(open) state[id]="seen"; else delete state[id]; save();
     updateCount();
   }
@@ -875,7 +859,7 @@ document.getElementById("resetBtn").addEventListener("click",()=>{
   SECTIONS.forEach(sec=>(QUESTIONS[sec.id]||[]).forEach((q,i)=>{ const id=qid(sec.id,i);
     const item=document.getElementById("q-"+id); item.classList.remove("open");
     const inp=document.getElementById("in-"+id); if(inp){inp.disabled=false;inp.value="";inp.classList.remove("okb","nob");}
-    const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show answer";}
+    const btn=item.querySelector(".submit"); if(btn){btn.disabled=false; if(q.t==="sa") btn.textContent="Show worked solution";}
     if(q.t==="match") q.items.forEach((_,di)=>{ const s2=document.getElementById(`sel-${id}-${di}`); if(s2){s2.disabled=false;s2.value="-1";} const r=document.getElementById(`row-${id}-${di}`); if(r)r.classList.remove("rc","rw"); });
     renderQ(sec.id,i,q,id);
   }));
@@ -903,12 +887,12 @@ function renderGuideBody(secId){
 }
 function showCram(){
   cramPinned=true; activePart=null;
-  gtitle.textContent="Cram Sheet — Concurrency";
+  gtitle.textContent="Cram Sheet — Neural Networks";
   gbody.style.setProperty("--gh","var(--accent)");
   document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
   cramChip.classList.add("active");
   gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
-  try{ store && store.setItem("ostep-conc-part","cram"); }catch(e){}
+  try{ store && store.setItem("nn-rev-part","cram"); }catch(e){}
 }
 function setActivePart(secId, fromClick){
   if(fromClick) cramPinned=false;
@@ -920,7 +904,7 @@ function setActivePart(secId, fromClick){
   const chip=document.getElementById("gchip-"+secId);
   if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
   if(changed) renderGuideBody(secId);
-  try{ store && store.setItem("ostep-conc-part",secId); }catch(e){}
+  try{ store && store.setItem("nn-rev-part",secId); }catch(e){}
   if(fromClick){ document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"}); if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false); }
 }
 let ticking=false;
@@ -944,14 +928,14 @@ scrim.addEventListener("click",()=>setGuideOpen(false));
 document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
 const root=document.documentElement, tb=document.getElementById("themeBtn"), ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("ostep-conc-theme",t);}catch(e){} }
-let curTheme="system"; try{ if(store) curTheme=store.getItem("ostep-conc-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("nn-rev-theme",t);}catch(e){} }
+let curTheme="system"; try{ if(store) curTheme=store.getItem("nn-rev-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{ curTheme=curTheme==="system"?"light":curTheme==="light"?"dark":"system"; applyTheme(curTheme); });
 
 /* ---- init ---- */
 refreshOverall(); applyFilter("all");
-let initPart=null; try{ initPart=store&&store.getItem("ostep-conc-part"); }catch(e){}
+let initPart=null; try{ initPart=store&&store.getItem("nn-rev-part"); }catch(e){}
 if(initPart==="cram"||!initPart) showCram();
 else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
 else showCram();
