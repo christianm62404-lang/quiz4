@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CAI 4105 — Neural Networks Review (L15–L19)</title>
+<title>CAI 4105 — Regularization & CNNs (L18–L19)</title>
 <style>
 :root{
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
@@ -220,12 +220,12 @@ footer .mono{font-family:var(--mono)}
 <header class="masthead">
   <div class="mast-inner wrap">
     <div class="mast-top">
-      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning <span class="dot"></span> Neural Networks · L15–L19</div>
+      <div class="eyebrow"><span class="dot"></span> CAI 4105 · Machine Learning <span class="dot"></span> Neural Networks IV &amp; CNNs · L18–L19</div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
     </div>
-    <h1 class="title">Neural Networks Review — L15 to L19</h1>
-    <p class="subtitle">An in-depth review of the neural-network block: the multilayer perceptron (L15), backpropagation (L16), training faster with SGD (L17), regularization &amp; training practice (L18), and convolutional networks (L19). Questions are in the style of the course quizzes — scenario multiple choice, numeric computations, and matching — and grade instantly, with slide-referenced explanations. Notes and a ⚡ Cram Sheet sit on the right.</p>
-    <div class="callout"><b>The through-line:</b> a network learns its own features. Hidden layers of weighted sums + a nonlinear activation (ReLU) build features; an output unit + loss fit the task; backprop gets every gradient; SGD, momentum/Adam, regularization and good initialization make training work; and convolution adds the right structure for images. Progress is saved in this browser. For numeric answers, type a plain number (e.g. <code>0.119</code> or <code>101770</code>).</div>
+    <h1 class="title">Regularization &amp; Convolutional Networks</h1>
+    <p class="subtitle">An in-depth study guide for the last two neural-network lectures: <b>regularization &amp; training practice</b> (L18 — weight decay, early stopping, dropout, initialization, batch norm) and <b>convolutional neural networks</b> (L19 — convolution, stride &amp; padding, weight sharing, pooling, receptive fields). Questions are in the style of the course quizzes — scenario multiple choice, numeric computations, and matching — and grade instantly, with slide-referenced explanations. Notes and a ⚡ Cram Sheet sit on the right.</p>
+    <div class="callout"><b>The two themes:</b> (L18) a big network can <b>memorize</b> the training set, so weight decay, early stopping, and dropout fight overfitting while good initialization and batch norm make training itself work. (L19) an MLP flattens the image and ignores which pixels are neighbors; <b>convolution</b> adds local connectivity and weight sharing, so it needs far fewer weights and is robust to small shifts. Progress is saved in this browser. For numeric answers, type a plain number (e.g. <code>1.93</code> or <code>1216</code>).</div>
     <div class="scorebar">
       <div class="pbar"><span id="overallBar"></span></div>
       <div class="pmeta"><b id="overallPct">0%</b> · <span id="overallCount">0 / 0</span> correct · <span id="overallPts">0 / 0</span> graded</div>
@@ -268,280 +268,242 @@ footer .mono{font-family:var(--mono)}
 <button class="guide-toggle" id="guideToggle" type="button" aria-label="Open study guide">📖 Study Guide</button>
 
 <footer class="wrap">
-  <div class="mono">CAI 4105 — Current Topics in Machine Learning I · Neural Networks review (Lectures 15–19) · study-guide quiz.</div>
+  <div class="mono">CAI 4105 — Current Topics in Machine Learning I · Neural Networks IV (L18) &amp; Convolutional Neural Networks (L19) · study-guide quiz.</div>
   <div style="margin-top:8px">Work the questions, reveal the worked solutions, and keep the ⚡ Cram Sheet open for the formulas and defaults.</div>
 </footer>
 
 <script>
 /* =========================================================
-   STUDY-GUIDE NOTES — CAI 4105 Neural Networks (L15–L19)
+   STUDY-GUIDE NOTES — CAI 4105 L18 (Regularization) & L19 (CNNs)
    ========================================================= */
 const SECTIONS = [
 {
-  id:"mlp", short:"MLP", tag:"Lecture 15", title:"The Multilayer Perceptron",
-  blurb:"A neuron is a weighted sum passed through an activation. Stack layers of them and a network computes its own features. A nonlinear activation is what keeps the layers from collapsing into one line.",
+  id:"decay", short:"Weight Decay & Stopping", tag:"L18 · Parts A–B", title:"Weight Decay & Early Stopping",
+  blurb:"A 784-128-10 network trained on only 2,000 images reaches train accuracy 1.000 but validation 0.827 — it memorizes. Weight decay keeps the weights small; early stopping halts before overfitting sets in.",
   notes:[
-    {h:"Neuron, layer, matrix form", html:`<ul>
-      <li>One neuron: pre-activation <code>z = w·x + b</code>, then activation. Logistic regression is one sigmoid neuron.</li>
-      <li>A <b>layer</b> is units sharing the same inputs. Weight <code>w<sub>jk</sub></code> connects input k to unit j. Stack the rows → <code>z = W x + b</code>; <b>W has one row per unit, one column per input</b>.</li>
-      <li>One hidden layer + output: <code>h = g(W<sub>1</sub>x + b<sub>1</sub>)</code>, then <code>z<sub>o</sub> = w<sub>2</sub>·h + b<sub>2</sub></code>. Training fits all of them, so the features <b>h are learned</b>.</li>
-      <li><b>Batch:</b> stack N examples as rows of X; <code>Z = X W<sup>T</sup> + b</code> (broadcasting). H is N×(units).</li></ul>`},
-    {h:"ReLU and the three activations", html:`<table class="tbl"><thead><tr><th>Activation</th><th>Range</th><th>Max slope</th></tr></thead><tbody>
-      <tr><td>Sigmoid</td><td>0 to 1</td><td>0.25 (at z=0)</td></tr>
-      <tr><td>Tanh</td><td>−1 to 1</td><td>1</td></tr>
-      <tr><td><b>ReLU</b> = max(0,z)</td><td>0 and up</td><td>1 (slope 0 or 1)</td></tr></tbody></table>
-      <ul><li>A unit with <b>negative pre-activation outputs 0</b> — it is <b>off</b>. ReLU is the hidden-layer default: cheap, slope stays 1 where on. Sigmoid/tanh <b>saturate</b> (slope → 0) far from 0.</li></ul>`},
-    {h:"Why the activation must bend", html:`<ul>
-      <li>Remove the activation and a stack of linear layers <b>collapses to one</b> linear layer — same straight boundary as logistic regression, no matter the depth.</li>
-      <li>A nonlinear activation between layers stops the collapse. That is the whole reason hidden units have one.</li>
-      <li><b>Universal approximation:</b> one hidden layer of enough ReLU units (+ linear output) can approximate any continuous function on a closed bounded region — but it doesn't say <i>how many</i> units, that training will find them, or that it generalizes. A wide-enough net can also fit noise, so <b>size is chosen by held-out accuracy</b>.</li></ul>`},
-    {h:"Depth, width, parameter count", html:`<ul>
-      <li><b>MLP</b> = fully connected / dense: every unit connects to every unit of the next layer. <b>Depth</b> = layers with weights; <b>width</b> = units per layer.</li>
-      <li>Params of a layer = (inputs × units) weights + (units) biases. Example 784→128→10: 128·784+128 + 10·128+10 = <b>101,770</b> (almost all in layer 1). 784→100→10 = <b>79,510</b>.</li></ul>`},
-    {h:"Output unit and loss per task", html:`<table class="tbl"><thead><tr><th>Task</th><th>Output</th><th>Loss</th></tr></thead><tbody>
-      <tr><td>Regression</td><td>Identity</td><td>Squared error</td></tr>
-      <tr><td>Two classes</td><td>Sigmoid</td><td>Binary cross-entropy</td></tr>
-      <tr><td>K classes</td><td>Softmax</td><td>Cross-entropy</td></tr></tbody></table>
-      <ul><li>Each classification loss is the <b>negative log-likelihood</b> of the true label, so a <b>confident wrong answer costs the most</b>. Softmax: <code>p<sub>k</sub> = e<sup>z<sub>k</sub></sup> / Σ e<sup>z<sub>j</sub></sup></code>; loss = <code>−ln p<sub>y</sub></code> (only the true class enters the numerator; all classes count in the denominator).</li></ul>`}
-  ]
-},
-{
-  id:"backprop", short:"Backprop", tag:"Lecture 16", title:"Backpropagation",
-  blurb:"Gradient descent needs the slope of the loss for every weight. Backpropagation computes all of them in one backward pass through the network using the chain rule — each node multiplies the upstream gradient by its local gradient.",
-  notes:[
-    {h:"Chain rule on a computational graph", html:`<ul>
-      <li>A computational graph breaks a formula into simple nodes (multiply, add, square, ReLU, …). <b>Forward</b> computes values left→right; <b>backward</b> sends the gradient right→left.</li>
-      <li>Each node knows its <b>local gradient</b> (slope of its output in each input). The backward rule: <b>upstream gradient × local gradient</b>, passed to each input.</li>
-      <li>A value used in two places receives the <b>sum</b> of the two gradients.</li></ul>`},
-    {h:"The three gate patterns", html:`<table class="tbl"><thead><tr><th>Gate</th><th>Backward</th></tr></thead><tbody>
-      <tr><td><b>Add</b></td><td>copies the upstream gradient to every input</td></tr>
-      <tr><td><b>Multiply</b></td><td>each input gets upstream × the <i>other</i> input</td></tr>
-      <tr><td><b>ReLU</b></td><td>passes the upstream where input &gt; 0, sends 0 where input &lt; 0</td></tr></tbody></table>`},
-    {h:"Backprop through the network", html:`<ul>
-      <li><b>Output error</b> δ<sub>o</sub> = <b>prediction − label</b> (ŷ − y) for sigmoid+BCE and for softmax+cross-entropy (p − y, y one-hot). This simple form is why those output/loss pairs are chosen.</li>
-      <li>Output-layer weight gradient = δ<sub>o</sub> · h<sub>j</sub> (multiply rule); bias gradient = δ<sub>o</sub>.</li>
-      <li><b>Back to the hidden layer:</b> each h<sub>j</sub> gets δ<sub>o</sub>·w<sub>2,j</sub>, then multiply by the <b>ReLU slope</b> (1 if on, 0 if off) → hidden error δ. Hidden weight gradient = outer product δ x<sup>T</sup>.</li>
-      <li><b>Shape check:</b> every gradient has the shape of the thing it differentiates (∇W<sub>l</sub> is shaped like W<sub>l</sub>).</li></ul>`},
-    {h:"Gradient checking", html:`<ul>
-      <li><b>Central difference:</b> (L(w+ε) − L(w−ε)) / 2ε, error shrinks like ε² (vs ε for one-sided).</li>
-      <li><b>Relative error</b> = |g<sub>bp</sub> − g<sub>num</sub>| / max(|g<sub>bp</sub>|,|g<sub>num</sub>|). In double precision a correct backward pass gives ≈ 1e−6 or smaller; a bug gives ≈ 0.01 or more.</li>
-      <li>Backprop is <b>cheap</b>: one forward + one backward pass for <i>all</i> gradients; numerical differences need two forward passes <i>per weight</i>.</li></ul>`},
-    {h:"Training loop & vanishing gradients", html:`<ul>
-      <li>Loop: forward → loss → backward → update <code>w ← w − η·∇</code>. On large data use a <b>mini-batch</b> and average its gradients. One pass over all data = an <b>epoch</b>.</li>
-      <li><b>Deep sigmoid networks learn slowly:</b> each layer multiplies the error by the activation slope (≤ 0.25 for sigmoid), so through k layers it shrinks like 0.25<sup>k</sup> — early layers barely move. <b>ReLU has slope 1 where on</b>, so it doesn't shrink the error.</li></ul>`}
-  ]
-},
-{
-  id:"sgd", short:"SGD & Optimizers", tag:"Lecture 17", title:"Training Faster with SGD",
-  blurb:"The full gradient averages over all examples and is expensive. A mini-batch gives a cheap, noisy estimate — and many cheap noisy steps beat a few exact ones. Schedules, momentum, and Adam make each step do more.",
-  notes:[
-    {h:"Mini-batches, iterations, epochs", html:`<ul>
-      <li>Full gradient = mean of all N per-example gradients. A <b>mini-batch</b> of B averages B random examples — on average it equals the full gradient, but one batch differs by <b>gradient noise</b>.</li>
-      <li><b>B = 1</b> is SGD; <b>B = N</b> is full-batch. An <b>iteration/step</b> = one update from one batch. An <b>epoch</b> = one pass over all N (⌈N/B⌉ steps; the last batch may be short).</li>
-      <li>Larger B → less noisy but costlier per step. On Fashion-MNIST, <b>B = 32 to 256 trained fastest</b> (hardware processes a block at once; below ~256 a bigger batch spreads the fixed cost).</li></ul>`},
-    {h:"Learning rate & schedules", html:`<ul>
-      <li>η too small → slow; too large → can stall (at η = 2.0, most ReLU units died and loss ≈ ln 10 = chance). <b>Noisier gradients (smaller batches) need a smaller η.</b></li>
-      <li><b>Schedule:</b> start large, lower η later so jitter shrinks near the bottom. <b>Step decay</b> divides η by a factor (e.g. 10) at chosen epochs.</li>
-      <li>Judge progress by the <b>epoch-mean loss</b>; a single batch's loss is noisy. Rising mean → η too big; flat from the start → η too small or units dead.</li></ul>`},
-    {h:"Momentum", html:`<ul>
-      <li>Keep a <b>velocity</b> v: <code>v ← ρ·v + g</code>, then <code>w ← w − η·v</code>. Gradients that <b>agree add up</b>; gradients that <b>flip sign cancel</b> → cuts zigzag in narrow valleys, moves faster along them.</li>
-      <li>With steady g, velocity grows toward <code>1/(1−ρ)</code> times g. So <b>ρ = 0.9 acts like a 10× larger step</b>; ρ = 0.99 like 100×. First step (v=0) equals plain SGD.</li></ul>`},
-    {h:"Adam", html:`<ul>
-      <li>Two running averages: <code>m</code> (of g, like momentum) and <code>s</code> (of g²). <b>Bias-correct</b> (they start at 0): m̂ = m/(1−β<sub>1</sub><sup>t</sup>), ŝ = s/(1−β<sub>2</sub><sup>t</sup>). Step: <code>w ← w − η·m̂/(√ŝ + ε)</code>.</li>
-      <li>Divides each weight's step by the recent <b>size</b> of its own gradient → per-weight step size. Defaults <b>β<sub>1</sub>=0.9, β<sub>2</sub>=0.999, η=0.001</b>. At t=1, m̂=g and ŝ=g², so every weight moves η against the sign of its gradient.</li></ul>`},
-    {h:"Choosing an optimizer", html:`<ul>
-      <li><b>Adam, η=0.001</b> is a good first choice (little tuning). <b>SGD+momentum 0.9</b> with a tuned η and schedule is still widely used and can beat Adam on some tasks (e.g. CIFAR-10).</li>
-      <li>Starting points: batch 32–256, Adam 0.001 / momentum 0.01 / plain SGD 0.1, divide η by 10 when the loss stalls, and run a gradient check.</li></ul>`}
-  ]
-},
-{
-  id:"reg", short:"Regularization", tag:"Lecture 18", title:"Regularization & Training Practice",
-  blurb:"A big network can memorize the training set (train 1.00, validation far lower). Weight decay, early stopping, and dropout fight that; good initialization and batch norm make training itself work.",
-  notes:[
-    {h:"Weight decay", html:`<ul>
-      <li>Add <code>(λ/2)·Σw²</code> to the loss (ridge inside a network; <b>biases are not penalized</b>). Gradient adds λw, so each step shrinks every weight by the factor <b>(1 − ηλ)</b> before the usual step — hence "decay".</li>
-      <li>Larger λ → smaller weights and a smaller train–val gap, but too large hurts validation (it stops fitting real patterns). Choose λ on the <b>validation set</b> (≈ 0.0001–0.001).</li></ul>`},
+    {h:"Weight decay = ridge inside a network", html:`<ul>
+      <li>Add <code>(λ/2)·Σw²</code> to the loss (λ ≥ 0). It is the <b>ridge penalty</b>; the ½ makes its gradient exactly <b>λw</b>. <b>Biases are not penalized.</b></li>
+      <li>Each step first shrinks every weight by the factor <b>(1 − ηλ)</b> (just below 1), then takes the usual gradient step — hence the name "decay".</li>
+      <li>Larger λ → smaller weights and a smaller train–validation gap; but too large a λ also hurts validation, because the penalty stops the net from fitting real patterns. Choose λ on the <b>validation set</b> (≈ 0.0001–0.001). Measured: λ=0 gap 0.173 (Σw²=534); λ=0.01 gap 0.045 (Σw²=51) but validation fell.</li></ul>`},
     {h:"Early stopping", html:`<ul>
-      <li>Track validation loss each epoch, keep a copy of the <b>best</b> weights. Stop when it hasn't improved for <b>patience</b> epochs, and return the kept (best-epoch) weights.</li>
-      <li>Larger patience is more robust to noisy dips; patience too small can stop at a lucky dip.</li></ul>`},
-    {h:"Dropout", html:`<ul>
-      <li>During <b>training</b>, switch off each hidden unit independently with probability <b>p</b> (set output 0), a fresh mask per example per step. Kept units are rescaled by <b>1/(1−p)</b> (inverted dropout), so the average output is unchanged. At <b>test time: nothing is dropped and nothing is rescaled</b>.</li>
-      <li>Why it helps: a unit can't rely on any one neighbor (it might be off), so each must be useful on its own; each step trains a different sub-network and test time ≈ their average.</li></ul>`},
-    {h:"Initialization", html:`<ul>
-      <li><b>All-zero weights</b>: every hidden output 0 → zero gradients everywhere but the output bias; the network is stuck at chance. Equal weights make units <b>identical</b> and they stay identical — random weights <b>break the symmetry</b>.</li>
-      <li><b>He initialization</b> (ReLU): weights ~ Normal(0, <b>2/n<sub>in</sub></b>), biases 0. The factor 2 offsets ReLU zeroing ~half the outputs, keeping each layer's spread steady (too small → spread/gradients vanish by depth; too large → they blow up).</li></ul>`},
-    {h:"Batch normalization", html:`<ul>
-      <li>For each unit, standardize its pre-activations over the mini-batch (subtract mean, divide by std), then <b>scale by γ and shift by β</b> (both learned per unit).</li>
-      <li><b>Test time uses running averages</b> of mean/variance kept during training, so one image's output doesn't depend on its batch (a batch-of-one would give ẑ=0 and collapse to chance).</li>
-      <li>Keeps each layer's inputs well-scaled → <b>larger learning rates stay stable</b>, deep nets train faster. With tiny batches, use layer/group norm instead.</li></ul>`}
+      <li>Track the <b>validation loss</b> after every epoch and keep a copy of the weights from the <b>best</b> epoch so far.</li>
+      <li>Stop when validation loss hasn't improved for a set number of epochs — the <b>patience</b> — and return the kept (best-epoch) weights.</li>
+      <li>Larger patience is more robust to noisy dips (patience 20 kept epoch 40, test 0.826); too small a patience can stop at a lucky dip (patience 5 kept a noisy epoch 8, test 0.798).</li></ul>`}
   ]
 },
 {
-  id:"cnn", short:"CNNs", tag:"Lecture 19", title:"Convolutional Neural Networks",
-  blurb:"An MLP flattens the image and gives every pixel its own weight — nothing says two pixels are neighbors, and a learned pattern isn't reused elsewhere. Convolution fixes both with local connectivity and weight sharing.",
+  id:"dropout", short:"Dropout", tag:"L18 · Part C", title:"Dropout",
+  blurb:"Dropout works inside the network: during training it randomly switches hidden units off, so no unit can rely on any one neighbor. At test time the full network runs unchanged.",
   notes:[
-    {h:"Convolution", html:`<ul>
-      <li>A <b>filter/kernel</b> K (e.g. 3×3) slides over the input; at each position multiply the k² weights by the pixels under them, add, plus bias → one output. The grid of outputs is a <b>feature map</b>.</li>
-      <li>Example edge kernel (−1,0,1 columns) = right minus left → responds to <b>vertical edges</b>, 0 on flat regions. Because the same kernel is used everywhere, the <b>response moves with the pattern</b> (shift the edge, the output shifts).</li></ul>`},
-    {h:"Stride, padding, output size", html:`<ul>
-      <li><b>Stride s</b> = pixels moved between positions. <b>Padding p</b> = rings of zeros added around the input. With a 3×3 kernel, p=1, s=1, size is preserved.</li>
-      <li><b>Output width</b> <code>m = ⌊(n + 2p − k)/s⌋ + 1</code> (round down; a partial window is dropped). e.g. 28, k=5, p=0 → 24; 28, k=3, p=1 → 28; 7, k=3, s=2 → 3.</li></ul>`},
+    {h:"How dropout works", html:`<ul>
+      <li>During <b>training</b>, each step switches off each hidden unit independently with probability <b>p</b> (the dropout rate) by setting its output to 0 — a fresh random mask for every example at every step.</li>
+      <li>The kept units are multiplied by <b>1/(1−p)</b> (inverted dropout), so each unit's <b>average output is unchanged</b>.</li>
+      <li>At <b>test</b> time <b>nothing is switched off and nothing is rescaled</b> — the training rescaling already matched each unit's average to its full output.</li></ul>`},
+    {h:"Why it helps", html:`<ul>
+      <li>A unit cannot rely on any one neighbor (it might be off), so each unit must be useful on its own — this discourages brittle co-adaptation.</li>
+      <li>Each step effectively trains a different smaller sub-network of the kept units, and the full network at test time acts roughly like their average.</li>
+      <li>The architecture is unchanged — dropout only switches units off during training. On the 2,000 images, dropout p=0.5 kept training accuracy below 1 and raised test accuracy to 0.830 vs 0.824.</li></ul>`}
+  ]
+},
+{
+  id:"init", short:"Initialization", tag:"L18 · Part D", title:"Initialization",
+  blurb:"Where the weights start decides whether training moves at all. All-zero weights are stuck; equal weights make units identical; He initialization keeps each layer's spread steady with depth.",
+  notes:[
+    {h:"Zero and symmetric starts fail", html:`<ul>
+      <li><b>All zeros:</b> every hidden output is 0, so the output weights get zero gradient; the hidden error is the output error times w₂=0, so hidden weights get zero gradient too. Only the output bias learns — the net sits at chance (loss 2.303, accuracy 0.100).</li>
+      <li><b>Equal weights:</b> two units with identical weights get identical gradients on every step, so they stay identical and never specialize. <b>Random</b> starting weights <b>break this symmetry</b>.</li></ul>`},
+    {h:"He initialization", html:`<ul>
+      <li>Draw each weight from Normal(0, <b>2/n<sub>in</sub></b>) and start biases at 0 (n<sub>in</sub> = inputs to the unit). This is <b>He initialization</b>, used for every Fashion-MNIST run in these lectures.</li>
+      <li>The factor <b>2</b> offsets ReLU zeroing about half the outputs (which halves their variance), keeping each layer's spread steady. Too small (1/n<sub>in</sub>) → the spread shrinks by depth (0.279 → 0.041 over 6 layers); too large (4/n<sub>in</sub>) → it grows (0.558 → 2.647). He (2/n<sub>in</sub>) stays ≈ 0.33–0.40.</li></ul>`}
+  ]
+},
+{
+  id:"bn", short:"Batch Norm", tag:"L18 · Part E", title:"Batch Normalization",
+  blurb:"Batch norm standardizes each unit's pre-activations over the mini-batch, then scales and shifts with learned parameters. It keeps layers well-scaled so larger learning rates stay stable and deep nets train faster.",
+  notes:[
+    {h:"The batch-norm transform", html:`<ul>
+      <li>For each unit, take its pre-activations z<sub>i</sub> over the B examples of the mini-batch; compute their <b>mean and variance</b>, then <b>standardize</b> (subtract mean, divide by std).</li>
+      <li>Then <b>scale by γ and shift by β</b>, both <b>learned per unit</b> (this β is a shift, unrelated to Adam's β₁, β₂). A small ε avoids dividing by zero. Output: <code>y = γ·ẑ + β</code>.</li></ul>`},
+    {h:"Training vs test, and why it helps", html:`<ul>
+      <li>In training each mini-batch uses <b>its own</b> mean/variance; <b>running averages</b> of both are kept across batches.</li>
+      <li>At <b>test time the running averages</b> are used, so one image's output doesn't depend on its batch. A batch of <b>one</b> would give ẑ=0 (zero variance) and collapse to chance — so you must use the running averages.</li>
+      <li>Keeping each layer's inputs at a steady scale lets <b>larger learning rates stay stable</b> and deep nets train faster (at η=1.0 a deep net stalled at chance without BN, reached 0.858 with it). With tiny batches the batch statistics get noisy, so layer/group norm is used instead.</li></ul>`}
+  ]
+},
+{
+  id:"conv", short:"Convolution", tag:"L19 · Part A", title:"Convolution",
+  blurb:"An MLP flattens the image and gives every pixel its own weight, so nothing says two pixels are neighbors and a learned pattern isn't reused. Convolution slides a small shared kernel over the image instead.",
+  notes:[
+    {h:"The convolution operation", html:`<ul>
+      <li>A <b>filter / kernel</b> K (e.g. 3×3) slides over the input. At each position, multiply each weight by the pixel under it, add the products plus a <b>bias b</b> → one output value. The grid of outputs is the <b>feature map</b>.</li>
+      <li>The sum: <code>Y[r,c] = b + Σ<sub>u,v</sub> K[u,v]·X[r+u, c+v]</code>. Libraries call this "convolution" (the textbook form flips K first; training just learns the flipped kernel).</li></ul>`},
+    {h:"Kernels detect patterns; responses move", html:`<ul>
+      <li>An <b>edge</b> is where brightness changes sharply. A kernel with columns (−1, 0, +1) computes right-minus-left, so it responds to <b>vertical edges</b>, gives 0 on flat regions and on horizontal edges (its horizontal version has rows (−1,0,1)).</li>
+      <li>Because the <b>same kernel is used at every position</b>, the same patch of pixels gives the same response wherever it sits — so the <b>response moves with the pattern</b> (shift the edge, the output shifts the same way).</li></ul>`}
+  ]
+},
+{
+  id:"size", short:"Stride & Output Size", tag:"L19 · Part A", title:"Stride, Padding & Output Size",
+  blurb:"Stride sets how far the window jumps; padding adds a border of zeros. Together they set the output size through one rule you can apply to any layer.",
+  notes:[
+    {h:"Stride and padding", html:`<ul>
+      <li><b>Stride s</b> = pixels the window moves between positions (s=1 by default; s=2 takes every second position, shrinking the output).</li>
+      <li><b>Padding p</b> = rings of zeros added around the input before sliding. With a 3×3 kernel, p=1, s=1 the output is the <b>same size</b> as the input. Zeros can make false edges at the border, and a corner pixel then sits in more windows.</li></ul>`},
+    {h:"The output-size rule", html:`<div class="codeblk">m = ⌊(n + 2p − k) / s⌋ + 1     (width; height follows the same rule)</div>
+      <ul>
+      <li>n = input width, k = kernel width, p = padding, s = stride. <b>Round down</b> when s doesn't divide n+2p−k (a partial window is dropped).</li>
+      <li>Examples: 28, k=5, p=0, s=1 → 24 · 28, k=3, p=1, s=1 → 28 · 7, k=3, p=0, s=2 → 3 · 32, k=5, p=2, s=1 → 32.</li></ul>`}
+  ]
+},
+{
+  id:"params", short:"Weights & Params", tag:"L19 · Part B", title:"Weight Sharing, Channels & Parameters",
+  blurb:"Convolution beats a dense layer because each output sees only a small patch (local connectivity) and every position reuses the same kernel (weight sharing) — so one small filter works for any image size.",
+  notes:[
     {h:"Local connectivity & weight sharing", html:`<ul>
-      <li><b>Local connectivity:</b> each output depends only on a small patch (nearby pixels carry most meaning). <b>Weight sharing:</b> every position uses the same K and b — one 3×3 filter is 9 weights + 1 bias <b>for any image size</b>.</li>
-      <li>Params of a conv layer = <code>C<sub>out</sub> · (C<sub>in</sub> · k · k) + C<sub>out</sub></code>. e.g. 16 filters 5×5 on 3 channels = 16·75+16 = <b>1,216</b>. A 3×3, 8-filter conv on a 28×28 image has 80 params vs a dense layer's 4.9 million.</li></ul>`},
-    {h:"Channels, pooling", html:`<ul>
-      <li>Each filter makes one map → a layer with 8 filters outputs <b>8 channels</b>. A next-layer filter spans <b>all</b> input channels (3×3 over 8 channels = 72 weights). Color starts at 3 channels (RGB), grayscale at 1.</li>
-      <li><b>Max pooling</b> 2×2, stride 2: keep the largest value of each non-overlapping block → halves height and width, <b>no weights</b>, per channel. Gains some shift tolerance; loses exact position.</li></ul>`},
-    {h:"The CNN & receptive fields", html:`<ul>
-      <li>Standard design: blocks of <b>conv → ReLU → pool</b>, then dense layer(s) + softmax (LeNet, 1998). The course CNN: conv1(8)→pool→conv2(16)→pool→flatten(784)→dense(10) = <b>9,098 params</b>, reaching <b>0.894</b> vs the MLP's 101,770 params at 0.886.</li>
-      <li><b>Receptive field grows with depth:</b> a conv1 output sees 3×3; after a 2×2 pool, a pooled value covers 4×4; a conv2 output over 3×3 pooled values sees <b>8×8</b> of the image. So early filters find edges, later layers combine them over larger regions.</li>
-      <li>Params don't depend on image size (weight sharing), so the same conv1 on a 56×56 image still has 80 params.</li></ul>`}
+      <li><b>Local connectivity:</b> each output depends only on a small patch (nearby pixels carry most of an image's meaning). A dense unit instead has one weight for every pixel.</li>
+      <li><b>Weight sharing:</b> every position uses the <b>same</b> K and b, so one 3×3 filter is just 9 weights + 1 bias <b>for any image size</b>. (A conv layer to 8 maps of 28×28 has 80 params vs a dense layer's ~4.9 million.)</li></ul>`},
+    {h:"Channels and the parameter count", html:`<ul>
+      <li>Each filter makes one map → a layer with 8 filters outputs <b>8 channels</b>. A filter in the next layer spans <b>all</b> input channels (a 3×3 over 8 channels = 72 weights, summed into one value). Color starts at 3 channels (RGB); grayscale at 1.</li>
+      <li><b>Parameters</b> = <code>C<sub>out</sub> · (C<sub>in</sub> · k · k) + C<sub>out</sub></code>. e.g. 16 filters 5×5 on 3 channels = 16·75 + 16 = <b>1,216</b>; 32 filters 3×3 on 16 channels = <b>4,640</b>. The count does <b>not</b> depend on the image size.</li></ul>`}
+  ]
+},
+{
+  id:"pool", short:"Pooling & the Network", tag:"L19 · Parts C–D", title:"Pooling, the Network & Receptive Fields",
+  blurb:"Pooling shrinks the maps with no weights. Stacking conv→pool blocks grows each unit's receptive field, so early filters find edges and later layers combine them — all with far fewer parameters than an MLP.",
+  notes:[
+    {h:"Max pooling", html:`<ul>
+      <li><b>Max pooling</b> with 2×2 blocks, stride 2: split each map into non-overlapping 2×2 blocks and keep the <b>largest</b> value of each → halves height and width, works per channel, <b>no weights to learn</b>.</li>
+      <li>It gains some <b>shift tolerance</b> (a one-pixel shift often leaves a block's max unchanged) but loses the exact position inside each block.</li></ul>`},
+    {h:"The CNN and receptive fields", html:`<ul>
+      <li>Standard design: blocks of <b>conv → ReLU → pool</b>, then dense layer(s) + softmax (LeNet, 1998). The course CNN: conv1(8)→pool→conv2(16)→pool→flatten(784)→dense(10) = <b>9,098 parameters</b>, reaching test accuracy <b>0.894</b> vs the MLP's 101,770 params at 0.886.</li>
+      <li><b>Receptive field grows with depth:</b> a conv1 output sees 3×3; after a 2×2 pool a pooled value covers 4×4; a conv2 output over 3×3 pooled values sees <b>8×8</b> of the image. So early filters find edges, later layers combine them over larger regions (a sole, a heel).</li>
+      <li><b>Shift test:</b> on images shifted two pixels, the flattening MLP fell 0.876 → 0.524, but the CNN only 0.894 → 0.745, thanks to weight sharing + pooling — with ~11× fewer parameters.</li></ul>`}
   ]
 }
 ];
 
 /* =========================================================
-   QUESTION BANK — quiz style (mc / num / match), + a few sa
+   QUESTION BANK — quiz style (mc / num / match)
    ========================================================= */
 const QUESTIONS = {
-mlp:[
-  {t:"mc", q:"Without any activation functions, a network of several linear (fully connected) layers…",
-   o:["collapses into one linear layer, drawing only straight boundaries like logistic regression","becomes strictly more expressive with each extra layer added, because more depth always adds real capacity","can still bend a boundary, because matrix products are nonlinear operations","fails to run, because the shapes of the weight matrices no longer line up"],
-   a:0, e:"Multiplying the weight matrices out leaves one weight matrix and one bias, so the stack is one linear layer however deep it is — a nonlinear activation between layers is what prevents this collapse. (L15 s21.)", src:"L15 s21"},
-  {t:"mc", q:"A hidden ReLU unit has pre-activation z = −3. What does the unit output, and what is its slope there?",
-   o:["Output 0 and slope 0 — the unit is off","Output −3 and slope 1 — ReLU is linear","Output 0.047 and slope 0.045 — the sigmoid value","Output 3 and slope 1 — ReLU takes the absolute value"],
-   a:0, e:"ReLU(z)=max(0,z), so a negative input gives output 0 and slope 0; the unit is off for that example. (L15 s9, s24.)", src:"L15 s9"},
-  {t:"num", q:"The tiny network has W<sub>1</sub>=[[2,−1],[1,1]], b<sub>1</sub>=(1,−1), ReLU hidden units, w<sub>2</sub>=(2,−1), b<sub>2</sub>=0, sigmoid output. For input x=(0,3), give the output ŷ to 3 decimals.",
-   a:0.119, tol:0.002, e:"Hidden z=(2·0−1·3+1, 1·0+1·3−1)=(−2,2); ReLU → h=(0,2); z<sub>o</sub>=2·0−1·2+0=−2; ŷ=σ(−2)=0.119. Unit 1 is off. (L15 s15–16.)", src:"L15 s16"},
-  {t:"num", q:"An MLP reads 784 pixels, has one hidden layer of 100 ReLU units and an output layer of 10 units, every unit with a bias. How many parameters in total?",
-   a:79510, unit:"params", e:"Layer 1: 100·784 + 100 = 78,500. Layer 2: 10·100 + 10 = 1,010. Total 79,510. (L15 s34–36.)", src:"L15 s35"},
-  {t:"num", q:"An output layer gives three class scores z=(1,−1,2) and the true class is class 3. Compute the cross-entropy loss of this example (2 decimals).",
-   a:0.35, tol:0.02, e:"Softmax: e<sup>1</sup>,e<sup>−1</sup>,e<sup>2</sup> = 2.718, 0.368, 7.389; sum 10.475; p=(0.259,0.035,0.705). Loss = −ln(0.705) = 0.350. (L15 s53–54.)", src:"L15 s53"},
-  {t:"mc", q:"On the interleaved-arcs data, an MLP with 16 hidden units gets train accuracy 1.00 but held-out 0.90, while 4 units gets 0.98 and 0.94. Which should you keep, and why?",
-   o:["4 units, because it has the highest held-out accuracy; 16 units overfits","16 units, because its training-set accuracy is clearly the highest of the two","16 units, because more hidden units always generalize better","4 units, because a smaller network is always the safer choice"],
-   a:0, e:"Keep the network with the highest <b>held-out</b> accuracy. 16 units memorizes (train 1.00) but generalizes worse (0.90), i.e. it overfits; 4 units fits well at 0.94. (L15 s39–41.)", src:"L15 s40"},
-  {t:"mc", q:"Which statement about the universal approximation theorem is correct?",
-   o:["One hidden layer of enough ReLU units can approximate any continuous function on a bounded region, but it doesn't say how many units or that training finds them","It guarantees that a one-hidden-layer network trained by ordinary gradient descent will reach exactly zero error on both the training set and the test set","It says a deep network is always needed, because one hidden layer cannot represent curved functions","It proves that wider networks always generalize better than narrower ones on new data"],
-   a:0, e:"The theorem is about representational power on a closed bounded region; it is silent on the number of units, on optimization, and on generalization — a net wide enough to fit anything can also fit noise, so size is set by held-out accuracy. (L15 s43.)", src:"L15 s43"},
-  {t:"match", q:"Match each task to the output unit and loss the course pairs with it.",
-   items:["Predict a house price in dollars","Decide whether an email is spam (two classes)","Name which of 10 clothing classes an image shows"],
-   terms:["Identity output, squared error","Sigmoid output, binary cross-entropy","Softmax output, cross-entropy","Tanh output, hinge loss"],
-   a:[0,1,2], e:"Regression → identity + squared error; two classes → sigmoid + binary cross-entropy; K classes → softmax + cross-entropy. (L15 s49, s60.)", src:"L15 s49"},
-  {t:"mc", q:"Why does a confident wrong prediction cost so much under the cross-entropy loss?",
-   o:["The loss is −ln(probability of the true class), which grows without bound as that probability → 0","The loss squares the error, so large mistakes are amplified","The loss simply counts the number of wrong classes, which happens to be largest when the model is confident","The softmax denominator removes the penalty for the true class"],
-   a:0, e:"Cross-entropy charges −ln p<sub>y</sub>. If the model gives the true class a tiny probability, −ln of it is huge; it is near 0 for a confident correct answer. (L15 s52.)", src:"L15 s52"},
-  {t:"num", q:"A batch X holds 64 clothing images of 784 pixels. The hidden layer has 128 units. What is the number of columns of the hidden output matrix H for this batch?",
-   a:128, unit:"columns", e:"H is 64 by 128 — one row per image, one column per hidden unit. (L15 s18–19.)", src:"L15 s19"}
-],
-backprop:[
-  {t:"mc", q:"At a <b>multiply</b> node o = a·b, the upstream gradient is δ. What gradient is sent back to input a?",
-   o:["δ times the other input, b","δ times a itself","δ simply copied over completely unchanged","δ divided by the other input b"],
-   a:0, e:"The multiply gate sends each input the upstream gradient times the <i>other</i> input: ∂o/∂a = b, so a receives δ·b. (An add gate copies δ; ReLU gates it.) (L16 s14–15.)", src:"L16 s14"},
-  {t:"num", q:"A graph computes f=(a+b)·c with a=1, b=3, c=−2. What is the gradient of f with respect to c?",
-   a:4, e:"q=a+b=4, f=q·c=−8. ∂f/∂c = q = 4 (the other input to the multiply). The gradients for a and b are each c=−2. (L16 s16–17.)", src:"L16 s16"},
-  {t:"mc", q:"For a sigmoid output with binary cross-entropy (and for softmax with cross-entropy), the output error δ<sub>o</sub> simplifies to…",
-   o:["prediction minus label (ŷ − y, or p − y for one-hot y)","label minus prediction (y − ŷ)","the sigmoid slope ŷ(1 − ŷ)","minus the natural log of the predicted probability value"],
-   a:0, e:"These output/loss pairs are chosen precisely because the output error is the clean <b>ŷ − y</b> (p − y for softmax), which starts the backward pass. (L16 s22, s34, s57.)", src:"L16 s22"},
-  {t:"num", q:"The tiny network at x=(1,2) gives h=(1,2), ŷ=0.5. With label y=0, what is the output error δ<sub>o</sub>?",
-   a:0.5, e:"δ<sub>o</sub> = ŷ − y = 0.5 − 0 = 0.5. (With y=1 it would be −0.5; every sign flips.) (L16 s28–29.)", src:"L16 s28"},
-  {t:"mc", q:"Backpropagating through a hidden ReLU unit that was <b>off</b> (its pre-activation was negative) on this example does what to the gradient flowing into that unit's weights?",
-   o:["Sets it to 0 — ReLU blocks the gradient where the unit was off","Passes it unchanged — ReLU is linear in the backward pass","Doubles it — the off unit amplifies the error","Reverses its sign — ReLU flips negative inputs"],
-   a:0, e:"The ReLU slope is 0 where the input was negative, so the backward pass multiplies the incoming gradient by 0; that unit's weights get no gradient on this example. (L16 s24, s31.)", src:"L16 s31"},
-  {t:"num", q:"A gradient check: the loss at w=2.01 is 0.688160 and at w=1.99 is 0.698160. Compute the central-difference gradient with ε=0.01.",
-   a:-0.5, tol:0.001, e:"(0.688160 − 0.698160) / (2·0.01) = −0.010 / 0.02 = −0.5. If a student's backward pass returns −1.0, the relative error is 0.5 — far above 1e−6, so the code has a bug. (L16 s42–43.)", src:"L16 s42"},
-  {t:"mc", q:"A gradient check gives relative error ≈ 1e−9 for every output-layer weight but ≈ 0.4 for every hidden-layer weight. Where is the bug most likely?",
-   o:["In the hidden-layer part of the backward pass (the product with W₂, the ReLU slope, or the hidden outer product)","In the output error computation, since that value feeds forward into absolutely everything downstream in the pass","In the forward pass, since the loss itself must be wrong","Nowhere — 0.4 is an acceptable relative error in double precision"],
-   a:0, e:"The output-layer gradients pass (≈1e−9), so the output error and output weights are right; the large error is isolated to the hidden-layer computation. A correct pass is ≈1e−6 or smaller. (L16 s41, s59, s66.)", src:"L16 s59"},
-  {t:"mc", q:"Why do the early layers of a deep network of sigmoid units barely learn?",
-   o:["Each layer multiplies the error by a slope of at most 0.25, so through k layers it shrinks like 0.25^k","Sigmoid units output values strictly between 0 and 1, so the weights themselves can never become negative","The forward pass saturates, so the loss is always zero at the first layer","Backpropagation visits the last layer only once but the first layer k times"],
-   a:0, e:"The backward pass multiplies the error by each layer's activation slope; a sigmoid slope ≤ 0.25, so the product shrinks geometrically and the error reaching layer 1 is tiny (vanishing gradient). ReLU has slope 1 where on, avoiding this. (L16 s55–56.)", src:"L16 s55"},
-  {t:"mc", q:"Compared with checking gradients by numerical differences, backpropagation is cheap because…",
-   o:["it gets all gradients in one forward + one backward pass, while differences need two forward passes per weight","it skips the forward pass entirely and only runs backward","it only ever computes the gradients for the output layer and ignores all of the deeper hidden layers entirely","it uses single-precision numbers, which are faster than double precision"],
-   a:0, e:"One backward pass costs about one forward pass and yields every gradient; central differences cost two forward passes per weight (203,540 passes for the 101,770-parameter network). (L16 s44.)", src:"L16 s44"},
-  {t:"num", q:"Mini-batches of 64 are used on 60,000 training images. How many steps (iterations) are in one epoch? (Round up for the short last batch.)",
-   a:938, unit:"steps", e:"⌈60,000 / 64⌉ = ⌈937.5⌉ = 938 steps per epoch (the last batch holds 32 images). (L16 s47.)", src:"L16 s47"}
-],
-sgd:[
-  {t:"num", q:"A training set has 60,000 images. With a batch size of B=256, how many steps are in one epoch? (The last batch holds whatever is left.)",
-   a:235, unit:"steps", e:"60,000/256 = 234.375 → 234 full batches use 59,904 images, leaving 96, so 235 steps (last batch 96 images). (L17 s9–10.)", src:"L17 s10"},
-  {t:"mc", q:"On Fashion-MNIST, in a fixed amount of training time, which batch size won the race to the highest accuracy?",
-   o:["Mid-size batches (32 to 256) — many cheap, slightly noisy steps beat a few exact full-batch steps","The full batch, because its exact gradient makes the most genuine progress per individual step","B = 1 — the noisiest gradient explores the loss surface best","They all reach the same accuracy, since the gradient is unbiased"],
-   a:0, e:"Full batch took only ~50 steps (0.720); B=32 and B=256 reached ~0.88. Many cheap noisy steps beat a few exact ones, and B=32–256 uses the hardware well. (L17 s19–21.)", src:"L17 s20"},
-  {t:"mc", q:"When gradients are noisier (smaller batches), the learning rate η should generally be…",
-   o:["smaller — a large η lets the noise keep the weights jittering near the bottom","larger — to push through the extra noise faster","unchanged, because η depends only on the network architecture, not on the batch size","set to exactly 1/B — the reciprocal of the batch size"],
-   a:0, e:"Noisier gradients call for a smaller η; otherwise each step follows its own batch and the weights jitter. In a sweep, B=1 failed at η=0.1 but trained at η=0.01. (L17 s26.)", src:"L17 s26"},
-  {t:"num", q:"Momentum with ρ=0.5 and η=0.1 starts at w=1, v=0. The gradients at steps 1, 2, 3 are 2, 2, −2. What is w after step 3? (2 decimals)",
-   a:0.55, tol:0.001, e:"v₁=2→w=0.8; v₂=0.5·2+2=3→w=0.5; v₃=0.5·3−2=−0.5→w=0.5−0.1·(−0.5)=0.55. The stored velocity softens the reversal. (L17 s39–40.)", src:"L17 s39"},
-  {t:"mc", q:"While the gradient stays steady, momentum with ρ=0.9 takes a long-run step of what size, relative to plain SGD?",
-   o:["About 10× the plain step, since the velocity grows toward 1/(1−ρ) = 10 times g","About 0.9× the plain step, since it keeps ninety percent of the old velocity each step","The same as plain SGD, since momentum only changes direction","About 2× the plain step, regardless of ρ"],
-   a:0, e:"Agreeing gradients accumulate, so v → g/(1−ρ). With ρ=0.9 that is 10g, so momentum at η=0.01 tracked plain SGD at η=0.1. (L17 s37, s44.)", src:"L17 s37"},
-  {t:"num", q:"Adam's first step (t=1) on a weight w=0.5 with gradient g=4, using β₁=0.9, β₂=0.999, η=0.001 (ignore ε). What is the new weight? (3 decimals)",
-   a:0.499, tol:0.001, e:"m=0.1·4=0.4, s=0.001·16=0.016; bias-corrected m̂=4, ŝ=16; step = η·m̂/√ŝ = 0.001·4/4 = 0.001; w = 0.5 − 0.001 = 0.499. (L17 s52–53.)", src:"L17 s52"},
-  {t:"mc", q:"What is the main thing Adam does that plain SGD and momentum do not?",
-   o:["It gives each weight its own step size, dividing by the recent size of that weight's gradient","It averages the gradients over several recent steps in order to build up a running velocity term","It lowers the learning rate on a fixed schedule","It adds a penalty on the size of the weights"],
-   a:0, e:"Adam divides each weight's step by √ŝ, the recent root-mean-square of <i>that weight's</i> gradient, so large-gradient and small-gradient directions get appropriately sized steps. (Momentum only accumulates; a schedule only changes a shared η.) (L17 s48–50.)", src:"L17 s48"},
-  {t:"mc", q:"A training run's loss is flat from the very first epoch and never drops. Which is a likely cause?",
-   o:["η is too small, or most ReLU units are dead (loss near ln 10 means chance-level)","η is only slightly too large, so each step keeps overshooting past the minimum repeatedly","The batch size is too large, averaging out all progress","Weight decay λ is negative, inflating the weights"],
-   a:0, e:"A flat-from-the-start mean loss means little learning — η too small, or (at too-large η) many ReLU units turned off and the net guesses uniformly (loss ≈ ln 10 = 2.303). (L17 s30.)", src:"L17 s30"},
-  {t:"mc", q:"Which is a sensible default first choice of optimizer and learning rate for a new network?",
-   o:["Adam with η = 0.001, because it trains well with little tuning","Plain SGD with η = 2.0, because a large step learns fastest","Full-batch gradient descent, because its gradient is exact","Momentum with ρ = 0.99, because more momentum is always better"],
-   a:0, e:"Adam at η=0.001 is the recommended first choice (robust across a wide η range). SGD+momentum 0.9 with a tuned η and schedule is the main alternative. (L17 s56–57.)", src:"L17 s56"},
-  {t:"match", q:"Match each training knob to what it does.",
-   items:["Momentum coefficient ρ","Step decay schedule","Mini-batch size B","Adam's second moment s"],
-   terms:["Accumulates agreeing gradients into a velocity","Divides η by a factor at chosen epochs","Trades gradient noise against cost per step","Tracks each weight's squared gradient for per-weight scaling"],
-   a:[0,1,2,3], e:"ρ builds velocity; step decay lowers η; B sets the noise/cost trade-off; Adam's s (running average of g²) scales each weight's step. (L17 s27, s36, s49.)", src:"L17 s27–49"}
-],
-reg:[
+decay:[
   {t:"num", q:"Weight decay with λ=0.1 and η=0.1. A weight w=2 has data-loss gradient 0.5. What is the weight after one step? (2 decimals)",
    a:1.93, tol:0.001, e:"Shrink factor (1 − ηλ) = 1 − 0.01 = 0.99, so 0.99·2 = 1.98, then minus η·gradient = 1.98 − 0.1·0.5 = 1.93. (L18 s6–8.)", src:"L18 s7"},
   {t:"mc", q:"Weight decay adds (λ/2)·Σw² to the loss. Compared with no decay, a larger λ tends to…",
-   o:["shrink the weights and reduce the train–validation gap, but too large a λ also hurts validation","increase the weights steadily, letting the network fit the training data much more closely each step","leave the weights unchanged but lower the training loss","set weights to exactly zero one at a time, like the lasso"],
-   a:0, e:"Decay shrinks weights each step; a larger λ narrows the gap (less overfitting), but too much stops the net from fitting real patterns and validation falls. Choose λ on validation. Biases aren't penalized. (L18 s6, s10.)", src:"L18 s10"},
+   o:["shrink the weights and reduce the train–validation gap, but too large a λ also hurts validation","increase the weights steadily, so the network can fit the training set more and more closely over time","leave the weights unchanged but steadily lower the loss on the training set alone","drive several weights to exactly zero one at a time, exactly the way the lasso does"],
+   a:0, e:"Decay shrinks weights each step; a larger λ narrows the gap (less overfitting), but too much stops the net fitting real patterns and validation falls. Choose λ on validation; biases aren't penalized. (L18 s6, s10.)", src:"L18 s10"},
+  {t:"mc", q:"Why is the ridge-penalty training step called weight <b>decay</b>?",
+   o:["Each step multiplies every weight by (1 − ηλ), just below 1, before the usual gradient step","Each step adds a small constant to every weight, so the weights slowly drift upward over time","It gradually lowers the learning rate η toward zero as the number of epochs increases","It removes a random fraction of the weights at each step, as inverted dropout does"],
+   a:0, e:"The penalty's gradient is λw, so the update first scales each weight by (1 − ηλ) — a slow shrink toward 0 — then takes the data-loss step. (L18 s6.)", src:"L18 s6"},
   {t:"num", q:"Validation losses after epochs 1–10 are 0.90, 0.70, 0.62, 0.60, 0.61, 0.59, 0.63, 0.64, 0.66, 0.65. With early stopping at patience 3, which epoch's weights are returned?",
-   a:6, unit:"(epoch)", e:"The lowest loss is 0.59 at epoch 6. Epochs 7, 8, 9 don't beat it, so after epoch 9 three epochs have passed without improvement and training stops, returning epoch 6's weights. (L18 s14–15.)", src:"L18 s14"},
+   a:6, unit:"(epoch)", e:"The lowest loss is 0.59 at epoch 6. Epochs 7, 8, 9 don't beat it, so after epoch 9 three epochs have passed without improvement; training stops and returns epoch 6's weights. (L18 s14–15.)", src:"L18 s14"},
+  {t:"mc", q:"Early stopping decides when to stop training by…",
+   o:["tracking the validation loss and returning the weights from the best epoch after a patience of no improvement","stopping as soon as the training loss stops falling any further, and then returning the very final epoch's weights","stopping once the training accuracy reaches 1.000, since the network has then learned the data","running a fixed number of epochs chosen in advance, regardless of the validation curve"],
+   a:0, e:"Keep a copy of the best-validation-loss weights; stop when it hasn't improved for <i>patience</i> epochs and return that kept copy — not the final epoch. (L18 s13.)", src:"L18 s13"},
+  {t:"num", q:"Weight decay with λ=0.001 and η=0.1. A weight has data-loss gradient 0 at every step. By what factor is the weight multiplied each step? (4 decimals)",
+   a:0.9999, tol:0.00005, e:"With zero data gradient, only the decay acts: factor (1 − ηλ) = 1 − 0.1·0.001 = 0.9999. Over 1,000 steps ≈ 0.905 of the weight is left. (L18 s39, s46.)", src:"L18 s39"}
+],
+dropout:[
   {t:"mc", q:"With inverted dropout at rate p during training, what happens at <b>test</b> time?",
-   o:["Nothing is dropped and nothing is rescaled — the training rescaling already kept each unit's average output","Each unit is independently dropped with probability p, exactly the same way it was during the training phase","Every unit's output is divided by (1−p)","Half the units are dropped regardless of p"],
-   a:0, e:"Training keeps units with prob 1−p and rescales them by 1/(1−p) so the average output matches the full output; at test time the full network runs with no dropping and no rescaling. (L18 s17–18, s40.)", src:"L18 s17"},
+   o:["Nothing is dropped and nothing is rescaled — the training rescaling already fixed each unit's average output","Each hidden unit is independently dropped with probability p, exactly as it was during the training phase","Every unit's output is divided by (1−p), to undo the scaling that was applied during training","Exactly half of the hidden units are dropped, no matter what value p was set to during training"],
+   a:0, e:"Training keeps units with prob 1−p and rescales by 1/(1−p) so the average matches the full output; at test time the full network runs with no dropping and no rescaling. (L18 s17–18, s40.)", src:"L18 s17"},
   {t:"num", q:"A hidden layer has outputs h=(1,2,1), output weights w₂=(1,1,−1), bias 0. Dropout p=0.5 draws mask r=(1,0,1). What is the output pre-activation z<sub>o</sub> at <b>test</b> time?",
    a:2, e:"At test time no mask is applied: z<sub>o</sub> = 1·1 + 1·2 + (−1)·1 = 2. (During that training step with the mask, h̃=(2,0,2) and z<sub>o</sub>=0.) (L18 s21–22.)", src:"L18 s21"},
-  {t:"mc", q:"If every weight and bias of a network is initialized to 0, what happens during training?",
-   o:["It is stuck: every hidden output is 0, so all weights get zero gradient except the output bias — it stays at chance","It converges unusually quickly, because zero is a perfectly neutral and unbiased starting point for every weight","Only the first layer learns; the deeper layers stay at 0","It overfits immediately, because symmetric weights memorize the data"],
-   a:0, e:"All-zero → hidden outputs 0 → output weights get 0 gradient; the hidden error is the output error times w₂=0, so hidden weights get 0 too. Only the output bias moves; measured test accuracy stayed at chance (0.100). (L18 s25.)", src:"L18 s25"},
-  {t:"mc", q:"He initialization for a ReLU layer draws each weight from a normal distribution with mean 0 and variance…",
-   o:["2 / n_in, with biases 0 — the 2 offsets ReLU zeroing about half the outputs","1 / n_in, with the biases also drawn from the same random normal distribution","n_in / 2, so larger layers start larger","0, so every unit starts identical"],
-   a:0, e:"He init uses variance 2/n_in (biases 0). The factor 2 compensates for ReLU setting ~half the outputs to 0, keeping each layer's spread steady with depth. (L18 s28–29.)", src:"L18 s29"},
-  {t:"num", q:"Batch norm on one unit with pre-activations z=(−4,2,4,10) over a mini-batch of 4 (divide by 4), with γ=2, β=1. The batch mean is 3; what is the batch variance?",
-   a:25, e:"Variance = ((−7)² + (−1)² + 1² + 7²)/4 = (49+1+1+49)/4 = 100/4 = 25 (std 5). Then ẑ=(−1.4,−0.2,0.2,1.4) and y=γẑ+β=(−1.8,0.6,1.4,3.8). (L18 s33–34.)", src:"L18 s33"},
-  {t:"mc", q:"A batch-normalized network is evaluated on single test images, each normalized with the mean and variance of its own batch of one. What goes wrong, and the fix?",
-   o:["ẑ = 0 for every unit (a single value has 0 variance), so every image gives the same output — use the running averages from training instead","Nothing goes wrong at all, because batch normalization behaves exactly the same way on a single image as it does on a full mini-batch","The variance explodes, so use a smaller learning rate","The γ and β values must be recomputed per image"],
-   a:0, e:"With one value, z−mean=0 and variance=0, so every unit outputs its β and accuracy falls to chance. Test time must use the <b>running averages</b> of mean/variance kept during training. (L18 s35, s41, s48.)", src:"L18 s41"},
-  {t:"mc", q:"Besides fighting overfitting, why is batch normalization useful during training?",
-   o:["It keeps each layer's inputs at a steady scale, so larger learning rates stay stable and deep nets train faster","It completely removes the need for any nonlinear activation function between the hidden layers of the network","It guarantees the weights stay exactly unit-norm","It replaces the need for a loss function on the output"],
-   a:0, e:"Standardizing each layer's pre-activations keeps their scale steady, which stabilizes larger η and speeds deep training (at η=1.0 a deep net trained with BN but stalled at chance without it). (L18 s36–37.)", src:"L18 s36"}
+  {t:"num", q:"Inverted dropout uses rate p=0.2 on a hidden layer. By what factor are the kept units multiplied during training? (2 decimals)",
+   a:1.25, tol:0.001, e:"Kept units are scaled by 1/(1−p) = 1/0.8 = 1.25, so each unit's average output matches the full (no-dropout) output. (L18 s18, s40, s47.)", src:"L18 s40"},
+  {t:"mc", q:"Why does dropout reduce overfitting?",
+   o:["A unit can't rely on any one neighbor (which might be off), so each must be useful on its own","It permanently removes the least useful hidden units, giving a smaller, simpler architecture","It lowers the learning rate for the dropped units, so their weights change more slowly","It adds a penalty on the size of the weights, exactly like the ridge weight-decay term"],
+   a:0, e:"Because any neighbor may be off, no unit can depend on a brittle co-adaptation; each step trains a different sub-network and test time ≈ their average. The architecture is unchanged. (L18 s20.)", src:"L18 s20"},
+  {t:"mc", q:"During training, how often is a new dropout mask drawn?",
+   o:["A fresh random choice for every unit, for every example, at every training step","Once per epoch, then reused for all the examples until the next epoch begins","Once at the start of training, so the same units stay off for the whole run","Only for the examples the network currently gets wrong, to focus on hard cases"],
+   a:0, e:"Each step switches off each hidden unit independently with probability p, and the random mask is drawn fresh for every example at every step. (L18 s17.)", src:"L18 s17"}
 ],
-cnn:[
+init:[
+  {t:"mc", q:"If every weight and bias of a ReLU network is initialized to 0, what happens during training?",
+   o:["It is stuck: every hidden output is 0, so all weights get zero gradient except the output bias — chance level","It converges quickly, because zero is a perfectly neutral and unbiased starting point for every single weight","Only the first hidden layer learns, while every deeper layer stays frozen at its initial zeros","It overfits almost immediately, because the symmetric zero weights memorize the training data"],
+   a:0, e:"All-zero → hidden outputs 0 → output weights get 0 gradient; the hidden error is the output error times w₂=0, so hidden weights get 0 too. Only the output bias moves; accuracy stayed at chance (0.100). (L18 s25.)", src:"L18 s25"},
+  {t:"mc", q:"Two hidden units start with identical weights and biases. What happens to them over training, and what fixes it?",
+   o:["They get identical gradients every step, so they stay identical; random initial weights break the symmetry","They slowly diverge all on their own, because tiny floating-point rounding differences make their updates differ","They specialize immediately, because each sees a different part of the input image","One of them is automatically dropped, because the network detects the duplicate unit"],
+   a:0, e:"Identical units get the same gradient on every step and stay identical, never specializing. Random starting weights give them different values and break the symmetry. (L18 s26–27.)", src:"L18 s26"},
+  {t:"mc", q:"He initialization for a ReLU layer draws each weight from a normal distribution with mean 0 and variance…",
+   o:["2 / n_in, with biases 0 — the factor 2 offsets ReLU zeroing about half the outputs","1 / n_in, with the biases also drawn from that same normal distribution each time","n_in / 2, so that layers with more incoming connections simply start with larger weights","0, so that every unit in the layer starts from exactly the same neutral value"],
+   a:0, e:"He init uses variance 2/n_in (biases 0). The 2 compensates for ReLU setting ~half the outputs to 0, keeping each layer's spread steady with depth. (L18 s28–29.)", src:"L18 s29"},
+  {t:"mc", q:"In a deep ReLU network, starting weights with variance 1/n_in (too small) rather than 2/n_in causes…",
+   o:["the spread of each layer's outputs to shrink with depth (0.279 to 0.041 over six layers)","the spread to grow without bound, so the activations explode by the final layer","the units to all become identical, exactly as all-zero weights would make them","the training loss to immediately overfit, reaching 1.000 training accuracy in one epoch"],
+   a:0, e:"With variance 1/n_in the spread shrank layer by layer (0.279 → 0.041 over 6 layers), and gradients can shrink the same way; variance 4/n_in makes it grow (0.558 → 2.647). He's 2/n_in keeps it ≈ 0.33–0.40. (L18 s28.)", src:"L18 s28"}
+],
+bn:[
+  {t:"num", q:"Batch norm on one unit with pre-activations z=(−4, 2, 4, 10) over a mini-batch of 4 (divide by 4). The batch mean is 3. What is the batch variance?",
+   a:25, e:"Variance = ((−7)² + (−1)² + 1² + 7²)/4 = (49+1+1+49)/4 = 100/4 = 25 (std 5). Then ẑ=(−1.4,−0.2,0.2,1.4) and, with γ=2, β=1, y=γẑ+β=(−1.8,0.6,1.4,3.8). (L18 s33–34.)", src:"L18 s33"},
+  {t:"mc", q:"What does the batch-normalization transform do to a unit's pre-activations?",
+   o:["Standardizes them over the mini-batch, then scales by a learned γ and shifts by a learned β","Divides every pre-activation by the largest value in the batch, so they all lie between 0 and 1","Replaces each pre-activation with the batch mean, so every example gets the same value","Adds Gaussian noise with variance 2/n_in to each pre-activation, like He initialization"],
+   a:0, e:"For each unit, subtract the batch mean and divide by the batch std, then apply a per-unit learned scale γ and shift β: y = γẑ + β. (L18 s32.)", src:"L18 s32"},
+  {t:"mc", q:"A batch-normalized network is tested on single images, each normalized with its own batch-of-one statistics. What goes wrong, and the fix?",
+   o:["ẑ = 0 for every unit (one value has zero variance), so every image gives the same output — use the running averages from training","Nothing goes wrong at all, because batch normalization behaves in exactly the same way on a single image as it does on a full mini-batch","The variance of each unit explodes, so the fix is simply to train with a much smaller learning rate","The learned γ and β values must be recomputed from scratch for each individual test image"],
+   a:0, e:"With one value, z−mean=0 and variance=0, so every unit outputs its β and accuracy falls to chance. Test time must use the <b>running averages</b> of mean/variance kept during training. (L18 s35, s41, s48.)", src:"L18 s41"},
+  {t:"mc", q:"Besides reducing overfitting, why is batch normalization useful during training?",
+   o:["It keeps each layer's inputs at a steady scale, so larger learning rates stay stable and deep nets train faster","It removes the need for any nonlinear activation function between the hidden layers of the network","It guarantees that every single weight in the network keeps an exactly unit (length-one) norm all throughout training","It takes the place of the loss function, computing the training error directly from the output layer"],
+   a:0, e:"Standardizing each layer's pre-activations keeps their scale steady, stabilizing larger η and speeding deep training (at η=1.0 a deep net trained with BN but stalled at chance without it). (L18 s36–37.)", src:"L18 s36"},
+  {t:"mc", q:"During training (not test), which statistics does batch norm use to standardize a unit?",
+   o:["The mean and variance of that unit over the current mini-batch, while also updating running averages","The running averages kept from all of the previous batches, so that the result stays stable across steps","The mean and variance of the whole training set, computed once before training begins","The learned γ and β, which already encode the correct scale and shift for each unit"],
+   a:0, e:"In training each mini-batch uses its own mean/variance, and running averages are updated across batches for later use at test time. (L18 s35.)", src:"L18 s35"}
+],
+conv:[
+  {t:"num", q:"A 3×3 window of an image holds the rows (3,0,1), (2,1,0), (0,4,2). The kernel rows are (1,0,−1), (1,0,−1), (1,0,−1) and the bias is b=1. What is the output value at this position?",
+   a:3, e:"Products summed: row1 3−1=2, row2 2−0=2, row3 0−2=−2 → sum 2, plus bias 1 → output 3. (L19 s14–15.)", src:"L19 s14"},
+  {t:"mc", q:"What does a convolution layer compute at each position?",
+   o:["It multiplies a small shared kernel by the patch under it, adds the products plus a bias, giving one feature-map value","It takes the maximum pixel value in the patch under it, exactly like a small learnable version of a max-pooling step","It flattens the whole image into a vector and gives every pixel its own separate weight","It standardizes the patch to mean 0 and variance 1, then scales it by a learned factor"],
+   a:0, e:"Place the kernel on a window, multiply each weight by the pixel under it, add the products plus the bias → one output; the grid of outputs is the feature map. (L19 s7–8.)", src:"L19 s7"},
+  {t:"mc", q:"A kernel whose columns are (−1, 0, +1) responds most strongly to…",
+   o:["vertical edges — it computes right-minus-left, giving 0 on flat regions and on horizontal edges","horizontal edges — it computes top-minus-bottom, giving 0 on flat regions and on vertical edges","bright blobs — it sums all nine pixels, so it is largest where the whole patch is bright","fine texture — it responds only to single bright pixels surrounded by dark pixels"],
+   a:0, e:"Columns (−1,0,+1) give each output as the right column minus the left column (summed down rows), so it fires on vertical edges and is 0 on flat regions and horizontal edges. (L19 s12.)", src:"L19 s12"},
+  {t:"mc", q:"If the edge in an image moves one column to the left, the output of the same convolution kernel…",
+   o:["moves one column to the left as well — the same patch gives the same response wherever it sits","stays in exactly the same place, because the kernel is centered on the whole image","changes into a completely different pattern, because each position has its own separate weights","disappears, because the kernel only fires at the one position where it was trained"],
+   a:0, e:"The same kernel is applied at every position (weight sharing), so a given patch produces the same response wherever it is — the response moves with the pattern. (L19 s13.)", src:"L19 s13"}
+],
+size:[
   {t:"num", q:"A 28×28 image is convolved with a 5×5 kernel, no padding, stride 1. What is the output width?",
-   a:24, unit:"px", e:"m = ⌊(n + 2p − k)/s⌋ + 1 = (28 + 0 − 5)/1 + 1 = 24. (With a 3×3 kernel and p=1, s=1 it would stay 28.) (L19 s18–20.)", src:"L19 s19"},
+   a:24, unit:"px", e:"m = ⌊(n + 2p − k)/s⌋ + 1 = (28 + 0 − 5)/1 + 1 = 24. (With a 3×3 kernel, p=1, s=1 it would stay 28.) (L19 s18–20.)", src:"L19 s19"},
   {t:"num", q:"A 7×7 input, a 3×3 kernel, no padding, stride s=2. What is the output width?",
-   a:3, unit:"px", e:"m = ⌊(7 + 0 − 3)/2⌋ + 1 = ⌊4/2⌋ + 1 = 2 + 1 = 3. Round the fraction down when s doesn't divide evenly. (L19 s21–22.)", src:"L19 s21"},
+   a:3, unit:"px", e:"m = ⌊(7 + 0 − 3)/2⌋ + 1 = ⌊4/2⌋ + 1 = 2 + 1 = 3. Round the fraction down when the stride doesn't divide evenly. (L19 s21–22.)", src:"L19 s21"},
+  {t:"num", q:"A 14×14 map goes through a 3×3 convolution (no padding, stride 1), then a 2×2 max pool with stride 2. What is the width after the pooling?",
+   a:6, unit:"px", e:"Conv: (14 − 3)/1 + 1 = 12. Pool: (12 − 2)/2 + 1 = 6. (L19 s54, s60.)", src:"L19 s54"},
+  {t:"mc", q:"What does zero padding (p ≥ 1) accomplish?",
+   o:["It adds a border of zeros so the output can keep the input's size (3×3 kernel, p=1, s=1 preserves it)","It removes the border pixels, so the output is always smaller and the edges are discarded","It multiplies the border pixels by a special learned weight, so the edges end up counting more than the center","It increases the stride automatically, so the window skips past the border of the image"],
+   a:0, e:"Padding adds p rings of zeros before sliding; with a 3×3 kernel, p=1, s=1 a 5×5 input gives a 5×5 output (same size). Zeros can create false edges at the border. (L19 s17.)", src:"L19 s17"},
+  {t:"mc", q:"When the stride s does not divide (n + 2p − k) evenly, the output-size rule…",
+   o:["rounds the fraction down, because a partial window at the edge is simply dropped","rounds the fraction up, because the last partial window is padded and still used","raises an error, because the kernel no longer fits over the padded input at all","adds one extra output pixel for every leftover input pixel beyond the last window"],
+   a:0, e:"m = ⌊(n + 2p − k)/s⌋ + 1 rounds down — a partial window that doesn't fully fit is dropped. (L19 s18.)", src:"L19 s18"}
+],
+params:[
   {t:"num", q:"A convolution layer has 16 filters of size 5×5 and reads a color image with 3 channels. How many parameters (weights and biases)?",
    a:1216, unit:"params", e:"Each filter: 3·5·5 = 75 weights; 16 filters → 1,200 weights + 16 biases = 1,216. Params = C_out·(C_in·k·k) + C_out. (L19 s26, s30–31.)", src:"L19 s30"},
+  {t:"num", q:"A convolution layer has 4 filters of size 3×3 and reads an input with 2 channels. How many parameters (weights and biases)?",
+   a:76, unit:"params", e:"Each filter: 2·3·3 = 18 weights; 4 filters → 72 weights + 4 biases = 76. (L19 s55, s61.)", src:"L19 s55"},
   {t:"mc", q:"The two properties that let a convolution layer use far fewer weights than a dense layer are…",
-   o:["local connectivity (each output sees a small patch) and weight sharing (the same kernel at every position)","deep stacking of many layers together with batch normalization applied before each and every activation step","max pooling and dropout","large strides and zero padding"],
-   a:0, e:"Local connectivity means an output depends only on a small patch; weight sharing means one kernel (9 weights + 1 bias for 3×3) is reused everywhere, for any image size. (L19 s25.)", src:"L19 s25"},
+   o:["local connectivity (each output sees only a small patch) and weight sharing (the same kernel at every position)","deep stacking of many layers together with batch normalization applied carefully before each and every activation","max pooling after each layer and dropout on the hidden units, which together remove most of the weights","large strides and heavy zero padding, which together shrink the maps and so cut the parameter count"],
+   a:0, e:"Local connectivity: an output depends only on a small patch. Weight sharing: one kernel (9 weights + 1 bias for 3×3) is reused everywhere, for any image size. (L19 s25.)", src:"L19 s25"},
   {t:"mc", q:"Because a convolution reuses the same kernel at every position, its parameter count…",
-   o:["does not depend on the image size — the same 3×3 filter works on a 28×28 or a 56×56 image","grows with the square of the image width","grows linearly with the total number of output pixels in each feature map that it produces","is always larger than a dense layer's"],
+   o:["does not depend on the image size — the same 3×3 filter has 80 params on a 28×28 or a 56×56 image","grows with the square of the image width, since larger images have many more output pixels","grows linearly with the total number of output pixels in each feature map that the layer produces","is always larger than the equivalent dense layer's, because it is applied at many positions"],
    a:0, e:"Weights are shared across positions, so a larger image needs no new parameters — conv1 (8 filters, 3×3) has 80 params on 28×28 and the same 80 on 56×56 (output 8×56×56). (L19 s25, s56, s62.)", src:"L19 s56"},
+  {t:"mc", q:"In the second convolution layer, how many weights does one 3×3 filter have if the layer reads 8 input channels?",
+   o:["72 — a filter spans all input channels, so it is a 3×3×8 block (plus one bias)","9 — a 3×3 filter always has nine weights, regardless of the number of channels","24 — three weights for each of the eight channels, one per row of the kernel","8 — one shared weight per input channel, reused across the 3×3 window"],
+   a:0, e:"A next-layer filter spans <b>all</b> input channels: 3·3·8 = 72 weights, which it sums into one output value, plus one bias. (L19 s28.)", src:"L19 s28"}
+],
+pool:[
   {t:"num", q:"Max pooling with 2×2 blocks and stride 2 is applied to the map rows (2,7,1,0), (5,3,4,4), (0,0,1,3), (6,1,2,2). What is the value of the top-left pooled cell?",
-   a:7, e:"The top-left 2×2 block is {2,7,5,3}; its max is 7. (Full pooled grid: rows (7,4) and (6,3).) Pooling halves H and W, has no weights, and works per channel. (L19 s35–36.)", src:"L19 s35"},
-  {t:"num", q:"The course CNN: input 1×28×28 → conv1 (8 filters, 3×3, pad 1, stride 1) → 2×2 pool → conv2 (16 filters, 3×3, pad 1) → 2×2 pool → flatten. What is the flattened length?",
+   a:7, e:"The top-left 2×2 block is {2,7,5,3}; its max is 7. (Full pooled grid: rows (7,4) and (6,3).) (L19 s35–36.)", src:"L19 s35"},
+  {t:"num", q:"The course CNN: input 1×28×28 → conv1 (8 filters, 3×3, pad 1) → 2×2 pool → conv2 (16 filters, 3×3, pad 1) → 2×2 pool → flatten. What is the flattened length?",
    a:784, unit:"values", e:"conv1 keeps 28×28 (pad 1) → 8×28×28; pool → 8×14×14; conv2 → 16×14×14; pool → 16×7×7; flatten → 16·7·7 = 784. (L19 s37–40.)", src:"L19 s39"},
-  {t:"mc", q:"An MLP and a CNN are tested on images shifted two pixels right. The CNN keeps much more accuracy than the MLP mainly because…",
-   o:["weight sharing makes the same patch give the same response anywhere, and pooling absorbs small shifts","the CNN simply has many more parameters available to memorize every possible shift of the input image","the MLP uses ReLU while the CNN uses sigmoid","the CNN is trained for more epochs than the MLP"],
-   a:0, e:"A shared kernel responds the same wherever a pattern sits, and 2×2 max pooling often keeps the same maximum under a one-pixel shift — so the CNN (0.894→0.745) degrades far less than the flattening MLP (0.876→0.524). The CNN actually has ~11× <i>fewer</i> parameters. (L19 s3–4, s13, s34.)", src:"L19 s34"},
+  {t:"mc", q:"Which statement about 2×2 max pooling (stride 2) is correct?",
+   o:["It keeps the largest value of each block, halves height and width, and has no weights to learn","It averages the four values of each block, halves the size, and learns one weight per block","It keeps the largest value of each block, but doubles the height and width of the map","It keeps every value but reorders them, so the map size and the parameter count are unchanged"],
+   a:0, e:"Max pooling keeps the max of each non-overlapping 2×2 block → halves H and W, works per channel, and has no parameters; it gains shift tolerance but loses exact position. (L19 s33–34.)", src:"L19 s33"},
   {t:"mc", q:"As you go deeper in a CNN (conv → pool → conv), the receptive field of a unit…",
-   o:["grows — a conv1 output sees 3×3, but after a 2×2 pool a conv2 output sees an 8×8 patch of the image","stays fixed at 3×3, because every convolution layer in the network uses the same 3×3 kernel size","shrinks, because pooling discards pixels","covers the whole image already at the first layer"],
+   o:["grows — a conv1 output sees 3×3, but after a 2×2 pool a conv2 output sees an 8×8 patch of the image","stays fixed at 3×3, because every convolution layer in the network uses the same 3×3 kernel size","shrinks steadily, because each pooling step discards three of every four values in the map","already covers the entire image at the very first convolution layer, before any pooling at all"],
    a:0, e:"conv1 sees 3×3; a 2×2 pool makes each pooled value cover 4×4; a conv2 over 3×3 pooled values then sees 8×8 — so early filters find edges and later layers combine them over larger regions. (L19 s48.)", src:"L19 s48"},
+  {t:"mc", q:"An MLP and a CNN are tested on images shifted two pixels. The CNN keeps far more accuracy (0.894→0.745 vs 0.876→0.524) mainly because…",
+   o:["weight sharing makes a patch give the same response anywhere, and pooling absorbs small shifts","the CNN has many more parameters available to memorize every possible shift of the input image","the CNN happens to use ReLU activations while the flattening MLP uses sigmoid activations","the CNN was simply trained for many more epochs than the MLP on the shifted images"],
+   a:0, e:"A shared kernel responds the same wherever a pattern sits, and 2×2 max pooling often keeps the same maximum under a one-pixel shift — so the CNN degrades far less, with ~11× <i>fewer</i> parameters. (L19 s3–4, s13, s34.)", src:"L19 s34"},
   {t:"match", q:"Match each CNN component to what it contributes.",
    items:["Convolution filter","Max pooling","Padding","Stride"],
    terms:["Slides shared weights over a patch to make a feature map","Halves height/width and adds small shift tolerance, no weights","Adds a border of zeros so the output can keep the input size","Moves the window more than one pixel, shrinking the output"],
@@ -556,11 +518,11 @@ const TYPE_LABEL = {mc:"Multiple Choice", ms:"Multiple Answer", num:"Compute", m
 const SCORED = {mc:1, ms:1, num:1, match:1, sa:0};
 
 const store=(()=>{try{const t="__t";localStorage.setItem(t,"1");localStorage.removeItem(t);return localStorage;}catch(e){return null;}})();
-const KEY="nn-rev-progress-v1";
+const KEY="nn-l1819-progress-v1";
 let state={}; try{ if(store) state=JSON.parse(store.getItem(KEY)||"{}"); }catch(e){ state={}; }
 function save(){ try{ store && store.setItem(KEY, JSON.stringify(state)); }catch(e){} }
-let flags={}; try{ if(store) flags=JSON.parse(store.getItem("nn-rev-flags")||"{}"); }catch(e){ flags={}; }
-function saveFlags(){ try{ store && store.setItem("nn-rev-flags", JSON.stringify(flags)); }catch(e){} }
+let flags={}; try{ if(store) flags=JSON.parse(store.getItem("nn-l1819-flags")||"{}"); }catch(e){ flags={}; }
+function saveFlags(){ try{ store && store.setItem("nn-l1819-flags", JSON.stringify(flags)); }catch(e){} }
 
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function seededPerm(n, seed){
@@ -590,47 +552,44 @@ const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let activePart=null, cramPinned=false, curFilter="all";
 
 const CRAM_HTML=`<div class="cram">
-<h5>MLP (L15)</h5>
+<h5>Weight decay & early stopping</h5>
 <ul>
-<li>Layer: <code>z = Wx + b</code>, W is units×inputs. ReLU default hidden; <b>negative → off</b>.</li>
-<li>No activation ⇒ layers <b>collapse</b> to one line. Universal approx: enough ReLU units fit anything, size set by held-out.</li>
-<li>Params/layer = inputs·units + units. 784-128-10 = <b>101,770</b>.</li>
-<li>Output/loss: regression=identity/squared · 2-class=sigmoid/BCE · K-class=softmax/cross-entropy (<code>−ln p<sub>y</sub></code>).</li>
+<li>Weight decay = ridge; shrink factor <b>(1 − ηλ)</b> each step, biases not penalized. Choose λ on validation.</li>
+<li>Bigger λ → smaller weights, smaller gap, but too big hurts validation.</li>
+<li>Early stopping: keep the <b>best-validation-loss</b> epoch, stop after <b>patience</b> with no improvement.</li>
 </ul>
-<h5>Backprop (L16)</h5>
+<h5>Dropout</h5>
 <ul>
-<li>Node: upstream × local gradient. Add copies · multiply swaps inputs · ReLU gates (0 where off).</li>
-<li><b>Output error δ<sub>o</sub> = ŷ − y</b> (p − y). Hidden: δ<sub>o</sub>W₂ then ×ReLU slope; ∇W = δ·xᵀ.</li>
-<li>Check: central diff, rel. error ≈1e−6 ok, ≥0.01 bug. One backward ≈ one forward pass.</li>
-<li>Deep sigmoid: error shrinks like <b>0.25<sup>k</sup></b> (vanishing); ReLU slope 1 avoids it.</li>
+<li>Training: drop each hidden unit with prob <b>p</b> (fresh mask per example per step), rescale kept units by <b>1/(1−p)</b>.</li>
+<li><b>Test: nothing dropped, nothing rescaled.</b> Why: no unit can rely on one neighbor.</li>
 </ul>
-<h5>SGD & optimizers (L17)</h5>
+<h5>Initialization</h5>
 <ul>
-<li>Mini-batch = cheap noisy gradient; <b>B=32–256</b> fastest. Epoch = ⌈N/B⌉ steps.</li>
-<li>Noisier ⇒ smaller η. Step decay: ÷10 when loss stalls. Judge by epoch-mean loss.</li>
-<li>Momentum <code>v←ρv+g</code>; steady ⇒ <b>1/(1−ρ)</b>× step (ρ=0.9 → 10×).</li>
-<li>Adam: m (g), s (g²), bias-correct, <code>w−η·m̂/√ŝ</code>. Defaults β₁=0.9, β₂=0.999, η=0.001.</li>
+<li>All-zero ⇒ stuck at chance; equal weights ⇒ identical units. Random <b>breaks symmetry</b>.</li>
+<li><b>He init</b>: Normal(0, <b>2/n<sub>in</sub></b>), biases 0 — the 2 offsets ReLU zeroing half the outputs.</li>
 </ul>
-<h5>Regularization (L18)</h5>
+<h5>Batch norm</h5>
 <ul>
-<li>Weight decay = ridge; shrink factor <b>(1−ηλ)</b>, biases not penalized.</li>
-<li>Early stopping: keep best-val epoch, stop after <b>patience</b> with no improvement.</li>
-<li>Dropout p in training (rescale <b>1/(1−p)</b>); <b>test: none dropped, none rescaled</b>.</li>
-<li>All-zero/equal ⇒ stuck/identical. <b>He init</b> variance <b>2/n<sub>in</sub></b>. Batch norm: standardize per batch, <b>test uses running averages</b>, enables larger η.</li>
+<li>Standardize each unit over the mini-batch, then <b>γ·ẑ + β</b> (learned per unit).</li>
+<li><b>Test uses running averages</b> (batch-of-one → ẑ=0, chance). Enables larger η, faster deep training.</li>
 </ul>
-<h5>CNNs (L19)</h5>
+<h5>Convolution (L19)</h5>
 <ul>
-<li>Output width <code>m = ⌊(n+2p−k)/s⌋+1</code>. 3×3 pad1 s1 keeps size.</li>
-<li>Params = <b>C<sub>out</sub>·(C<sub>in</sub>·k·k)+C<sub>out</sub></b>, independent of image size.</li>
-<li><b>Local connectivity + weight sharing</b> → few weights, shift-robust. Max pool 2×2: halve, no weights.</li>
-<li>Receptive field grows with depth (3×3 → pool → 8×8). CNN 9,098 params, 0.894 &gt; MLP.</li>
+<li>Slide kernel, multiply-add + bias → feature map. Columns (−1,0,1) → vertical edges; response moves with the pattern.</li>
+<li>Output width <code>m = ⌊(n+2p−k)/s⌋+1</code>. 3×3 pad1 s1 keeps size. Round down.</li>
+</ul>
+<h5>Params, pooling, CNN</h5>
+<ul>
+<li><b>Local connectivity + weight sharing</b> → one filter for any image size. Params = <b>C<sub>out</sub>·(C<sub>in</sub>·k·k)+C<sub>out</sub></b> (image-size independent). Next-layer filter spans all channels.</li>
+<li>Max pool 2×2: halve H/W, <b>no weights</b>, shift tolerance. Receptive field grows (3×3 → 8×8).</li>
+<li>Course CNN 9,098 params, test 0.894 (MLP 101,770 at 0.886); far more robust to shifts.</li>
 </ul>
 </div>`;
 
 /* ---- build exam ---- */
 let qnum=0;
 SECTIONS.forEach((sec,si)=>{
-  const hue=`var(--t${si})`;
+  const hue=`var(--t${si%6})`;
   const ph=document.createElement("div");
   ph.className="part-head"; ph.id="part-"+sec.id; ph.style.setProperty("--hue",hue);
   ph.innerHTML=`<div class="part-kicker">${sec.tag}</div><h2>${sec.title}</h2><p>${sec.blurb}</p>`;
@@ -874,25 +833,25 @@ cramChip.addEventListener("click",()=>showCram());
 gnav.appendChild(cramChip);
 SECTIONS.forEach((sec,si)=>{
   const chip=document.createElement("button");
-  chip.className="gchip"; chip.id="gchip-"+sec.id; chip.type="button"; chip.style.setProperty("--gh",`var(--t${si})`);
+  chip.className="gchip"; chip.id="gchip-"+sec.id; chip.type="button"; chip.style.setProperty("--gh",`var(--t${si%6})`);
   chip.innerHTML=`<span class="gdot"></span>${sec.short}`;
   chip.addEventListener("click",()=>setActivePart(sec.id,true));
   gnav.appendChild(chip);
 });
 function renderGuideBody(secId){
   const si=SECTIONS.findIndex(s=>s.id===secId);
-  gbody.style.setProperty("--gh",`var(--t${si})`);
+  gbody.style.setProperty("--gh",`var(--t${si%6})`);
   gbody.innerHTML=SECTIONS[si].notes.map((n,i)=>`<div class="note"><h4><span class="n">${String(i+1).padStart(2,"0")}</span>${n.h}</h4>${n.html}</div>`).join("");
   gbody.scrollTop=0;
 }
 function showCram(){
   cramPinned=true; activePart=null;
-  gtitle.textContent="Cram Sheet — Neural Networks";
+  gtitle.textContent="Cram Sheet — L18 & L19";
   gbody.style.setProperty("--gh","var(--accent)");
   document.querySelectorAll(".gchip").forEach(c=>c.classList.remove("active"));
   cramChip.classList.add("active");
   gbody.innerHTML=CRAM_HTML; gbody.scrollTop=0;
-  try{ store && store.setItem("nn-rev-part","cram"); }catch(e){}
+  try{ store && store.setItem("nn-l1819-part","cram"); }catch(e){}
 }
 function setActivePart(secId, fromClick){
   if(fromClick) cramPinned=false;
@@ -904,7 +863,7 @@ function setActivePart(secId, fromClick){
   const chip=document.getElementById("gchip-"+secId);
   if(chip){ chip.classList.add("active"); chip.scrollIntoView({block:"nearest",inline:"center"}); }
   if(changed) renderGuideBody(secId);
-  try{ store && store.setItem("nn-rev-part",secId); }catch(e){}
+  try{ store && store.setItem("nn-l1819-part",secId); }catch(e){}
   if(fromClick){ document.getElementById("part-"+secId).scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:"start"}); if(matchMedia('(max-width:1024px)').matches) setGuideOpen(false); }
 }
 let ticking=false;
@@ -928,14 +887,14 @@ scrim.addEventListener("click",()=>setGuideOpen(false));
 document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") setGuideOpen(false); });
 
 const root=document.documentElement, tb=document.getElementById("themeBtn"), ti=document.getElementById("themeIcon"), tl=document.getElementById("themeLabel");
-function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("nn-rev-theme",t);}catch(e){} }
-let curTheme="system"; try{ if(store) curTheme=store.getItem("nn-rev-theme")||"system"; }catch(e){}
+function applyTheme(t){ if(t==="system"){root.removeAttribute("data-theme");ti.textContent="◐";tl.textContent="Auto";}else{root.setAttribute("data-theme",t);ti.textContent=t==="dark"?"☾":"☀";tl.textContent=t==="dark"?"Dark":"Light";} try{store&&store.setItem("nn-l1819-theme",t);}catch(e){} }
+let curTheme="system"; try{ if(store) curTheme=store.getItem("nn-l1819-theme")||"system"; }catch(e){}
 applyTheme(curTheme);
 tb.addEventListener("click",()=>{ curTheme=curTheme==="system"?"light":curTheme==="light"?"dark":"system"; applyTheme(curTheme); });
 
 /* ---- init ---- */
 refreshOverall(); applyFilter("all");
-let initPart=null; try{ initPart=store&&store.getItem("nn-rev-part"); }catch(e){}
+let initPart=null; try{ initPart=store&&store.getItem("nn-l1819-part"); }catch(e){}
 if(initPart==="cram"||!initPart) showCram();
 else if(SECTIONS.some(s=>s.id===initPart)) setActivePart(initPart,false);
 else showCram();
